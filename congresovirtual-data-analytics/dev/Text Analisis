@@ -1,0 +1,258 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import numpy as np
+import pandas as pd
+import visdom
+
+enviro = "Predicciones/weighted/new"
+viz = visdom.Visdom(server='http://srodriguez.me', port=8080)
+from pymongo import MongoClient
+from datetime import datetime
+import sys
+import os
+
+sys.path.append(os.path.join(os.getcwd(), '..'))
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn import preprocessing
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import linear_model
+from sklearn.ensemble import RandomForestClassifier, VotingClassifier, AdaBoostClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+
+user = 'estudiopucv'
+password = '$J!nx$estudio$'
+client = MongoClient('mongodb://' + user + ':' + password + '@127.0.0.1')
+# client = MongoClient('localhost',27017)
+db = client['tweetsDB']
+
+user2 = 'writeRes'
+password2 = '$J!nx$writeRes$'
+client2 = MongoClient('mongodb://' + user2 + ':' + password2 + '@127.0.0.1')
+# client = MongoClient('localhost',27017)
+db2 = client2['VotoResultsDB']
+dfmain = pd.DataFrame({})
+
+color1 = 'rgba(167, 81, 84, 0.8)'  # BeatrizSanchez
+color2 = 'rgba(245, 206, 142,0.8)'  # Alejandro Guillier
+color3 = 'rgba(148, 244, 243,0.8)'  # EduardoArtes
+color4 = 'rgba(142, 245, 181,0.8)'  # AlejandroNavarro
+color5 = 'rgba(211, 245, 142,0.8)'  # JoseAntonioKast
+color6 = 'rgba(231, 142, 245,0.8)'  # CarolinaGoic
+color7 = 'rgba(244, 148, 148,0.8)'  # MarcoEnriquezOminami
+color8 = 'rgba(0, 110, 182,0.8)'  # SebastianPinera
+
+# colors=[color1,color2,color3,color4,color5,color6,color7,color8]
+colors = [color8, color5, color1, color7, color6, color2, color4, color3]
+
+ventanas = 10
+
+fecha_inicio_train = datetime.strptime('2017-05-14 00:00:00', '%Y-%m-%d %H:%M:%S')
+fecha_fin_train = datetime.strptime('2017-12-17 00:00:00', '%Y-%m-%d %H:%M:%S')
+
+
+#cand = ['SebastianPinera', 'AlejandroGuiller']
+cand = ['SebastianPinera']
+
+pos = {
+    'Positivo': 'Comentario Positivo',
+    'Negativo': 'Comentario Negativo',
+    'Neutral' : 'Comentario Neutro'
+}
+
+writer = pd.ExcelWriter('TextAnalisis2.xlsx') #Crear Excel
+
+
+print("Generando Dataset de training")
+
+lbls = np.array([])
+data = np.array([])
+
+start = fecha_inicio_train
+finish = fecha_fin_train
+
+for el in cand:
+    for sent in pos:
+        df = pd.DataFrame(list(db[el].find({'Sentido': sent})))
+        print(el)
+        print(len(df['Sentido']))
+        data = np.append(data, df['Cuerpo'].values)
+        lbls = np.append(lbls, df['Sentido'].str.replace(sent, pos[sent]))
+
+print("Generando Dataset de testing")
+
+# cargando datos desde excel
+dftest = pd.read_excel("datos_congresista_virtual.xlsx", sheet_name="aportes")
+dftest.head()
+
+
+tf_vectorizer = CountVectorizer(ngram_range=(1, 1), min_df=1)
+tf_vectorizer.fit(data)
+x = tf_vectorizer.transform(data)
+scaler = preprocessing.StandardScaler(with_mean=False).fit(x)
+x_scaled = scaler.transform(x)
+
+le = preprocessing.LabelEncoder()
+le.fit(np.unique(lbls))
+y = le.transform(lbls)
+print(np.unique(lbls))
+print(y)
+
+x_pred = scaler.transform(tf_vectorizer.transform(dftest['TEXTO'].values))
+base = DecisionTreeClassifier(class_weight='balanced')
+clf = AdaBoostClassifier(base)
+clf.fit(x_scaled, y)
+score = clf.score(x_scaled, y)
+
+print(1 - score)
+
+
+print("=====")
+print("AdaBoost")
+pred = clf.predict(x_pred)
+print(le.inverse_transform(pred))
+counts = np.unique(pred, return_counts=True)[1]
+counts = counts / np.sum(counts)
+print(le.inverse_transform(np.unique(pred)))
+print(100 * counts)
+
+df2=pd.DataFrame(data={'Cuerpo': dftest['TEXTO'], 'Clasificación': le.inverse_transform(pred)})
+df2.to_excel(writer,'Adaboost')
+
+
+#####
+#
+#####
+print("=====")
+print("RandomForest")
+
+clf = RandomForestClassifier(class_weight='balanced')
+
+clf.fit(x_scaled, y)
+score = clf.score(x_scaled, y)
+
+print(1 - score)
+print("=====")
+pred = clf.predict(x_pred)
+counts = np.unique(pred, return_counts=True)[1]
+counts = counts / np.sum(counts)
+print(le.inverse_transform(np.unique(pred)))
+print(100 * counts)
+
+df2=pd.DataFrame(data={'Cuerpo': dftest['TEXTO'], 'Clasificación': le.inverse_transform(pred)})
+df2.to_excel(writer,'RandomForest')
+
+
+#####
+#
+#####
+print("=====")
+print("V2")
+
+clf1 = RandomForestClassifier(class_weight='balanced')
+# clf1.set_params(**params1)
+# params2 = {'splitter': 'random', 'class_weight': 'balanced', 'criterion': 'entropy','max_depth': 11}
+clf2 = DecisionTreeClassifier(class_weight='balanced')
+# clf2.set_params(**params2)
+base = DecisionTreeClassifier(class_weight='balanced')
+
+clf3 = AdaBoostClassifier(base)
+print("V2")
+clf = VotingClassifier(estimators=[('rf', clf1), ('DT', clf2), ('ADA', clf3)], voting='soft')
+
+clf.fit(x_scaled, y)
+score = clf.score(x_scaled, y)
+
+print(1 - score)
+print("=====")
+pred = clf.predict(x_pred)
+counts = np.unique(pred, return_counts=True)[1]
+counts = counts / np.sum(counts)
+print(le.inverse_transform(np.unique(pred)))
+print(100 * counts)
+
+df2=pd.DataFrame(data={'Cuerpo': dftest['TEXTO'], 'Clasificación': le.inverse_transform(pred)})
+df2.to_excel(writer,'V2')
+
+
+#####
+#
+#####
+print("=====")
+print("SVM")
+clf = linear_model.SGDClassifier()
+
+clf.fit(x_scaled, y)
+score = clf.score(x_scaled, y)
+
+print(1 - score)
+print("=====")
+pred = clf.predict(x_pred)
+counts = np.unique(pred, return_counts=True)[1]
+counts = counts / np.sum(counts)
+print(le.inverse_transform(np.unique(pred)))
+print(100 * counts)
+
+df2=pd.DataFrame(data={'Cuerpo': dftest['TEXTO'], 'Clasificación': le.inverse_transform(pred)})
+df2.to_excel(writer,'SVM')
+
+
+#####
+#
+#####
+print("=====")
+print("DecisionTree")
+clf = DecisionTreeClassifier(class_weight='balanced')
+
+clf.fit(x_scaled, y)
+score = clf.score(x_scaled, y)
+
+print(1 - score)
+print("=====")
+pred = clf.predict(x_pred)
+counts = np.unique(pred, return_counts=True)[1]
+counts = counts / np.sum(counts)
+print(le.inverse_transform(np.unique(pred)))
+print(100 * counts)
+
+df2=pd.DataFrame(data={'Cuerpo': dftest['TEXTO'], 'Clasificación': le.inverse_transform(pred)})
+df2.to_excel(writer,'DecisionTree')
+
+
+#####
+#
+#####
+print("=====")
+print("V1")
+
+clf1 = RandomForestClassifier(class_weight='balanced')
+#clf1.set_params(**params1)
+#params2 = {'splitter': 'random', 'class_weight': 'balanced', 'criterion': 'entropy','max_depth': 11}
+clf2 = DecisionTreeClassifier(class_weight='balanced')
+#clf2.set_params(**params2)
+base = DecisionTreeClassifier(class_weight='balanced')
+#base.set_params(**params2)
+clf3 = AdaBoostClassifier(base)
+clf4 = linear_model.SGDClassifier()
+clf = VotingClassifier(estimators=[('rf',clf1),('DT',clf2),('ADA',clf3),('lin',clf4)],voting = 'hard')
+
+
+clf.fit(x_scaled, y)
+score = clf.score(x_scaled, y)
+
+print(1 - score)
+print("=====")
+pred = clf.predict(x_pred)
+counts = np.unique(pred, return_counts=True)[1]
+counts = counts / np.sum(counts)
+print(le.inverse_transform(np.unique(pred)))
+print(100 * counts)
+
+df2=pd.DataFrame(data={'Cuerpo': dftest['TEXTO'], 'Clasificación': le.inverse_transform(pred)})
+df2.to_excel(writer,'V1')
+
+
+#Guardar Excel
+writer.save()
+print("Excel Save")

@@ -1,0 +1,64 @@
+{
+  "_args": [
+    [
+      "jquery-toggles@4.0.0",
+      "C:\\Users\\johan\\Desktop\\elements-griffin-9KY6RL2-2019-04-26\\griffin_download_pack\\html"
+    ]
+  ],
+  "_from": "jquery-toggles@4.0.0",
+  "_id": "jquery-toggles@4.0.0",
+  "_inBundle": false,
+  "_integrity": "sha1-gg7r/7Y9redkTrW8VhmPAhRybBk=",
+  "_location": "/jquery-toggles",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "jquery-toggles@4.0.0",
+    "name": "jquery-toggles",
+    "escapedName": "jquery-toggles",
+    "rawSpec": "4.0.0",
+    "saveSpec": null,
+    "fetchSpec": "4.0.0"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/jquery-toggles/-/jquery-toggles-4.0.0.tgz",
+  "_spec": "4.0.0",
+  "_where": "C:\\Users\\johan\\Desktop\\elements-griffin-9KY6RL2-2019-04-26\\griffin_download_pack\\html",
+  "author": {
+    "name": "Simon Tabor",
+    "email": "me@simontabor.com",
+    "url": "http://simontabor.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/simontabor/jquery-toggles/issues"
+  },
+  "dependencies": {},
+  "description": "Toggles is a lightweight jQuery plugin that creates easily-styleable toggle buttons.",
+  "devDependencies": {
+    "autoprefixer": "^6.0.3",
+    "js-beautify": "^1.5.10",
+    "less": "^2.5.3",
+    "postcss-cli": "^2.3.2"
+  },
+  "homepage": "http://simontabor.com/labs/toggles/",
+  "keywords": [
+    "toggles",
+    "checkbox",
+    "jquery-plugin",
+    "ecosystem:jquery"
+  ],
+  "license": "MIT",
+  "main": "toggles.min.js",
+  "name": "jquery-toggles",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simontabor/jquery-toggles.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "4.0.0"
+}

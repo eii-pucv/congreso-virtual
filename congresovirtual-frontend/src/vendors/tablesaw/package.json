@@ -1,0 +1,106 @@
+{
+  "_args": [
+    [
+      "tablesaw@3.0.9",
+      "C:\\Users\\johan\\Desktop\\elements-griffin-9KY6RL2-2019-04-26\\griffin_download_pack\\html"
+    ]
+  ],
+  "_from": "tablesaw@3.0.9",
+  "_id": "tablesaw@3.0.9",
+  "_inBundle": false,
+  "_integrity": "sha512-seUnNrate+hm2dJtHaY/EBdyz1zMz43nprBeoz/7SXt3j4V7FRq2FfwR/a4DC+3I5IpSAQXYH1cTtB+LlJpY9w==",
+  "_location": "/tablesaw",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "tablesaw@3.0.9",
+    "name": "tablesaw",
+    "escapedName": "tablesaw",
+    "rawSpec": "3.0.9",
+    "saveSpec": null,
+    "fetchSpec": "3.0.9"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/tablesaw/-/tablesaw-3.0.9.tgz",
+  "_spec": "3.0.9",
+  "_where": "C:\\Users\\johan\\Desktop\\elements-griffin-9KY6RL2-2019-04-26\\griffin_download_pack\\html",
+  "author": {
+    "name": "Zach Leatherman",
+    "email": "zach@filamentgroup.com",
+    "url": "http://filamentgroup.com/"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.test.js"
+    ],
+    "require": [
+      "babel-register",
+      "./test/helpers/setup-browser-env.js"
+    ],
+    "inherit": true,
+    "verbose": true
+  },
+  "bugs": {
+    "url": "https://github.com/filamentgroup/tablesaw/issues"
+  },
+  "dependencies": {
+    "javascript-natural-sort": "^0.7.1",
+    "shoestring": "^2.0.0"
+  },
+  "description": "A set of plugins for responsive tables.",
+  "devDependencies": {
+    "ava": "^0.23.0",
+    "babel-register": "^6.26.0",
+    "browser-env": "^3.2.2",
+    "console-advanced": "^1.0.7",
+    "grunt": "^1.0.1",
+    "grunt-bytesize": "~0.2.0",
+    "grunt-contrib-clean": "~1.1.0",
+    "grunt-contrib-compress": "~1.4.3",
+    "grunt-contrib-concat": "~1.0.1",
+    "grunt-contrib-copy": "~1.0.0",
+    "grunt-contrib-cssmin": "^2.2.0",
+    "grunt-contrib-qunit": "^2.0.0",
+    "grunt-contrib-uglify": "^3.0.1",
+    "grunt-contrib-watch": "~1.0.0",
+    "grunt-gh-pages": "~2.0.0",
+    "grunt-myth": "~1.1.0",
+    "grunt-run": "^0.8.0",
+    "husky": "^0.14.3",
+    "jquery": "^3.1.0",
+    "lint-staged": "^4.0.1",
+    "matchdep": "~1.0.1",
+    "prettier": "^1.8.2",
+    "qunitjs": "^2.4.1"
+  },
+  "engines": {
+    "node": ">= 4"
+  },
+  "homepage": "https://github.com/filamentgroup/tablesaw",
+  "license": "MIT",
+  "lint-staged": {
+    "src/*.js": [
+      "prettier --write --print-width 100 --use-tabs",
+      "git add"
+    ]
+  },
+  "main": "dist/tablesaw.js",
+  "name": "tablesaw",
+  "optionalDependencies": {
+    "javascript-natural-sort": "^0.7.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/filamentgroup/tablesaw.git"
+  },
+  "scripts": {
+    "precommit": "lint-staged",
+    "prepush": "grunt test",
+    "test": "grunt test"
+  },
+  "title": "Tablesaw",
+  "version": "3.0.9"
+}

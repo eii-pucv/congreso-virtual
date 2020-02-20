@@ -1,0 +1,1222 @@
+{
+    "navbar" : {
+        "registrar": "Registrar",
+        "iniciar_sesion": "Iniciar Sesión",
+        "cerrar_sesion": "Cerrar Sesión",
+        "admin": "Admin",
+        "perfil": "Perfil",
+        "panel": "Panel",
+        "busqueda": "Búsqueda",
+        "modo_oscuro": "Modo oscuro",
+        "idioma": "Idioma"
+    },
+    "home": {
+        "breadcumb":"Inicio /",
+        "contenido": {
+            "proyectos_ley": "Proyectos de Ley en Votación",
+            "consultas_publicas": "Consultas Públicas",
+            "incorporacion_proyectos": {
+                "titulo": "Proyectos de Ley Propuestos Para ser Incluidos a Congreso Virtual",
+                "descripcion": "¿Hay algún proyecto de ley que sea de su total interés, y que le gustaría que fuera incorporado al Congreso Virtual?. Si alcanza las 100 firmas de apoyo, este será agregado al sitio, para que pueda ser votado y debatido por la comunidad activa.",
+                "boton_apoyo": "Apoyar Inclusión",
+                "ver": "Ver Proyecto"
+            },
+            "urgencias_proyectos" : {
+                "titulo": "Proyectos de Ley Propuestos Para Peticiones de Urgencias",
+                "descripcion": "¿Hay algún proyecto, actualmente en debate en el Congreso, que le gustaría que fuera debatido aquí también?. Si obtiene 100 firmas, este será incorporado en la tabla con una prioridad mayor, de tal modo que pueda ser discutido en el Congreso prontamente.",
+                "boton_apoyo": "Apoyar Urgencia",
+                "ver": "Ver Proyecto"
+            },
+            "propuesta": {
+                "persona": "Propuesta por",
+                "boletin": "Boletín",
+                "autoria": "Autoría",
+                "fecha_ingreso": "Fecha ingreso",
+                "apoyos": "Apoyos logrados"
+            },
+            "boton_consultas": "Ver Consultas",
+            "boton_proyectos": "Ver Proyectos",
+            "sin_datos": "No hay datos para mostrar."
+        },
+        "componentes": {
+            "carrusel_proyectos": {
+                "participar": "Participar"
+            },
+            "carrusel_proyectos_card": {
+                "proyectos_card": {
+                    "participar": "Participar"
+                }
+            },
+            "consulta_card": {
+                "votacion_abierta": "VOTACIÓN ABIERTA",
+                "votacion_cerrada": "VOTACIÓN CERRADA"
+            }
+        }
+    },
+    "consultas_publicas": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "consultas": "Consultas Públicas"
+        },
+        "contenido": {
+            "titulo": "¿Cómo incorporamos una consulta ciudadana?",
+            "descripcion": {
+                "parrafo1": "Las consultas públicas son mecanismos de participación virtual, no vinculante, público y abierto por el cual la Cámara de Diputados o una comisión consulta a la ciudadanía acerca de un proyecto de ley o un asunto de índole legislativa propio de su competencia.",
+                "parrafo2": "Artículo 18. Iniciativa ciudadana. Cualquier persona u organización podrá solicitar la realización de una consulta ciudadana acerca de un proyecto de ley en tramitación. La unidad administrativa a cargo de participación ciudadana pondrá la solicitud en conocimiento de los comités parlamentarios, o de la comisión respectiva si el proyecto estuviere radicado en ella. El pronunciamiento sobre la solicitud deberá emitirse en la primera sesión en que ello sea posible."
+            }
+        },
+        "inicio": "Inicio",
+        "fin": "Fin"
+    },
+    "proyectos": {
+        "contenido": {
+            "titulo": "Búsqueda de Proyectos",
+            "buscar_placeholder": "Ingrese texto aquí",
+            "etapa": {
+                "titulo": "Etapa",
+                "opciones": [
+                    { "id": 1, "label": "Votación en general" },
+                    { "id": 2, "label": "Votación en particular" },
+                    { "id": 3, "label": "Votación cerrada" }
+                ]
+            },
+            "resultados": "Resultados totales",
+            "limpiar": "Limpiar Filtros",
+            "buscar": "Buscar",
+            "no_hay_resultados": "No se han encontrado resultados",
+            "ver_mas": "Ver más",
+            "cargar": "Cargar Más",
+            "tipo_objeto": "PROYECTO DE LEY"
+        }
+    },
+    "proyecto": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "proyectos": "Proyectos en Votación"
+        },
+        "contenido": {
+            "tab": {
+                "articulos_ideas": "Artículos e ideas fundamentales",
+                "detalle": "Detalle",
+                "seguimiento": "Seguimiento",
+                "estadistica": "Estadística",
+                "documentos": "Documentos adjuntos"
+            },
+            "autoria": "Autoría",
+            "iniciativa": "Iniciativa",
+            "origen": "Origen",
+            "tramitacion": "Tramitación",
+            "resumen": "Resumen",
+            "votacion_general": {
+                "titulo": "Votación en general",
+                "descripcion1": "En esta etapa del proceso legislativo, puedes votar y comentar las",
+                "strong": "Ideas fundamentales",
+                "descripcion2": "del proyecto de ley.",
+                "popover": {
+                    "primero": "La",
+                    "strong": "discusión general",
+                    "segundo": "tiene por objetivo aprobar o rechazar la discusión de un proyecto de ley considerando los aspectos fundamentales contenidos en el mensaje o moción, y admitir a tramitación las indicaciones que presente el Presidente e de la República y los parlamentarios."
+                }
+            },
+            "votacion_particular": {
+                "titulo": "Votación en particular",
+                "descripcion1": "En esta etapa del proceso legislativo, puedes votar y comentar",
+                "strong": "Artículos",
+                "descripcion2": "específicos del proyecto de ley",
+                "popover": {
+                    "primero": "La",
+                    "strong": "discusión particular",
+                    "segundo": "tiene por objetivo examinar el proyecto de ley en detalle y por artículos."
+                }
+            },
+            "generar_informe": "Generar Informe",
+            "sin_articulos": "No hay artículos de ley para mostrar.",
+            "sin_ideas": "No hay ideas fundamentales para mostrar.",
+            "analisis_votos": "Análisis de votos generales del proyecto de ley.",
+            "recomendacion": "Recomendamos colocar el mouse sobre las barras para conocer en mayor detalle el resultado actual de las votaciones.",
+            "cantidad_comentarios": "Cantidad de comentarios realizados",
+            "cantidad_participantes": "Cantidad de participantes",
+            "congreso_virtual": "Congreso Virtual",
+            "senado": "Senado",
+            "nube": "Nube de palabras",
+            "comentarios": "Comentarios del Proyecto de Ley",
+            "cargar": "Cargar Más"
+        },
+        "componentes": {
+            "header": {
+                "boletin": "Boletín",
+                "popover_boletin": "Identificador del proyecto dentro del parlamento.",
+                "popover_general": "Las votaciones tienen etapas, las cuales varían dependiendo de dónde están siendo tramitadas.",
+                "popover_particular": "Las votaciones tienen etapas, las cuales varían dependiendo de dónde están siendo tramitadas.",
+                "popover_cerrada": "Las votaciones tienen etapas, las cuales varían dependiendo de dónde están siendo tramitadas."
+            },
+            "ideas": {
+                "sin_votos": "No hay votos en esta idea fundamental."
+            },
+            "articulos": {
+                "sin_votos": "No hay votos en este artículo."
+            },
+            "seguimiento": {
+                "sin_datos": "No existen datos al respecto."
+            },
+            "votos_stacked": {
+                "votos_articulos": "Votaciones  por artículo.",
+                "resultados_articulos": "Estos son los resultados actuales que existen en cuanto a votos para cada uno de los artículos.",
+                "votos_ideas": "Votaciones  por idea general.",
+                "resultados_ideas": "Estos son los resultados actuales que existen en cuanto a votos para cada una de las ideas fundamentales.",
+                "votos_general": "Votaciones  por votación general.",
+                "resultados_general": "Estos son los resultados actuales que existen en cuanto a votos del proyecto en general.",
+                "cargando": "Cargando gráficos de análisis de votos...",
+                "no_carga": "Lo lamentamos: Ha ocurrido un error al cargar los gráficos o no existen gráficos para mostrar actualmente.",
+                "no_existe": "No existen gráficos para mostrar actualmente."
+            },
+            "nube": {
+                "cargando": "Cargando nube de palabras",
+                "no_carga": "Lo lamentamos, ha ocurrido un error al cargar la nube de palabras."
+            },
+            "documentos": {
+                "texto": "Los siguientes documentos se han dejado a disposición por parte de la administración de Congreso Virtual para la tenencia de mayores antecedentes al momento de participar en los proyectos.",
+                "descargar": "Descargar"
+            }
+        }
+    },
+    "propuesta": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "propuesta": "Propuesta"
+        },
+        "contenido": {
+            "detalle": "Detalle"
+        },
+        "componentes": {
+            "header": {
+                "apoyar1": "Apoyar inclusión",
+                "apoyar2": "Pedir urgencia",
+                "datos": {
+                    "boletin": "Boletín",
+                    "popover_boletin": "Identificador del proyecto dentro del parlamento.",
+                    "persona": "Propuesta por",
+                    "autoria": "Autoría",
+                    "inicio": "Inicio"
+                },
+                "proyecto_ley": {
+                    "titulo": "INCLUSIÓN A CONGRESO VIRTUAL",
+                    "popover": "Vota para que este proyecto sea incorporado a Congreso Virtual.",
+                    "strong": "Apoyos logrados",
+                    "de": "de"
+                },
+                "urgencia": {
+                    "titulo": "PETICIÓN DE URGENCIA",
+                    "popover": "Vota para que este proyecto sea puesto en urgencia y tenga mayor prioridad para ser incorporado a Congreso Virtual.",
+                    "strong": "Peticiones de urgencia",
+                    "de": "of"
+                }
+            }
+        }
+    },
+    "pagina": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "paginas": "Páginas",
+            "pagina": "Página"
+        },
+        "contenido": {
+            "detalle": "Detalle"
+        },
+        "componentes": {
+            "header": {
+                "fecha_publicacion": "Fecha de publicación",
+                "titulo": "PÁGINA DE CONTENIDO",
+                "popover": "Esta página corresponde a una exhibición de contenido creado directamente por el personal del Congreso Virtual."
+            }
+        }
+    },
+    "registro": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "registro": "Registro"
+        },
+        "contenido": {
+            "titulo": "Registro",
+            "subtitulo1": "Crea tu cuenta para poder interactuar con nuestro sitio",
+            "subtitulo2": "O crea tu cuenta con redes sociales o Clave Única.",
+            "leido": "He leído los",
+            "terminos": "términos y condiciones",
+            "registrar": "Registrar",
+            "cuenta": "¿Ya tienes una cuenta?",
+            "identificar": "Identificate aquí",
+            "clave": "Clave Única"
+        }
+    },
+    "confirmacion": {
+        "contenido": {
+            "usuario": "Usuario confirmado",
+            "ahora": "Ahora puedes acceder a tu cuenta en el siguiente",
+            "enlace": "Enlace",
+            "inicio": "Ir a la página de Inicio",
+            "error": "Algo ha salido mal",
+            "pasos": "Por favor verifica que tus datos sean correctos",
+            "intentar": "e inténtalo nuevamente"
+        }
+    },
+    "reiniciar_contrasena": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "reinicio": "Reinicio contraseña"
+        },
+        "contenido": {
+            "titulo": "Reinicia tu contraseña",
+            "consejo1": "La contraseña debe contener entre 8 y 20 carácteres.",
+            "consejo2": "Consejos para las contraseñas:",
+            "consejo3": "No coloques datos personales ni palabras comúnes como contraseña.",
+            "consejo4": "No uses palabras o patrones comunes como contraseña.",
+            "consejo5": "No coloques fechas fáciles de descubrir (ej.: Tu cumpleaños).",
+            "reiniciar": "Reiniciar contraseña"
+        }
+    },
+    "request_reset": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "resetear": "Resetear contraseña"
+        },
+        "contenido": {
+            "correo": "Ingresa tu correo de usuario",
+            "reiniciar": "Reiniciar contraseña"
+        }
+    },
+    "login": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "login": "Iniciar sesión"
+        },
+        "contenido": {
+            "titulo": "Identificarme",
+            "subtitulo": "Inicia sesión aquí para poder interactuar con el sitio.",
+            "mantener": "Mantenerme con la sesión iniciada",
+            "iniciar": "Iniciar sesión",
+            "olvidar": "¿Olvidaste tu contraseña?",
+            "recuperar": "Recuperar contraseña",
+            "sin_cuenta": "¿No tienes cuenta?",
+            "registrar": "Registrarme",
+            "clave": "Clave Única" 
+        }
+    },
+    "consulta": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "proyectos": "Consultas públicas",
+            "consulta": "Consulta"
+        },
+        "contenido": {
+            "detalle": "Detalle",
+            "comentarios": "Comentarios",
+            "participantes": "Participantes",
+            "sin_participantes": "No hay participantes que mostrar."
+
+        },
+        "componentes": {
+            "header": {
+                "inicio": "Inicio",
+                "fin": "Fin",
+                "titulo": "CONSULTA PUBLICA",
+                "popover": "Esta votación corresponde a una consulta pública.",
+                "votacion_cerrada": "VOTACIÓN CERRADA"
+            }
+        }
+    },
+    "perfil_usuario": {
+        "contenido": {
+            "votos": "Votos",
+            "comentarios": "Comentarios",
+            "puntos": "Puntos",
+            "tab": {
+                "proyectos_interes": "Proyectos de Interés",
+                "editar_perfil": "Editar mi Perfil",
+                "temas_interes": "Mis Temas de Interés",
+                "votaciones": "Mis Votaciones",
+                "comentarios": "Mis Comentarios",
+                "propuestas": "Mis Propuestas"
+            }
+        },
+        "componentes": {
+            "encuesta": "Temas de interés",
+            "edicion_perfil": {
+                "titulo": "Datos Personales",
+                "nombre": "Nombre",
+                "apellido": "Apellidos",
+                "usuario": "Nombre de usuario",
+                "rut": "RUT/DNI",
+                "fecha_nacimiento": "Fecha de nacimiento",
+                "correo": "Correo",
+                "pais": "País",
+                "region": "Región/Estado",
+                "comuna": "Comuna/Ciudad",
+                "sector": {
+                    "titulo": "Sector",
+                    "urbano": "Urbano",
+                    "rural": "Rural"
+                },
+                "genero": {
+                    "titulo": "Género",
+                    "opcion1": "Masculino",
+                    "opcion2": "Femenino",
+                    "opcion3": "Otro",
+                    "opcion4": "No sabe/No responde"
+                },
+                "nivel": {
+                    "titulo": "Nivel educacional",
+                    "opcion1": "Educación básica",
+                    "opcion2": "Educación media incompleta",
+                    "opcion3": "Educación media completa",
+                    "opcion4": "Educación técnica incompleta",
+                    "opcion5": "Educación técnica completa",
+                    "opcion6": "Educación universitaria incompleta",
+                    "opcion7": "Educación universitaria completa",
+                    "opcion8": "Estudios de postgrado"
+                },
+                "actividad": {
+                    "titulo": "Actividad",
+                    "opcion1": "Estudiante",
+                    "opcion2": "Trabajador/a dependiente",
+                    "opcion3": "Trabajador/a independiente",
+                    "opcion4": "Empresario/a",
+                    "opcion5": "Dueño/a de casa",
+                    "opcion6": "Jubilado/a",
+                    "opcion7": "Desempleado/a"
+                },
+                "temas_interes": "Temas de interés",
+                "buscar_tema_interes": "Buscar temas de interés",
+                "registro_experto": "¿Desea registrarse como un usuario experto?",
+                "usuario_experto": {
+                    "titulo_registro": "Registro de Experto",
+                    "profesion": {
+                        "titulo": "Título profesional",
+                        "opciones": [
+                            "Abogado",
+                            "Arquitecto",
+                            "Médico",
+                            "Médico Veterinario",
+                            "Ingeniero",
+                            "Sicólogo",
+                            "Profesor Educación Básica",
+                            "Profesor Educación Media",
+                            "Profesor de Educación Diferencial",
+                            "Periodista",
+                            "Trabajador Social/Asistente Social",
+                            "Contador Auditor",
+                            "Sociólogo",
+                            "Otro"
+                        ]
+                    },
+                    "estudios": {
+                        "titulo": "Estudios de postgrado"
+                    },
+                    "experiencia": {
+                        "titulo": "Experiencia laboral",
+                        "opcion1": "Menos de 5 años",
+                        "opcion2": "Entre 5 y 10 años",
+                        "opcion3": "Entre 10 y 15 años",
+                        "opcion4": "Más de 15 años"
+                    },
+                    "area_desempenio": {
+                        "titulo": "Área de desempeño",
+                        "buscar": "Buscar áreas de desempeño",
+                        "opciones": [
+                            { "id": 1, "value": "Administración centralizada" },
+                            { "id": 2, "value": "Municipio" },
+                            { "id": 3, "value": "Gobierno regional/provincial" },
+                            { "id": 4, "value": "Congreso nacional" },
+                            { "id": 5, "value": "Poder Judicial/órganos auxiliares/fiscalía/defensoría" },
+                            { "id": 6, "value": "Universidad estatal" },
+                            { "id": 7, "value": "Empresas públicas" },
+                            { "id": 8, "value": "Otros órganos del Estado" },
+                            { "id": 9, "value": "Gran empresa" },
+                            { "id": 10, "value": "Empresa de tamaño medio" },
+                            { "id": 11, "value": "Pequeña o microempresa" },
+                            { "id": 12, "value": "Consultora" },
+                            { "id": 13, "value": "Independiente" },
+                            { "id": 14, "value": "Academia (universidades no estatales)" },
+                            { "id": 15, "value": "ONG" },
+                            { "id": 16, "value": "Organizaciones de la sociedad civil" }
+                        ]
+                    },
+                    "temas": "Temas principales de su trabajo"
+                },
+                "cambio_contrasena": {
+                    "titulo": "Cambio de Contraseña",
+                    "actual": "Ingrese su contraseña actual",
+                    "nueva": "Ingrese nueva contraseña",
+                    "confirmar": "Repita la nueva contraseña",
+                    "consejo": "La contraseña debe ser de 8-20 caracteres."
+                }
+            },
+            "votos": {
+                "titulo": "Tus votaciones",
+                "cantidad": "Cantidad de votos realizados",
+                "proyecto": "del proyecto",
+                "error1": "Lo lamentamos, no se han encontrado votos realizados.",
+                "error2": "Lo lamentamos, ha ocurrido un error al cargar los votos.",
+                "cargando": "Cargando datos de votos",
+                "cargar": "Cargar Más"
+            },
+            "comentarios": {
+                "titulo": "Tus comentarios",
+                "cantidad": "Cantidad de comentarios realizados",
+                "error1": "Lo lamentamos, no se han encontrado comentarios realizados.",
+                "error2": "Lo lamentamos, ha ocurrido un error al cargar los comentarios.",
+                "cargando": "Cargando datos de comentarios",
+                "cargar": "Cargar Más"
+            },
+            "propuestas": {
+                "titulo": "Tus propuestas",
+                "cantidad": "Cantidad de propuestas realizadas",
+                "boletin": "Boletín",
+                "fecha": "Fecha",
+                "estado": {
+                    "titulo": "Estado",
+                    "publica": "Pública",
+                    "no_publica": "No pública",
+                    "activa": "Activa",
+                    "no_activa": "No activa"
+                },
+                "autoria": "Autoría",
+                "detalle": "Detalle",
+                "de": "de",
+                "argumento": "Argumento",
+                "video_url": "Video URL",
+                "fuente": "Fuente del video",
+                "error1": "Lo lamentamos, no se han encontrado propuestas realizadas.",
+                "error2": "Lo lamentamos, ha ocurrido un error al cargar los propuestas.",
+                "cargando": "Cargando datos de propuestas",
+                "editar": "Editar Propuesta",
+                "cargar": "Cargar Más"
+            }
+        }
+    },
+    "propuestas": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "propuestas": "Proyectos en el parlamento"
+        },
+        "contenido": {
+            "titulo": "Proyectos de ley en el parlamento",
+            "parrafo1": "¿Existe algún proyecto de ley que le interese y que no este en el Congreso Virtual? De ser así, selecciónelo y difúndalo para obtener votaciones y que sea considerado.",
+            "parrafo2": "O bien, si hay algún proyecto que le gustaría que tenga prioridad para ser estudiado por el Congreso Nacional, búsquelo, selecciónelo y difúndalo para obtener apoyo de otros participantes y que el Congreso pida al Presidente de la República que le ponga urgencia.",
+            "buscar": "Buscar",
+            "busqueda": "Título, detalle, resumen...",
+            "resultados": "Resultados",
+            "boletin": "Boletín",
+            "autoria": "Autoría",
+            "fecha": "Fecha ingreso",
+            "incluir": "Incluir a Congreso Virtual",
+            "pedir": "Pedir urgencia",
+            "cargar": "Cargar Más",
+            "modal": {
+                "detalle": "Ingrese un detalle para la propuesta",
+                "descripcion": "Descripción",
+                "enviar": "Enviar"
+            }
+        }
+    },
+    "faq": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "faq": "Preguntas frecuentes"
+        },
+        "contenido": {
+            "temas": "Temas",
+            "uso_general": {
+                "titulo1": "Uso general del sitio",
+                "titulo2": "Preguntas generales sobre el uso del sitio",
+                "participar": {
+                    "titulo": "Cómo hago para participar en el sitio Congreso Virtual",
+                    "descripcion": "Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedirá información importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contará con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su interés en los cuales se quiera participar y ser un Congresista Virtual."
+                },
+                "postular_proyectos": {
+                    "titulo": "Cómo hago para postular un proyecto de ley a Congreso Virtual",
+                    "descripcion": "Para postular un proyecto de ley al sitio se deben seguir lo siguientes pasos: Logearse con su cuenta de usuario (si no tiene una, diríjase a crearla). Luego ir al apartado de listado de proyectos disponibles para ser postulados, estos proyectos estarán acá, ya sea por inactividad, o haber sido despachados con anterioridad. Seleccionar el proyecto que se desea que sea puesto en votaciones, además también de justificar la petición del proyecto en cuestión. Luego de esto el proyecto será puesto en votación y discusión para los otros usuarios."
+                },
+                "postular_urgencia": {
+                    "titulo": "Cómo hago para postular una urgencia sobre un proyecto de ley a Congreso Virtual",
+                    "descripcion": "Para postular una urgencia sobre cierto proyecto se deben seguir lo siguientes pasos: Logearse con su cuenta de usuario (si no tiene una, diríjase a crearla). Luego ir al apartado de listado de proyectos disponibles para ser postulados, estos proyectos estarán acá, ya sea por inactividad, o haber sido despachados con anterioridad. Seleccionar el proyecto que sea desea que sea puesto en urgencia, se deberá especificar el porqué de la urgencia. Luego de esto el proyecto será ingresado al sistema Congreso Virtual para ser votado ya sea en contra o a favor del proyecto. Si el proyecto en urgencia obtiene un buen acogimiento, este se le será notificado al postulante para subir mas informacion al proyecto, para así poder avalar y justificar el porqué de la petición, ya sea por el medio que estime más conveniente, por ejemplo video, instructivo, etc."
+                },
+                "revisar_proyectos": {
+                    "titulo": "Dónde puedo revisar los proyectos de ley puestos a disposición para opinar/debatir/votar",
+                    "descripcion": "Para revisar los proyectos puestos a disposición de los usuarios, se debe dirigir al apartado de votaciones y se desplegaran todos los proyectos de ley los cuales están en votación, además de mostrar los votos que llevan hasta el momento e información importante sobre estos."
+                },
+                "olvidado_contrasena": {
+                    "titulo": "Me he olvidado de mi contraseña o no me funciona ¿qué puedo hacer?",
+                    "descripcion": "Puedes solicitar un nueva contraseña para que se te envíe una nueva contraseña a tu correo electrónico. Te recomendamos intentar recuperar contraseña con todas las direcciones de email que tengas."
+                },
+                "rut_en_uso": {
+                    "titulo": "Me indica que mi RUT/DNI ya está en uso",
+                    "descripcion": "Si intentas verificar tu cuenta y aparece un mensaje de error diciendo que el 'DNI ya está en uso', lo primero que tienes que revisar es si tienes otra cuenta de usuario que hayas verificado con tu DNI. Ten en cuenta que puedes tener muchas cuentas de usuario, pero solo una con tu DNI, que será con la que puedas apoyar y votar propuestas, lo que llamamos una cuenta verificada."
+                }
+            },
+            "proyectos_ley": {
+                "titulo1": "Proyectos de ley",
+                "titulo2": "Preguntas sobre proyectos de ley",
+                "dudas_uber": {
+                    "titulo": "Dudas acerca del proyecto de ley Uber",
+                    "descripcion": "Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedirá información importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contará con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su interés en los cuales se quiera participar y ser un Congresista Virtual."
+                },
+                "dudas_clima": {
+                    "titulo": "Dudas acerca del proyecto de ley de cambio climático",
+                    "descripcion": "Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedirá información importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contará con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su interés en los cuales se quiera participar y ser un Congresista Virtual."
+                },"dudas_goles": {
+                    "titulo": "Dudas acerca del proyecto de ley de \"Goles para todos\"",
+                    "descripcion": "Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedirá información importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contará con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su interés en los cuales se quiera participar y ser un Congresista Virtual."
+                },
+                "dudas_glaciares": {
+                    "titulo": "Dudas acerca del proyecto de ley de protección de glaciares",
+                    "descripcion": "Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedirá información importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contará con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su interés en los cuales se quiera participar y ser un Congresista Virtual."
+                },"dudas_organos": {
+                    "titulo": "Dudas acerca del proyecto de ley de donación de órganos",
+                    "descripcion": "Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedirá información importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contará con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su interés en los cuales se quiera participar y ser un Congresista Virtual."
+                },
+                "dudas_bullying": {
+                    "titulo": "Dudas acerca del proyecto de ley contra el bullying",
+                    "descripcion": "Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedirá información importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contará con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su interés en los cuales se quiera participar y ser un Congresista Virtual."
+                }
+            },
+            "consultas_publicas": {
+                "titulo1": "Consultas públicas",
+                "titulo2": "Preguntas sobre consultas públicas",
+                "consulta1": {
+                    "titulo": "Preguntas sobre consulta pública 1",
+                    "descripcion": "Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedirá información importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contará con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su interés en los cuales se quiera participar y ser un Congresista Virtual."
+                }
+            }
+        }
+    },
+    "instructivo": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "instructivo": "Instructivo"
+        },
+        "contenido": {
+            "inicio_sesion": {
+                "titulo": "Inicio de sesión",
+                "descripcion": {
+                    "parrafo1": "Para la participación en el sitio web de congreso virtual, es necesario realizar un registro y posterior ingreso a cuenta con sus datos correspondientes, esto permitirá tener disponible las funcionalidades que ofrece el sitio.",
+                    "parrafo2": "En caso de no contar con una cuenta, se podrá visualizar de todos modos los proyectos de ley."
+                }
+            },
+            "postulacion_proyectos": {
+                "titulo": "Postulación de proyectos de ley",
+                "descripcion": "Si desea postular un proyecto de ley debe dirigirse a la pagina principal de Congreso Virtual y debe ingresar a la opción que se encuentra al inferior de la página \"realizar propuesta\", una vez ingresada su propuesta proceda a enviarla."
+            },
+            "opinion/debatir": {
+                "titulo": "Opinar/debatir/votar proyectos de ley",
+                "descripcion": "Para revisar e interactuar con los proyectos de ley, se debe ir a Proyectos de ley. En votación en barra de navegación, luego se debe seleccionar un proyecto y posteriormente realizar un voto o comentario el cual quedara registrado en su respectiva cuenta."
+            },
+            "olvido_contrasena": {
+                "titulo": "Olvido de contraseña",
+                "descripcion": "Se puede solicitar una nueva contraseña desde la página de login, declarando que olvidó su contraseña, la reasignación será enviada a su correo electrónico."
+            }
+        },
+        "titulo": "Instructivo: Congreso Virtual"
+    },
+    "reglamento": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "reglamento": "Reglamento"
+        },
+        "contenido": {
+            "parrafo1": {
+                "titulo": "Parrafo 1° Congreso Virtual",
+                "descripcion": "El Congreso Nacional de Chile reconoce la participación ciudadana como un valioso elemento de juicio para incrementar la eficacia en la toma de decisiones propia de las funciones públicas que la Constitución Política y las leyes le encomiendan. A continuación, se encuentran las disposiciones del Reglamento respecto al Congreso Virtual y las Consultas."
+            },
+            "parrafo2": {
+                "titulo": "Párrafo 2° Congreso Virtual",
+                "descripcion": {
+                    "parrafo1": "Artículo 15. Concepto. El Congreso Virtual es una plataforma digital que tiene como finalidad facilitar la interacción entre parlamentarios y ciudadanos, permitiendo que éstos se pronuncien sobre proyectos de ley en tramitación legislativa y, en su caso, participen de las consultas públicas que se realicen de acuerdo a las normas establecidas en este reglamento.",
+                    "parrafo2": "Para este efecto, se ofrecerá la opción de manifestarse a favor o en contra y, cuando corresponda, de justificar esa posición y formular propuestas específicas sobre el particular.",
+                    "parrafo3": "Artículo 16. Procedimiento. Se incorporarán al Congreso Virtual los proyectos de ley que puedan concitar mayor interés ciudadano de acuerdo al instructivo de uso de esta herramienta, prefiriendo aquéllos respecto de los cuales haya comenzado, o se encuentre próximo a su inicio, la discusión en general en comisión, con la finalidad de que sus resultados sean conocidos por la comisión respectiva antes de que el proyecto sea votado por ella.",
+                    "parrafo4": "La selección será efectuada por el Grupo Bicameral de Transparencia, las unidades administrativas a cargo de participación ciudadana, comunicaciones o prensa y las secretarías de comisiones, las cuales elaborarán un resumen del proyecto de ley en lenguaje claro, así como las preguntas relativas a aspectos centrales del mismo que serán sometidas al pronunciamiento público. Podrán solicitar el apoyo técnico de la Biblioteca del Congreso Nacional u otros organismos idóneos que garanticen la necesaria neutralidad de las consultas.",
+                    "parrafo5": "La incorporación de un nuevo proyecto de ley al Congreso Virtual será publicada en el sitio electrónico institucional, sin perjuicio de la difusión por otros medios, como redes sociales o comunicaciones electrónicas dirigidas a las personas inscritas en esta modalidad de participación.",
+                    "parrafo6": "Concluido el plazo que se fije, la unidad a cargo de participación ciudadana sistematizará las respuestas y aportes recibidos y las enviará con un resumen analítico a la secretaría de la comisión en la que esté radicado el proyecto de ley, con la finalidad de que se informe a la comisión acerca de los resultados obtenidos. Dicho documento será publicado en el sitio electrónico institucional y se dejará constancia de su resultado en el informe de la comisión."
+                }
+            },
+            "parrafo3": {
+                "titulo": "Párrafo 3°. Consultas Públicas",
+                "descripcion": {
+                    "parrafo1": "Artículo 17. Concepto. Las consultas públicas son mecanismos de participación virtual, no vinculante, público y abierto por el cual la Cámara de Diputados o una comisión consulta a la ciudadanía acerca de un proyecto de ley o un asunto de índole legislativa propio de su competencia.",
+                    "parrafo2": "Artículo 18. Iniciativa ciudadana. Cualquier persona u organización podrá solicitar la realización de una consulta ciudadana acerca de un proyecto de ley en tramitación.",
+                    "parrafo3": "La unidad administrativa a cargo de participación ciudadana pondrá la solicitud en conocimiento de los comités parlamentarios, o de la comisión respectiva si el proyecto estuviere radicado en ella. El pronunciamiento sobre la solicitud deberá emitirse en la primera sesión en que ello sea posible.",
+                    "parrafo4": "Artículo 19. Procedimiento. La decisión de efectuar la consulta pública será informada a la unidad a cargo de participación ciudadana, para que la convoque por medio del sitio electrónico institucional, redes sociales y personas inscritas en el Congreso Virtual.",
+                    "parrafo5": "La convocatoria deberá señalar su objeto, una minuta acerca del tema en consulta pública, la forma de participar, los datos de contacto para solicitar aclaraciones y el plazo por el cual estará abierta, que podrá extenderse hasta por treinta días corridos.",
+                    "parrafo6": "Las consultas se llevarán a cabo usando la plataforma Congreso Virtual, por medio de un formulario digital, que contendrá una o más preguntas breves redactadas en lenguaje claro, que elaborará la unidad a cargo de participación ciudadana en conjunto con la secretaría de la comisión que corresponda de acuerdo a la materia.",
+                    "parrafo7": "La unidad a cargo de participación ciudadana sistematizará las opiniones que se reciban y las remitirá junto con un resumen al órgano que acordó la realización de la consulta para su evaluación. Si la consulta recayó sobre un proyecto de ley, el resultado será incluido en el informe de la comisión respectiva. En todo caso, el documento que da cuenta de la consulta pública y su resultado se publicará en el sitio electrónico institucional."
+                }
+            }
+        },
+        "titulo": "Reglamento"
+    },
+    "glosario": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "glosario": "Glosario"
+        },
+        "contenido": {
+            "iniciativa": {
+                "titulo": "Iniciativa",
+                "descripcion": "Las leyes pueden tener dos tipos de origen estos son : en la Cámara de Diputados o en el Senado, por mensaje que dirija el Presidente de la República o por moción de cualquiera de sus miembros.Con esto en mente el Presidente de la República puede enviar un proyecto al Congreso Nacional para su discusión. Este es el llamado “mensaje” o “mensaje presidencial”. También, puede ser generado por los propios parlamentarios, caso en el cual recibe el nombre de \"moción\"."
+            },
+            "primer_tramite": {
+                "titulo": "Primer trámite constitucional",
+                "descripcion": "Se llama así al proceso legislativo que transcurre en la cámara de origen. Al inicio de cada sesión de sala, se da cuenta del ingreso de los proyectos que han sido presentados por el Presidente de la República o por los parlamentarios. Luego, a proposición del Presidente de la Corporación respectiva, la sala envía a una o más comisiones el proyecto para que sea analizado en sus aspectos generales por parlamentarios especializados en la materia, o que exista acuerdo unánime de la sala para omitir este trámite, salvo que se trate de un proyecto de ley que deba ser analizado por la comisión de hacienda del Senado o de la Cámara de Diputados. Una vez estudiado el proyecto en forma general, la comisión informa de sus conclusiones a la Cámara, la cual discute y decide si aprueba o rechaza la idea de legislar sobre él. Este trámite reglamentario se conoce como discusión general, cuyo objetivo es aceptar o desechar en su totalidad el proyecto de ley, considerando sus ideas fundamentales y admitir a discusión las enmiendas o indicaciones que se presenten sobre el proyecto, por el Presidente de la República y los parlamentarios. En caso de que no se hayan presentado indicaciones, el proyecto se entiende aprobado sin necesidad de hacer la siguiente discusión."
+            },
+            "segundo_tramite": {
+                "titulo": "Segundo trámite constitucional",
+                "descripcion": "Corresponde a la fase de tramitación legislativa que tiene lugar en la cámara revisora. Aprobado el proyecto en la Cámara de Origen, pasa a la Cámara Revisora (que será el Senado en caso de ser un proyecto de la Cámara de Diputados, y viceversa), la que procede de la misma manera que en el primer Trámite Constitucional. La Cámara Revisora estudia el proyecto en comisiones, y se vota en sala, tanto en forma general, como particular, revisando todo el articulado del proyecto. Ella puede aprobar, modificar o rechazar el proyecto de ley proveniente de la Cámara de Origen. Si el proyecto se aprueba en su totalidad en iguales términos por la Cámara Revisora, se envía al Presidente de la República quien, si también lo aprueba, firmará el proyecto para que se convierta en ley, disponiendo su promulgación. La nueva ley entrará en vigencia al publicarse en el Diario Oficial, salvo que el mismo texto indique otra fecha de entrada en vigor." 
+            },
+            "comisiones_mixtas": {
+                "titulo": "Comisiones mixtas",
+                "descripcion": "Las comisiones mixtas se crean al no producirse acuerdos entre las Cámaras. La discordancia entre ellas que da origen a la comisión mixta."
+            },
+            "promulgacion": {
+                "titulo": "Promulgación",
+                "descripcion": "Aprobado el proyecto de ley por el Presidente de la República, dentro de un plazo de 10 días debe dictar un decreto, que se denomina \"decreto promulgatorio\". En este se declara la existencia de la ley, dejando de ser ésta un mero proyecto y se ordena sea cumplida."
+            },
+            "urgencias": {
+                "titulo": "Urgencias",
+                "descripcion": "La tramitación de una ley no está sujeta a un tiempo determinado, por lo tanto su demora dependerá del grado de dificultad que encuentre en las etapas del proceso de su formación. Sin embargo, el Presidente de la República puede hacer presente la urgencia para el despacho de un proyecto de ley, en uno o en todos sus trámites, en el correspondiente Mensaje o mediante un oficio dirigido al Presidente de la Cámara respectiva o al Senado cuando el proyecto estuviese en comisión mixta. Estos plazos se denominan urgencias y ellas determinan el orden de la tabla de discusión."
+            }
+        },
+        "titulo": "Glosario de términos generales para entender de mejor manera el sitio."
+    },
+    "somos": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "somos": "Somos"
+        },
+        "contenido": {
+            "parrafo1": "El Senado de Chile creó una herramienta tecnológica denominada Senador Virtual en 2003, que tenía como objetivo que la ciudadanía conociera el proceso de la formación de la ley. Con el tiempo, pasó de ser una plataforma de educación a una de participación ciudadana en el proceso legislativo con más de 120 mil personas inscritas.",
+            "parrafo2": "En 2018, viendo la necesidad de mejorar y fomentar los procesos de participación ciudadana en el Congreso Nacional, el ",
+            "link_parrafo2": "Grupo Bicameral de Transparencia",
+            "parrafo2_2": ", obtuvo apoyo del Banco Interamericano de Desarrollo (BID) para desarrollar el Congreso Virtual. Es así como se actualizó el Senador Virtual en diseño, funcionalidades y análisis de datos para que se visualice la participación ciudadana y se enriquezca el debate de los proyectos de ley. Las observaciones de los usuarios pueden llegar a ser indicaciones parlamentarias en los proyectos de ley.",
+            "parrafo3": "El Congreso Virtual está a cargo de un Comité integrado por el Grupo Bicameral de Transparencia, las unidades de participación ciudadana, comunicaciones/prensa y las secretarías de comisiones de ambas Corporaciones. Además, cuenta con el apoyo constante de los departamentos de informática del Senado y de la Cámara de Diputados.",
+            "parrafo4": "Cómo se mencionó, este es un proyecto financiado por el BID y está disponible para compartirse con otros países de la región.",
+            "parrafo5": "Para conocer las funciones de la Cámara de Diputados ",
+            "link_parrafo5": "haga clic aquí",
+            "y": " y del senado ",
+            "link2_parrafo5": "aquí"
+        },
+        "titulo": "¿Quiénes somos?"
+    },
+    "search": {
+        "titulo": "Buscador General",
+        "buscar_placeholder": "Ingrese texto aquí",
+        "filtrar": "Filtrar por",
+        "ordenar": "Ordenar por",
+        "tipo_objeto": {
+            "titulo": "Tipo de elemento",
+            "opciones": [
+                { "id": 1, "label": "Proyectos de Ley" },
+                { "id": 2, "label": "Ideas Fundamentales" },
+                { "id": 3, "label": "Artículos" },
+                { "id": 4, "label": "Consultas Públicas" },
+                { "id": 5, "label": "Propuestas" }
+            ]
+        },
+        "fecha": "Fecha",
+        "votos": "Mayor a menor en votos",
+        "resultados": "Resultados totales",
+        "limpiar": "Limpiar Filtros",
+        "buscar": "Buscar",
+        "no_hay_resultados": "No se han encontrado resultados",
+        "ver_mas": "Ver más",
+        "proyecto": "PROYECTO DE LEY",
+        "articulo": "ARTÍCULO",
+        "idea": "IDEA FUNDAMENTAL",
+        "consulta": "CONSULTA PÚBLICA",
+        "propuesta": "PROPUESTA",
+        "cargar":"Cargar Más"
+    },
+    "tematica_video": {
+        "leyes": "Cómo se hacen las leyes",
+        "parrafo": "En esta página podrás encontrar contenido multimedia que te permitirán comprender de manera sencilla los procesos para elaborar leyes que se lleva a cabo en el Congreso Nacional de Chile"
+    },
+    "contacto": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "contacto": "Contáctanos"
+        },
+        "contenido": {
+            "titulo": "Contacto del Congreso Virtual",
+            "texto": "Aquí puedes contactarte directamente con el personal del Congreso Virtual, en el caso de que tengas alguna duda, sugerencia u alguna otra cosa en particular.",
+            "nombre": "Nombre",
+            "correo": "Dirección de correo electrónico",
+            "mensaje": "Mensaje",
+            "info": "Información de contacto"
+        }
+    },
+    "administrador": {
+        "navbar": {
+            "titulo": "ADMINISTRADOR",
+            "mi_configuracion": {
+                "titulo": "Mi Configuración",
+                "perfil": "Perfil"
+            },
+            "usuarios": {
+                "titulo": "Usuarios",
+                "lista_usuarios": "Lista de Usuarios",
+                "lista_expertos": "Lista Usuarios Expertos",
+                "lista_organizaciones": "Lista de Organizaciones",
+                "crear_usuario": "Crear Usuario"
+            },
+            "proyectos": {
+                "titulo": "Proyectos",
+                "lista": "Lista de Proyectos",
+                "crear": "Crear Proyecto"
+            },
+            "consultas": {
+                "titulo": "Consultas Públicas",
+                "lista": "Lista de Consultas Públicas",
+                "crear": "Crear Consulta Pública"
+            },
+            "propuestas": {
+                "titulo": "Propuestas",
+                "lista": "Lista de Propuestas",
+                "crear": "Crear Propuesta"
+            },
+            "taxonomias": {
+                "titulo": "Taxonomías",
+                "lista": "Lista de Taxonomías",
+                "crear": "Crear Taxonomía"
+            },
+            "moderaciones": {
+                "titulo": "Moderaciones",
+                "espera": "Lista de Aportes en Espera",
+                "bloqueados": "Lista de Aportes Bloqueados",
+                "clasificados": "Lista de Aportes Clasificados",
+                "denuncias": "Lista de Denuncias a Aportes",
+                "palabras_ofensivas": "Lista de Palabras Ofensivas"
+            },
+            "contenido": {
+                "titulo": "Contenido",
+                "lista": "Lista de Páginas",
+                "crear": "Crear una Página"
+            },
+            "configuracion": {
+                "titulo": "Configuración",
+                "config": "Configuración General",
+                "menu": "Conf. Menú Principal",
+                "footer": "Conf. Footer (Pié de Página)",
+                "google_analytics": "Conf. Google Analytics"
+            }
+        },
+        "table_list": {
+            "no_entries": "No se han encontrado registros.",
+            "entries_select": {
+                "show": "Mostrar",
+                "entries": "registros."
+            },
+            "search_bar": {
+                "placeholder": "Búsqueda"
+            },
+            "info_text": {
+                "showing": "Mostrando del",
+                "to": "al",
+                "of": "de",
+                "entries": "registros."
+            },
+            "pagination_btns": {
+                "first_page": "Primera página",
+                "last_page": "Última página",
+                "previous_page": "Página anterior",
+                "next_page": "Página siguiente"
+            }
+        },
+        "componentes": {
+            "terminos": {
+                "titulo": "Lista de Términos",
+                "editar": "Editar",
+                "eliminar": "Eliminar",
+                "anadir": "Añadir Hijo",
+                "buscar": "Buscar término"
+            },
+            "ideas_proyecto": "Lista de Ideas Fundamentales",
+            "articulos_proyecto": "Lista de Artículos",
+            "crear_proyecto": {
+                "titulo1": "Crear Proyecto",
+                "titulo2": "Editar Proyecto",
+                "boletin": "Boletín",
+                "titulo": "Titulo del proyecto",
+                "postulante": "Postulante",
+                "fecha_inicio": "Fecha de inicio",
+                "popover_fecha_inicio": "Fecha y hora de inicio de las votaciones. Fuera del plazo de votaciones ningún usuario (incluyendo administradores) puede votar. NOTA: Ingrese la fecha y hora según su zona horaria, está será convertida automáticamente a UTC.",
+                "fecha_termino": "Fecha de término",
+                "popover_fecha_termino": "Fecha y hora de término de las votaciones. Fuera del plazo de votaciones ningún usuario (incluyendo administradores) puede votar. NOTA: Ingrese la fecha y hora según su zona horaria, está será convertida automáticamente a UTC.",
+                "estado": "Estado",
+                "etapa": {
+                    "titulo": "Etapa",
+                    "popover": "Votación en general: se permiten votos tanto para el proyecto en general, como para sus ideas fundamentales. Votación en particular: se permiten votos tanto para el proyecto en general, como para sus artículos e ideas fundamentales. Votación cerrada: no se permiten votos para el proyecto en general, ideas fundamentales ni artículos (los administradores igualmente podrán votar por proyectos en esta etapa).",
+                    "opcion1": "Votación general",
+                    "opcion2": "Votación particular",
+                    "opcion3": "Votación cerrada"
+                },
+                "tema_asociado": {
+                    "titulo": "Temas asociados",
+                    "buscar": "Buscar tema"
+                },
+                "stopword": {
+                    "titulo": "Stopwords",
+                    "buscar": "Buscar o añadir stopword",
+                    "agregar": "Añadir como nueva stopwords"
+                },
+                "imagen": "Imagen principal",
+                "archivos": "Otros archivos",
+                "resumen": "Resumen",
+                "detalle": "Detalle",
+                "suscritos": "¿Desea que se envíe masivamente este proyecto a usuarios suscritos a los temas asociados?",
+                "publico": "¿Desea que este proyecto se muestre públicamente?",
+                "popover_publico": "Si está público, es visible para todos, de lo contrario, los usuarios no administradores no podrán acceder a él.",
+                "principal": "¿Desea que este proyecto sea destacado?",
+                "popover_principal": "Que esté marcado como destacado, quiere decir que el proyecto debe mostrarse en el primer carrusel de proyectos de ley de la página principal.",
+                "habilitado": "¿Desea que este proyecto esté habilitado para ser votado y comentado?",
+                "popover_habilitado": "Permite, en cualquier momento, dejar de aceptar comentarios y votos, incluso aunque el proyecto esté en etapas que impliquen votación y dentro de los plazos para votar. NOTA: Los administradores igualmente podrán votar y comentar en proyectos inhabilitados.",
+                "guardar": "Guardar",
+                "habilitar": "Habilitar",
+                "deshabilitar": "Deshabilitar",
+                "agregar_idea": "Agregar Idea Fundamental",
+                "agregar_articulo": "Agregar Artículo"
+            },
+            "crear_consulta": {
+                "titulo1": "Crear Consulta Pública",
+                "titulo2": "Editar Consulta Pública",
+                "titulo": "Titulo",
+                "autor": "Autor",
+                "icono": "Ícono"
+            },
+            "crear_taxonomia": {
+                "titulo1": "Crear Taxonomía",
+                "titulo2": "Editar Taxonomía",
+                "nombre": "Nombre taxonomía"
+            },
+            "articulo": {
+                "titulo": "Titulo",
+                "detalle": "Detalle de Artículo"
+            },
+            "idea": "Detalle de Idea Fundamental",
+            "analitica": {
+                "n-grama": "grama de palabras claves y comentarios",
+                "nube": "Nube de palabras",
+                "analisis_usuario": "Análisis de usuarios",
+                "datos_votacion": "Datos por votación",
+                "n-grama2": "grama de palabras claves, gráfico de barras",
+                "descripcion_n-grama": "Un N-grama de palabras claves se utiliza para hacer referencia a los términos que más se emplean en ella. En este caso utilizando un gráfico de barras.",
+                "seleccione": "Seleccione la cantidad mínima de palabras de las frases mostradas en el gráfico",
+                "no_carga_n-grama": "Lo lamentamos, ha ocurrido un error al cargar el n-grama.",
+                "frecuencia": "Frecuencia: ",
+                "comentarios": "Comentarios",
+                "sin_comentarios": "No hay comentarios para este proyecto de ley.",
+                "comentarios_recientes": "Comentarios Más Recientes",
+                "no_identificado": "Usuario no identificado",
+                "ver_mas": "Ver más comentarios",
+                "descripcion_nube": "Una nube de palabras o nube de etiquetas es una representación visual de las palabras que conforman un texto, en donde el tamaño es mayor para las palabras que aparecen con más frecuencia.",
+                "usuarios": "Usuarios por región",
+                "grafico": "En el siguiente gráfico puede visualizar los distintos usuarios y divididos según el lugar de proveniencia.",
+                "genero_creacion": "Usuarios por género y creación",
+                "siguiente": "En el siguiente gráfico puede visualizar los distintos usuarios y divididos según el año en que fueron creados y su género.",
+                "datos": "Datos por votación",
+                "seccion": "En la siguiente sección se puede observar un análisis graficado de los distintos votos realizados. Ya sean en al votación general, como separados según ideas generales y por artículos."
+            },
+            "documentos": {
+                "titulo": "Subir Documentos",
+                "archivo": "Archivo",
+                "subir": "Subir",
+                "descargar": "Descargar",
+                "eliminar": "Eliminar"
+            },
+            "eliminar_usuario": {
+                "modal_eliminacion": {
+                    "titulo": "Eliminación de un usuario",
+                    "pregunta": "¿Está seguro que desea eliminar el usuario?"
+                },
+                "modal_forzar_eliminacion": {
+                    "titulo": "Eliminación permanente de un usuario",
+                    "pregunta": "¿Está seguro que desea eliminar el usuario permanentemente?"
+                },
+                "modal_restaurar": {
+                    "titulo": "Restauración de un usuario",
+                    "pregunta": "¿Está seguro que desea restaurar el usuario?"
+                }
+            },
+            "crear_usuario": {
+                "titulo1": "Crear Usuario",
+                "titulo2": "Editar Usuario",
+                "rol": {
+                    "titulo": "Rol del usuario",
+                    "usuario_normal": "Usuario normal",
+                    "administrador": "Administrador"
+                },
+                "contrasena": {
+                    "titulo": "Contraseña",
+                    "confirme": "Confirme contraseña"
+                },
+                "activo": "¿Desea que el usuario quede activo?",
+                "registrar_organizacion": "¿Desea registrar una organización?",
+                "organizacion": {
+                    "titulo": "Registro de Organización",
+                    "nombre": "Nombre",
+                    "correo": "Correo electrónico",
+                    "enlace": "Enlace",
+                    "per_jur": "¿Tiene personalidad jurídica?",
+                    "rut": "RUT/DNI",
+                    "representante": "Nombre representante legal",
+                    "tipo": {
+                        "titulo": "Tipo de organización",
+                        "con_fines_lucro": "Con fines de lucro",
+                        "sin_fines_lucro": "Sin fines de lucro"
+                    },
+                    "miembros": {
+                        "titulo": "Miembros de la Organización",
+                        "apellidos": "Apellidos"
+                    },
+                    "ubicaciones": {
+                        "titulo": "Sedes de la Organización",
+                        "direccion": "Dirección",
+                        "sector": {
+                            "titulo": "Sector",
+                            "urbano": "Urbano",
+                            "rural": "Rural"
+                        },
+                        "principal": "Marcar esta sede como principal",
+                        "seleccione1": "Seleccione primero el país",
+                        "seleccione2": "Seleccione primero la región"
+                    }
+                }
+            },
+            "crear_organizacion": {
+                "titulo1": "Crear Organización",
+                "titulo2": "Editar Organización"
+            },
+            "notificacion": {
+                "seguro": "¿Esta seguro que desea mandar este correo?",
+                "aceptar": "Si acepta, se mandará un correo a todos los usuarios suscritos a las categorías de este proyecto",
+                "usuarios_suscritos": "Usuarios suscritos"
+            },
+            "eliminar": {
+                "seguro": "¿Esta seguro que desea eliminar este item?",
+                "acepta": "No se podrá recuperar este elemento una vez que se haya borrado",
+                "eliminar": "Eliminar",
+                "eliminados_temporalmente": {
+                    "eliminados": "Eliminados temporalmente",
+                    "eliminadas": "Eliminadas temporalmente"
+                },
+                "precaucion": "Precaución: Esta acción no se puede deshacer."
+            },
+            "comentarios_denunciados": "Lista de Denuncias a Aportes",
+            "comentarios_espera": "Lista de Aportes en Espera",
+            "comentarios_bloqueados": "Lista de Aportes Bloqueados",
+            "comentarios_clasificados": "Lista de Aportes Clasificados",
+            "aporte_espera": {
+                "titulo": "Reporte de Usuario",
+                "comentario": "Comentario",
+                "no_identificado": "Usuario no identificado",
+                "habilitar": "Habilitar",
+                "bloquear": "Bloquear"
+            },
+            "aporte_reportado": {
+                "titulo": "Reporte de Usuario",
+                "denunciado": "Usuario denunciado",
+                "denunciante": "Usuario denunciante",
+                "descripcion": "Descripción",
+                "comentario": "Comentario",
+                "no_identificado": "Usuario no identificado",
+                "bloquear": "Bloquear"
+            },
+            "aporte_bloqueado": {
+                "titulo": "Reporte de Usuario",
+                "usuario": "Nombre de usuario",
+                "denunciante": "Usuario denunciante",
+                "descripcion": "Descripción",
+                "comentario": "Comentario",
+                "no_identificado": "Usuario no identificado",
+                "habilitar": "Habilitar"
+            },
+            "aporte_clasificado": {
+                "estado_1": "Público",
+                "estado_2": "En Espera",
+                "estado_3": "Bloqueado",
+                "estado_4": "Rechazado",
+                "estado_5": "Sin Estado",
+                "proyecto": "Proyecto",
+                "articulo": "Artículo",
+                "idea_fundamental": "Idea Fundamental",
+                "consulta_publica": "Consulta Pública",
+                "titulo": "Comentario de",
+                "hecho_en": "Comentario hecho en",
+                "no_identificado": "Usuario no identificado",
+                "comentario": "Comentario",
+                "atras": "Atrás"
+            },
+            "palabras_ofensivas": "Lista de Palabras Ofensivas",
+            "editar_percepcion": "Percepción",
+            "paginas": "Lista de Páginas",
+            "footer": {
+                "titulo": "Configuración de Footer (Pié de Página)",
+                "click": "Haga click en el botón de añadir páginas en la categoría donde quiere agregar las páginas seleccionadas",
+                "editar": "Editar",
+                "eliminar": "Eliminar",
+                "anadir_hijo": "Añadir Hijo",
+                "anadir_paginas": "Añadir Páginas",
+                "guardar": "Guardar Cambios",
+                "editar_categoria": "Editar Categoría",
+                "nombre": "Nombre",
+                "seleccione": "Seleccione las Páginas",
+                "paginas": "Páginas"
+            },
+            "menu": "Configuración Menú Principal",
+            "crear_pagina": {
+                "titulo1": "Crear Página",
+                "titulo2": "Editar Página",
+                "nombre": "Nombre",
+                "categorias": "Categorías",
+                "contenido": "Contenido de la página",
+                "publica": "¿Desea que esta página sea pública?"
+            },
+            "configuracion_general": {
+                "titulo": "Configuración General",
+                "nombre": "Nombre del sitio",
+                "propuestas": "Propuestas",
+                "peticiones": "Número máximo de peticiones",
+                "redes": "Redes sociales"
+            },
+            "codigo_google": {
+                "titulo": "Código Google Analytics",
+                "codigo": "Código"
+            },
+            "propuestas": "Lista de Propuestas",
+            "crear_propuesta": {
+                "titulo1": "Crear Propuesta",
+                "titulo2": "Editar Propuesta",
+                "titulo": "Titulo",
+                "boletin": "Boletín",
+                "autoria": "Autoría",
+                "fecha_ingreso": "Fecha ingreso",
+                "tipo": "Tipo",
+                "propuesta": "Propuesta",
+                "urgencia": "Urgencia",
+                "detalle": "Detalle",
+                "argumento": "Argumento",
+                "video_url": "Video URL",
+                "fuente_video": "Fuente del video",
+                "publica": "¿Desea que esta propuesta se muestre públicamente?",
+                "activar": "Activar",
+                "desactivar": "Desactivar"
+            }
+        }
+    },
+    "componentes": {
+        "moment": {
+            "horas": "Hrs.",
+            "formato_con_hora": "D MMM YYYY, HH:mm",
+            "formato_sin_hora": "D MMM YYYY",
+            "formato_editable_con_hora": "DD-MM-YYYY HH:mm:ss"
+        },
+        "dropzone": {
+            "dictDefaultMessage": "Haz click aquí para subir los archivos",
+            "dictFallbackMessage": "Su navegador no admite la subida de archivos mediante arrastrar y soltar.",
+            "dictFallbackText": "Utilice el siguiente formulario de respaldo para cargar sus archivos como en los viejos tiempos.",
+            "dictFileTooBig": "El archivo es demasiado grande ({{filesize}} MiB). Tamaño máximo de archivo: {{maxFilesize}} MiB.",
+            "dictInvalidFileType": "No pueden cargar archivos de este tipo.",
+            "dictResponseError": "El servidor respondió con el código {{statusCode}}.",
+            "dictCancelUpload": "Cancelar subida",
+            "dictUploadCanceled": "La subida de archivos se ha cancelado.",
+            "dictCancelUploadConfirmation": "¿Está seguro de que desea cancelar la subida?",
+            "dictRemoveFile": "Eliminar archivo",
+            "dictRemoveFileConfirmation": "¿Está seguro que desea eliminar el archivo?",
+            "dictMaxFilesExceeded": "No se pueden subir más archivos."
+        },
+        "comentarios": {
+            "buscar": "Buscar",
+            "buscar_placeholder": "Buscar comentario",
+            "orden": {
+                "titulo": "Ordenar por",
+                "opciones": [
+                    { "id": 1, "label": "Fecha de creación (Asc.)" },
+                    { "id": 2, "label": "Fecha de creación (Desc.)" },
+                    { "id": 3, "label": "Cantidad de \"Me Gusta\" (Asc.)" },
+                    { "id": 4, "label": "Cantidad de \"Me Gusta\" (Desc.)" },
+                    { "id": 5, "label": "Cantidad de \"No me Gusta\" (Asc.)" },
+                    { "id": 6, "label": "Cantidad de \"No me Gusta\" (Desc.)" }
+                ]
+            },
+            "no_hay_comentarios": "No se encontraron comentarios disponibles.",
+            "ver_mas": "Ver más",
+            "no_identificado": "Usuario no identificado",
+            "responder": "Responder",
+            "mas_comentarios": "Ver Más Comentarios",
+            "respondiendo_comentario": "Respondiendo el comentario",
+            "comentar_placeholder": "Deja un comentario...",
+            "extensiones": "Extensiones permitidas",
+            "comentar": "Comentar",
+            "subir": "Subir archivo",
+            "editar": "Editar",
+            "denunciar": {
+                "no_identificado": "Denunciar el comentario de usuario no identificado",
+                "usuario": "Denunciar el comentario de",
+                "razon": "Razón",
+                "lenguaje_indebido": "Lenguaje indebido",
+                "acoso": "Acoso",
+                "inapropiado": "Contenido inapropiado",
+                "violencia": "Violencia",
+                "spam": "Spam",
+                "terrorismo": "Terrorismo",
+                "descripcion": "Descripción",
+                "enviar": "Enviar"
+            }
+        },
+        "cuenta_regresiva": {
+            "dias": "Días",
+            "horas": "Horas",
+            "minutos": "Minutos"
+        },
+        "footer": {
+            "avenida": "Avenida",
+            "telefonos": "Teléfonos",
+            "congreso": "Congreso Virtual"
+        }
+    },
+    "invalid-feedback": {
+        "rut": "Escriba el RUT/DNI.",
+        "area": "Porfavor escriba su área de desempeño.",
+        "temas": "Porfavor escriba los temas principales de su trabajo.",
+        "representante": "Escriba el nombre del representante",
+        "pais": "Porfavor escriba su país de residencia.",
+        "region": "Porfavor escriba la región/Estado donde vive.",
+        "comuna": "Porfavor escriba la comuna/ciudad a la que pertenece."
+    },
+    "votos": {
+        "a_favor": "A favor",
+        "en_contra": "En contra",
+        "abstencion": "Abstención"
+    },
+    "tiempo": "Tiempo restante",
+    "cerrar": "Cerrar",
+    "cancelar": "Cancelar",
+    "participar": "Participar",
+    "compartir": "Compartir",
+    "spanish": "Español",
+    "english": "Inglés",
+    "votacion_general": "VOTACIÓN EN GENERAL",
+    "votacion_particular": "VOTACIÓN EN PARTICULAR",
+    "votacion_cerrada": "VOTACIÓN CERRADA",
+    "ver_consulta": "Ver consulta",
+    "mostrar": "Mostrar",
+    "guardar": "Guardar",
+    "anadir": "Añadir",
+    "papelera": "Papelera",
+    "enviar": "Enviar",
+    "volver": "Volver",
+    "acciones": "Acciones",
+    "editar": "Editar",
+    "eliminar": "Eliminar",
+    "eliminar_permanente": "Eliminar permanentemente",
+    "restaurar": "Restaurar",
+    "si": "Si",
+    "no": "No"
+}

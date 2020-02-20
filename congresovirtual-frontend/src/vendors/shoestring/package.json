@@ -1,0 +1,61 @@
+{
+  "_args": [
+    [
+      "shoestring@2.0.1",
+      "C:\\Users\\johan\\Desktop\\elements-griffin-9KY6RL2-2019-04-26\\griffin_download_pack\\html"
+    ]
+  ],
+  "_from": "shoestring@2.0.1",
+  "_id": "shoestring@2.0.1",
+  "_inBundle": false,
+  "_integrity": "sha512-F2jX6NN5OtZLzmt2Pnsfr4YZf7+H+3oZMTgRubtcS9Q+RuH0jZZASNsHkbrosX3GlHHfCF6QJgih+pxEY/pXhQ==",
+  "_location": "/shoestring",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "shoestring@2.0.1",
+    "name": "shoestring",
+    "escapedName": "shoestring",
+    "rawSpec": "2.0.1",
+    "saveSpec": null,
+    "fetchSpec": "2.0.1"
+  },
+  "_requiredBy": [
+    "/tablesaw"
+  ],
+  "_resolved": "https://registry.npmjs.org/shoestring/-/shoestring-2.0.1.tgz",
+  "_spec": "2.0.1",
+  "_where": "C:\\Users\\johan\\Desktop\\elements-griffin-9KY6RL2-2019-04-26\\griffin_download_pack\\html",
+  "author": {
+    "name": "Filament Group",
+    "email": "thegroup@filamentgroup.com",
+    "url": "filamentgroup.com"
+  },
+  "bugs": {
+    "url": "https://github.com/filamentgroup/shoestring/issues"
+  },
+  "description": "A simple framework for organizing, creating, and using DOM-based utilities.",
+  "devDependencies": {
+    "doxx": "github:filamentgroup/doxx",
+    "grunt": "~1.0.1",
+    "grunt-cli": "~1.2.0",
+    "grunt-contrib-concat": "~1.0.1",
+    "grunt-contrib-jshint": "~1.1.0",
+    "grunt-contrib-qunit": "~2.0.0",
+    "grunt-contrib-requirejs": "~1.0.0",
+    "grunt-contrib-uglify": "~3.0.1",
+    "grunt-contrib-watch": "^1.0.0"
+  },
+  "homepage": "https://github.com/filamentgroup/shoestring#readme",
+  "keywords": [],
+  "license": "MIT",
+  "main": "dist/shoestring-dev.js",
+  "name": "shoestring",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/filamentgroup/shoestring.git"
+  },
+  "title": "Shoestring",
+  "version": "2.0.1"
+}

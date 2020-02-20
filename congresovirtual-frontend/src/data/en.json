@@ -1,0 +1,1222 @@
+{
+    "navbar" : {
+        "registrar": "Register",
+        "iniciar_sesion": "Login",
+        "cerrar_sesion": "Logout",
+        "admin": "Admin",
+        "perfil": "Profile",
+        "panel": "Panel",
+        "busqueda": "Search",
+        "modo_oscuro": "Dark mode",
+        "idioma": "Language"
+    },
+    "home": {
+        "breadcumb":"Home /",
+        "contenido": {
+            "proyectos_ley": "Projects of Law in Votting",
+            "consultas_publicas": "Public Consultations",
+            "incorporacion_proyectos": {
+                "titulo": "Proposed Projects of Law to be Included in Congreso Virtual",
+                "descripcion": "Are there any project that are of your total interest, and that you would like to be incorporated into the Virtual Congress? If it reaches 100 support signatures, it will be added to the site, so that it can be voted and debated by the active community.",
+                "boton_apoyo": "Support Inclusion",
+                "ver": "View Project"
+            },
+            "urgencias_proyectos" : {
+                "titulo": "Proposed Projects of Law for Urgency Requests",
+                "descripcion": "Is there any project, currently under debate in Congress, that you would like to be discussed here too? If you obtain 100 signatures, this will be incorporated into the table with a higher priority, so that it can be discussed quickly in Congress.",
+                "boton_apoyo": "Support Urgency",
+                "ver": "View Project"
+            },
+            "propuesta": {
+                "persona": "Proposed by",
+                "boletin": "Bulletin",
+                "autoria": "Authorship",
+                "fecha_ingreso": "Admission date",
+                "apoyos": "Support achieved"
+            },
+            "boton_consultas": "View Consultations",
+            "boton_proyectos": "View Projects",
+            "sin_datos": "No data to display."
+        },
+        "componentes": {
+            "carrusel_proyectos": {
+                "participar": "Participate"
+            },
+            "carrusel_proyectos_card": {
+                "proyectos_card": {
+                    "participar": "Participate"
+                }
+            },
+            "consulta_card": {
+                "votacion_abierta": "OPEN VOTE",
+                "votacion_cerrada": "CLOSED VOTE"
+            }
+        }
+    },
+    "consultas_publicas": {
+        "breadcumb": {
+            "inicio": "Home",
+            "consultas": "Public Consultations"
+        },
+        "contenido": {
+            "titulo": "How do we incorporate a citizen consultation?",
+            "descripcion": {
+                "parrafo1": "Public consultations are virtual, non-binding, public and open participation mechanisms whereby the Chamber of Deputies or a commission consults the citizens about a bill or a matter of a legislative nature within their competence.",
+                "parrafo2": "Article 18. Citizen initiative. Any person or organization may request the conduct of a citizen consultation about a bill in process. The administrative unit in charge of citizen participation will inform the parliamentary committees or the respective commission if the project is based on it. The pronouncement on the request must be issued in the first session in which this is possible."
+            }
+        },
+        "inicio": "Start",
+        "fin": "End"
+    },
+    "proyectos": {
+        "contenido": {
+            "titulo": "Project Search",
+            "buscar_placeholder": "Insert text here",
+            "etapa": {
+                "titulo": "Stage",
+                "opciones": [
+                    { "id": 1, "label": "Voting in general" },
+                    { "id": 2, "label": "Voting in particular" },
+                    { "id": 3, "label": "Closed vote" }
+                ]
+            },
+            "resultados": "Total results",
+            "limpiar": "Clean Filters",
+            "buscar": "Search",
+            "no_hay_resultados": "No results found",
+            "ver_mas": "See more",
+            "cargar": "Load More",
+            "tipo_objeto": "LAW PROJECT"
+        }
+    },
+    "proyecto": {
+        "breadcumb": {
+            "inicio": "Home",
+            "proyectos": "Projects in Vote"
+        },
+        "contenido": {
+            "tab": {
+                "articulos_ideas": "Fundamental articles and ideas",
+                "detalle": "Detail",
+                "seguimiento": "Tracing",
+                "estadistica": "Statistics",
+                "documentos": "Attachments"
+            },
+            "autoria": "Authorship",
+            "iniciativa": "Initiative",
+            "origen": "Origin",
+            "tramitacion": "Processing",
+            "resumen": "Summary",
+            "votacion_general": {
+                "titulo": "Voting in general",
+                "descripcion1": "At this stage of the legislative process, you can vote and comment on the",
+                "strong": "Fundamental ideas",
+                "descripcion2": "of the project of law",
+                "popover": {
+                    "primero": "The",
+                    "strong": "general discussion",
+                    "segundo": "Its purpose is to approve or reject the discussion of a bill considering the fundamental aspects contained in the message or motion, and admit the indications submitted by the President of the Republic and the parliamentarians for processing."
+                }
+            },
+            "votacion_particular": {
+                "titulo": "Voting in particular",
+                "descripcion1": "At this stage of the legislative process, you can vote and comment",
+                "strong": "Articles",
+                "descripcion2": "specific to the project of law",
+                "popover": {
+                    "primero": "The",
+                    "strong": "particular discussion",
+                    "segundo": "It aims to examine the bill in detail and by articles."
+                }
+            },
+            "generar_informe": "Generate Report",
+            "sin_articulos": "There are no law articles to display.",
+            "sin_ideas": "There are no fundamental ideas to show.",
+            "analisis_votos": "Analysis of general votes of the project of law.",
+            "recomendacion": "We recommend placing the mouse on the bars to know in greater detail the current result of the votes.",
+            "cantidad_comentarios": "Number of comments made",
+            "cantidad_participantes": "Amount of participants",
+            "congreso_virtual": "Virtual Congress",
+            "senado": "Senate",
+            "nube": "Word cloud",
+            "comentarios": "Comments of Project of Law",
+            "cargar": "Load More"
+        },
+        "componentes": {
+            "header": {
+                "boletin": "Bulletin",
+                "popover_boletin": "Project identifier within Parliament.",
+                "popover_general": "Voting has stages, which vary depending on where they are being processed.",
+                "popover_particular": "Voting has stages, which vary depending on where they are being processed.",
+                "popover_cerrada": "Voting has stages, which vary depending on where they are being processed."
+            },
+            "ideas": {
+                "sin_votos": "There are no votes on this fundamental idea."
+            },
+            "articulos": {
+                "sin_votos": "There are no votes in this article."
+            },
+            "seguimiento": {
+                "sin_datos": "There are no data in this regard."
+            },
+            "votos_stacked": {
+                "votos_articulos": "Voting per article.",
+                "resultados_articulos": "These are the current results that exist in terms of votes for each of the articles.",
+                "votos_ideas": "Voting by general idea.",
+                "resultados_ideas": "These are the current results that exist in terms of votes for each of the fundamental ideas.",
+                "votos_general": "These Voting by general vote.",
+                "resultados_general": "These are the current results that exist regarding the votes of the project in general.",
+                "cargando": "Loading vote analysis charts...",
+                "no_carga": "We are sorry: An error has occurred while loading the graphics or there are no graphics to display currently.",
+                "no_existe": "There are no charts to display currently."
+            },
+            "nube": {
+                "cargando": "Loading word cloud",
+                "no_carga": "We're sorry, there was an error loading word cloud."
+            },
+            "documentos": {
+                "texto": "The following documents have been made available by the Virtual Congress administration for the possession of more information when participating in the projects.",
+                "descargar": "Download"
+            }
+        }
+    },
+    "propuesta": {
+        "breadcumb": {
+            "inicio": "Home",
+            "propuesta": "Proposal"
+        },
+        "contenido": {
+            "detalle": "Detail"
+        },
+        "componentes": {
+            "header": {
+                "apoyar1": "Inclusion support",
+                "apoyar2": "Ask for urgency",
+                "datos": {
+                    "boletin": "Bulletin",
+                    "popover_boletin": "Project identifier within Parliament.",
+                    "persona": "Proposed by",
+                    "autoria": "Authorship",
+                    "inicio": "Start"
+                },
+                "proyecto_ley": {
+                    "titulo": "INCLUSION TO CONGRESO VIRTUAL",
+                    "popover": "Vote for this project to be incorporated into the Virtual Congress.",
+                    "strong": "Support achieved",
+                    "de": "of"
+                },
+                "urgencia": {
+                    "titulo": "URGENCY REQUEST",
+                    "popover": "Vote for this project to be placed in an urgency and have a higher priority to be incorporated into the Virtual Congress.",
+                    "strong": "Urgency Requests",
+                    "de": "of"
+                }
+            }
+        }
+    },
+    "pagina": {
+        "breadcumb": {
+            "inicio": "Home",
+            "paginas": "Pages",
+            "pagina": "Page"
+        },
+        "contenido": {
+            "detalle": "Detail"
+        },
+        "componentes": {
+            "header": {
+                "fecha_publicacion": "Publication date",
+                "titulo": "CONTENT PAGE",
+                "popover": "This page corresponds to an exhibition of content created directly by the Virtual Congress staff."
+            }
+        }
+    },
+    "registro": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "registro": "Register"
+        },
+        "contenido": {
+            "titulo": "Register",
+            "subtitulo1": "Create your account to interact with our site",
+            "subtitulo2": "Or create your account with social networks or Unique Key.",
+            "leido": "I have read the",
+            "terminos": "terms and Conditions",
+            "registrar": "Register",
+            "cuenta": "Do you already have an account?",
+            "identificar": "Identify here",
+            "clave": "Unique key"
+        }
+    },
+    "confirmacion": {
+        "contenido": {
+            "usuario": "User Confirmed",
+            "ahora": "Now you can access your account at the following",
+            "enlace": "Link",
+            "inicio": "Go to homepage",
+            "error": "Something went wrong",
+            "pasos": "Please verify that your information is correct",
+            "intentar": "and try again"
+        }
+    },
+    "reiniciar_contrasena": {
+        "breadcumb": {
+            "inicio": "Home",
+            "reinicio": "Password reset"
+        },
+        "contenido": {
+            "titulo": "Reset your password",
+            "consejo1": "The password must contain between 8 and 20 characters.",
+            "consejo2": "Tips for passwords:",
+            "consejo3": "Do not put personal data or common words as a password.",
+            "consejo4": "Do not use common words or patterns as a password.",
+            "consejo5": "Do not put dates easy to discover (example: Your birthday).",
+            "reiniciar": "Reset password"
+        }
+    },
+    "request_reset": {
+        "breadcumb": {
+            "inicio": "Home",
+            "resetear": "Reset password"
+        },
+        "contenido": {
+            "correo": "Enter your user email",
+            "reiniciar": "Reset password"
+        }
+    },
+    "login": {
+        "breadcumb": {
+            "inicio": "Home",
+            "login": "Login"
+        },
+        "contenido": {
+            "titulo": "Identify me",
+            "subtitulo": "Log in here to interact with the site.",
+            "mantener": "Keep me logged in",
+            "iniciar": "Log in",
+            "olvidar": "Did you forget your password?",
+            "recuperar": "Recover password",
+            "sin_cuenta": "You do not have an account?",
+            "registrar": "Register me",
+            "clave": "Unique key" 
+        }
+    },
+    "consulta": {
+        "breadcumb": {
+            "inicio": "Home",
+            "proyectos": "Public consultations",
+            "consulta": "Consultation"
+        },
+        "contenido": {
+            "detalle": "Detail",
+            "comentarios": "Comments",
+            "participantes": "Participants",
+            "sin_participantes": "There are no participants to show."
+
+        },
+        "componentes": {
+            "header": {
+                "inicio": "Start",
+                "fin": "End",
+                "titulo": "PUBLIC CONSULTATION",
+                "popover": "This vote corresponds to a public consultation.",
+                "votacion_cerrada": "CLOSED VOTE"
+            }
+        }
+    },
+    "perfil_usuario": {
+        "contenido": {
+            "votos": "Votes",
+            "comentarios": "Comments",
+            "puntos": "Points",
+            "tab": {
+                "proyectos_interes": "Projects of Interest",
+                "editar_perfil": "Edit my Profile",
+                "temas_interes": "My Topics of Interest",
+                "votaciones": "My Votes",
+                "comentarios": "My Comments",
+                "propuestas": "My Proposals"
+            }
+        },
+        "componentes": {
+            "encuesta": "Themes of interest",
+            "edicion_perfil": {
+                "titulo": "Personal Information",
+                "nombre": "Name",
+                "apellido": "Surname",
+                "usuario": "Username",
+                "rut": "DNI/RUT",
+                "fecha_nacimiento": "Birthdate",
+                "correo": "Email",
+                "pais": "Country",
+                "region": "Region/State",
+                "comuna": "City/commune",
+                "sector": {
+                    "titulo": "Sector",
+                    "ciudad": "Urban",
+                    "rural": "Rural"
+                },
+                "genero": {
+                    "titulo": "Gender",
+                    "opcion1": "Male",
+                    "opcion2": "Female",
+                    "opcion3": "Other",
+                    "opcion4": "Do not know/not answer"
+                },
+                "nivel": {
+                    "titulo": "Educational level",
+                    "opcion1": "Basic education",
+                    "opcion2": "Incomplete middle school",
+                    "opcion3": "Middle school education",
+                    "opcion4": "Incomplete Technical Education",
+                    "opcion5": "Full technical education",
+                    "opcion6": "Incomplete University Education",
+                    "opcion7": "Full university education",
+                    "opcion8": "Postgrads studies"
+                },
+                "actividad": {
+                    "titulo": "Activity",
+                    "opcion1": "Student",
+                    "opcion2": "Dependent Worker",
+                    "opcion3": "Independent worker",
+                    "opcion4": "Businessman",
+                    "opcion5": "Homeowner",
+                    "opcion6": "Retired",
+                    "opcion7": "Unemployed"
+                },
+                "temas_interes": "Topics of interest",
+                "buscar_tema_interes": "Search topics of interest",
+                "registro_experto": "Do you want to register as an expert user?",
+                "usuario_experto": {
+                    "titulo_registro": "Expert Registration",
+                    "profesion": {
+                        "titulo": "Job title",
+                        "opciones": [
+                            "Lawyer",
+                            "Architect",
+                            "Doctor",
+                            "Veterinarian",
+                            "Engineer",
+                            "Psychologist",
+                            "Primary Education Teacher",
+                            "Secondary Education Teacher",
+                            "Professor of Differential Education",
+                            "Journalist",
+                            "Social Worker",
+                            "Auditor Accountant",
+                            "Sociologist",
+                            "Other"
+                        ]
+                    },
+                    "estudios": {
+                        "titulo": "Postgrads studies"
+                    },
+                    "experiencia": {
+                        "titulo": "Work experience",
+                        "opcion1": "Less than 5 years",
+                        "opcion2": "Between 5 and 10 years",
+                        "opcion3": "Between 10 and 15 years",
+                        "opcion4": "More than 15 years"
+                    },
+                    "area_desempenio": {
+                        "titulo": "Performance area",
+                        "buscar": "Search performance areas",
+                        "opciones": [
+                            { "id": 1, "value": "Centralized administration" },
+                            { "id": 2, "value": "Municipality" },
+                            { "id": 3, "value": "Regional/Provincial Government" },
+                            { "id": 4, "value": "National Congress" },
+                            { "id": 5, "value": "Judiciary/auxiliary bodies/prosecution/defense" },
+                            { "id": 6, "value": "State University" },
+                            { "id": 7, "value": "Public companies" },
+                            { "id": 8, "value": "Other organs of the State" },
+                            { "id": 9, "value": "Great company" },
+                            { "id": 10, "value": "Medium sized company" },
+                            { "id": 11, "value": "Small or microenterprise" },
+                            { "id": 12, "value": "Consultant" },
+                            { "id": 13, "value": "Independent" },
+                            { "id": 14, "value": "Academy (non-state universities)" },
+                            { "id": 15, "value": "ONG" },
+                            { "id": 16, "value": "Civil society organizations" }
+                        ]
+                    },
+                    "temas": "Main themes of his work"
+                },
+                "cambio_contrasena": {
+                    "titulo": "Change of Password",
+                    "actual": "Enter your current password",
+                    "nueva": "Enter new password",
+                    "confirmar": "Repeat the new password",
+                    "consejo": "The password must be 8-20 characters."
+                }
+            },
+            "votos": {
+                "titulo": "Your votes",
+                "cantidad": "Number of votes made",
+                "proyecto": "of the project",
+                "error1": "We are sorry, no votes have been found.",
+                "error2": "We are sorry, there was an error loading the votes.",
+                "cargando": "Loading feedback data",
+                "cargar": "Load More"
+            },
+            "comentarios": {
+                "titulo": "Your comments",
+                "cantidad": "Number of comments made",
+                "error1": "We are sorry, no comments have been found.",
+                "error2": "We are sorry, there was an error loading comments.",
+                "cargando": "Loading comment data",
+                "cargar": "Load More"
+            },
+            "propuestas": {
+                "titulo": "Your proposals",
+                "cantidad": "Number of proposals made",
+                "boletin": "Bulletin",
+                "fecha": "Date",
+                "estado": {
+                    "titulo": "State",
+                    "publica": "Public",
+                    "no_publica": "Not public",
+                    "activa": "Active",
+                    "no_activa": "Not active"
+                },
+                "autoria": "Authorship",
+                "detalle": "Detail",
+                "de": "of",
+                "argumento": "Argument",
+                "video_url": "Video URL",
+                "fuente": "Video source",
+                "error1": "We are sorry, no proposals have been found.",
+                "error2": "We are sorry, there was an error loading the proposals.",
+                "cargando": "Loading proposal data",
+                "editar": "Edit Proposal",
+                "cargar": "Load More"
+            }
+        }
+    },
+    "propuestas": {
+        "breadcumb": {
+            "inicio": "Home",
+            "propuestas": "Projects in parliament"
+        },
+        "contenido": {
+            "titulo": "Projects of law in parliament",
+            "parrafo1": "Is there a bill that interests you and is not in the Virtual Congress? If so, select it and disseminate it to obtain votes and be considered.",
+            "parrafo2": "Or if there is any project that you would like to have priority to be studied by the National Congress, look for it, select it and disseminate it to obtain support from other participants and that Congress ask the President of the Republic to put it urgently.",
+            "buscar": "Search",
+            "busqueda": "Title, detail, summary...",
+            "resultados": "Results",
+            "boletin": "Bulletin",
+            "autoria": "Authorship",
+            "fecha": "Admission date",
+            "incluir": "Include Virtual Congress",
+            "pedir": "Ask for urgency",
+            "cargar": "Load More",
+            "modal": {
+                "detalle": "Enter a detail for the proposal",
+                "descripcion": "Description",
+                "enviar": "Send"
+            }
+        }
+    },
+    "faq": {
+        "breadcumb": {
+            "inicio": "Home",
+            "faq": "Frequent questions"
+        },
+        "contenido": {
+            "temas": "Themes",
+            "uso_general": {
+                "titulo1": "General use of the site",
+                "titulo2": "General questions about the use of the site",
+                "participar": {
+                    "titulo": "How do I participate in the Virtual Congress site.",
+                    "descripcion": "To participate in the Virtual Congress site, you must first create a user account, in which you will be asked for important user information, after successfully creating the user account, you already have all the features offered by the site, only it remains to look for the projects of interest in which you want to participate and be a Virtual Congressman."
+                },
+                "postular_proyectos": {
+                    "titulo": "How do I apply for a project of law to Virtual Congress.",
+                    "descripcion": "To apply for a project of law to the site, the following steps must be followed: Log in with the user account (if you do not have a user account before, go to create one). Then go to the list of available projects to be nominated, these projects will be here, either due to inactivity, or have been dispatched before. Select the project that you want to be put into voting, as well as justify the request of the project in question. After this the project will be put to a vote and discussion for the other users."
+                },
+                "postular_urgencia": {
+                    "titulo": "How do I apply for an urgency on a project of law to Virtual Congress.",
+                    "descripcion": "To postulate an urgency on a certain project, the following steps must be followed: Log in with the user account (if you do not have a user account before, go to create one). Then go to the list of available projects to be nominated, these projects will be here, either due to inactivity, or have been dispatched before. Select the project that you want to be placed in an ugencie, you must specify the reason for the ugencie. After this the project will be entered into the Virtual Congress system to be voted either against or in favor of the project. If the urgent project obtains a good reception, this will be notified to the applicant to upload more information to the project, in order to be able to endorse and justify the reason for the request, either by the means that he deems most convenient, for example video, instructive, etc."
+                },
+                "revisar_proyectos": {
+                    "titulo": "Where can I review the projects of law made available for opinion / debate / vote.",
+                    "descripcion": "To review the projects made available to users, you should go to the voting section and all the projects of law will be deployed which are in vote, in addition to showing the votes they have so far and important information about them."
+                },
+                "olvidado_contrasena": {
+                    "titulo": "I forgot my password or it doesn't work for me, what can I do?",
+                    "descripcion": "You can request a new password to have a new password sent to your email. We recommend you try to recover your password with all the email addresses you have."
+                },
+                "rut_en_uso": {
+                    "titulo": "It tells me that my DNI/RUT is already in use",
+                    "descripcion": "If you try to verify your account and an error message appears saying that the 'DNI is already in use', the first thing you have to check is if you have another user account that you have verified with your ID. Keep in mind that you can have many user accounts, but only one with your ID data, which will be with which you can support and vote on proposals, what we call a verified account."
+                }
+            },
+            "proyectos_ley": {
+                "titulo1": "Projects of law",
+                "titulo2": "Questions about projects of law",
+                "dudas_uber": {
+                    "titulo": "Doubts about the Uber project of law.",
+                    "descripcion": "To participate in the Virtual Congress site, you must first create a user account, in which you will be asked for important user information, after successfully creating the user account, you already have all the features offered by the site, only it remains to look for the projects of interest in which you want to participate and be a Virtual Congressman."
+                },
+                "dudas_clima": {
+                    "titulo": "Doubts about the project of law on climate change.",
+                    "descripcion": "To participate in the Virtual Congress site, you must first create a user account, in which you will be asked for important user information, after successfully creating the user account, you already have all the features offered by the site, only it remains to look for the projects of interest in which you want to participate and be a Virtual Congressman."
+                },"dudas_goles": {
+                    "titulo": "Doubts about the goal project of law for everyone.",
+                    "descripcion": "To participate in the Virtual Congress site, you must first create a user account, in which you will be asked for important user information, after successfully creating the user account, you already have all the features offered by the site, only it remains to look for the projects of interest in which you want to participate and be a Virtual Congressman."
+                },
+                "dudas_glaciares": {
+                    "titulo": "Doubts about the glacier protection project of law.",
+                    "descripcion": "To participate in the Virtual Congress site, you must first create a user account, in which you will be asked for important user information, after successfully creating the user account, you already have all the features offered by the site, only it remains to look for the projects of interest in which you want to participate and be a Virtual Congressman."
+                },"dudas_organos": {
+                    "titulo": "Doubts about the organ donation project of law.",
+                    "descripcion": "To participate in the Virtual Congress site, you must first create a user account, in which you will be asked for important user information, after successfully creating the user account, you already have all the features offered by the site, only it remains to look for the projects of interest in which you want to participate and be a Virtual Congressman."
+                },
+                "dudas_bullying": {
+                    "titulo": "Doubts about the project of law against bullying.",
+                    "descripcion": "To participate in the Virtual Congress site, you must first create a user account, in which you will be asked for important user information, after successfully creating the user account, you already have all the features offered by the site, only it remains to look for the projects of interest in which you want to participate and be a Virtual Congressman."
+                }
+            },
+            "consultas_publicas": {
+                "titulo1": "Public consultations",
+                "titulo2": "Questions about public consultations",
+                "consulta1": {
+                    "titulo": "Questions about public consultation 1",
+                    "descripcion": "To participate in the Virtual Congress site, you must first create a user account, in which you will be asked for important user information, after successfully creating the user account, you already have all the features offered by the site, only it remains to look for the projects of interest in which you want to participate and be a Virtual Congressman."
+                }
+            }
+        }
+    },
+    "instructivo": {
+        "breadcumb": {
+            "inicio": "Inicio",
+            "instructivo": "Instructive"
+        },
+        "contenido": {
+            "inicio_sesion": {
+                "titulo": "Login",
+                "descripcion": {
+                    "parrafo1": "In order to participate in the virtual congress website, it is necessary to register and subsequently enter account with their corresponding data, this will allow to have available the features offered by the site.",
+                    "parrafo2": "If you do not have an account, you can view the projects of law anyway."
+                }
+            },
+            "postulacion_proyectos": {
+                "titulo": "Postulation of projects of law",
+                "descripcion": "If you wish to apply for a project of law, you must go to the main virtual congress page and you must enter the option at the bottom of the “make a proposal” page, once your proposal has been submitted, proceed to submit it."
+            },
+            "opinion/debatir": {
+                "titulo": "Opinion / debate / vote on projects of law",
+                "descripcion": "To review and interact with the projects of law, you must go to Projects of law. In voting in the navigation bar, then you must select a project and then make a vote or comment which will be registered in your respective account."
+            },
+            "olvido_contrasena": {
+                "titulo": "Forget password",
+                "descripcion": "A new password can be requested from the login page, stating that you forgot your password, the reassignment will be sent to your email."
+            }
+        },
+        "titulo": "Instructive: Virtual Congress"
+    },
+    "reglamento": {
+        "breadcumb": {
+            "inicio": "Home",
+            "reglamento": "regulation"
+        },
+        "contenido": {
+            "parrafo1": {
+                "titulo": "Paragraph 1st Virtual Congress",
+                "descripcion": "The National Congress of Chile recognizes citizen participation as a valuable as a valuable element of judgment to increase the efficiency in the decision-making of the public functions that the Political Constitution and the laws entrust to it. Below are the provisions of the Regulations regarding the Virtual Congress and Consultations."
+            },
+            "parrafo2": {
+                "titulo": "Paragraph 2nd Virtual Congress",
+                "descripcion": {
+                    "parrafo1": "Article 15. Concept. The Virtual Congress is a digital platform that aims to facilitate interaction between parliamentarians and citizens, allowing them to rule on projects of law in legislative process and, where appropriate, participate in public consultations that are conducted according to the rules established in this regulation.",
+                    "parrafo2": "For this purpose, the option of expressing oneself in favor or against and, where appropriate, of justifying that position and making specific proposals on the matter will be offered.",
+                    "parrafo3": "Article 16. Procedure. The projects of law that may raise greater citizen interest according to the instructions for using this tool will be incorporated into the Virtual Congress, preferring those in respect of which the discussion in general in commission has begun, or is close to its beginning, with the purpose of having its results known by the respective commission before the project is voted by it.",
+                    "parrafo4": "The selection will be made by the Bicameral Transparency Group, the administrative units in charge of citizen participation, communications or press and the secretaries of commissions, which will prepare a summary of the project of law in clear language, as well as questions regarding central aspects of the same that will be submitted to the public pronouncement. They may request technical support from the Library of the National Congress or other suitable agencies that guarantee the necessary neutrality of the consultations.",
+                    "parrafo5": "The incorporation of a new project of law to the Virtual Congress will be published on the institutional electronic site, notwithstanding the dissemination by other means, such as social networks or electronic communications addressed to the persons registered in this modality of participation.",
+                    "parrafo6": "Once the deadline is set, the unit in charge of citizen participation will systematize the responses and contributions received and send them with an analytical summary to the secretariat of the commission in which the project of law is based, so that it is informed to the commission about the results obtained. This document will be published on the institutional website and its result will be recorded in the commission's report."
+                }
+            },
+            "parrafo3": {
+                "titulo": "Párrafo 3°. Consultas Públicas",
+                "descripcion": {
+                    "parrafo1": "Article 17. Concept. Public consultations are virtual, non-binding, public and open participation mechanisms whereby the Chamber of Deputies or a commission consults the citizens about a project of law or a matter of a legislative nature within their competence.",
+                    "parrafo2": "Article 18. Citizen initiative. Any person or organization may request the conduct of a citizen consultation about a project of law in process.",
+                    "parrafo3": "The administrative unit in charge of citizen participation will inform the parliamentary committees or the respective commission if the project is based on it. The pronouncement on the request must be issued in the first session in which this is possible.",
+                    "parrafo4": "Article 19. Procedure. The decision to carry out the public consultation will be informed to the unit in charge of citizen participation, so that it can be convened through the institutional electronic site, social networks and people registered in the Virtual Congress.",
+                    "parrafo5": "The call must indicate its purpose, a minute on the subject in public consultation, the way to participate, the contact information to request clarifications and the period for which it will be open, which may be extended for up to thirty consecutive days.",
+                    "parrafo6": "The consultations will be carried out using the Virtual Congress platform, through a digital form, which will contain one or more short questions written in clear language, which will be prepared by the unit in charge of citizen participation in conjunction with the secretariat of the corresponding commission according to the subject.",
+                    "parrafo7": "The unit in charge of citizen participation will systematize the opinions received and send them together with a summary to the body that agreed to conduct the consultation for evaluation. If the consultation fell on a project of law, the result will be included in the report of the respective commission. In any case, the document that accounts for the public consultation and its result will be published on the institutional website."
+                }
+            }
+        },
+        "titulo": "Regulation"
+    },
+    "glosario": {
+        "breadcumb": {
+            "inicio": "Home",
+            "glosario": "Glosary"
+        },
+        "contenido": {
+            "iniciativa": {
+                "titulo": "Initiative.",
+                "descripcion": "Laws can have two types of origin these are: in the Chamber of Deputies or in the Senate, by message directed by the President of the Republic or by motion of any of its members. With this in mind the President of the Republic can send a project to the National Congress for discussion. This is the so-called 'message'  or 'presidential message'. Also, it can be generated by the parliamentarians themselves, in which case it receives the name of “motion”."
+            },
+            "primer_tramite": {
+                "titulo": "First constitutional process.",
+                "descripcion": "This is the name of the legislative process that takes place in the chamber of origin.At the beginning of each session of the room, the entry of the projects that have been presented by the President of the Republic or by the parliamentarians is realized. Then, at the proposal of the President of the respective Corporation, the room sends the project to one or more commissions to be analyzed in its general aspects by parliamentarians specialized in the matter, or that there is unanimous agreement of the room to skip this procedure, except That it is a project of law that must be analyzed by the finance commission of the Senate or the Chamber of Deputies. Once the project has been studied in general, the commission reports its conclusions to the Chamber, which discusses and decides whether to approve or reject the idea of ​​legislating on it. This regulatory procedure is known as a general discussion, whose objective is to accept or reject the entire project of law, considering its fundamental ideas and admit to discussion the amendments or indications that are presented on the project, by the President of the Republic and the Parliamentarians If no indications have been submitted, the project is deemed approved without the need for the following discussion." 
+            },
+            "segundo_tramite": {
+                "titulo": "Second constitutional process.",
+                "descripcion": "Corresponds to the legislative processing phase that takes place in the review chamber. Once the project has been approved in the Chamber of Origin, it passes to the Review Chamber (which will be the Senate if it is a project of the Chamber of Deputies, and vice versa), which proceeds in the same way as in the first Constitutional Procedure. The Review Chamber studies the project in commissions, and votes in the room, both in general, and in particular, reviewing the entire articles of the project. She can approve, modify or reject the project of law from the Chamber of Origin. If the project is approved in full in equal terms by the Review Chamber, it is sent to the President of the Republic who, if he also approves it, will sign the project so that it becomes law, providing for its promulgation. The new law will enter into force when published in the Official Gazette, unless the same text indicates another effective date." 
+            },
+            "comisiones_mixtas": {
+                "titulo": "Mixed commissions.",
+                "descripcion": "Mixed commissions are created when agreements between the Chambers are not produced. The disagreement between them - which gives rise to the mixed commission."
+            },
+            "promulgacion": {
+                "titulo": "Promulgation.",
+                "descripcion": "Approved the project of law by the President of the Republic, within a period of 10 days must issue a decree, which is called 'promulgation decree.' In this, the existence of the law is declared, ceasing to be a mere project and ordered to be fulfilled."
+            },
+            "urgencias": {
+                "titulo": "Urgencies",
+                "descripcion": "The processing of a law is not subject to a certain time, therefore its delay will depend on the degree of difficulty that it finds in the stages of the process of its formation. However, the President of the Republic may present the urgency for the dispatch of a project of law, in one or all of its procedures, in the corresponding Message or through an official letter addressed to the President of the respective Chamber or to the Senate when the project was in mixed commission. These deadlines are called emergencies and they determine the order of the discussion table."
+            }
+        },
+        "titulo": "Glossary of general terms to better understand the site."
+    },
+    "somos": {
+        "breadcumb": {
+            "inicio": "Home",
+            "somos": "About us"
+        },
+        "contenido": {
+            "parrafo1": "The Chilean Senate created a technological tool called Virtual Senator in 2003, which aimed to make citizens know about the process of law formation. Over time, it went from being an education platform to one of citizen participation in the legislative process with more than 120 thousand people registered.",
+            "parrafo2": "In 2018, seeing the need to improve and promote the processes of citizen participation in the National Congress, the ",
+            "link_parrafo2": "Bicameral Transparency Group",
+            "parrafo2_2": ", He obtained support from the Inter-American Development Bank (IDB) to develop the Virtual Congress. This is how the Virtual Senator was updated in design, functionalities and data analysis so that citizen participation is visualized and the debate on the projects of law is enriched. User comments may become parliamentary indications in the projects of law.",
+            "parrafo3": "The Virtual Congress is in charge of a Committee composed of the Bicameral Transparency Group, the citizen participation, communications / press units and the commission secretariats of both Corporations. In addition, it has the constant support of the IT departments of the Senate and the Chamber of Deputies.",
+            "parrafo4": "As mentioned, this is a project funded by the IDB and is available for sharing with other countries in the region.",
+            "parrafo5": "To know the functions of the Chamber of Deputies ",
+            "link_parrafo5": "click here",
+            "y": " and of the Senate ",
+            "link2_parrafo5": "here"
+        },
+        "titulo": "About us?"
+    },
+    "search": {
+        "titulo": "General Search Engine",
+        "buscar_placeholder": "Insert text here",
+        "filtrar": "Filter by",
+        "ordenar": "Order by",
+        "tipo_objeto": {
+            "titulo": "Item type",
+            "opciones": [
+                { "id": 1, "label": "Projects of Law" },
+                { "id": 2, "label": "Fundamentals Ideas" },
+                { "id": 3, "label": "Articles" },
+                { "id": 4, "label": "Public Consultations" },
+                { "id": 5, "label": "Proposals" }
+            ]
+        },
+        "fecha": "Date",
+        "votos": "Major to minor in votes",
+        "resultados": "Total results",
+        "limpiar": "Clean Filters",
+        "buscar": "Search",
+        "no_hay_resultados": "No results found",
+        "ver_mas": "See more",
+        "proyecto": "LAW PROJECT",
+        "articulo": "ARTICLE",
+        "idea": "FUNDAMENTAL IDEA",
+        "consulta": "PUBLIC CONSULTATION",
+        "propuesta": "PROPOSAL",
+        "cargar":"Load More"
+    },
+    "tematica_video": {
+        "leyes": "How laws are made",
+        "parrafo": "In this page you can find multimedia content that will allow you to understand in a simple way the processes to elaborate laws that are carried out in the National Congress of Chile"
+    },
+    "contacto": {
+        "breadcumb": {
+            "inicio": "Home",
+            "contacto": "Contact us"
+        },
+        "contenido": {
+            "titulo": "Virtual Congress Contact",
+            "texto": "Here you can contact the Virtual Congress staff directly, in case you have any questions, suggestions or anything else in particular.",
+            "nombre": "Name",
+            "correo": "Email address",
+            "mensaje": "Message",
+            "info": "Contact information"
+        }
+    },
+    "administrador": {
+        "navbar": {
+            "titulo": "ADMINISTRATOR",
+            "mi_configuracion": {
+                "titulo": "My Settings",
+                "perfil": "Profile"
+            },
+            "usuarios": {
+                "titulo": "Users",
+                "lista_usuarios": "Users List",
+                "lista_expertos": "List of Expert Users",
+                "lista_organizaciones": "List of Organizations",
+                "crear_usuario": "Create User"
+            },
+            "proyectos": {
+                "titulo": "Projects",
+                "lista": "List of Projects",
+                "crear": "Create Project"
+            },
+            "consultas": {
+                "titulo": "Public Consultations",
+                "lista": "List of Public Consultations",
+                "crear": "Create Public Consultation"
+            },
+            "propuestas": {
+                "titulo": "Proposals",
+                "lista": "List of Proposals",
+                "crear": "Create Proposal"
+            },
+            "taxonomias": {
+                "titulo": "Taxonomies",
+                "lista": "Taxonomies List",
+                "crear": "Create Taxonomy"
+            },
+            "moderaciones": {
+                "titulo": "Moderations",
+                "espera": "List of Contributions on Hold",
+                "bloqueados": "List of Contributions Blocked",
+                "clasificados": "List of Classified Contributions",
+                "denuncias": "List of Denounces to Contributions",
+                "palabras_ofensivas": "List of Offensive Words"
+            },
+            "contenido": {
+                "titulo": "Content",
+                "lista": "Pages List",
+                "crear": "Create a Page"
+            },
+            "configuracion": {
+                "titulo": "Configuration",
+                "config": "General Configuration",
+                "menu": "Main Menu Conf.",
+                "footer": "Footer Conf.",
+                "google_analytics": "Google Analytics Conf."
+            }
+        },
+        "table_list": {
+            "no_entries": "No records found.",
+            "entries_select": {
+                "show": "Show",
+                "entries": "entries."
+            },
+            "search_bar": {
+                "placeholder": "Search"
+            },
+            "info_text": {
+                "showing": "Showing",
+                "to": "to",
+                "of": "of",
+                "entries": "entries."
+            },
+            "pagination_btns": {
+                "first_page": "First page",
+                "last_page": "Last page",
+                "previous_page": "Previous page",
+                "next_page": "Next page"
+            }
+        },
+        "componentes": {
+            "terminos": {
+                "titulo": "Terms List",
+                "editar": "Edit",
+                "eliminar": "Delete",
+                "anadir": "Add Son",
+                "buscar": "Search term"
+            },
+            "ideas_proyecto": "List of Fundamental Ideas",
+            "articulos_proyecto": "List of Articles",
+            "crear_proyecto": {
+                "titulo1": "Create Project",
+                "titulo2": "Edit Project",
+                "boletin": "Bulletin",
+                "titulo": "Title of the project",
+                "postulante": "Postulant",
+                "fecha_inicio": "Start date",
+                "popover_fecha_inicio": "Date and time of voting start. After the voting period no user (including administrators) can vote. NOTE: Enter the date and time according to your time zone, this will be automatically converted to UTC.",
+                "fecha_termino": "End date",
+                "popover_fecha_termino": "Date and time of voting end. After the voting period no user (including administrators) can vote. NOTE: Enter the date and time according to your time zone, this will be automatically converted to UTC.",
+                "estado": "State",
+                "etapa": {
+                    "titulo": "Stage",
+                    "popover": "Voting in general: votes are allowed both for the project in general, and for its fundamental ideas. Voting in particular: votes are allowed both for the project in general, and for its fundamental articles and ideas. Voting closed: no votes are allowed for the project in general, fundamental ideas or articles (administrators may also vote for projects at this stage).",
+                    "opcion1": "General vote",
+                    "opcion2": "Particular vote",
+                    "opcion3": "Voting Closed"
+                },
+                "tema_asociado": {
+                    "titulo": "Associated topics",
+                    "buscar": "Search topic"
+                },
+                "stopword": {
+                    "titulo": "Stopwords",
+                    "buscar": "Search or add stopword",
+                    "agregar": "Add as new stopword"
+                },
+                "imagen": "Main image",
+                "archivos": "Other files",
+                "resumen": "Summary",
+                "detalle": "Detail",
+                "suscritos": "Do you want this project to be massively sent to users subscribed to the associated topics?",
+                "publico": "Do you want this project to be shown publicly?",
+                "popover_publico": "If it is public, it is visible to everyone, otherwise, non-administrator users will not be able to access it.",
+                "principal": "Do you want this project to be prominent?",
+                "popover_principal": "Which is marked as prominent, means that the project must be displayed on the first carousel of projects of law on the home page.",
+                "habilitado": "Do you want this project to be enabled to be voted and commented?",
+                "popover_habilitado": "It allows, at any time, to stop accepting comments and votes, even if the project is in stages that involve voting and within the deadlines to vote. NOTE: Administrators may also vote and comment on disabled projects.",
+                "guardar": "Save",
+                "habilitar": "Enable",
+                "deshabilitar": "To disable",
+                "agregar_idea": "Add Fundamental Idea",
+                "agregar_articulo": "Add Article"
+            },
+            "crear_consulta": {
+                "titulo1": "Create Public Consultation",
+                "titulo2": "Edit Public Consultation",
+                "titulo": "Title",
+                "autor": "Author",
+                "icono": "Icon"
+            },
+            "crear_taxonomia": {
+                "titulo1": "Create Taxonomy",
+                "titulo2": "Edit Taxonomy",
+                "nombre": "Taxonomy Name"
+            },
+            "articulo": {
+                "titulo": "Title",
+                "detalle": "Item Detail"
+            },
+            "idea": "Fundamental Idea Detail",
+            "analitica": {
+                "n-grama": "keyword grammar and comments",
+                "nube": "Word cloud",
+                "analisis_usuario": "User Analysis",
+                "datos_votacion": "Data by vote",
+                "n-grama2": "keyword gram, bar chart",
+                "descripcion_n-grama": "An N-gram of keywords is used to refer to the terms that are most used in it. In this case using a bar chart.",
+                "seleccione": "Select the minimum number of words from the phrases shown in the graphic",
+                "no_carga_n-grama": "We're sorry, there was an error loading ngram.",
+                "frecuencia": "Frequency: ",
+                "comentarios": "Comments",
+                "sin_comentarios": "There are no comments for this project of law.",
+                "comentarios_recientes": "Most Recent Comments",
+                "no_identificado": "Unidentified User",
+                "ver_mas": "See more comments",
+                "descripcion_nube": "A word cloud or tag cloud is a visual representation of the words that make up a text, where the size is larger for the words that appear more frequently.",
+                "usuarios": "Users by region",
+                "grafico": "In the following graphic you can visualize the different users and divided according to the place of origin.",
+                "genero_creacion": "Users by gender and creation",
+                "siguiente": "In the following graphic you can visualize the different users and divided according to the year in which they were created and their gender.",
+                "datos": "Data by vote",
+                "seccion": "In the next section you can see a graphical analysis of the different votes made. Either in the general vote, as separated according to general ideas and articles."
+            },
+            "documentos": {
+                "titulo": "Upload Document",
+                "archivo": "File",
+                "subir": "Upload",
+                "descargar": "Download",
+                "eliminar": "Delete"
+            },
+            "eliminar_usuario": {
+                "modal_eliminacion": {
+                    "titulo": "Deleting a user",
+                    "pregunta": "Are you sure you want to delete the user?"
+                },
+                "modal_forzar_eliminacion": {
+                    "titulo": "Are you sure you want to delete the user?",
+                    "pregunta": "Are you sure you want to delete the user permanently?"
+                },
+                "modal_restaurar": {
+                    "titulo": "User restore",
+                    "pregunta": "Are you sure you want to restore the user?"
+                }
+            },
+            "crear_usuario": {
+                "titulo1": "Create User",
+                "titulo2": "Edit User",
+                "rol": {
+                    "titulo": "User role",
+                    "usuario_normal": "Normal user",
+                    "administrador": "Administrator"
+                },
+                "contrasena": {
+                    "titulo": "Password",
+                    "confirme": "Confirm password"
+                },
+                "activo": "Do you want the user to be active?",
+                "registrar_organizacion": "Do you want to register an organization?",
+                "organizacion": {
+                    "titulo": "Organization Registration",
+                    "nombre": "Name",
+                    "correo": "Email",
+                    "enlace": "Link",
+                    "per_jur": "Do you have legal personality?",
+                    "rut": "RUT/DNI",
+                    "representante": "Legal Representative Name",
+                    "tipo": {
+                        "titulo": "Type of organization",
+                        "con_fines_lucro": "For profit",
+                        "sin_fines_lucro": "Non profit"
+                    },
+                    "miembros": {
+                        "titulo": "Members of the Organization",
+                        "apellidos": "Surnames"
+                    },
+                    "ubicaciones": {
+                        "titulo": "Organization Locations",
+                        "direccion": "Direction",
+                        "sector": {
+                            "titulo": "Sector",
+                            "ciudad": "Urban",
+                            "rural": "Rural"
+                        },
+                        "principal": "Mark this location as principal",
+                        "seleccione1": "Select country first",
+                        "seleccione2": "Select the region first"
+                    }
+                }
+            },
+            "crear_organizacion": {
+                "titulo1": "Create Organization",
+                "titulo2": "Edit Organization"
+            },
+            "notificacion": {
+                "seguro": "Are you sure you want to send this email?",
+                "aceptar": "If you accept, an email will be sent to all users subscribed to the categories of this project",
+                "usuarios_suscritos": "Subscribed Users"
+            },
+            "eliminar": {
+                "seguro": "Are you sure you want to delete this item??",
+                "acepta": "This item cannot be recovered once it has been deleted.",
+                "eliminar": "Delete",
+                "eliminados_temporalmente": {
+                    "eliminados": "Temporarily deleted",
+                    "eliminadas": "Temporarily deleted"
+                },
+                "precaucion": "Caution: This action cannot be undone."
+            },
+            "comentarios_denunciados": "List of Denounces to Contributions",
+            "comentarios_espera": "List of Contributions Waiting",
+            "comentarios_bloqueados": "List of Blocked Contributions",
+            "comentarios_clasificados": "List of Classified Contributions",
+            "aporte_espera": {
+                "titulo": "User Report",
+                "comentario": "Comments",
+                "no_identificado": "Unidentified User",
+                "habilitar": "Enable",
+                "bloquear": "To block"
+            },
+            "aporte_reportado": {
+                "titulo": "User Report",
+                "denunciado": "User reported",
+                "denunciante": "Reporting User",
+                "descripcion": "Description",
+                "comentario": "Comment",
+                "no_identificado": "Unidentified User",
+                "bloquear": "Block"
+            },
+            "aporte_bloqueado": {
+                "titulo": "User Report",
+                "usuario": "Username",
+                "denunciante": "Reporting User",
+                "descripcion": "Description",
+                "comentario": "Comment",
+                "no_identificado": "Unidentified User",
+                "habilitar": "Enable"
+            },
+            "aporte_clasificado": {
+                "estado_1": "Public",
+                "estado_2": "Waiting",
+                "estado_3": "Blocked",
+                "estado_4": "Rejected",
+                "estado_5": "No status",
+                "proyecto": "Project",
+                "articulo": "Article",
+                "idea_fundamental": "Fundamental Idea",
+                "consulta_publica": "Public Consultation",
+                "titulo": "Comment from",
+                "hecho_en": "Comment made in",
+                "no_identificado": "Unidentified User",
+                "comentario": "Comment",
+                "atras": "Back"
+            },
+            "palabras_ofensivas": "List of Offensive Words",
+            "editar_percepcion": "Perception",
+            "paginas": "Page List",
+            "footer": {
+                "titulo": "Footer Configuration",
+                "click": "Click on the add pages button in the category where you want to add the selected pages",
+                "editar": "Edit",
+                "eliminar": "Delete",
+                "anadir_hijo": "Add Son",
+                "anadir_paginas": "Add Pages",
+                "guardar": "Save Changes",
+                "editar_categoria": "Add Category",
+                "nombre": "Name",
+                "seleccione": "Select the Pages",
+                "paginas": "Pages"
+            },
+            "menu": "Main Menu Settings",
+            "crear_pagina": {
+                "titulo1": "Create Page",
+                "titulo2": "Edit Page",
+                "nombre": "Name",
+                "categorias": "Categories",
+                "contenido": "Content of the page",
+                "publica": "You want this page to be public?"
+            },
+            "configuracion_general": {
+                "titulo": "General Configuration",
+                "nombre": "Name of the site",
+                "propuestas": "Proposals",
+                "peticiones": "Number of requests",
+                "redes": "Social networks"
+            },
+            "codigo_google": {
+                "titulo": "Google Analytics Code",
+                "codigo": "Code"
+            },
+            "propuestas": "List of Proposals",
+            "crear_propuesta": {
+                "titulo1": "Create Proposal",
+                "titulo2": "Edit Proposal",
+                "titulo": "Title",
+                "boletin": "Bulletin",
+                "autoria": "Authorship",
+                "fecha_ingreso": "Admission date",
+                "tipo": "Type",
+                "propuesta": "Proposal",
+                "urgencia": "Urgency",
+                "detalle": "Detail",
+                "argumento": "Argument",
+                "video_url": "Video URL",
+                "fuente_video": "Video source",
+                "publica": "You want this proposal to be shown publicly?",
+                "activar": "Activate",
+                "desactivar": "Deactivate"
+            }
+        }
+    },
+    "componentes": {
+        "moment": {
+            "horas": "h",
+            "formato_con_hora": "MMM Do YYYY, HH:mm",
+            "formato_sin_hora": "MMM Do YYYY",
+            "formato_editable_con_hora": "YYYY-MM-DD HH:mm:ss"
+        },
+        "dropzone": {
+            "dictDefaultMessage": "Drop files here to upload",
+            "dictFallbackMessage": "Your browser does not support drag'n'drop file uploads.",
+            "dictFallbackText": "Please use the fallback form below to upload your files like in the olden days.",
+            "dictFileTooBig": "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
+            "dictInvalidFileType": "You can't upload files of this type.",
+            "dictResponseError": "Server responded with {{statusCode}} code.",
+            "dictCancelUpload": "Cancel upload",
+            "dictUploadCanceled": "File upload has been canceled.",
+            "dictCancelUploadConfirmation": "Are you sure you want to cancel this upload?",
+            "dictRemoveFile": "Remove file",
+            "dictRemoveFileConfirmation": "Are you sure you want to remove the file?",
+            "dictMaxFilesExceeded": "You can not upload any more files."
+        },
+        "comentarios": {
+            "buscar": "Search",
+            "buscar_placeholder": "Search comment",
+            "orden": {
+                "titulo": "Order by",
+                "opciones": [
+                    { "id": 1, "label": "Creation date (Asc.)" },
+                    { "id": 2, "label": "Creation date (Desc.)" },
+                    { "id": 3, "label": "Quantity of \"Likes\" (Asc.)" },
+                    { "id": 4, "label": "Quantity of \"Likes\" (Desc.)" },
+                    { "id": 5, "label": "Quantity of \"I don't like\" (Asc.)" },
+                    { "id": 6, "label": "Cantidad de \"I don't like\" (Desc.)" }
+                ]
+            },
+            "no_hay_comentarios": "No comments available.",
+            "ver_mas": "See more",
+            "no_identificado": "Unidentified User",
+            "responder": "Reply",
+            "mas_comentarios": "See More Comments",
+            "respondiendo_comentario": "Replying to the comment",
+            "comentar_placeholder": "Leave a comment...",
+            "extensiones": "Allowed Extensions",
+            "comentar": "Comment",
+            "subir": "Upload file",
+            "editar": "Edit",
+            "denunciar": {
+                "no_identificado": "Report unidentified user comment",
+                "usuario": "Report comment from",
+                "razon": "Reason",
+                "lenguaje_indebido": "Improper language",
+                "acoso": "harassment",
+                "inapropiado": "Inappropriate content",
+                "violencia": "Violence",
+                "spam": "Spam",
+                "terrorismo": "Terrorism",
+                "descripcion": "Description",
+                "enviar": "Send"
+            }
+        },
+        "cuenta_regresiva": {
+            "dias": "Days",
+            "horas": "Hours",
+            "minutos": "Minutes"
+        },
+        "footer": {
+            "avenida": "Avenue",
+            "telefonos": "Phones",
+            "congreso": "Virtual Congress" 
+        }
+    },
+    "invalid-feedback": {
+        "rut": "Enter the DNI/RUT.",
+        "area": "Please write your performance area.",
+        "temas": "Please write the main topics of your work.",
+        "representante": "Enter the name of the representative",
+        "pais": "Please enter your country of residence.",
+        "region": "Please write the State/region where you live.",
+        "comuna": "Please write the city/commune to which it belongs."
+    },
+    "votos": {
+        "a_favor": "In favor",
+        "en_contra": "Against",
+        "abstencion": "Abstention"
+    },
+    "tiempo": "Time remaining",
+    "cerrar": "Close",
+    "cancelar": "Cancel",
+    "participar": "Participate",
+    "compartir": "Share",
+    "spanish": "Spanish",
+    "english": "English",
+    "votacion_general": "VOTING IN GENERAL",
+    "votacion_particular": "VOTING IN PARTICULAR",
+    "votacion_cerrada": "CLOSED VOTE",
+    "ver_consulta": "View consultation",
+    "mostrar": "Show",
+    "guardar": "Save",
+    "anadir": "Add",
+    "papelera": "Trash",
+    "enviar": "Send",
+    "volver": "Back",
+    "acciones": "Actions",
+    "editar": "Edit",
+    "eliminar": "Delete",
+    "eliminar_permanente": "Permanently delete",
+    "restaurar": "Restore",
+    "si": "Yes",
+    "no": "No"
+}

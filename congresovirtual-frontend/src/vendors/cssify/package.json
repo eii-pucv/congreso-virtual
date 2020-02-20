@@ -1,0 +1,56 @@
+{
+  "_from": "cssify@~0.3.0",
+  "_id": "cssify@0.3.0",
+  "_inBundle": false,
+  "_integrity": "sha1-IshLWiqpbL7EqfK43d1sbKNX8yk=",
+  "_location": "/cssify",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "cssify@~0.3.0",
+    "name": "cssify",
+    "escapedName": "cssify",
+    "rawSpec": "~0.3.0",
+    "saveSpec": null,
+    "fetchSpec": "~0.3.0"
+  },
+  "_requiredBy": [
+    "/switchery"
+  ],
+  "_resolved": "https://registry.npmjs.org/cssify/-/cssify-0.3.0.tgz",
+  "_shasum": "22c84b5a2aa96cbec4a9f2b8dddd6c6ca357f329",
+  "_spec": "cssify@~0.3.0",
+  "_where": "C:\\Users\\johan\\Desktop\\elements-griffin-9KY6RL2-2019-04-26\\griffin_download_pack\\html\\node_modules\\switchery",
+  "author": {
+    "name": "David Guttman"
+  },
+  "browserify": "./browser.js",
+  "bundleDependencies": false,
+  "dependencies": {
+    "through": "~2.3.4"
+  },
+  "deprecated": false,
+  "description": "A simple Browserify transform for adding required styles to the browser.",
+  "devDependencies": {
+    "browserify": "~2.32.2",
+    "concat-stream": "~1.0.1",
+    "jsdom": "~0.8.5",
+    "mocha": "~1.13.0"
+  },
+  "keywords": [
+    "browserify",
+    "css",
+    "transform",
+    "dom",
+    "browser"
+  ],
+  "license": "BSD",
+  "main": "./index.js",
+  "name": "cssify",
+  "repository": "",
+  "scripts": {
+    "test": "mocha"
+  },
+  "version": "0.3.0"
+}
