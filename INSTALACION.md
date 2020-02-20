@@ -1,3 +1,5 @@
+# Guía de instalación de Congreso Virtual
+
 La arquitectura de Congreso Virtual está compuesta con 3 partes para su correcto funcionamiento: Backend, Frontend y Data-Analytics.
 
 Por lo tanto, para instalar y hacer funcionar el sistema, deberá clonar el repositorio completo en una carpeta arbitraria que ud. elija, ya que luego tendrá mover las carpetas contenidas en el repositorio a las rutas que deben quedar cada una de las partes.
