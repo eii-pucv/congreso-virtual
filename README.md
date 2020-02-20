@@ -2,20 +2,9 @@
 
 [English documentation](..blob/master/README_en.md)
 
-Proyecto de participación ciudadana en el proceso de fomación de la ley a traves del conocimiento y debate en los proyectos de ley.
-
-Indice de temas:
-
-* Acerca de Congreso Virtual
-* Guía de usuario
-* Guía de instalación
-* Autores
-* Información adicional
-* Licencia
+Software que busca la participación ciudadana en el proceso de fomación de la ley a traves del conocimiento y debate en los proyectos.
 
 ## Acerca  de Congreso Virtual
-
----
 
 El Senado de Chile creó una herramienta tecnológica creada Senador Virtual en 2003, que tenía como objetivo que la ciudadanía conociera el proceso de la formación de la ley. Con el tiempo, pasó de ser una plataforma de educación a una de participación ciudadana en el proceso legislativo con más de 120 mil personas inscritas.
 
@@ -23,24 +12,16 @@ En 2018, viendo la necesidad de mejorar y fomentar los procesos de participació
 
 El Congreso Virtual está a cargo de un Comité integrado por el Grupo Bicameral de Transparencia, las unidades de participación ciudadana, comunicaciones / prensa y las secretarías de comisiones de ambas Corporaciones. Además, cuenta con el apoyo constante de los departamentos de informática del Senado y de la Cámara de Diputados.
 
-## Guía de usuario
+## Documentación
 
----
-
-Podrás encontrar el manual de usuario de Congreso Virtual haciendo click [aquí](../blob/master/DOCS/MANUAL_USUARIO).
-
-## Guía de instalación
-
----
-
-* Podrás configurar el ambiente recomendado para instalar Congreso Virtual, siguiendo la guía de [INSTALACION DE AMBIENTE](../blob/master/DOCS/INSTALACION_AMBIENTE):
-Contiene: Preparación Sistema Operativo, instalación Base de Datos, servidor web Apache, PHP, Composer, GIT, ElasticSearch, NodeJs, Python y Soluciones a problemas comunes.
-* Puedes instalar y configurar el Backend, Frontend y Data-Analytics de Congreso Virtual, viendo la [guía de instalación](../blob/master/INSTALACION).
+En la carpeta DOCS podrás encontrar información para instalar, configurar y usar el software Congreso Virtual. Además de cómo hacer uso de la herramienta para explotación de datos.
+* [Guía de usuario](https://github.com/eii-pucv/congreso-virtual/blob/master/DOCS/MANUAL_USUARIO.pdf): Manual para explorar las funcionalidades de Congreso Virtual.
+* [Guía de instalación](https://github.com/eii-pucv/congreso-virtual/blob/master/INSTALACION.md): Pasos para clonar y configurar los componentes de Congreso Virtual.
+* [Instalación de ambiente](https://github.com/eii-pucv/congreso-virtual/blob/master/DOCS/INSTALACION_AMBIENTE.pdf): Para que puedas configurar el ambiente recomendado para hacer uso de esta plataforma. Además incluye una sección de _Soluciones a Problemas Comunes_.
 
 ## Información adicional
 
----
-Lo invitamos a visitar sitios de interés haciendo click en los siguientes enlaces:
+Invitamos a visitar sitios que pueden ser de su interés, relacionados a este proyecto.
 
 * [Conocer las funciones de la Cámara de Diputados de Chile.](https://www.camara.cl/camara/camara_diputados.aspx)
 * [Saber acerca del Senado de Chile.](https://www.senado.cl/funciones-del-senado/senado/2012-11-07/100615.html)
@@ -48,6 +29,5 @@ Lo invitamos a visitar sitios de interés haciendo click en los siguientes enlac
 
 ## Licencia
 
----
 
 Código publicado bajo [Licencia de Software del BID](../blob/master/LICENCIA)
