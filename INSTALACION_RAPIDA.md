@@ -19,6 +19,7 @@ Una vez finalizado el proceso, deje unos 15 minutos adicionales para que Congres
 Una vez funcionando Congreso Virtual, deseará poblar éste con información inicial. Para aquel fin, se recomienda instalar los datos iniciales en la base de datos ejecutando este comando.
 
     ./installinitialdata.sh
+Se creará con ello un usuario `admin@congresovirtual.cl` con contraseña `abc123456`
 
 En cualquier momento usted puede ver los logs de Congreso Virtual (y sus componentes) ejecutando
 
@@ -75,8 +76,9 @@ Una vez que haya finalizado el inicio, en segundo plano Congreso Virtual correr�
 Una vez funcionando Congreso Virtual por primera vez, deseará poblar éste con información inicial. Para aquel fin, se recomienda instalar los datos iniciales en la base de datos ejecutando este comando.
 
     ./installinitialdata.sh
+Se creará con ello un usuario `admin@congresovirtual.cl` con contraseña `abc123456`
 
-NOTA: Si necesita cargar un set de datos especiales, puede editar el archivo `/dist/volumefiles/initialdata.sql` e ingresarlos allí. Luego correr `./installinitialdata.sh` para aplicarlo.
+**NOTA:** Si necesita cargar un set de datos especiales, puede editar el archivo `/dist/volumefiles/initialdata.sql` e ingresarlos allí. Luego correr `./installinitialdata.sh` para aplicarlo.
 
 De la misma forma, puede parar la ejecución de Congreso Virtual con el comando
 
