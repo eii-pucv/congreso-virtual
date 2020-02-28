@@ -1,9 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('Congreso setup (Fast setup)') {
+        stage('Congreso setup (Fast setup/update)') {
 			steps {
-				sh './fast_setup.sh'
+				sh './fast_setup_jenkins.sh'
             }
         }
     }
