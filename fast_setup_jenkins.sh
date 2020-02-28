@@ -1,7 +1,10 @@
 #!/bin/bash
 
-mv env.cfg .env
+echo $CONGRESO_ENV > .env
 ls -lah
+cat .env
+
+exit 0;
 
 if [ ! -d "dist" ]; then
 	./fast_setup.sh
