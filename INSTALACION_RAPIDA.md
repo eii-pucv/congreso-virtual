@@ -1,14 +1,22 @@
 ## Instalación rápida con uso de consola bash.
 Congreso Virtual ofrece la opción de Instalación rápida, el cual luego de configurar algunos parámetros permite construir y correr Congreso Virtual en su servidor mediante contenedores Docker. Es una alternativa mas expresa que montar la plataforma de forma tradicional, según describe la documentación.
 
+**NOTA:** Si bien, estos scripts son hechos para bash, y por ende, pensados para sistemas basados en UNIX (Linux, OSX, otros), pueden también correrse en Windows con ayuda de componentes adicionales, tales como MSYS2, Git for Windows o WSL.
+
 Para efectuar la instalación rápida de Congreso Virtual se necesitará tener instalado en su sistema operativo los siguientes componentes:
 
  - [Docker](https://docs.docker.com/get-started/)
  - [Docker-compose](https://docs.docker.com/compose/install/)
 
-Además, asegúrese que el servidor posea los puertos 3306, 80, 443 y 8080 desocupados. 
+Además, asegúrese que el servidor posea los puertos 80 y 443 desocupados. 
 
-Luego de clonar el repositorio de Congreso Virtual, por favor copie el archivo `.env` localizado en `/volumefiles/` a la raiz del repositorio, y configure los parámetros dentro a su gusto. Una vez listo ejecute el siguiente comando para iniciar la instalación.
+Luego de clonar el repositorio de Congreso Virtual, por favor copie el archivo `.env` localizado en `/volumefiles/` a la raiz del repositorio, y configure los parámetros dentro a su gusto (Viene ya preconfigurado, aunque deberá especificar algunos parametros tales como las URL de funcionamiento). 
+
+**NOTA:** El script de instalación CREARÁ una base de datos en un contenedor Docker, no es necesario que usted prepare una. Los datos que aparece en la configuración son usados al momento de crear las tablas.
+
+**NOTA:** Si desea habilitar HTTPS, por favor, ponga su certificado en `/volumefiles/certs/cert.crt` y `/volumefiles/certs/cert.key`
+
+Una vez listo ejecute el siguiente comando para iniciar la instalación.
 
     ./fast_setup.sh
 
@@ -31,16 +39,16 @@ Puede parar la ejecución de congreso virtual en cualquier momento ejecutando el
 
 De la misma forma puede volver a iniciar el servidor ejecutando
 
-    ./start.sh
+    ./run.sh
 
 ## Actualización rápida con uso de consola bash.
 De la misma forma que la instalación, Congreso Virtual permite una forma rápida de actualizar la plataforma a su versión mas reciente.
 
-Para ello, deberá hacer pull del repositorio que haya copiado, y en seguida correr el siguiente comando.
+Para ello, simplemente actualice su repositorio (git pull), y luego ejecute el siguiente comando para iniciar la actualización.
 
     ./fast_update.sh
 
-Esperando aproximadamente 30 minutos para la instalación y migración, Congreso Virtual ya estará corriendo en su última versión. 
+Deberá esperar aproximadamente 30 minutos dependiendo del rendimiento del servidor (durante este periodo Congreso Virtual estará fuera de servicio). Una vez finalizado y esperado los 5 minutos post instalación, Congreso Virtual se encontrará actualizado y nuevamente listo para operar.
 
 ## Uso manual de los scripts de mantenimiento.
 Si desea ir paso por paso por los procesos de instalación y actualización (ya sea por personalizar pasos, o bien ), es posible operar los scripts de forma manual.
@@ -49,14 +57,14 @@ El primer script es ./configure.sh cuya tarea es ayudar en las tareas de configu
 
 Para inicializar una carpeta dist se deberá ejecutar el comando
 
-    ./configure --prepare=$UID
+    ./configure.sh --prepare=$UID
 Donde UID es el ID de usuario actual. Una vez inicializado, el script invitará a configurar el archivo /dist/volumefiles/.env con la información correspondiente. 
 
 **NOTA:** Si desea habilitar HTTPS, por favor, ponga su certificado en `/dist/volumefiles/certs/cert.crt` y `/dist/volumefiles/certs/cert.key`
 
 Para aplicar la configuración del .env ejecutar
 
-    ./configure --applyconfig
+    ./configure.sh --applyconfig
 Una vez finalizada la aplicación de la configuración, podrá compilar el frontend de la carpeta dist (basado en vue), ejecutando el comando
 
     ./compile_frontend.sh
@@ -96,4 +104,4 @@ El script de configure tambien permite realizar la actualización del codigo del
 
     ./configure.sh --update
 
-Esto rescatará la configuración y data persistente de Congreso Virtual, y luego sobrescribirá todo el código, para finalmente restaurar la data persistente. Una vez terminado el proceso deberá recompilar el frontend.  
+Esto rescatará la configuración y data persistente de Congreso Virtual, y luego actulalizará el código fuente, para finalmente efectuar la restauración de los datos de la antigua versión. Una vez terminado el proceso deberá recompilar el frontend con los pasos descritos mas arriba.
