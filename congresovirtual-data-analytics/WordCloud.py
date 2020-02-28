@@ -21,7 +21,8 @@ def get_data():
         host=dbconfig.CONGRESO_MYSQL_HOST,
         user=dbconfig.CONGRESO_MYSQL_USER,
         passwd=dbconfig.CONGRESO_MYSQL_PASSWD,
-        database=dbconfig.CONGRESO_MYSQL_DATABASE
+        database=dbconfig.CONGRESO_MYSQL_DATABASE,
+        ssl_disabled=True
     )
 
     #print(mydb)
@@ -37,7 +38,8 @@ def get_data(id_proyect):
         host=dbconfig.CONGRESO_MYSQL_HOST,
         user=dbconfig.CONGRESO_MYSQL_USER,
         passwd=dbconfig.CONGRESO_MYSQL_PASSWD,
-        database=dbconfig.CONGRESO_MYSQL_DATABASE
+        database=dbconfig.CONGRESO_MYSQL_DATABASE,
+        ssl_disabled=True
     )
 
     #print(mydb)

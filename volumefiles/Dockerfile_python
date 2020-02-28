@@ -1,0 +1,18 @@
+FROM python:3.7-slim-buster
+
+WORKDIR /app
+
+COPY ./congresovirtual-data-analytics/requirements.txt /app/
+
+USER root
+
+RUN apt-get update
+
+RUN apt-get install -y python3-scipy default-libmysqlclient-dev build-essential libpng-dev libfreetype6-dev libopenblas-dev wget
+
+RUN pip3 install --upgrade pip \
+    && pip3 install --no-cache-dir -r requirements.txt
+
+WORKDIR /app/congresovirtual-data-analytics/
+
+CMD [ "python3", "-m", "flask", "run" ]

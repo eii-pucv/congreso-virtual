@@ -1,0 +1,105 @@
+version: '3'
+services:
+    #====================================================
+    #Apache
+    #====================================================
+    apache:
+        image: saravak/httpd-proxyenabled
+        container_name: apache
+        restart: unless-stopped
+        tty: true 
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./volumefiles/httpd.conf:/usr/local/apache2/conf/httpd.conf
+            - ./volumefiles/default/:/var/www/default/
+            - ./congresovirtual-backend/:/var/www/congresovirtual-backend/:Z
+            - ./congresovirtual-frontend/:/var/www/congresovirtual-frontend/:Z
+        networks:
+            - congreso-network
+
+    #====================================================
+    #PHP
+    #====================================================
+    php:
+        build:
+            context: .
+            dockerfile: Dockerfile_php
+        image: php:7.2-fpm
+        container_name: php
+        restart: unless-stopped
+        tty: true
+        depends_on:
+            - "mysql"
+        working_dir: /var/www/congresovirtual-backend/
+        volumes:
+            - ./congresovirtual-backend/:/var/www/congresovirtual-backend/:Z
+            - ./volumefiles/php.ini:/usr/local/etc/php/php.ini
+        networks:
+            - congreso-network
+
+    #====================================================
+    #MySQL
+    #====================================================
+    mysql:
+        image: mysql:5.7.22
+        container_name: mysql
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: {{DB_DATABASE}}
+            MYSQL_USER: {{DB_USERNAME}}
+            MYSQL_PASSWORD: {{DB_PASSWORD}}
+            MYSQL_ROOT_PASSWORD: {{DB_PASSWORD}}
+        volumes:
+            - ./volumefiles/mysql/:/var/lib/mysql
+            - ./volumefiles/my.cnf:/etc/mysql/my.cnf
+        networks:
+            - congreso-network
+            
+    #====================================================
+    #ElasticSearch
+    #====================================================
+    elasticsearch:
+        image: elasticsearch:7.6.0
+        container_name: elasticsearch
+        restart: unless-stopped
+        tty: true
+        environment:
+            - discovery.type=single-node
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            - discovery.seed_hosts=elasticsearch-default-2:9300
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        volumes:
+            - ./volumefiles/elasticsearch/:/usr/share/elasticsearch/data
+        networks:
+            - congreso-network
+    #====================================================
+    #Python
+    #====================================================
+    python-congreso-analytics:
+        build:
+            context: .
+            dockerfile: Dockerfile_python
+        image: python:3.7-slim-buster
+        container_name: python-congreso-analytics
+        restart: unless-stopped
+        tty: true
+        volumes:
+            - ./congresovirtual-data-analytics/:/app/congresovirtual-data-analytics
+        networks:
+            - congreso-network
+
+
+#Docker Networks
+networks:
+    congreso-network:
+        driver: bridge
+        

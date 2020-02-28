@@ -1,2 +1,2 @@
-const API_URL = "https://api-congresovirtual.senado.cl"; //"https://api-congresovirtual.senado.cl"; //"http://localhost/congreso-swagger/public";
+const API_URL = "{{APP_URL}}";
 export { API_URL };

@@ -1416,6 +1416,7 @@ class ProjectController extends Controller
             $pdf->setOption('enable-smart-shrinking', true);
             $pdf->setOption('no-stop-slow-scripts', true);
             $pdf->setOption('lowquality', false);
+            $pdf->setOption('load-error-handling', 'ignore');
 
             return $pdf->download('Project report ' . date("Y-m-d H:i:s", time()) . '.pdf');
         } catch (\Exception $exception) {

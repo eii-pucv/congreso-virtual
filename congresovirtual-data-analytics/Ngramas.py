@@ -20,7 +20,8 @@ def ngrams(proyect,words):
         host=dbconfig.CONGRESO_MYSQL_HOST,
         user=dbconfig.CONGRESO_MYSQL_USER,
         passwd=dbconfig.CONGRESO_MYSQL_PASSWD,
-        database=dbconfig.CONGRESO_MYSQL_DATABASE
+        database=dbconfig.CONGRESO_MYSQL_DATABASE,
+        ssl_disabled=True
     )
     
     textos = pd.read_sql('select * from comments where project_id='+ str(proyect), con=mydb)
