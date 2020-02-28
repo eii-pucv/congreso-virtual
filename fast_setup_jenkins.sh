@@ -1,6 +1,7 @@
 #!/bin/bash
 
-ls -lah 
+mv env.cfg .env
+ls -lah
 
 if [ ! -d "dist" ]; then
 	./fast_setup.sh
