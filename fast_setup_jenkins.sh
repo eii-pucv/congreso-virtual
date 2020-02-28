@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo $CONGRESO_ENV
 echo $CONGRESO_ENV > .env
 ls -lah
 cat .env
