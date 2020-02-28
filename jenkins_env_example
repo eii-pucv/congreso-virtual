@@ -1,0 +1,70 @@
+# ============================================================================================\n
+# General options used for deployment and backend.\n
+# ============================================================================================\n
+\n
+#This will be the URL to backend. Please use HTTP or HTTPS when necessary. \n
+APP_URL=http://api.congresovirtual.domain\n
+\n
+#This will be the URL to frontend. Please se HTTP or HTTPS when necessary.\n
+APP_CLIENT_URL=http://congresovirtual.domain\n
+\n
+#Configure with 0 or 1 if this site will be use HTTPS. If you intend to use a reverse proxy, you must leave as 0.\n
+#If enabled, please put your certificates in dist/volumefiles/certs as cert.cert and cert.key (you can customize your configuration in httpd.conf).\n
+CONGRESO_DPL_USE_HTTPS=0\n
+\n
+#Configuration for MySQL database. That database will be created in a container when deploy. \n
+DB_DATABASE=database\n
+DB_USERNAME=user\n
+DB_PASSWORD=password\n
+\n
+# ============================================================================================\n
+#Other options, for using in backend.\n
+# ============================================================================================\n
+\n
+APP_NAME="Congreso Virtual"\n
+APP_ENV=local\n
+APP_KEY=base64:Gl4V4IdAFdzVyJ2ByXtvOXRdJpteO8Awssz2aB3Squg=\n
+APP_DEBUG=true\n
+\n
+#It's configured as special DNS for Docker. Replace with a hostname/IP address if desired.\n
+APP_ANALYTIC_URL=http://python-congreso-analytics:5000\n
+ELASTICSEARCH_ENABLED=true\n
+ELASTICSEARCH_HOSTS="elasticsearch:9200"\n
+LOG_CHANNEL=stack\n
+DB_CONNECTION=mysql\n
+\n
+#It's configured as special DNS for Docker. Replace with a hostname/IP address if desired.\n
+DB_HOST=mysql \n
+DB_PORT=3306\n
+BROADCAST_DRIVER=log\n
+CACHE_DRIVER=file\n
+QUEUE_CONNECTION=sync\n
+SESSION_DRIVER=file\n
+SESSION_LIFETIME=120\n
+REDIS_HOST=127.0.0.1\n
+REDIS_PASSWORD=null\n
+REDIS_PORT=6379\n
+MAIL_DRIVER=smtp\n
+MAIL_HOST=smtp.ethereal.email\n
+MAIL_PORT=587\n
+MAIL_USERNAME=jake.dubuque73@ethereal.email\n
+MAIL_PASSWORD=faAjp1RRZXdh13CYfs\n
+MAIL_FROM_ADDRESS=jake.dubuque73@ethereal.email\n
+MAIL_FROM_NAME="Congreso Virtual"\n
+AWS_ACCESS_KEY_ID=\n
+AWS_SECRET_ACCESS_KEY=\n
+AWS_DEFAULT_REGION=us-east-1\n
+AWS_BUCKET=\n
+PUSHER_APP_ID=\n
+PUSHER_APP_KEY=\n
+PUSHER_APP_SECRET=\n
+PUSHER_APP_CLUSTER=mt1\n
+MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"\n
+MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"\n
+TWITTER_ID=\n
+TWITTER_SECRET=\n
+TWITTER_URL=\n
+FACEBOOK_SECRET=\n
+FACEBOOK_URL=\n
+GOOGLE_SECRET=\n
+GOOGLE_URL=\n

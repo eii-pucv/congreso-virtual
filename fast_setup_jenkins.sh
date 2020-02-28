@@ -1,7 +1,7 @@
 #!/bin/bash
 
-echo $CONGRESO_ENV
-echo $CONGRESO_ENV > .env
+echo -e $CONGRESO_ENV
+echo -e $CONGRESO_ENV > .env
 ls -lah
 cat .env
 
