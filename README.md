@@ -31,4 +31,4 @@ Invitamos a visitar sitios que pueden ser de su interés, relacionados a este pr
 
 ## Licencia
 
-El contenido de esta guía está licenciada bajo Creative Commons IGO 3.0 Attribution-NonCommercial-NoDerivative [CC-IGO 3.0 BY-NC-ND](https://github.com/eii-pucv/congreso-virtual/blob/blob/master/LICENCIA)
+El contenido de esta guía está licenciada bajo Creative Commons IGO 3.0 Attribution-NonCommercial-NoDerivative [CC-IGO 3.0 BY-NC-ND](https://github.com/eii-pucv/congreso-virtual/blob/master/LICENCIA)
