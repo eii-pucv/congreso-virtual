@@ -1,6 +1,6 @@
 # Congreso Virtual
 
-[![Build Status](http://trole.informaticapucv.cl:2083/buildStatus/icon?job=CongresoVirtual&style=plastic)]
+![Build Status](http://trole.informaticapucv.cl:2083/buildStatus/icon?job=CongresoVirtual&style=plastic)
 
 [English documentation](..blob/master/README_en.md)
 
