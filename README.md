@@ -18,7 +18,7 @@ El Congreso Virtual está a cargo de un Comité integrado por el Grupo Bicameral
 
 En la carpeta DOCS podrás encontrar información para instalar, configurar y usar el software Congreso Virtual. Además de cómo hacer uso de la herramienta para explotación de datos.
 * [Guía de usuario](https://github.com/eii-pucv/congreso-virtual/blob/master/DOCS/MANUAL_USUARIO.pdf): Manual para explorar las funcionalidades de Congreso Virtual.
-* [Guía de instalación rápida](https://github.com/eii-pucv/congreso-virtual/blob/master/INSTALACION_RAPIDA.md): Para instalar, ejecutar y actualizar Congreso Virtual utilizando scripts automatizados (recomendado).
+* [Guía de instalación rápida](DOCS/INSTALACION_RAPIDA.md): Para instalar, ejecutar y actualizar Congreso Virtual utilizando scripts automatizados (recomendado).
 * [Guía de instalación](https://github.com/eii-pucv/congreso-virtual/blob/master/INSTALACION.md): Pasos mas en detalle para clonar y configurar manualmente los componentes de Congreso Virtual.
 * [Instalación de ambiente](https://github.com/eii-pucv/congreso-virtual/blob/master/DOCS/INSTALACION_AMBIENTE.pdf): Para que puedas configurar el ambiente recomendado para hacer uso de esta plataforma. Además incluye una sección de _Soluciones a Problemas Comunes_.
 

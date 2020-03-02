@@ -1,5 +1,6 @@
 #!/bin/bash
 set -o errexit
+cd ..
 
 #Check docker
 if which docker >/dev/null; then
@@ -7,3 +8,4 @@ if which docker >/dev/null; then
 else
 	echo -e "Docker is not present and/or installed\nThis is a requirement for configuring and deploying Congreso Virtual."
 fi
+cd scripts
