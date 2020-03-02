@@ -1,5 +1,7 @@
 # Congreso Virtual
 
+[![Build Status](http://trole.informaticapucv.cl:2083/buildStatus/icon?job=CongresoVirtual&style=plastic)]
+
 [English documentation](..blob/master/README_en.md)
 
 Software que busca la participación ciudadana en el proceso de fomación de la ley a traves del conocimiento y debate en los proyectos.

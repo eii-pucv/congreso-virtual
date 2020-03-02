@@ -5,10 +5,12 @@ Congreso Virtual ofrece la opción de Instalación rápida, el cual luego de con
 
 Para efectuar la instalación rápida de Congreso Virtual se necesitará tener instalado en su sistema operativo los siguientes componentes:
 
- - [Docker](https://docs.docker.com/get-started/)
+ - [Docker CE](https://docs.docker.com/get-started/)
  - [Docker-compose](https://docs.docker.com/compose/install/)
 
 Además, asegúrese que el servidor posea los puertos 80 y 443 desocupados. 
+
+**NOTA:** Es posible ejecutar la instalación rápida desde su servidor de Integración Continua (Jenkins) vía este repositorio. Ver mas abajo el capítulo [Instalación con Jenkins](#instalación-con-jenkins).
 
 Luego de clonar el repositorio de Congreso Virtual, por favor copie el archivo `.env` localizado en `/volumefiles/` a la raiz del repositorio, y configure los parámetros dentro a su gusto (Viene ya preconfigurado, aunque deberá especificar algunos parametros tales como las URL de funcionamiento). 
 
@@ -105,3 +107,17 @@ El script de configure tambien permite realizar la actualización del codigo del
     ./configure.sh --update
 
 Esto rescatará la configuración y data persistente de Congreso Virtual, y luego actulalizará el código fuente, para finalmente efectuar la restauración de los datos de la antigua versión. Una vez terminado el proceso deberá recompilar el frontend con los pasos descritos mas arriba.
+
+## Instalación con Jenkins
+Se ha incluido además en el repositorio un fichero Jenkinsfile para que pueda integrar Congreso Virtual a su entorno de Integración Continua si lo desea (escencialmente, realiza exactamente las mismas tareas que la instalación rápida). 
+
+Antes de empezar asegúrese que el nodo Jenkins donde trabajará tenga instalado Docker como especifica los requerimientos, además de asegurarse que el usuario Jenkins forma parte del grupo Docker (para que pueda ejecutar contenedores):
+
+    usermod -aG docker your_username
+Una vez listo, agregue Congreso Virtual a Jenkins como Pipeline, apuntando el origen al repositorio. Es importante mencionar que deberá configurar la plataforma antes de construirla, por lo que deberá activar la opción **"Esta ejecución debe parametrizarse"** con un parámetro de **tipo texto** llamado `CONGRESO_ENV` . El contenido del parámetro como base deberá ser la del archivo [jenkins_env_example](https://github.com/eii-pucv/congreso-virtual/blob/master/jenkins_env_example) del repositorio. 
+
+![Parametrizado Jenkins](https://raw.github.com/eii-pucv/congreso-virtual/master/docs_parametrizado.png)
+
+Acá, o al momento de ejecución podrá personalizar los parámetros a su gusto, tal como indican las instrucciones del fast_setup/update. 
+
+Al iniciar la tarea detectará si CongresoVirtual ya se encuentra funcionando o no, y dependiendo de ello instalará o actualizará la plataforma automáticamente, bajo lo indicado en éste manual. 
