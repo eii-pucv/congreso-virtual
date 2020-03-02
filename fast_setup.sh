@@ -1,4 +1,5 @@
 #!/bin/bash
+set -o errexit
 
 #Check docker
 if ! which docker >/dev/null ; then
@@ -22,7 +23,7 @@ if ! test -f ./.env ; then
 fi
 
 chmod 777 compile_frontend.sh configure.sh livelog.sh run.sh stop.sh fast_update.sh installinitialdata.sh
-./configure.sh --prepare=$UID
+./configure.sh --prepare --UID=$UID --GID=$(cut -d: -f3 < <(getent group $UID))
 echo "CONGRESO_USER_UID=${UID}" >> ./.env
 mv -f .env ./dist/volumefiles/
 ./configure.sh --applyconfig

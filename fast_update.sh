@@ -1,4 +1,5 @@
 #!/bin/bash
+set -o errexit
 
 #Check docker
 if which docker >/dev/null  &&  which docker-compose >/dev/null ; then

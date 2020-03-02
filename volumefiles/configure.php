@@ -13,7 +13,7 @@ This file is copyrighted under BID License. See LICENSE.md for details.
 function congreso_check_error($out, $error_msg) {
 	if (!$out) {
 		echo "ERROR: ". $error_msg . "\n\n";
-		exit;
+		exit(1);
 	}
 }
 
@@ -55,9 +55,10 @@ function congreso_execute($command) {
 }
 
 #===================================================================================================
-function congreso_command_prepare($UID) {
-		echo "Preparing environment for deploying Congreso Virtual\n";
+function congreso_command_prepare($UID, $GID) {
+	echo "Preparing environment for deploying Congreso Virtual\n";
 	echo "Using UID = " . $UID ."\n";
+	echo "Using GID = " . $GID ."\n";
 	echo "Creating folder dist\n";
 	$out = mkdir("/app/dist");
 	congreso_check_error($out, "Error while creating folder dist.");
@@ -82,14 +83,15 @@ function congreso_command_prepare($UID) {
 	//adding user configuration string at end of env file
 	echo "Adding UID configuration to dist env file\n";
 	$out = file_put_contents("/app/dist/volumefiles/.env", "\nCONGRESO_USER_UID=" . $UID . "\n", FILE_APPEND);
+	$out = file_put_contents("/app/dist/volumefiles/.env", "\nCONGRESO_USER_GID=" . $GID . "\n", FILE_APPEND);
 	
 	//setting permissions on dist folder
 	echo "Setting proper permissions on dist folder\n";
-	$out = congreso_execute("chown -R " . $UID . " /app/dist/");
+	$out = congreso_execute("chown -R " . $UID . ":" . $GID . " /app/dist/");
 	congreso_check_error($out, "Error while setting user permissions to dist folder.");
 	$out = congreso_execute("chmod -R 776 /app/dist/");
 	congreso_check_error($out, "Error while setting access to dist folder.");
-	$out = congreso_execute("chown -R 33:" . $UID . " /app/dist/congresovirtual-backend/");
+	$out = congreso_execute("chown -R 33:" . $GID . " /app/dist/congresovirtual-backend/");
 	congreso_check_error($out, "Error while setting user permissions to backend folder.");
 	$out = congreso_execute("chmod -R 777 /app/dist/volumefiles/installinitialdata.sh");
 	congreso_check_error($out, "Error while setting execution permissions to install initial data script.");
@@ -131,6 +133,7 @@ function congreso_command_applyconfig() {
 		congreso_check_error((array_key_exists("DB_USERNAME", $options) && $options["DB_USERNAME"]!=""), "DB_USERNAME missing.");
 		congreso_check_error((array_key_exists("DB_PASSWORD", $options) && $options["DB_PASSWORD"]!=""), "DB_PASSWORD missing.");
 		congreso_check_error((array_key_exists("CONGRESO_USER_UID", $options) && $options["CONGRESO_USER_UID"]!=""), "CONGRESO_USER_UID missing.");
+		congreso_check_error((array_key_exists("CONGRESO_USER_GID", $options) && $options["CONGRESO_USER_GID"]!=""), "CONGRESO_USER_GID missing.");
 		
 		echo "Writing apache configuration\n";
 		replace_in_file("/app/dist/volumefiles/httpd.conf", array(
@@ -163,6 +166,8 @@ function congreso_command_applyconfig() {
 		echo "Writing backend configuration\n";
 		$out = congreso_execute("cp -r /app/dist/volumefiles/.env /app/dist/congresovirtual-backend/.env");
 		congreso_check_error($out, "Error while copying configuration to backend.");
+		$out = congreso_execute("chown 33:" . $options["CONGRESO_USER_GID"] . " /app/dist/congresovirtual-backend/.env");
+		congreso_check_error($out, "Error while setting user permissions to backend configuration.");
 		
 		echo "Writing frontend configuration\n";
 		replace_in_file("/app/dist/congresovirtual-frontend/src/backend/data_server.js", array(
@@ -211,7 +216,7 @@ function congreso_command_update() {
 	
 	//recreate dist folder
 	echo "Installing new files... \n";
-	congreso_command_prepare($options["CONGRESO_USER_UID"]);
+	congreso_command_prepare($options["CONGRESO_USER_UID"], $options["CONGRESO_USER_GID"]);
 	
 	//copy env file from tmp to dist location
 	echo "Restoring old configuration data... \n";
@@ -278,8 +283,12 @@ for ($i=0; $i<count($argv); $i++) {
 //for each command
 if ( $index = array_search("--prepare" , $commands_header)!== FALSE ) {
 	#===================================================================================================
-	//prepare enviroment
-	congreso_command_prepare($commands[$index]["value"]);
+	if ( $uidindex = array_search("--UID" , $commands_header)!== FALSE ) && ( $gidindex = array_search("--GID" , $commands_header)!== FALSE ) ) {
+		congreso_check_error(false, "Missing UID and/or GID. Unable to continue");
+	} else {
+		//prepare enviroment
+		congreso_command_prepare($commands[$uidindex]["value"], $commands[$gidindex]["value"],);
+	}
 
 	#===================================================================================================
 } else if ( $index = array_search("--clean" , $commands_header)!== FALSE ) {
@@ -305,7 +314,7 @@ if ( $index = array_search("--prepare" , $commands_header)!== FALSE ) {
 	//print help
 	
 	echo "Possible options: \n\n";
-	echo "--prepare=(UID)\tPrepares environment for deploying Congreso Virtual.\n";
+	echo "--prepare=(UID)\tPrepares environment for deploying Congreso Virtual. Use it with --UID=uid and --GID=gid \n";
 	echo "--clean\t\tDeletes environment and all data files of Congreso Virtual.\n";
 	echo "--applyconfig\tTakes env configuration and applies to the project\n";
 	echo "--update\tUpdates Congreso Virtual to the last version\n";
