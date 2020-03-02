@@ -95,6 +95,8 @@ function congreso_command_prepare($UID, $GID) {
 	congreso_check_error($out, "Error while setting user permissions to backend folder.");
 	$out = congreso_execute("chmod -R 777 /app/dist/volumefiles/installinitialdata.sh");
 	congreso_check_error($out, "Error while setting execution permissions to install initial data script.");
+	$out = congreso_execute("chown -R 1000:" . $GID . " /app/dist/volumefiles/elasticsearch"); //1000 is the UID of elasticsearch
+	congreso_check_error($out, "Error while setting user permissions to elasticsearch");
 	
 	echo "Deleting dummy file on mysql folder\n";
 	$out = congreso_execute("rm -f /app/dist/volumefiles/mysql/delete.me");

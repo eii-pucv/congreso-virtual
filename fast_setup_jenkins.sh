@@ -7,6 +7,10 @@ cat .env
 
 if [ ! -d "dist" ]; then
 	./fast_setup.sh
-else 
-	./fast_update.sh
+else
+	if [ ! -f ./done.flag ]; then
+		./fast_setup.sh
+	else
+		./fast_update.sh
+	fi
 fi

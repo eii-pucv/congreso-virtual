@@ -22,12 +22,18 @@ if ! test -f ./.env ; then
 	exit 1
 fi
 
+if [ ! -f ./done.flag ]; then
+	echo "Cleaning undone setup"
+	./configure.sh --clean --yes
+fi
+
 chmod 777 compile_frontend.sh configure.sh livelog.sh run.sh stop.sh fast_update.sh installinitialdata.sh
 ./configure.sh --prepare --UID=$UID --GID=$(id -g $UID)
 echo "CONGRESO_USER_UID=${UID}" >> ./.env
-echo "CONGRESO_USER_GID=$(cut -d: -f3 < <(getent group $UID))" >> ./.env
+echo "CONGRESO_USER_GID=$(id -g $UID)" >> ./.env
 mv -f .env ./dist/volumefiles/
 ./configure.sh --applyconfig
 ./compile_frontend.sh
 ./run.sh
 
+echo "done" > done.flag
