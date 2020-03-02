@@ -283,7 +283,7 @@ for ($i=0; $i<count($argv); $i++) {
 //for each command
 if ( $index = array_search("--prepare" , $commands_header)!== FALSE ) {
 	#===================================================================================================
-	if ( $uidindex = array_search("--UID" , $commands_header)!== FALSE ) && ( $gidindex = array_search("--GID" , $commands_header)!== FALSE ) ) {
+	if ( ( $uidindex = array_search("--UID" , $commands_header)!== FALSE ) && ( $gidindex = array_search("--GID" , $commands_header)!== FALSE ) ) {
 		congreso_check_error(false, "Missing UID and/or GID. Unable to continue");
 	} else {
 		//prepare enviroment
