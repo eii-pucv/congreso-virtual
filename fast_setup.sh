@@ -23,7 +23,7 @@ if ! test -f ./.env ; then
 fi
 
 chmod 777 compile_frontend.sh configure.sh livelog.sh run.sh stop.sh fast_update.sh installinitialdata.sh
-./configure.sh --prepare --UID=$UID --GID=$(cut -d: -f3 < <(getent group $UID))
+./configure.sh --prepare --UID=$UID --GID=$(id -g $UID)
 echo "CONGRESO_USER_UID=${UID}" >> ./.env
 echo "CONGRESO_USER_GID=$(cut -d: -f3 < <(getent group $UID))" >> ./.env
 mv -f .env ./dist/volumefiles/
