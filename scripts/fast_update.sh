@@ -8,5 +8,5 @@ if which docker >/dev/null  &&  which docker-compose >/dev/null ; then
 	./compile_frontend.sh
 	./run.sh
 else
-	echo -e "This script requires Docker, Docker compose and a .env file in this dir. See README for more details"
+	echo -e "This script requires Docker and Docker compose. See README for more details"
 fi

@@ -1,5 +1,6 @@
 #!/bin/bash
 set -o errexit
+cd ..
 
 cd ./dist/congresovirtual-frontend
 echo "Preparing environment for compiling frontend."
@@ -13,4 +14,4 @@ docker run --rm -v $(pwd):/app d1g1/vuejs chmod -R 776 /app/congresovirtual-fron
 echo "Copying htaccess file"
 cp ./volumefiles/.htaccess_frontend ./congresovirtual-frontend/dist/.htaccess
 echo -e "\nDone!\nNow you can run Congreso Virtual by typing ./run.sh\n"
-cd ..
+cd ../scripts
