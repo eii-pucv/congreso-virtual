@@ -32,10 +32,9 @@
                                         <br>
                                         <p class="text-justify">{{ proposal.argument }}</p>
                                     </div>
-                                    <div v-if="proposal.state" class="col-12 px-15 mt-10">
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe class="embed-responsive-item" :src="proposal.video_url"></iframe>
-                                        </div>
+                                    <div v-if="proposal.state && proposal.video" class="col-12 px-5 mt-30">
+                                        <h5>{{ $t('propuesta.contenido.video') }}</h5>
+                                        <div class="embed-responsive embed-responsive-16by9 mt-20" v-html="proposal.video"></div>
                                     </div>
                                 </div>
                             </div>

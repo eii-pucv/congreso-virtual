@@ -7,7 +7,7 @@
                         v-for="term in page.terms"
                         :key="term.id"
                         :href="'/search?terms_id[]=' + term.id"
-                        class="badge badge-pill badge-dark font-12 p-1 m-1"
+                        class="badge badge-dark font-12 p-1 m-1"
                 >
                     {{ term.value }}
                 </a>

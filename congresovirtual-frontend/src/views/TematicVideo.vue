@@ -7,7 +7,7 @@
                 <object classid="clsid:166B1BCA-3F9C-11CF-8075-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/director/sw.cab#version=8,5,0,0" width="800" height="650">
                     <param name="src" value="/img/index.swf" />
                     <param name="bgcolor" value="#FFFFFF">
-                    <embed src="/img/index.swf" pluginspage="http://www.macromedia.com/shockwave/download/" width="800" height="650"></embed>
+                    <embed src="/img/index.swf" pluginspage="http://www.macromedia.com/shockwave/download/" width="800" height="650"/>
                 </object>
             </div>
         </div>

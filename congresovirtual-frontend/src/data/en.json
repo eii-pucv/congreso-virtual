@@ -2,13 +2,29 @@
     "navbar" : {
         "registrar": "Register",
         "iniciar_sesion": "Login",
-        "cerrar_sesion": "Logout",
         "admin": "Admin",
         "perfil": "Profile",
         "panel": "Panel",
         "busqueda": "Search",
         "modo_oscuro": "Dark mode",
-        "idioma": "Language"
+        "idioma": "Language",
+        "cerrar_sesion": {
+            "titulo": "Logout",
+            "mensajes": {
+                "exito": {
+                    "generico": {
+                        "titulo": "Logout successful",
+                        "cuerpo": "You have successfully logged out"
+                    }
+                },
+                "fallido": {
+                    "generico": {
+                        "titulo": "Logout failed",
+                        "cuerpo": "Could not log out successfully"
+                    }
+                }
+            }
+        }
     },
     "home": {
         "breadcumb":"Home /",
@@ -129,6 +145,7 @@
                     "segundo": "It aims to examine the bill in detail and by articles."
                 }
             },
+            "video": "Video",
             "generar_informe": "Generate Report",
             "sin_articulos": "There are no law articles to display.",
             "sin_ideas": "There are no fundamental ideas to show.",
@@ -186,7 +203,8 @@
             "propuesta": "Proposal"
         },
         "contenido": {
-            "detalle": "Detail"
+            "detalle": "Detail",
+            "video": "Video"
         },
         "componentes": {
             "header": {
@@ -240,12 +258,50 @@
             "titulo": "Register",
             "subtitulo1": "Create your account to interact with our site",
             "subtitulo2": "Or create your account with social networks or Unique Key.",
+            "placeholders": {
+                "nombre": "Name",
+                "apellido": "Surname",
+                "alias": "Alias",
+                "correo": "Email address",
+                "contrasena": "Password",
+                "confirmar_contrasena": "Confirm password"
+            },
             "leido": "I have read the",
-            "terminos": "terms and Conditions",
+            "terminos": "terms and conditions",
             "registrar": "Register",
             "cuenta": "Do you already have an account?",
             "identificar": "Identify here",
-            "clave": "Unique key"
+            "clave": "Unique key",
+            "mensajes": {
+                "exito": {
+                    "generico": {
+                        "titulo": "Successful sign up",
+                        "cuerpo": "You have been sent an email to verify your address"
+                    }
+                },
+                "fallido": {
+                    "generico": {
+                        "titulo": "Sign up failed",
+                        "cuerpo": "A problem has occurred, try again"
+                    },
+                    "correo_existe": {
+                        "titulo": "Sign up failed",
+                        "cuerpo": "A user account with this email address already exists"
+                    },
+                    "alias_existe": {
+                        "titulo": "Sign up failed",
+                        "cuerpo": "A user account with this alias already exists"
+                    },
+                    "term_cond_no_aceptadas": {
+                        "titulo": "Sign up failed",
+                        "cuerpo": "Terms and conditions have not been accepted"
+                    },
+                    "contrasena_no_coincide": {
+                        "titulo": "Sign up failed",
+                        "cuerpo": "The password is not well confirmed"
+                    }
+                }
+            }
         }
     },
     "confirmacion": {
@@ -292,13 +348,35 @@
         "contenido": {
             "titulo": "Identify me",
             "subtitulo": "Log in here to interact with the site.",
+            "placeholders": {
+                "correo": "Email address",
+                "contrasena": "Password"
+            },
             "mantener": "Keep me logged in",
             "iniciar": "Log in",
             "olvidar": "Did you forget your password?",
             "recuperar": "Recover password",
             "sin_cuenta": "You do not have an account?",
             "registrar": "Register me",
-            "clave": "Unique key" 
+            "clave": "Unique key",
+            "mensajes": {
+                "exito": {
+                    "generico": {
+                        "titulo": "Successful login",
+                        "cuerpo": "You have successfully logged in"
+                    }
+                },
+                "fallido": {
+                    "generico": {
+                        "titulo": "Login failed",
+                        "cuerpo": "Check that your email address and password are correct and try again"
+                    },
+                    "generico_rrss": {
+                        "titulo": "Login failed",
+                        "cuerpo": "Unable to link your external service account with Congreso Virtual"
+                    }
+                }
+            }
         }
     },
     "consulta": {
@@ -309,10 +387,10 @@
         },
         "contenido": {
             "detalle": "Detail",
+            "video": "Video",
             "comentarios": "Comments",
             "participantes": "Participants",
             "sin_participantes": "There are no participants to show."
-
         },
         "componentes": {
             "header": {
@@ -339,7 +417,9 @@
             }
         },
         "componentes": {
-            "encuesta": "Themes of interest",
+            "proyectos_interes": {
+                "no_hay_resultados": "No projects of your interest found"
+            },
             "edicion_perfil": {
                 "titulo": "Personal Information",
                 "nombre": "Name",
@@ -353,36 +433,44 @@
                 "comuna": "City/commune",
                 "sector": {
                     "titulo": "Sector",
-                    "ciudad": "Urban",
-                    "rural": "Rural"
-                },
-                "genero": {
-                    "titulo": "Gender",
-                    "opcion1": "Male",
-                    "opcion2": "Female",
-                    "opcion3": "Other",
-                    "opcion4": "Do not know/not answer"
+                    "opciones": [
+                        { "id": 1, "label": "Urban" },
+                        { "id": 2, "label": "Rural" }
+                    ]
                 },
                 "nivel": {
                     "titulo": "Educational level",
-                    "opcion1": "Basic education",
-                    "opcion2": "Incomplete middle school",
-                    "opcion3": "Middle school education",
-                    "opcion4": "Incomplete Technical Education",
-                    "opcion5": "Full technical education",
-                    "opcion6": "Incomplete University Education",
-                    "opcion7": "Full university education",
-                    "opcion8": "Postgrads studies"
+                    "opciones": [
+                        { "id": 1, "label": "Basic education" },
+                        { "id": 2, "label": "Incomplete secondary school" },
+                        { "id": 3, "label": "Secondary school education" },
+                        { "id": 4, "label": "Incomplete technical education" },
+                        { "id": 5, "label": "Full technical education" },
+                        { "id": 6, "label": "Incomplete university education" },
+                        { "id": 7, "label": "Full university education" },
+                        { "id": 8, "label": "Postgraduate studies" }
+                    ]
+                },
+                "genero": {
+                    "titulo": "Gender",
+                    "opciones": [
+                        { "id": 1, "label": "Male" },
+                        { "id": 2, "label": "Female" },
+                        { "id": 3, "label": "Other" },
+                        { "id": 4, "label": "Not answer" }
+                    ]
                 },
                 "actividad": {
                     "titulo": "Activity",
-                    "opcion1": "Student",
-                    "opcion2": "Dependent Worker",
-                    "opcion3": "Independent worker",
-                    "opcion4": "Businessman",
-                    "opcion5": "Homeowner",
-                    "opcion6": "Retired",
-                    "opcion7": "Unemployed"
+                    "opciones": [
+                        { "id": 1, "label": "Student" },
+                        { "id": 2, "label": "Dependent Worker" },
+                        { "id": 3, "label": "Independent worker" },
+                        { "id": 4, "label": "Businessman" },
+                        { "id": 5, "label": "Homeowner" },
+                        { "id": 6, "label": "Retired" },
+                        { "id": 7, "label": "Unemployed" }
+                    ]
                 },
                 "temas_interes": "Topics of interest",
                 "buscar_tema_interes": "Search topics of interest",
@@ -392,20 +480,20 @@
                     "profesion": {
                         "titulo": "Job title",
                         "opciones": [
-                            "Lawyer",
-                            "Architect",
-                            "Doctor",
-                            "Veterinarian",
-                            "Engineer",
-                            "Psychologist",
-                            "Primary Education Teacher",
-                            "Secondary Education Teacher",
-                            "Professor of Differential Education",
-                            "Journalist",
-                            "Social Worker",
-                            "Auditor Accountant",
-                            "Sociologist",
-                            "Other"
+                            { "id":  1, "label": "Lawyer" },
+                            { "id":  2, "label": "Architect" },
+                            { "id":  3, "label": "Doctor" },
+                            { "id":  4, "label": "Veterinarian" },
+                            { "id":  5, "label": "Engineer" },
+                            { "id":  6, "label": "Psychologist" },
+                            { "id":  7, "label": "Primary Education Teacher" },
+                            { "id":  8, "label": "Secondary Education Teacher" },
+                            { "id":  9, "label": "Professor of Differential Education" },
+                            { "id":  10, "label": "Journalist" },
+                            { "id":  11, "label": "Social Worker" },
+                            { "id":  12, "label": "Auditor Accountant" },
+                            { "id":  13, "label": "Sociologist" },
+                            { "id":  14, "label": "Other" }
                         ]
                     },
                     "estudios": {
@@ -413,31 +501,33 @@
                     },
                     "experiencia": {
                         "titulo": "Work experience",
-                        "opcion1": "Less than 5 years",
-                        "opcion2": "Between 5 and 10 years",
-                        "opcion3": "Between 10 and 15 years",
-                        "opcion4": "More than 15 years"
+                        "opciones": [
+                            { "id": 1, "label": "Less than 5 years" },
+                            { "id": 2, "label": "Between 5 and 10 years" },
+                            { "id": 3, "label": "Between 10 and 15 years" },
+                            { "id": 4, "label": "More than 15 years" }
+                        ]
                     },
                     "area_desempenio": {
                         "titulo": "Performance area",
                         "buscar": "Search performance areas",
                         "opciones": [
-                            { "id": 1, "value": "Centralized administration" },
-                            { "id": 2, "value": "Municipality" },
-                            { "id": 3, "value": "Regional/Provincial Government" },
-                            { "id": 4, "value": "National Congress" },
-                            { "id": 5, "value": "Judiciary/auxiliary bodies/prosecution/defense" },
-                            { "id": 6, "value": "State University" },
-                            { "id": 7, "value": "Public companies" },
-                            { "id": 8, "value": "Other organs of the State" },
-                            { "id": 9, "value": "Great company" },
-                            { "id": 10, "value": "Medium sized company" },
-                            { "id": 11, "value": "Small or microenterprise" },
-                            { "id": 12, "value": "Consultant" },
-                            { "id": 13, "value": "Independent" },
-                            { "id": 14, "value": "Academy (non-state universities)" },
-                            { "id": 15, "value": "ONG" },
-                            { "id": 16, "value": "Civil society organizations" }
+                            { "id": 1, "label": "Centralized administration" },
+                            { "id": 2, "label": "Municipality" },
+                            { "id": 3, "label": "Regional/Provincial Government" },
+                            { "id": 4, "label": "National Congress" },
+                            { "id": 5, "label": "Judiciary/auxiliary bodies/prosecution/defense" },
+                            { "id": 6, "label": "State University" },
+                            { "id": 7, "label": "Public companies" },
+                            { "id": 8, "label": "Other organs of the State" },
+                            { "id": 9, "label": "Great company" },
+                            { "id": 10, "label": "Medium sized company" },
+                            { "id": 11, "label": "Small or microenterprise" },
+                            { "id": 12, "label": "Consultant" },
+                            { "id": 13, "label": "Independent" },
+                            { "id": 14, "label": "Academy (non-state universities)" },
+                            { "id": 15, "label": "ONG" },
+                            { "id": 16, "label": "Civil society organizations" }
                         ]
                     },
                     "temas": "Main themes of his work"
@@ -449,6 +539,9 @@
                     "confirmar": "Repeat the new password",
                     "consejo": "The password must be 8-20 characters."
                 }
+            },
+            "temas_interes": {
+                "titulo": "Topics of interest"
             },
             "votos": {
                 "titulo": "Your votes",
@@ -508,6 +601,9 @@
             "boletin": "Bulletin",
             "autoria": "Authorship",
             "fecha": "Admission date",
+            "autores": "Authors",
+            "autores_placeholder": "Insert the author(s).",
+            "origen": "Source",
             "incluir": "Include Virtual Congress",
             "pedir": "Ask for urgency",
             "cargar": "Load More",
@@ -734,10 +830,6 @@
         "propuesta": "PROPOSAL",
         "cargar":"Load More"
     },
-    "tematica_video": {
-        "leyes": "How laws are made",
-        "parrafo": "In this page you can find multimedia content that will allow you to understand in a simple way the processes to elaborate laws that are carried out in the National Congress of Chile"
-    },
     "contacto": {
         "breadcumb": {
             "inicio": "Home",
@@ -746,9 +838,18 @@
         "contenido": {
             "titulo": "Virtual Congress Contact",
             "texto": "Here you can contact the Virtual Congress staff directly, in case you have any questions, suggestions or anything else in particular.",
-            "nombre": "Name",
-            "correo": "Email address",
-            "mensaje": "Message",
+            "nombre": {
+                "titulo": "Name",
+                "placeholder": "Enter your full name"
+            },
+            "correo": {
+                "titulo": "Email address",
+                "placeholder": "Enter your email address"
+            },
+            "mensaje": {
+                "titulo": "Message",
+                "placeholder": "Enter your message"
+            },
             "info": "Contact information"
         }
     },
@@ -762,7 +863,6 @@
             "usuarios": {
                 "titulo": "Users",
                 "lista_usuarios": "Users List",
-                "lista_expertos": "List of Expert Users",
                 "lista_organizaciones": "List of Organizations",
                 "crear_usuario": "Create User"
             },
@@ -800,11 +900,10 @@
                 "crear": "Create a Page"
             },
             "configuracion": {
-                "titulo": "Configuration",
-                "config": "General Configuration",
-                "menu": "Main Menu Conf.",
-                "footer": "Footer Conf.",
-                "google_analytics": "Google Analytics Conf."
+                "titulo": "Settings",
+                "config": "General Settings",
+                "menu": "Main Menu Settings",
+                "footer": "Footer Settings"
             }
         },
         "table_list": {
@@ -843,7 +942,7 @@
                 "titulo1": "Create Project",
                 "titulo2": "Edit Project",
                 "boletin": "Bulletin",
-                "titulo": "Title of the project",
+                "titulo": "Title",
                 "postulante": "Postulant",
                 "fecha_inicio": "Start date",
                 "popover_fecha_inicio": "Date and time of voting start. After the voting period no user (including administrators) can vote. NOTE: Enter the date and time according to your time zone, this will be automatically converted to UTC.",
@@ -856,6 +955,25 @@
                     "opcion1": "General vote",
                     "opcion2": "Particular vote",
                     "opcion3": "Voting Closed"
+                },
+                "fuente_video": {
+                    "titulo": "Video source service",
+                    "popover": "External service where the video is hosted.",
+                    "opciones": [
+                        { "id": null, "label": "No video" },
+                        { "id": "youtube", "label": "YouTube" },
+                        { "id": "vimeo", "label": "Vimeo" },
+                        { "id": "dailymotion", "label": "Dailymotion" }
+                    ]
+                },
+                "codigo_video": {
+                    "titulo": "Video access code",
+                    "popover": "Corresponds to the code, usually alphanumeric, that identifies the video and is part of the URL to access to view it.",
+                    "prepends": [
+                        { "id": "youtube", "label": "youtube.com/watch?v=" },
+                        { "id": "vimeo", "label": "vimeo.com/" },
+                        { "id": "dailymotion", "label": "dailymotion.com/video/" }
+                    ]
                 },
                 "tema_asociado": {
                     "titulo": "Associated topics",
@@ -877,18 +995,167 @@
                 "popover_principal": "Which is marked as prominent, means that the project must be displayed on the first carousel of projects of law on the home page.",
                 "habilitado": "Do you want this project to be enabled to be voted and commented?",
                 "popover_habilitado": "It allows, at any time, to stop accepting comments and votes, even if the project is in stages that involve voting and within the deadlines to vote. NOTE: Administrators may also vote and comment on disabled projects.",
-                "guardar": "Save",
-                "habilitar": "Enable",
-                "deshabilitar": "To disable",
                 "agregar_idea": "Add Fundamental Idea",
-                "agregar_articulo": "Add Article"
+                "agregar_articulo": "Add Article",
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Project saved successfully",
+                                "cuerpo": "You have successfully registered the project data"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Project updated successfully",
+                                "cuerpo": "You have successfully updated the project data"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error saving project",
+                                "cuerpo": "Could not save project data"
+                            },
+                            "falta_detalle": {
+                                "titulo": "Error saving project",
+                                "cuerpo": "You need to add a detail to the project"
+                            },
+                            "stopwords": {
+                                "titulo": "Error saving project",
+                                "cuerpo": "Project stopwords could not be saved"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error updating project",
+                                "cuerpo": "Failed to update project data"
+                            },
+                            "falta_detalle": {
+                                "titulo": "Error updating project",
+                                "cuerpo": "You need to add a detail to the project"
+                            },
+                            "terminos": {
+                                "titulo": "Error updating project",
+                                "cuerpo": "The topics of interest of the project could not be updated"
+                            },
+                            "stopwords": {
+                                "titulo": "Error updating project",
+                                "cuerpo": "Project stopwords could not be updated"
+                            },
+                            "imagen_actualizada": {
+                                "titulo": "Error updating project",
+                                "cuerpo": "The main project image could not be updated"
+                            },
+                            "imagen_eliminada": {
+                                "titulo": "Error updating project",
+                                "cuerpo": "The main project image could not be deleted"
+                            },
+                            "archivos_agregados": {
+                                "titulo": "Error updating project",
+                                "cuerpo": "New project files could not be added"
+                            },
+                            "archivos_eliminados": {
+                                "titulo": "Error updating project",
+                                "cuerpo": "Project files could not be deleted"
+                            }
+                        }
+                    }
+                }
             },
             "crear_consulta": {
                 "titulo1": "Create Public Consultation",
                 "titulo2": "Edit Public Consultation",
                 "titulo": "Title",
                 "autor": "Author",
-                "icono": "Icon"
+                "fecha_inicio": "Start date",
+                "popover_fecha_inicio": "Date and time of voting start. After the voting period no user (including administrators) can vote. NOTE: Enter the date and time according to your time zone, this will be automatically converted to UTC.",
+                "fecha_termino": "End date",
+                "popover_fecha_termino": "Date and time of voting end. After the voting period no user (including administrators) can vote. NOTE: Enter the date and time according to your time zone, this will be automatically converted to UTC.",
+                "fuente_video": {
+                    "titulo": "Video source service",
+                    "popover": "External service where the video is hosted.",
+                    "opciones": [
+                        { "id": null, "label": "No video" },
+                        { "id": "youtube", "label": "YouTube" },
+                        { "id": "vimeo", "label": "Vimeo" },
+                        { "id": "dailymotion", "label": "Dailymotion" }
+                    ]
+                },
+                "codigo_video": {
+                    "titulo": "Video access code",
+                    "popover": "Corresponds to the code, usually alphanumeric, that identifies the video and is part of the URL to access to view it.",
+                    "prepends": [
+                        { "id": "youtube", "label": "youtube.com/watch?v=" },
+                        { "id": "vimeo", "label": "vimeo.com/" },
+                        { "id": "dailymotion", "label": "dailymotion.com/video/" }
+                    ]
+                },
+                "estado": {
+                    "titulo": "State",
+                    "popover": "Inactive: votes or comments from users who are not administrators are not accepted. It allows, at any time, to stop accepting votes, even if the consultation is within the deadlines to vote. Active: votes and comments from any user are allowed.",
+                    "opcion1": "Inactive",
+                    "opcion2": "Active"
+                },
+                "tema_asociado": {
+                    "titulo": "Associated topics",
+                    "buscar": "Search topic"
+                },
+                "imagen": "Main image",
+                "icono": "Icon",
+                "resumen": "Summary",
+                "detalle": "Detail",
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Public consultation saved successfully",
+                                "cuerpo": "You have successfully registered the public consultation data"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Public consultation updated successfully",
+                                "cuerpo": "You have successfully updated the public consultation data"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error saving public consultation",
+                                "cuerpo": "Could not save public consultation data"
+                            },
+                            "falta_detalle": {
+                                "titulo": "Error saving public consultation",
+                                "cuerpo": "You need to add a detail to the public consultation"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error updating public consultation",
+                                "cuerpo": "Failed to update public consultation data"
+                            },
+                            "falta_detalle": {
+                                "titulo": "Error updating public consultation",
+                                "cuerpo": "You need to add a detail to the public consultation"
+                            },
+                            "terminos": {
+                                "titulo": "Error updating public consultation",
+                                "cuerpo": "The topics of interest of the public consultation could not be updated"
+                            },
+                            "imagen_actualizada": {
+                                "titulo": "Error updating public consultation",
+                                "cuerpo": "The main public consultation image could not be updated"
+                            },
+                            "imagen_eliminada": {
+                                "titulo": "Error updating public consultation",
+                                "cuerpo": "The main public consultation image could not be deleted"
+                            }
+                        }
+                    }
+                }
             },
             "crear_taxonomia": {
                 "titulo1": "Create Taxonomy",
@@ -980,8 +1247,10 @@
                         "direccion": "Direction",
                         "sector": {
                             "titulo": "Sector",
-                            "ciudad": "Urban",
-                            "rural": "Rural"
+                            "opciones": [
+                                { "id": 1, "label": "Urban" },
+                                { "id": 2, "label": "Rural" }
+                            ]
                         },
                         "principal": "Mark this location as principal",
                         "seleccione1": "Select country first",
@@ -1073,21 +1342,118 @@
             "crear_pagina": {
                 "titulo1": "Create Page",
                 "titulo2": "Edit Page",
-                "nombre": "Name",
-                "categorias": "Categories",
+                "titulo": "Title",
+                "slug": "Slug",
+                "tema_asociado": {
+                    "titulo": "Associated topics",
+                    "buscar": "Search topic"
+                },
                 "contenido": "Content of the page",
-                "publica": "You want this page to be public?"
+                "publica": "You want this page to be public?",
+                "popover_publica": "If it is public, it is visible to everyone, otherwise, non-administrator users will not be able to access it.",
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Page saved successfully",
+                                "cuerpo": "You have successfully registered the page data"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Page updated successfully",
+                                "cuerpo": "You have successfully updated the page data"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error saving page",
+                                "cuerpo": "Could not save page data"
+                            },
+                            "falta_contenido": {
+                                "titulo": "Error saving page",
+                                "cuerpo": "You need to add content to the page"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error updating page",
+                                "cuerpo": "Failed to update page data"
+                            },
+                            "falta_contenido": {
+                                "titulo": "Error updating page",
+                                "cuerpo": "You need to add content to the page"
+                            },
+                            "terminos": {
+                                "titulo": "Error updating page",
+                                "cuerpo": "The topics of interest of the page could not be updated"
+                            }
+                        }
+                    }
+                }
             },
             "configuracion_general": {
-                "titulo": "General Configuration",
-                "nombre": "Name of the site",
-                "propuestas": "Proposals",
-                "peticiones": "Number of requests",
-                "redes": "Social networks"
-            },
-            "codigo_google": {
-                "titulo": "Google Analytics Code",
-                "codigo": "Code"
+                "titulo": "General Settings",
+                "datos_basicos": {
+                    "titulo": "Datos básicos",
+                    "nombre_sitio": "Website name",
+                    "direccion": {
+                        "titulo": "Physical location address",
+                        "popover": "For example, the address where the headquarters of the institution that is in charge of this website is located."
+                    },
+                    "fonos_contacto": {
+                        "titulo": "Contact phone numbers",
+                        "telefono": "Phone number"
+                    },
+                    "correos_contacto": {
+                        "titulo": "Contact email addresses",
+                        "correo": "Email address",
+                        "popover": "The first email address will be by default to which users will send the message when filling out the form in the \"Contact\" section."
+                    }
+                },
+                "propuestas": {
+                    "titulo": "Proposals",
+                    "max_peticiones": "Max number of requests"
+                },
+                "redes_sociales": {
+                    "titulo": "Social networks",
+                    "facebook": "Facebook",
+                    "twitter": "Twitter",
+                    "instagram": "Instagram",
+                    "youtube": "Youtube"
+                },
+                "google_analytics": {
+                    "titulo": "Google Analytics",
+                    "codigo": "Google Analytics ID code"
+
+                },
+                "codigos_insercion_videos": {
+                    "titulo": "Video insertion codes",
+                    "popover": "Fragments of HTML code containing the video player of the external service where this type of multimedia is hosted should be placed. To get these codes, in most cases, you must select the \"Share\" options and then \"Insert\".",
+                    "youtube": "YouTube",
+                    "vimeo": "Vimeo",
+                    "dailymotion": "Dailymotion"
+                },
+                "mensajes": {
+                    "exito": {
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Settings updated successfully",
+                                "cuerpo": "You have successfully updated the settings"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error updating settings",
+                                "cuerpo": "Failed to update settings"
+                            }
+                        }
+                    }
+                }
             },
             "propuestas": "List of Proposals",
             "crear_propuesta": {
@@ -1097,16 +1463,76 @@
                 "boletin": "Bulletin",
                 "autoria": "Authorship",
                 "fecha_ingreso": "Admission date",
-                "tipo": "Type",
-                "propuesta": "Proposal",
-                "urgencia": "Urgency",
+                "popover_fecha_ingreso": "Proposal admission date. NOTE: Enter the date according to your time zone, it will be automatically converted to UTC.",
+                "estado": {
+                    "titulo": "State",
+                    "popover": "Inactive: no argument or video can be added to the proposal. Active: you can add argument and/or video to the proposal.",
+                    "opcion1": "Inactive",
+                    "opcion2": "Active"
+                },
+                "tipo": {
+                    "titulo": "Type",
+                    "opcion1": "Inclusion to Congreso Virtual",
+                    "opcion2": "Urgency request"
+                },
                 "detalle": "Detail",
                 "argumento": "Argument",
-                "video_url": "Video URL",
-                "fuente_video": "Video source",
+                "fuente_video": {
+                    "titulo": "Video source service",
+                    "popover": "External service where the video is hosted.",
+                    "opciones": [
+                        { "id": null, "label": "No video" },
+                        { "id": "youtube", "label": "YouTube" },
+                        { "id": "vimeo", "label": "Vimeo" },
+                        { "id": "dailymotion", "label": "Dailymotion" }
+                    ]
+                },
+                "codigo_video": {
+                    "titulo": "Video access code",
+                    "popover": "Corresponds to the code, usually alphanumeric, that identifies the video and is part of the URL to access to view it.",
+                    "prepends": [
+                        { "id": "youtube", "label": "youtube.com/watch?v=" },
+                        { "id": "vimeo", "label": "vimeo.com/" },
+                        { "id": "dailymotion", "label": "dailymotion.com/video/" }
+                    ]
+                },
                 "publica": "You want this proposal to be shown publicly?",
-                "activar": "Activate",
-                "desactivar": "Deactivate"
+                "popover_publica": "If it is public, it is visible to everyone, otherwise, non-administrator users will not be able to access it.",
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Proposal saved successfully",
+                                "cuerpo": "You have successfully registered the proposal data"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Proposal updated successfully",
+                                "cuerpo": "You have successfully updated the proposal data"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error saving proposal",
+                                "cuerpo": "Could not save proposal data"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error updating proposal",
+                                "cuerpo": "Failed to update proposal data"
+                            }
+                        },
+                        "generico": {
+                            "otra_propuesta_activa": {
+                                "cuerpo": "There is already an active proposal for this user; a user can only have one active proposal"
+                            }
+                        }
+                    }
+                }
             }
         }
     },
@@ -1115,7 +1541,8 @@
             "horas": "h",
             "formato_con_hora": "MMM Do YYYY, HH:mm",
             "formato_sin_hora": "MMM Do YYYY",
-            "formato_editable_con_hora": "YYYY-MM-DD HH:mm:ss"
+            "formato_editable_con_hora": "YYYY-MM-DD HH:mm:ss",
+            "formato_editable_sin_hora": "YYYY-MM-DD"
         },
         "dropzone": {
             "dictDefaultMessage": "Drop files here to upload",
@@ -1176,9 +1603,8 @@
             "minutos": "Minutes"
         },
         "footer": {
-            "avenida": "Avenue",
-            "telefonos": "Phones",
-            "congreso": "Virtual Congress" 
+            "direccion": "Address",
+            "telefonos": "Phones"
         }
     },
     "invalid-feedback": {

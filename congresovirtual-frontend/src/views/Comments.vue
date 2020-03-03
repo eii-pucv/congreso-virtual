@@ -26,7 +26,13 @@
                     <div class="col-11">
                         <label class="font-weight-bold" >{{ $t('componentes.comentarios.orden.titulo') }}</label>
                         <select @change="sort" v-model="selectedSortId" class="form-control custom-select d-block">
-                            <option v-for="optionSort in optionsSort" :value="optionSort.id">{{ optionSort.label }}</option>
+                            <option
+                                    v-for="optionSort in optionsSort"
+                                    :key="'option-sort-' + optionsSort.id"
+                                    :value="optionSort.id"
+                            >
+                                {{ optionSort.label }}
+                            </option>
                         </select>
                     </div>
                 </div>

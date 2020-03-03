@@ -36,19 +36,19 @@ var ifFoo = b.ifStatement(fooId, b.blockStatement([
     b.expressionStatement(b.callExpression(fooId, []))
 ]));
 
-assert.ok(n.IfStatement.check(ifFoo));
-assert.ok(n.Statement.check(ifFoo));
-assert.ok(n.Node.check(ifFoo));
+assert.ok(n.IfStatement.checkTermsAndConditions(ifFoo));
+assert.ok(n.Statement.checkTermsAndConditions(ifFoo));
+assert.ok(n.Node.checkTermsAndConditions(ifFoo));
 
-assert.ok(n.BlockStatement.check(ifFoo.consequent));
+assert.ok(n.BlockStatement.checkTermsAndConditions(ifFoo.consequent));
 assert.strictEqual(
     ifFoo.consequent.body[0].expression.arguments.length,
     0);
 
 assert.strictEqual(ifFoo.test, fooId);
-assert.ok(n.Expression.check(ifFoo.test));
-assert.ok(n.Identifier.check(ifFoo.test));
-assert.ok(!n.Statement.check(ifFoo.test));
+assert.ok(n.Expression.checkTermsAndConditions(ifFoo.test));
+assert.ok(n.Identifier.checkTermsAndConditions(ifFoo.test));
+assert.ok(!n.Statement.checkTermsAndConditions(ifFoo.test));
 ```
 
 AST Traversal
@@ -129,9 +129,9 @@ types.visit(ast, {
         // wrapping the node of interest.
         var node = path.node;
 
-        if (n.Identifier.check(node.object) &&
+        if (n.Identifier.checkTermsAndConditions(node.object) &&
             node.object.name === "arguments" &&
-            n.Identifier.check(node.property)) {
+            n.Identifier.checkTermsAndConditions(node.property)) {
             assert.notStrictEqual(node.property.name, "callee");
         }
 
@@ -284,13 +284,13 @@ function usesThis(funcNode) {
 
         // And even helper helper methods!
         isSuperIdentifier: function(node) {
-            return n.Identifier.check(node.callee)
+            return n.Identifier.checkTermsAndConditions(node.callee)
                 && node.callee.name === "super";
         },
 
         isSuperMemberExpression: function(node) {
-            return n.MemberExpression.check(node.callee)
-                && n.Identifier.check(node.callee.object)
+            return n.MemberExpression.checkTermsAndConditions(node.callee)
+                && n.Identifier.checkTermsAndConditions(node.callee.object)
                 && node.callee.object.name === "super";
         }
     });

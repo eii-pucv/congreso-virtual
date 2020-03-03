@@ -232,6 +232,10 @@
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-12 px-5" v-html="project.detalle"></div>
+                                            <div v-if="project.video" class="col-12 px-5 mt-30">
+                                                <h5>{{ $t('proyecto.contenido.video') }}</h5>
+                                                <div class="embed-responsive embed-responsive-16by9 mt-20" v-html="project.video"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

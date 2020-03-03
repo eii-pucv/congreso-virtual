@@ -1,8 +1,7 @@
 <template>
     <div class="bg-indigo-light-5 d-flex flex-column min-vh-100">
-        <preload></preload>
-        <topnavbar></topnavbar>
-        <navbar :userRol="userRol" :isLoggedIn="isLoggedIn"></navbar>
+        <Preload></Preload>
+        <Navbar :userRol="userRol" :isLoggedIn="isLoggedIn"></Navbar>
         <router-view></router-view>
         <Footer></Footer>
     </div>
@@ -15,7 +14,7 @@
 
     html,
     body {
-        height:auto;
+        height: auto;
     }
 
     .dark {
@@ -323,11 +322,10 @@
 </style>
 
 <script>
-    import Navbar from "./components/Navbar";
-    import Topnavbar from "./components/TopNavbar";
     import Preload from "./components/Preload";
-    import jQuery from 'jquery';
+    import Navbar from "./components/Navbar";
     import Footer from "./components/Footer";
+    import jQuery from 'jquery';
 
     window.jQuery = jQuery;
     window.$ = jQuery;
@@ -357,10 +355,9 @@
 
     export default {
         components: {
-            Footer,
             Preload,
             Navbar,
-            Topnavbar
+            Footer,
         },
         computed: {
             isLoggedIn() {

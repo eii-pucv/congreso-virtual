@@ -12,7 +12,7 @@
                     ></Loading>
                 </div>
                 <div v-if="!loadUser">
-                    <form @submit.prevent="saveUser" class="needs-validation" novalidate>
+                    <form @submit.prevent="saveUser">
                         <div class="form-row align-items-center justify-content-center">
                             <div class="col-md-3 mb-10">
                                 <label for="name" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.nombre') }}</label>
@@ -56,7 +56,6 @@
                                             v-model="user.dni"
                                             type="text"
                                             class="form-control"
-                                            required
                                             :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
                                     />
                                 </div>
@@ -67,7 +66,7 @@
                                 <input
                                         id="email"
                                         v-model="user.email"
-                                        type="text"
+                                        type="email"
                                         class="form-control"
                                         required
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
@@ -77,9 +76,8 @@
                                 <label for="birthday" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.fecha_nacimiento') }}</label>
                                 <DatePicker
                                         id="birthday"
-                                        v-model="user.birthday"
+                                        v-model="birthday"
                                         :config="dateOptions"
-                                        :language="langDataPicker"
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
                                 ></DatePicker>
                             </div>
@@ -154,8 +152,13 @@
                                         class="form-control custom-select d-block w-100"
                                         :style="mode==='dark'?'background: #080035; color: #fff':''"
                                 >
-                                    <option value="1">{{ $t('perfil_usuario.componentes.edicion_perfil.sector.urbano') }}</option>
-                                    <option value="2">{{ $t('perfil_usuario.componentes.edicion_perfil.sector.rural') }}</option>
+                                    <option
+                                            v-for="sector in sectors"
+                                            :key="'sector-' + sector.id"
+                                            :value="sector.id"
+                                    >
+                                        {{ sector.label }}
+                                    </option>
                                 </select>
                             </div>
                             <div class="col-md-4 mb-10">
@@ -166,14 +169,13 @@
                                         class="form-control custom-select d-block w-100"
                                         :style="mode==='dark'?'background: #080035; color: #fff':''"
                                 >
-                                    <option value="1">{{ $t('perfil_usuario.componentes.edicion_perfil.nivel.opcion1') }}</option>
-                                    <option value="2">{{ $t('perfil_usuario.componentes.edicion_perfil.nivel.opcion2') }}</option>
-                                    <option value="3">{{ $t('perfil_usuario.componentes.edicion_perfil.nivel.opcion3') }}</option>
-                                    <option value="4">{{ $t('perfil_usuario.componentes.edicion_perfil.nivel.opcion4') }}</option>
-                                    <option value="5">{{ $t('perfil_usuario.componentes.edicion_perfil.nivel.opcion5') }}</option>
-                                    <option value="6">{{ $t('perfil_usuario.componentes.edicion_perfil.nivel.opcion6') }}</option>
-                                    <option value="7">{{ $t('perfil_usuario.componentes.edicion_perfil.nivel.opcion7') }}</option>
-                                    <option value="8">{{ $t('perfil_usuario.componentes.edicion_perfil.nivel.opcion8') }}</option>
+                                    <option
+                                            v-for="educationalLevel in educationalLevels"
+                                            :key="'educational-level-' + educationalLevel.id"
+                                            :value="educationalLevel.id"
+                                    >
+                                        {{ educationalLevel.label }}
+                                    </option>
                                 </select>
                             </div>
                             <div class="col-md-3 mb-10">
@@ -184,10 +186,13 @@
                                         class="form-control custom-select d-block w-100"
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
                                 >
-                                    <option>{{ $t('perfil_usuario.componentes.edicion_perfil.genero.opcion1') }}</option>
-                                    <option>{{ $t('perfil_usuario.componentes.edicion_perfil.genero.opcion2') }}</option>
-                                    <option>{{ $t('perfil_usuario.componentes.edicion_perfil.genero.opcion3') }}</option>
-                                    <option>{{ $t('perfil_usuario.componentes.edicion_perfil.genero.opcion4') }}</option>
+                                    <option
+                                            v-for="gender in genders"
+                                            :key="'gender-' + gender.id"
+                                            :value="gender.id"
+                                    >
+                                        {{ gender.label }}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -200,13 +205,13 @@
                                         class="form-control custom-select d-block w-100"
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
                                 >
-                                    <option>{{ $t('perfil_usuario.componentes.edicion_perfil.actividad.opcion1') }}</option>
-                                    <option>{{ $t('perfil_usuario.componentes.edicion_perfil.actividad.opcion2') }}</option>
-                                    <option>{{ $t('perfil_usuario.componentes.edicion_perfil.actividad.opcion3') }}</option>
-                                    <option>{{ $t('perfil_usuario.componentes.edicion_perfil.actividad.opcion4') }}</option>
-                                    <option>{{ $t('perfil_usuario.componentes.edicion_perfil.actividad.opcion5') }}</option>
-                                    <option>{{ $t('perfil_usuario.componentes.edicion_perfil.actividad.opcion6') }}</option>
-                                    <option>{{ $t('perfil_usuario.componentes.edicion_perfil.actividad.opcion7') }}</option>
+                                    <option
+                                            v-for="activity in activities"
+                                            :key="'activity-' + activity.id"
+                                            :value="activity.id"
+                                    >
+                                        {{ activity.label }}
+                                    </option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-10">
@@ -254,13 +259,19 @@
                             </div>
                         </div>
                         <div class="text-center mt-5">
-                            <button class="btn btn-primary vld-parent" type="submit">{{ $t('guardar') }}
+                            <button class="btn btn-primary vld-parent" type="submit">
+                                <font-awesome-icon icon="save" />
+                                <span class="btn-text ml-1">{{ $t('guardar') }}</span>
                                 <Loading
                                         :active.sync="loadBtnSave"
                                         :is-full-page="fullPage"
                                         :height="24"
                                         :color="'#ffffff'"
                                 ></Loading>
+                            </button>
+                            <button @click="back" class="btn btn-danger text-white ml-10">
+                                <font-awesome-icon icon="window-close" />
+                                <span class="btn-text ml-1">{{ $t('cancelar') }}</span>
                             </button>
                         </div>
                     </form>
@@ -274,7 +285,7 @@
         >
             <h4 class="hk-sec-title text-center">{{ $t('perfil_usuario.componentes.edicion_perfil.usuario_experto.titulo_registro') }}</h4>
             <div class="mt-20">
-                <form @submit.prevent="saveUser" class="needs-validation" novalidate>
+                <form @submit.prevent="saveUser">
                     <div class="form-row align-items-center justify-content-center">
                         <div class="col-md-5 mb-10">
                             <label for="titulo_profesional" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.usuario_experto.profesion.titulo') }}</label>
@@ -286,10 +297,10 @@
                             >
                                 <option
                                         v-for="profession in professions"
-                                        :key="'profession-' + profession"
-                                        :value="profession"
+                                        :key="'profession-' + profession.id"
+                                        :value="profession.id"
                                 >
-                                    {{ profession }}
+                                    {{ profession.label }}
                                 </option>
                             </select>
                         </div>
@@ -301,10 +312,13 @@
                                     class="form-control custom-select d-block w-100"
                                     :style="mode==='dark'?'background: #080035; color: #fff':''"
                             >
-                                <option value="1">{{ $t('perfil_usuario.componentes.edicion_perfil.usuario_experto.experiencia.opcion1') }}</option>
-                                <option value="2">{{ $t('perfil_usuario.componentes.edicion_perfil.usuario_experto.experiencia.opcion2') }}</option>
-                                <option value="3">{{ $t('perfil_usuario.componentes.edicion_perfil.usuario_experto.experiencia.opcion3') }}</option>
-                                <option value="4">{{ $t('perfil_usuario.componentes.edicion_perfil.usuario_experto.experiencia.opcion4') }}</option>
+                                <option
+                                        v-for="experience in experiences"
+                                        :key="'experience-' + experience.id"
+                                        :value="experience.id"
+                                >
+                                    {{ experience.label }}
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -328,7 +342,7 @@
                             <multiselect
                                     id="areas_desempenio"
                                     v-model="user.areas_desempenio"
-                                    label="value"
+                                    label="label"
                                     track-by="id"
                                     :placeholder="$t('perfil_usuario.componentes.edicion_perfil.usuario_experto.area_desempenio.buscar')"
                                     :options="areasDesempenio"
@@ -352,13 +366,19 @@
                         </div>
                     </div>
                     <div class="text-center mt-5">
-                        <button class="btn btn-primary vld-parent" type="submit">{{ $t('guardar') }}
+                        <button class="btn btn-primary vld-parent" type="submit">
+                            <font-awesome-icon icon="save" />
+                            <span class="btn-text ml-1">{{ $t('guardar') }}</span>
                             <Loading
                                     :active.sync="loadBtnSave"
                                     :is-full-page="fullPage"
                                     :height="24"
                                     :color="'#ffffff'"
                             ></Loading>
+                        </button>
+                        <button @click="back" class="btn btn-danger text-white ml-10">
+                            <font-awesome-icon icon="window-close" />
+                            <span class="btn-text ml-1">{{ $t('cancelar') }}</span>
                         </button>
                     </div>
                 </form>
@@ -371,276 +391,297 @@
         >
             <h4 class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_usuario.organizacion.titulo') }}</h4>
             <div class="mt-20">
-                <form @submit.prevent="saveUser" class="needs-validation" novalidate>
-                            <div class="form-row align-items-center justify-content-center">
-                                <div class="col-md-3 mb-10">
-                                    <label for="nombre_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.nombre') }}</label>
-                                    <input
-                                            id="nombre_org"
-                                            v-model="user.nombre_org"
-                                            type="text"
-                                            class="form-control"
-                                            required
-                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
-                                    />
-                                </div>
-                                <div class="col-md-4 mb-10">
-                                    <label for="email_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.correo') }}</label>
-                                    <input
-                                            id="email_org"
-                                            v-model="user.email_org"
-                                            type="email"
-                                            class="form-control"
-                                            required
-                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
-                                    />
-                                </div>
-                                <div class="col-md-3 mb-10">
-                                    <label for="enlace_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.enlace') }}</label>
-                                    <input
-                                            id="enlace_org"
-                                            v-model="user.enlace_org"
-                                            type="text"
-                                            class="form-control"
-                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
-                                    />
-                                </div>
+                <form @submit.prevent="saveUser">
+                    <div class="form-row align-items-center justify-content-center">
+                        <div class="col-md-3 mb-10">
+                            <label for="nombre_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.nombre') }}</label>
+                            <input
+                                    id="nombre_org"
+                                    v-model="user.nombre_org"
+                                    type="text"
+                                    class="form-control"
+                                    required
+                                    :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                            />
+                        </div>
+                        <div class="col-md-4 mb-10">
+                            <label for="email_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.correo') }}</label>
+                            <input
+                                    id="email_org"
+                                    v-model="user.email_org"
+                                    type="email"
+                                    class="form-control"
+                                    required
+                                    :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                            />
+                        </div>
+                        <div class="col-md-3 mb-10">
+                            <label for="enlace_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.enlace') }}</label>
+                            <input
+                                    id="enlace_org"
+                                    v-model="user.enlace_org"
+                                    type="text"
+                                    class="form-control"
+                                    :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-row align-items-center justify-content-center">
+                        <div class="col-md-10 mb-10">
+                            <div class="custom-control custom-checkbox checkbox-primary">
+                                <input
+                                        id="tiene_per_jur"
+                                        v-model="user.tiene_per_jur"
+                                        type="checkbox"
+                                        class="custom-control-input"
+                                        :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                                />
+                                <label for="tiene_per_jur" class="custom-control-label" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.per_jur') }}</label>
                             </div>
-                            <div class="form-row align-items-center justify-content-center">
-                                <div class="col-md-10 mb-10">
-                                    <div class="custom-control custom-checkbox checkbox-primary">
-                                        <input
-                                                id="tiene_per_jur"
-                                                v-model="user.tiene_per_jur"
-                                                type="checkbox"
-                                                class="custom-control-input"
-                                                :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
-                                        />
-                                        <label for="tiene_per_jur" class="custom-control-label" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.per_jur') }}</label>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                    <div v-if="user.tiene_per_jur" class="form-row align-items-center justify-content-center">
+                        <div class="col-md-3 mb-10">
+                            <label for="dni_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.rut') }}</label>
+                            <div class="input-group">
+                                <input
+                                        id="dni_org"
+                                        v-model="user.dni_org"
+                                        type="text"
+                                        class="form-control"
+                                        required
+                                        :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                                />
                             </div>
-                            <div v-if="user.tiene_per_jur" class="form-row align-items-center justify-content-center">
-                                <div class="col-md-3 mb-10">
-                                    <label for="dni_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.rut') }}</label>
-                                    <div class="input-group">
-                                        <input
-                                                id="dni_org"
-                                                v-model="user.dni_org"
-                                                type="text"
-                                                class="form-control"
-                                                :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
-                                        />
-                                    </div>
-                                    <div class="invalid-feedback" :style="mode==='dark'?'color: #fff':''">{{ $t('invalid-feedback.rut') }}</div>
-                                </div>
-                                <div class="col-md-4 mb-10">
-                                    <label for="rep_legal_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.representante') }}</label>
-                                    <div class="input-group">
-                                        <input
-                                                id="rep_legal_org"
-                                                v-model="user.rep_legal_org"
-                                                type="text"
-                                                class="form-control"
-                                                :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
-                                        />
-                                    </div>
-                                    <div class="invalid-feedback" :style="mode==='dark'?'color: #fff':''">{{ $t('invalid-feedback.representante') }}</div>
-                                </div>
-                                <div class="col-md-3 mb-10">
-                                    <label for="tipo_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.tipo.titulo') }}</label>
-                                    <select
-                                            id="tipo_org"
-                                            v-model="user.tipo_org"
-                                            class="form-control custom-select d-block w-100"
-                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
-                                    >
-                                        <option value="1">{{ $t('administrador.componentes.crear_usuario.organizacion.tipo.con_fines_lucro') }}</option>
-                                        <option value="2">{{ $t('administrador.componentes.crear_usuario.organizacion.tipo.sin_fines_lucro') }}</option>
-                                    </select>
-                                </div>
+                            <div class="invalid-feedback" :style="mode==='dark'?'color: #fff':''">{{ $t('invalid-feedback.rut') }}</div>
+                        </div>
+                        <div class="col-md-4 mb-10">
+                            <label for="rep_legal_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.representante') }}</label>
+                            <div class="input-group">
+                                <input
+                                        id="rep_legal_org"
+                                        v-model="user.rep_legal_org"
+                                        type="text"
+                                        class="form-control"
+                                        required
+                                        :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                                />
                             </div>
-                            <hr />
-                            <h4 class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_usuario.organizacion.miembros.titulo') }}</h4>
-                            <div
-                                    class="form-row align-items-center justify-content-center"
-                                    v-for="(member, index) in user.member_orgs"
-                                    :key="'member-' + index"
+                            <div class="invalid-feedback" :style="mode==='dark'?'color: #fff':''">{{ $t('invalid-feedback.representante') }}</div>
+                        </div>
+                        <div class="col-md-3 mb-10">
+                            <label for="tipo_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.tipo.titulo') }}</label>
+                            <select
+                                    id="tipo_org"
+                                    v-model="user.tipo_org"
+                                    class="form-control custom-select d-block w-100"
+                                    required
+                                    :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
                             >
-                                <div class="col-md-10">
-                                    <hr v-show="index !== 0 && user.member_orgs.length > 1">
-                                    <div
-                                            class="float-right"
-                                            v-bind:class="{ 'btn-group': index || (!index && user.member_orgs.length > 1) }"
-                                    >
-                                        <a @click="removeMember(index)" v-show="index || (!index && user.member_orgs.length > 1)" class="btn btn-sm btn-danger text-white">
-                                            <span class="btn-text"><font-awesome-icon icon="minus"/></span>
-                                        </a>
-                                        <a @click="addMember()" class="btn btn-sm btn-primary text-white">
-                                            <span class="btn-text"><font-awesome-icon icon="plus"/></span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 mb-10">
-                                    <label for="name_member_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.nombre') }}</label>
-                                    <input
-                                            id="name_member_org"
-                                            v-model="member.name"
-                                            type="text"
-                                            class="form-control"
-                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
-                                    />
-                                </div>
-                                <div class="col-md-4 mb-10">
-                                    <label for="surname_member_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.miembros.apellidos') }}</label>
-                                    <input
-                                            id="surname_member_org"
-                                            v-model="member.surname"
-                                            type="text"
-                                            class="form-control"
-                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
-                                    />
-                                </div>
-                                <div class="col-md-3 mb-10">
-                                    <label for="dni_member_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.rut') }}</label>
-                                    <input
-                                            id="dni_member_org"
-                                            v-model="member.dni"
-                                            type="text"
-                                            class="form-control"
-                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
-                                    />
-                                </div>
-                            </div>
-                            <hr />
-                            <h4 class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_usuario.organizacion.ubicaciones.titulo') }}</h4>
+                                <option value="1">{{ $t('administrador.componentes.crear_usuario.organizacion.tipo.con_fines_lucro') }}</option>
+                                <option value="2">{{ $t('administrador.componentes.crear_usuario.organizacion.tipo.sin_fines_lucro') }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr />
+                    <h4 class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_usuario.organizacion.miembros.titulo') }}</h4>
+                    <div
+                            class="form-row align-items-center justify-content-center"
+                            v-for="(member, index) in user.member_orgs"
+                            :key="'member-' + index"
+                    >
+                        <div class="col-md-10">
+                            <hr v-show="index !== 0 && user.member_orgs.length > 1">
                             <div
-                                    class="form-row align-items-center justify-content-center mb-20"
-                                    v-for="(location, index) in user.location_orgs"
-                                    :key="'location-' + index"
+                                    class="float-right"
+                                    v-bind:class="{ 'btn-group': index || (!index && user.member_orgs.length > 1) }"
                             >
-                                <div class="col-md-10">
-                                    <hr v-show="index !== 0 && user.location_orgs.length > 1">
-                                    <div
-                                            class="float-right"
-                                            v-bind:class="{ 'btn-group': index || (!index && user.location_orgs.length > 1) }"
-                                    >
-                                        <a @click="removeLoaction(index)" v-show="index || (!index && user.location_orgs.length > 1)" class="btn btn-sm btn-danger text-white">
-                                            <span class="btn-text"><font-awesome-icon icon="minus"/></span>
-                                        </a>
-                                        <a @click="addLocation()" class="btn btn-sm btn-primary text-white">
-                                            <span class="btn-text"><font-awesome-icon icon="plus"/></span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-md-7 mb-10">
-                                    <label for="direccion_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.ubicaciones.direccion') }}</label>
-                                    <input
-                                            id="direccion_location_org"
-                                            v-model="location.direccion"
-                                            type="text"
-                                            class="form-control"
-                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
-                                    />
-                                </div>
-                                <div class="col-md-3 mb-10">
-                                    <label for="sector_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.ubicaciones.sector.titulo') }}</label>
-                                    <select
-                                            id="sector_location_org"
-                                            v-model="location.sector"
-                                            class="form-control custom-select d-block w-100"
-                                            :style="mode==='dark'?'background: #080035; color: #fff':''"
-                                    >
-                                        <option value="1">{{ $t('administrador.componentes.crear_usuario.organizacion.ubicaciones.sector.urbano') }}</option>
-                                        <option value="2">{{ $t('administrador.componentes.crear_usuario.organizacion.ubicaciones.sector.rural') }}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3 mb-10">
-                                    <label for="pais_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.pais') }}</label>
-                                    <select
-                                            id="pais_location_org"
-                                            @change="refreshStates(location)"
-                                            v-model="location.pais"
-                                            class="form-control custom-select d-block w-100"
-                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
-                                    >
-                                        <option
-                                                v-for="(country, index) in countries"
-                                                :key="'country_location_org-' + index"
-                                                :value="country.name"
-                                        >
-                                            {{ country.name }}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 mb-10">
-                                    <label for="region_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.region') }}</label>
-                                    <select
-                                            id="region_location_org"
-                                            @change="refreshCities(location)"
-                                            v-model="location.region"
-                                            v-bind:disabled="!hasStates(location.pais)"
-                                            class="form-control custom-select d-block w-100"
-                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
-                                    >
-                                        <option v-if="!hasStates(location.pais)"></option>
-                                        <option
-                                                v-else
-                                                v-for="(state, index) in location.states"
-                                                :key="'state_location_org-' + index"
-                                                :value="state"
-                                        >
-                                            {{ state }}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3 mb-10">
-                                    <label for="comuna_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.comuna') }}</label>
-                                    <select
-                                            id="comuna_location_org"
-                                            v-model="location.comuna"
-                                            v-bind:disabled="!hasStates(location.pais) || !location.region"
-                                            class="form-control custom-select d-block w-100"
-                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
-                                    >
-                                        <option v-if="!hasStates(location.pais) || !location.region"></option>
-                                        <option
-                                                v-else
-                                                v-for="(city, index) in location.cities"
-                                                :key="'city_location_org-' + index"
-                                                :value="city"
-                                        >
-                                            {{ city }}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-md-10 mb-10">
-                                    <div class="custom-control custom-radio radio-primary">
-                                        <input
-                                                :id="'es_principal_location_org-' + index"
-                                                name="es_principal"
-                                                v-model="location.es_principal"
-                                                type="radio"
-                                                class="custom-control-input"
-                                                :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
-                                        />
-                                        <label :for="'es_principal_location_org-' + index" class="custom-control-label" :style="mode==='dark'?'color: #fff':''">
-                                            {{ $t('administrador.componentes.crear_usuario.organizacion.ubicaciones.principal') }}
-                                        </label>
-                                    </div>
-                                </div>
+                                <a @click="removeMember(index)" v-show="index || (!index && user.member_orgs.length > 1)" class="btn btn-sm btn-danger text-white">
+                                    <span class="btn-text"><font-awesome-icon icon="minus"/></span>
+                                </a>
+                                <a @click="addMember()" class="btn btn-sm btn-primary text-white">
+                                    <span class="btn-text"><font-awesome-icon icon="plus"/></span>
+                                </a>
                             </div>
-                            <div class="text-center mt-5">
-                                <button class="btn btn-primary vld-parent" type="submit">{{ $t('guardar') }}
-                                    <Loading
-                                            :active.sync="loadBtnSave"
-                                            :is-full-page="fullPage"
-                                            :height="24"
-                                            :color="'#ffffff'"
-                                    ></Loading>
-                                </button>
+                        </div>
+                        <div class="col-md-3 mb-10">
+                            <label for="name_member_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.nombre') }}</label>
+                            <input
+                                    id="name_member_org"
+                                    v-model="member.name"
+                                    type="text"
+                                    class="form-control"
+                                    required
+                                    :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                            />
+                        </div>
+                        <div class="col-md-4 mb-10">
+                            <label for="surname_member_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.miembros.apellidos') }}</label>
+                            <input
+                                    id="surname_member_org"
+                                    v-model="member.surname"
+                                    type="text"
+                                    class="form-control"
+                                    required
+                                    :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                            />
+                        </div>
+                        <div class="col-md-3 mb-10">
+                            <label for="dni_member_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.rut') }}</label>
+                            <input
+                                    id="dni_member_org"
+                                    v-model="member.dni"
+                                    type="text"
+                                    class="form-control"
+                                    :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                            />
+                        </div>
+                    </div>
+                    <hr />
+                    <h4 class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_usuario.organizacion.ubicaciones.titulo') }}</h4>
+                    <div
+                            class="form-row align-items-center justify-content-center mb-20"
+                            v-for="(location, index) in user.location_orgs"
+                            :key="'location-' + index"
+                    >
+                        <div class="col-md-10">
+                            <hr v-show="index !== 0 && user.location_orgs.length > 1">
+                            <div
+                                    class="float-right"
+                                    v-bind:class="{ 'btn-group': index || (!index && user.location_orgs.length > 1) }"
+                            >
+                                <a @click="removeLoaction(index)" v-show="index || (!index && user.location_orgs.length > 1)" class="btn btn-sm btn-danger text-white">
+                                    <span class="btn-text"><font-awesome-icon icon="minus"/></span>
+                                </a>
+                                <a @click="addLocation()" class="btn btn-sm btn-primary text-white">
+                                    <span class="btn-text"><font-awesome-icon icon="plus"/></span>
+                                </a>
                             </div>
-                        </form>
+                        </div>
+                        <div class="col-md-7 mb-10">
+                            <label for="direccion_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.ubicaciones.direccion') }}</label>
+                            <input
+                                    id="direccion_location_org"
+                                    v-model="location.direccion"
+                                    type="text"
+                                    class="form-control"
+                                    required
+                                    :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                            />
+                        </div>
+                        <div class="col-md-3 mb-10">
+                            <label for="sector_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.ubicaciones.sector.titulo') }}</label>
+                            <select
+                                    id="sector_location_org"
+                                    v-model="location.sector"
+                                    class="form-control custom-select d-block w-100"
+                                    required
+                                    :style="mode==='dark'?'background: #080035; color: #fff':''"
+                            >
+                                <option
+                                        v-for="orgSector in orgSectors"
+                                        :key="'org-sector-' + orgSector.id"
+                                        :value="orgSector.id"
+                                >
+                                    {{ orgSector.label }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-10">
+                            <label for="pais_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.pais') }}</label>
+                            <select
+                                    id="pais_location_org"
+                                    @change="refreshStates(location)"
+                                    v-model="location.pais"
+                                    class="form-control custom-select d-block w-100"
+                                    required
+                                    :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                            >
+                                <option
+                                        v-for="(country, index) in countries"
+                                        :key="'country_location_org-' + index"
+                                        :value="country.name"
+                                >
+                                    {{ country.name }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-10">
+                            <label for="region_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.region') }}</label>
+                            <select
+                                    id="region_location_org"
+                                    @change="refreshCities(location)"
+                                    v-model="location.region"
+                                    v-bind:disabled="!hasStates(location.pais)"
+                                    class="form-control custom-select d-block w-100"
+                                    :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                            >
+                                <option v-if="!hasStates(location.pais)"></option>
+                                <option
+                                        v-else
+                                        v-for="(state, index) in location.states"
+                                        :key="'state_location_org-' + index"
+                                        :value="state"
+                                >
+                                    {{ state }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-10">
+                            <label for="comuna_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.comuna') }}</label>
+                            <select
+                                    id="comuna_location_org"
+                                    v-model="location.comuna"
+                                    v-bind:disabled="!hasStates(location.pais) || !location.region"
+                                    class="form-control custom-select d-block w-100"
+                                    :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                            >
+                                <option v-if="!hasStates(location.pais) || !location.region"></option>
+                                <option
+                                        v-else
+                                        v-for="(city, index) in location.cities"
+                                        :key="'city_location_org-' + index"
+                                        :value="city"
+                                >
+                                    {{ city }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-10 mb-10">
+                            <div class="custom-control custom-radio radio-primary">
+                                <input
+                                        :id="'es_principal_location_org-' + index"
+                                        name="es_principal"
+                                        v-model="location.es_principal"
+                                        v-bind:value="true"
+                                        type="radio"
+                                        class="custom-control-input"
+                                        :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                                        @click="changeEsPrincipal(index)"
+                                />
+                                <label :for="'es_principal_location_org-' + index" class="custom-control-label" :style="mode==='dark'?'color: #fff':''">
+                                    {{ $t('administrador.componentes.crear_usuario.organizacion.ubicaciones.principal') }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-5">
+                        <button class="btn btn-primary vld-parent" type="submit">
+                            <font-awesome-icon icon="save" />
+                            <span class="btn-text ml-1">{{ $t('guardar') }}</span>
+                            <Loading
+                                    :active.sync="loadBtnSave"
+                                    :is-full-page="fullPage"
+                                    :height="24"
+                                    :color="'#ffffff'"
+                            ></Loading>
+                        </button>
+                        <button @click="back" class="btn btn-danger text-white ml-10">
+                            <font-awesome-icon icon="window-close" />
+                            <span class="btn-text ml-1">{{ $t('cancelar') }}</span>
+                        </button>
+                    </div>
+                </form>
             </div>
         </section>
         <section class="hk-sec-wrapper" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
@@ -692,7 +733,6 @@
                             <small class="text-muted d-block" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.cambio_contrasena.consejo') }}</small>
                         </div>
                     </div>
-
                     <div class="form-row align-items-center justify-content-center">
                         <div class="class col-md-10 mb-10">
                             <label for="new_password_confirmation" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.cambio_contrasena.confirmar') }}</label>
@@ -701,18 +741,25 @@
                                     v-model="changePassword.new_password_confirmation"
                                     type="password"
                                     class="form-control"
+                                    required
                                     :style="mode==='dark'?'background: #080035; color: #fff':''"
                             />
                         </div>
                     </div>
                     <div class="text-center mt-5">
-                        <button class="btn btn-primary vld-parent" type="submit">{{ $t('guardar') }}
+                        <button class="btn btn-primary vld-parent" type="submit">
+                            <font-awesome-icon icon="save" />
+                            <span class="btn-text ml-1">{{ $t('guardar') }}</span>
                             <Loading
                                     :active.sync="loadBtnChangePassword"
                                     :is-full-page="fullPage"
                                     :height="24"
                                     :color="'#ffffff'"
                             ></Loading>
+                        </button>
+                        <button @click="back" class="btn btn-danger text-white ml-10">
+                            <font-awesome-icon icon="window-close" />
+                            <span class="btn-text ml-1">{{ $t('cancelar') }}</span>
                         </button>
                     </div>
                 </div>
@@ -722,53 +769,51 @@
 </template>
 
 <script>
-    import CountriesStatesCities from '../../data/paises_estados_ciudades.json';
-    import Multiselect from 'vue-multiselect';
-    import DatePicker from 'vue-bootstrap-datetimepicker';
-    import {en, es} from 'vuejs-datepicker/dist/locale';
-    import axios from '../../backend/axios';
     import Loading from 'vue-loading-overlay';
+    import DatePicker from 'vue-bootstrap-datetimepicker';
+    import Multiselect from 'vue-multiselect';
+    import axios from '../../backend/axios';
+    import CountriesStatesCities from '../../data/paises_estados_ciudades.json';
 
     export default {
         name: 'ProfileEdit',
         components: {
-            Multiselect,
+            Loading,
             DatePicker,
-            Loading
+            Multiselect
         },
         data() {
             return {
-                mode: String,
                 user: {
                     name: null,
                     surname: null,
                     username: null,
-                    rol: null,
-                    dni: null,
                     email: null,
                     password: null,
                     password_confirmation: null,
                     birthday: null,
+                    dni: null,
                     pais: null,
                     region: null,
                     comuna: null,
+                    sector: null,
                     nivel_educacional: null,
                     genero: null,
                     actividad: null,
+                    es_experto: false,
                     titulo_profesional: null,
                     estudios_adicionales: null,
                     anios_experiencia_laboral: null,
                     areas_desempenio: null,
                     temas_trabajo: null,
-                    es_experto: false,
+                    es_organizacion: false,
                     nombre_org: null,
                     email_org: null,
                     enlace_org: null,
                     tiene_per_jur: false,
-                    es_organizacion: false,
                     dni_org: null,
                     rep_legal_org: null,
-                    tipo_org: 0,
+                    tipo_org: 1,
                     states: [],   // Temporal array
                     cities: [],   // Temporal array
                     member_orgs: [
@@ -785,7 +830,7 @@
                             pais: null,
                             region: null,
                             comuna: null,
-                            sector: 0,
+                            sector: 1,
                             states: [],  // Temporal array
                             cities: []   // Temporal array
                         }
@@ -796,25 +841,28 @@
                     new_password: null,
                     new_password_confirmation: null
                 },
+                birthday: null,
                 currentUserTerms: [],
                 oldUserTerms: [],
                 terms: [],
                 countriesStatesCities: [],
                 countries: [],
-                dateOptions: {
-                    format: 'YYYY-MM-DD'
-                },
-                enLocaleDatePicker: en,
-                esLocaleDatePicker: es,
+                sectors: this.$t('perfil_usuario.componentes.edicion_perfil.sector.opciones'),
+                genders: this.$t('perfil_usuario.componentes.edicion_perfil.genero.opciones'),
+                educationalLevels: this.$t('perfil_usuario.componentes.edicion_perfil.nivel.opciones'),
+                activities: this.$t('perfil_usuario.componentes.edicion_perfil.actividad.opciones'),
                 oldPasswordFieldType: 'password',
                 newPasswordFieldType: 'password',
                 professions: this.$t('perfil_usuario.componentes.edicion_perfil.usuario_experto.profesion.opciones'),
+                experiences: this.$t('perfil_usuario.componentes.edicion_perfil.usuario_experto.experiencia.opciones'),
                 areasDesempenio: this.$t('perfil_usuario.componentes.edicion_perfil.usuario_experto.area_desempenio.opciones'),
+                orgSectors: this.$t('administrador.componentes.crear_usuario.organizacion.ubicaciones.sector.opciones'),
                 loadUser: true,
                 loadBtnSave: false,
                 loadBtnChangePassword: false,
                 fullPage: false,
-                color: '#000000'
+                color: '#000000',
+                mode: String
             };
         },
         mounted() {
@@ -863,10 +911,10 @@
                     });
             },
             saveUser() {
+                this.loadBtnSave = true;
+                this.user.birthday = this.birthday ? this.$moment(this.birthday, this.$t('componentes.moment.formato_editable_sin_hora')).format('YYYY-MM-DD') : null;
                 this.user.estudios_adicionales = this.user.estudios_adicionales == null ? null : [this.user.estudios_adicionales];
                 this.user.temas_trabajo = this.user.temas_trabajo == null ? null : [this.user.temas_trabajo];
-
-                this.loadBtnSave = true;
                 axios
                     .put('/users/' + this.user.id, this.user)
                     .then(() => {
@@ -884,7 +932,7 @@
                                         });
                                 })
                                 .catch(() => {
-                                    this.$toastr('error', 'Los temas de interés no han podido actualizarce', 'Datos no actualizados');
+                                    this.$toastr('error', 'Los temas de interés no han podido actualizarse', 'Datos no actualizados');
                                 });
                         } else {
                             this.$toastr('success', 'Has actualizado correctamente los datos de tu cuenta de usuario', 'Datos actualizados');
@@ -899,6 +947,7 @@
             },
             refreshUser(userData) {
                 this.user = userData;
+                this.birthday = this.user.birthday ? this.$moment.utc(this.user.birthday, 'YYYY-MM-DD') : null;
                 this.currentUserTerms = this.user.terms;
                 this.oldUserTerms = this.currentUserTerms;
 
@@ -910,11 +959,10 @@
                 }
 
                 // Pasando a false si es que son NULL, ya que sino no se podrían guardar los datos
-                if(this.user.tiene_per_jur == null) this.user.tiene_per_jur = false;
-                if(this.user.es_experto == null) this.user.es_experto = false;
-                if(this.user.es_organizacion == null) this.user.es_organizacion = false;
+                if(this.user.tiene_per_jur === null) this.user.tiene_per_jur = false;
+                if(this.user.es_experto === null) this.user.es_experto = false;
+                if(this.user.es_organizacion === null) this.user.es_organizacion = false;
 
-                // Si es organización pero no tiene miembros y/o sedes
                 if(this.user.member_orgs.length === 0) {
                     this.user.member_orgs.push({
                         name: null,
@@ -975,6 +1023,11 @@
             removeLoaction(index) {
                 this.user.location_orgs.splice(index, 1);
             },
+            changeEsPrincipal(locationIndex) {
+                this.user.location_orgs.forEach((location, index) => {
+                    location.es_principal = index === locationIndex;
+                });
+            },
             hasStates(countryName) {
                 if(countryName) {
                     let country = this.countries.find(country => country.name === countryName);
@@ -1030,32 +1083,35 @@
             },
             switchNewPasswordVisibility() {
                 this.newPasswordFieldType = this.newPasswordFieldType === 'password' ? 'text' : 'password';
+            },
+            back() {
+                location.replace(document.referrer);
             }
         },
         computed: {
-            langDataPicker() {
-                if(this.$i18n.locale === 'es') {
-                    return this.esLocaleDatePicker;
-                }
-                return this.enLocaleDatePicker;
+            dateOptions() {
+                return {
+                    format: this.$t('componentes.moment.formato_editable_sin_hora'),
+                    locale: this.$moment.locale()
+                };
             }
         },
         watch: {
-            'user.tiene_per_jur': function(val) {
-                if (!val) {
+            'user.tiene_per_jur': function (value) {
+                if(!this.loadUser && !value) {
                     this.user.dni_org = null;
                     this.user.rep_legal_org = null;
                     this.user.tipo_org = null;
                 }
             },
-            'user.nivel_educacional': function(val) {
-                if(val !== 7 && val !== 8) {
-                    this.clearExpertForm()
+            'user.nivel_educacional': function (value) {
+                if(!this.loadUser && value !== 7 && value !== 8) {
+                    this.clearExpertForm();
                 }
             },
-            'user.es_experto': function(val) {
-                if(!val) {
-                    this.clearExpertForm()
+            'user.es_experto': function (value) {
+                if(!this.loadUser && !value) {
+                    this.clearExpertForm();
                 }
             }
         }
