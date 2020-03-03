@@ -20,15 +20,15 @@ class PageController extends Controller
     public function index(Request $request)
     {
         try {
+            $filter = [];
+            if($request->has('query')) {
+                $filter['query'] = $request['query'];
+            }
+
             if(Auth::check() && Auth::user()->hasRole('ADMIN')) {
                 $isPublic = $request->query('is_public', null);
             } else {
                 $isPublic = true;
-            }
-
-            $filter = [];
-            if($request->has('query')) {
-                $filter['query'] = $request['query'];
             }
 
             $query = [];
@@ -41,8 +41,14 @@ class PageController extends Controller
             if(isset($request->slug)) {
                 $query[] = ['slug', $request->slug];
             }
-            $pages = Page::filter($filter)->where($query);
-            $totalResults = Page::filter($filter)->where($query)->count();
+
+            if(Auth::check() && Auth::user()->hasRole('ADMIN') && isset($request->only_trashed) && $request->only_trashed) {
+                $pages = Page::filter($filter)->where($query)->onlyTrashed();
+                $totalResults = Page::filter($filter)->where($query)->onlyTrashed()->count();
+            } else {
+                $pages = Page::filter($filter)->where($query);
+                $totalResults = Page::filter($filter)->where($query)->count();
+            }
 
             if($request->has('order_by')) {
                 $order = $request->query('order', 'ASC');
@@ -79,7 +85,7 @@ class PageController extends Controller
             $validator = Validator::make($request->all(), [
                 'title' => 'required|string|max:191',
                 'slug' => 'required|string|max:191|unique:pages',
-                'content' => 'string|nullable',
+                'content' => 'required|string',
                 'is_public' => 'boolean',
                 'terms_id' => 'array'
             ]);
@@ -103,7 +109,9 @@ class PageController extends Controller
 
             DB::commit();
             return response()->json([
-                'message' => 'Successfully created page!'], 201);
+                'message' => 'Successfully created page!',
+                'data' => $page->toArray()
+            ], 201);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the page was not created.'], 412);
@@ -147,7 +155,7 @@ class PageController extends Controller
             $validator = Validator::make($request->all(), [
                 'title' => 'required|string|max:191',
                 'slug' => 'required|string|max:191|unique:pages,slug,' . $id,
-                'content' => 'string|nullable',
+                'content' => 'required|string',
                 'is_public' => 'boolean'
             ]);
             if($validator->fails()) {
@@ -163,7 +171,9 @@ class PageController extends Controller
             ]);
             $page->save();
             return response()->json([
-                'message' => 'Successfully updated page!'], 201);
+                'message' => 'Successfully updated page!',
+                'data' => $page->toArray()
+            ], 201);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the page was not updated.'], 412);

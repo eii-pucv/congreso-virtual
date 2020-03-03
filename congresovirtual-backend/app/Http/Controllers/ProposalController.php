@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Proposal;
 use App\Urgency;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -85,7 +86,12 @@ class ProposalController extends Controller
                 'autoria' => 'required|string',
                 'boletin' => 'required|string|max:191|unique:proposals',
                 'fecha_ingreso' => 'date_format:Y-m-d|nullable',
-                'type' => 'required|integer|in:1,2'
+                'type' => 'required|integer|in:1,2',
+                'state' => 'integer|in:0,1',
+                'is_public' => 'boolean',
+                'argument' => 'string|nullable',
+                'video_code' => 'string|max:191|nullable',
+                'video_source' => 'string|max:191|nullable',
             ]);
             if($validator->fails()) {
                 return response()->json($validator->errors(), 412);
@@ -93,18 +99,43 @@ class ProposalController extends Controller
 
             $user = Auth::user();
 
+            $state = 0;
+            $isPublic = false;
+            $argument = null;
+            $videoCode = null;
+            $videoSource = null;
+            if($user->hasRole('ADMIN') && $request->has('state')) {
+                $userProposals = User::findOrFail($user->id)->proposals;
+                if($request->state == 1 && $userProposals->where('state', '=', 1)->first()) {
+                    throw new \Exception();
+                } else if($request->state == 1) {
+                    $state = 1;
+                    $isPublic = $request->has('is_public') ? $request->is_public : $isPublic;
+                    $argument = $request->argument;
+                    $videoCode = $request->video_code;
+                    $videoSource = $request->video_source;
+                }
+            }
+
             $proposal = new Proposal([
                 'titulo' => $request->titulo,
                 'detalle' => $request->detalle,
                 'autoria' => $request->autoria,
                 'boletin' => $request->boletin,
                 'fecha_ingreso' => $request->fecha_ingreso,
-                'type' => $request->type
+                'type' => $request->type,
+                'state' => $state,
+                'is_public' => $isPublic,
+                'argument' => $argument,
+                'video_code' => $videoCode,
+                'video_source' => $videoSource
             ]);
             $proposal->user()->associate($user);
             $proposal->save();
             return response()->json([
-                'message' => 'Successfully created proposal!'], 201);
+                'message' => 'Successfully created proposal!',
+                'data' => $proposal->toArray()
+            ], 201);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the proposal was not created.'], 412);
@@ -151,8 +182,8 @@ class ProposalController extends Controller
                 'state' => 'integer|in:0,1',
                 'is_public' => 'boolean',
                 'argument' => 'string|nullable',
-                'video_url' => 'string|max:191|nullable',
-                'video_source' => 'string|max:191|nullable'
+                'video_code' => 'string|max:191|nullable',
+                'video_source' => 'string|max:191|nullable',
             ]);
             if($validator->fails()) {
                 return response()->json($validator->errors(), 412);
@@ -170,19 +201,19 @@ class ProposalController extends Controller
                 }
 
                 $argument = $proposal->argument;
-                $videoUrl = $proposal->video_url;
+                $videoCode = $proposal->video_code;
                 $videoSource = $proposal->video_source;
                 if($state == 1) {
                     if(isset($request->argument)) {
                         $argument = $request->argument;
                     }
-                    if(isset($request->video_url)) {
-                        $videoUrl = $request->video_url;
+                    if(isset($request->video_code)) {
+                        $videoCode = $request->video_code;
                     }
                     if(isset($request->video_source)) {
                         $videoSource = $request->video_source;
                     }
-                } else if($state == 0 && (isset($request->argument) || isset($request->video_url) || isset($request->video_source))) {
+                } else if($state == 0 && (isset($request->argument) || isset($request->video_code) || isset($request->video_source))) {
                     throw new \Exception();
                 }
 
@@ -192,7 +223,7 @@ class ProposalController extends Controller
                     'state' => $state,
                     'is_public' => $request->has('is_public') ? $request->is_public : $proposal->is_public,
                     'argument' => $argument,
-                    'video_url' => $videoUrl,
+                    'video_code' => $videoCode,
                     'video_source' => $videoSource
                 ]);
             } else {
@@ -202,33 +233,35 @@ class ProposalController extends Controller
                 ])->firstOrFail();
 
                 $argument = $proposal->argument;
-                $videoUrl = $proposal->video_url;
+                $videoCode = $proposal->video_code;
                 $videoSource = $proposal->video_source;
                 if($proposal->state == 1) {
                     if(isset($request->argument)) {
                         $argument = $request->argument;
                     }
-                    if(isset($request->video_url)) {
-                        $videoUrl = $request->video_url;
+                    if(isset($request->video_code)) {
+                        $videoCode = $request->video_code;
                     }
                     if(isset($request->video_source)) {
                         $videoSource = $request->video_source;
                     }
-                } else if($proposal->state == 0 && (isset($request->argument) || isset($request->video_url) || isset($request->video_source))) {
+                } else if($proposal->state == 0 && (isset($request->argument) || isset($request->video_code) || isset($request->video_source))) {
                     throw new \Exception();
                 }
 
                 $proposal->fill([
                     'detalle' => $request->has('detalle') ? $request->detalle : $proposal->detalle,
                     'argument' => $argument,
-                    'video_url' => $videoUrl,
+                    'video_code' => $videoCode,
                     'video_source' => $videoSource
                 ]);
             }
 
             $proposal->save();
             return response()->json([
-                'message' => 'Successfully updated proposal!'], 201);
+                'message' => 'Successfully updated proposal!',
+                'data' => $proposal->toArray()
+            ], 201);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the proposal was not updated.'], 412);

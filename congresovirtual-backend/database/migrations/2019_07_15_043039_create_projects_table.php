@@ -18,11 +18,11 @@ class CreateProjectsTable extends Migration
             $table->text('titulo');
             $table->string('postulante')->nullable();
             $table->string('estado')->nullable();
-            $table->integer('etapa')->nullable();
-            $table->longText('detalle')->nullable();
-            $table->mediumText('resumen')->nullable();
-            $table->dateTime('fecha_inicio')->nullable();
-            $table->dateTime('fecha_termino')->nullable();
+            $table->integer('etapa');
+            $table->longText('detalle');
+            $table->mediumText('resumen');
+            $table->dateTime('fecha_inicio');
+            $table->dateTime('fecha_termino');
             $table->string('boletin');
             $table->boolean('is_principal')->default(false);
             $table->boolean('is_public')->default(false);
@@ -30,7 +30,8 @@ class CreateProjectsTable extends Migration
             $table->integer('votos_a_favor')->default(0);
             $table->integer('votos_en_contra')->default(0);
             $table->integer('abstencion')->default(0);
-            $table->string('video')->nullable();
+            $table->string('video_code')->nullable();
+            $table->string('video_source')->nullable();
             $table->bigInteger('imagen_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();

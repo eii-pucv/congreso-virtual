@@ -25,7 +25,8 @@ class CreatePublicConsultationsTable extends Migration
             $table->integer('votos_a_favor')->default(0);
             $table->integer('votos_en_contra')->default(0);
             $table->string('icono')->nullable();
-            $table->string('video')->nullable();
+            $table->string('video_code')->nullable();
+            $table->string('video_source')->nullable();
             $table->bigInteger('imagen_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();

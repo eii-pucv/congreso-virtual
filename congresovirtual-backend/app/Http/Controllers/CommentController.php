@@ -64,8 +64,14 @@ class CommentController extends Controller
             if($state !== null) {
                 $whereAndFilter[] = ['comments.state', $state];
             }
-            $comments = Comment::filter($filter)->where($whereAndFilter);
-            $totalResults = Comment::filter($filter)->where($whereAndFilter)->count();
+
+            if(Auth::check() && Auth::user()->hasRole('ADMIN') && isset($request->only_trashed) && $request->only_trashed) {
+                $comments = Comment::filter($filter)->where($whereAndFilter)->onlyTrashed();
+                $totalResults = Comment::filter($filter)->where($whereAndFilter)->onlyTrashed()->count();
+            } else {
+                $comments = Comment::filter($filter)->where($whereAndFilter);
+                $totalResults = Comment::filter($filter)->where($whereAndFilter)->count();
+            }
 
             if(isset($request->has_denounces)) {
                 if($request->has_denounces == true) {

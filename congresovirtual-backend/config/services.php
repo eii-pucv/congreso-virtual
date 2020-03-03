@@ -68,7 +68,7 @@ return [
         'redirect'      => env('GOOGLE_URL'),
     ],
 
-    'claveunica' => [
+    'clave_unica' => [
         'client_id'     => env('CLAVEUNICA_CLIENT_ID'),
         'client_secret' => env('CLAVEUNICA_SECRET_ID'),
         'redirect'      => env('CLAVEUNICA_REDIRECT'),

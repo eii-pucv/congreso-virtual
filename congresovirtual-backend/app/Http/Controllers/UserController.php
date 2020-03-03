@@ -11,6 +11,7 @@ use App\User;
 use App\Term;
 use App\File;
 use App\FileType;
+use App\UserMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -90,18 +91,25 @@ class UserController extends Controller
     {
         try {
             DB::beginTransaction();
+            if(User::where('email', $request->email)->first()) {
+                throw new \Exception('USER_EMAIL_EXISTS_ERROR');
+            }
+            if(isset($request->username) && $request->username && UserMeta::where([['key', 'username'], ['value', $request->username]])->first()) {
+                throw new \Exception('USER_USERNAME_EXISTS_ERROR');
+            }
+
             $user = $this->basicRegister($request);
             if(!$user) {
-                throw new \Exception('basic');
+                throw new \Exception('BASIC_REGISTER_ERROR');
             }
             if(!$this->expertRegister($request, $user)) {
-                throw new \Exception('expert');
+                throw new \Exception('EXPERT_REGISTER_ERROR');
             }
             if(!$this->organizationRegister($request, $user)) {
-                throw new \Exception('org');
+                throw new \Exception('ORG_REGISTER_ERROR');
             }
             if(!$this->createAndSaveAvatar($user)) {
-                throw new \Exception('avatar');
+                throw new \Exception('AVATAR_CREATE_ERROR');
             }
 
             if(isset($request->active) && $request->active == true) {
@@ -122,6 +130,7 @@ class UserController extends Controller
             ], 201);
         } catch (\Exception $exception) {
             return response()->json([
+                'error' => $exception->getMessage(),
                 'message' => 'Error: the user was not created.'], 412);
         }
     }
@@ -163,14 +172,21 @@ class UserController extends Controller
             }
 
             DB::beginTransaction();
+            if(User::where([['email', $request->email], ['id', '!=', $id]])->first()) {
+                throw new \Exception('USER_EMAIL_EXISTS_ERROR');
+            }
+            if(isset($request->username) && $request->username && UserMeta::where([['key', 'username'], ['value', $request->username], ['user_id', '!=', $id]])->first()) {
+                throw new \Exception('USER_USERNAME_EXISTS_ERROR');
+            }
+
             if(!$this->basicUpdate($request, $user)) {
-                throw new \Exception();
+                throw new \Exception('BASIC_UPDATE_ERROR');
             }
             if(!$this->expertUpdate($request, $user)) {
-                throw new \Exception();
+                throw new \Exception('EXPERT_UPDATE_ERROR');
             }
             if(!$this->organizationUpdate($request, $user)) {
-                throw new \Exception();
+                throw new \Exception('ORG_UPDATE_ERROR');
             }
 
             $data = $user->refresh()->toArray();
@@ -186,6 +202,7 @@ class UserController extends Controller
         } catch (\Exception $exception) {
             DB::rollBack();
             return response()->json([
+                'error' => $exception->getMessage(),
                 'message' => 'Error: the user was not updated.'], 412);
         }
     }
@@ -772,15 +789,15 @@ class UserController extends Controller
                 'email'                 => 'required|string|email|unique:users',
                 'active'                => 'boolean',
                 'password'              => 'required|string|min:8|max:20|confirmed',
-                'birthday'              => 'date_format:Y-m-d|before:'. date('Y-m-d') .'|nullable',
+                'birthday'              => 'date_format:Y-m-d|before:' . date('Y-m-d') . '|nullable',
                 'dni'                   => 'string|max:191|nullable',
                 'pais'                  => 'string|max:191|nullable',
                 'region'                => 'string|max:191|nullable',
                 'comuna'                => 'string|max:191|nullable',
                 'sector'                => 'integer|nullable',
                 'nivel_educacional'     => 'integer|nullable',
-                'genero'                => 'string|max:191|nullable',
-                'actividad'             => 'string|max:191|nullable'
+                'genero'                => 'integer|nullable',
+                'actividad'             => 'integer|nullable'
             ]);
             if($validator->fails()) {
                 throw new \Exception();
@@ -835,11 +852,7 @@ class UserController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'titulo_profesional'    => 'string|max:191|nullable',
-                'estudios_adicionales'  => 'array|nullable',
-                'anios_experiencia_laboral' => 'string|max:191|nullable',
-                'areas_desempenio'      => 'array|nullable',
-                'temas_trabajo'         => 'array|nullable'
+                'es_experto'            => 'boolean'
             ]);
             if($validator->fails()) {
                 throw new \Exception();
@@ -850,6 +863,17 @@ class UserController extends Controller
                     'es_experto'            => false
                 ];
             } else {
+                $validator = Validator::make($request->all(), [
+                    'titulo_profesional'    => 'integer|nullable',
+                    'estudios_adicionales'  => 'array|nullable',
+                    'anios_experiencia_laboral' => 'integer|nullable',
+                    'areas_desempenio'      => 'array|nullable',
+                    'temas_trabajo'         => 'array|nullable'
+                ]);
+                if($validator->fails()) {
+                    throw new \Exception();
+                }
+
                 if(!$request->has('nivel_educacional') || !($request->nivel_educacional == 7 || $request->nivel_educacional == 8)) { // 7: Estudios univeristarios completos, 8: Estudios de postgrado
                     throw new \Exception();
                 }
@@ -894,7 +918,7 @@ class UserController extends Controller
             } else {
                 $validator = Validator::make($request->all(), [
                     'nombre_org'            => 'required|string|max:191',
-                    'email_org'             => 'string|max:191|nullable',
+                    'email_org'             => 'required|string|max:191|nullable',
                     'enlace_org'            => 'string|max:191|nullable',
                     'tiene_per_jur'         => 'boolean',
                     'location_orgs'         => 'array|nullable',
@@ -1045,15 +1069,15 @@ class UserController extends Controller
                 'rol'                   => 'string|in:USER,ADMIN|nullable',
                 'email'                 => 'required|string|email|unique:users,email,' . $user->id,
                 'active'                => 'boolean',
-                'birthday'              => 'date_format:Y-m-d|before:'. date('Y-m-d') .'|nullable',
+                'birthday'              => 'date_format:Y-m-d|before:' . date('Y-m-d') . '|nullable',
                 'dni'                   => 'string|max:191|nullable',
                 'pais'                  => 'string|max:191|nullable',
                 'region'                => 'string|max:191|nullable',
                 'comuna'                => 'string|max:191|nullable',
                 'sector'                => 'integer|nullable',
                 'nivel_educacional'     => 'integer|nullable',
-                'genero'                => 'string|max:191|nullable',
-                'actividad'             => 'string|max:191|nullable'
+                'genero'                => 'integer|nullable',
+                'actividad'             => 'integer|nullable'
             ]);
             if($validator->fails()) {
                 throw new \Exception();
@@ -1110,12 +1134,7 @@ class UserController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'es_experto'            => 'boolean',
-                'titulo_profesional'    => 'string|max:191|nullable',
-                'estudios_adicionales'  => 'array|nullable',
-                'anios_experiencia_laboral' => 'string|max:191|nullable',
-                'areas_desempenio'      => 'array|nullable',
-                'temas_trabajo'         => 'array|nullable'
+                'es_experto'            => 'boolean'
             ]);
             if($validator->fails()) {
                 throw new \Exception();
@@ -1131,6 +1150,17 @@ class UserController extends Controller
                         'temas_trabajo'         => null
                     ];
             } else {
+                $validator = Validator::make($request->all(), [
+                    'titulo_profesional'    => 'integer|nullable',
+                    'estudios_adicionales'  => 'array|nullable',
+                    'anios_experiencia_laboral' => 'integer|nullable',
+                    'areas_desempenio'      => 'array|nullable',
+                    'temas_trabajo'         => 'array|nullable'
+                ]);
+                if($validator->fails()) {
+                    throw new \Exception();
+                }
+
                 if(!$request->has('nivel_educacional') || !($request->nivel_educacional == 7 || $request->nivel_educacional == 8)) { // 7: Estudios univeristarios completos, 8: Estudios de postgrado
                     throw new \Exception();
                 }
@@ -1184,7 +1214,7 @@ class UserController extends Controller
             } else {
                 $validator = Validator::make($request->all(), [
                     'nombre_org'            => 'required|string|max:191',
-                    'email_org'             => 'string|max:191|nullable',
+                    'email_org'             => 'required|string|max:191|nullable',
                     'enlace_org'            => 'string|max:191|nullable',
                     'tiene_per_jur'         => 'boolean',
                     'location_orgs'         => 'array|nullable',

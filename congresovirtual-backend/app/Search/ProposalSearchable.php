@@ -64,7 +64,7 @@ trait ProposalSearchable
         'argument' => [
             'type' => 'text'
         ],
-        'video_url' => [
+        'video_code' => [
             'type' => 'keyword',
             'index' => false
         ],

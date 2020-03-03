@@ -35,7 +35,8 @@ return [
     
     'pdf' => [
         'enabled' => true,
-        'binary'  => 'wkhtmltopdf',
+		//'binary'  => 'wkhtmltopdf',
+        'binary'  => 'wkhtmltoimage',
         'timeout' => false,
         'options' => [],
         'env'     => [],

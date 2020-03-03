@@ -12,7 +12,7 @@ class PublicConsultation extends Model
 {
     use Filterable, PublicConsultationSearchable, SoftDeletes;
 
-    protected $appends = ['imagen'];
+    protected $appends = ['imagen', 'video'];
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +20,7 @@ class PublicConsultation extends Model
      * @var array
      */
     protected $fillable = [
-        'titulo', 'autor', 'estado', 'detalle', 'resumen', 'fecha_inicio', 'fecha_termino', 'votos_a_favor', 'votos_en_contra', 'icono', 'video', 'imagen_id'
+        'titulo', 'autor', 'estado', 'detalle', 'resumen', 'fecha_inicio', 'fecha_termino', 'votos_a_favor', 'votos_en_contra', 'icono', 'video_code', 'video_source', 'imagen_id'
     ];
 
     protected static function boot()
@@ -63,6 +63,18 @@ class PublicConsultation extends Model
     {
         $file = File::find($this->imagen_id);
         return $file ? "{$file->stored_name}.{$file->extension}" : null;
+    }
+
+    public function getVideoAttribute()
+    {
+        if($this->video_code && $this->video_source) {
+            $iframes = json_decode(Setting::where('key', 'video_iframes')->first()->value);
+            $iframe = isset($iframes->{$this->video_source}) ? $iframes->{$this->video_source} : null;
+            if($iframe) {
+                return str_replace('[VIDEO_CODE]', $this->video_code, $iframe);
+            }
+        }
+        return null;
     }
 
     /**
