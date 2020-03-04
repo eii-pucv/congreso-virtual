@@ -18,7 +18,7 @@ git clone https://github.com/eii-pucv/congreso-virtual.git
 
 ---
 
-1. Desde el repositorio clonado, mover completamente la carpeta `congresovirtual-backend` a la ruta `/var/www/`
+1. Desde el repositorio clonado, mover completamente la carpeta `congresovirtual-backend` a la ruta `/var/www/`.
 2. Asignar permisos indicados a las carpetas del proyecto recién copiado.
 
 ```
@@ -28,14 +28,11 @@ sudo chmod -R 755 /var/www/congresovirtual-backend/storage
 sudo chcon -R -t httpd_sys_rw_content_t /var/www/congresovirtual-backend/storage
 ```
 
-3. Inicializar dependencias del backend con Composer.
+3. Acceder a la carpeta del backend y crear un archivo llamado `.env`.
 
 ```
 cd /var/www/congresovirtual-backend
-composer install
 ```
-
-4. En esta carpeta crear un archivo llamado `.env`
 
 _El contenido de este archivo contendrá la configuración de la base de datos, entre otros atributos._
 ```
@@ -97,7 +94,8 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 *CLAVEUNICA_REDIRECT=http://url_api/api/auth/claveunica/callback
 ```
 
-5.	Cambiar los valores resaltados con (*) por los siguientes:
+
+4.	Cambiar los valores resaltados con (*) por los siguientes:
 
 
 |Valor(es) | Descripción|
@@ -111,6 +109,12 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
 
 **Importante:** Por favor borrar los (*) del archivo, ya que son utilizados solo como guía visual para identificar los párametros que debe configurar.
+
+5. Instalar las dependencias del backend con Composer.
+
+```
+composer install
+```
 
 6. Una vez configurado el archivo de variables de entorno `.env`, es recomendable ejecutar el siguiente comando para que Laravel actualice la cache con dichas configuraciones.
 
