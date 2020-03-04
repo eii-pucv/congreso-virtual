@@ -9,8 +9,8 @@ services:
         restart: unless-stopped
         tty: true 
         ports:
-            - "80:80"
-            - "443:443"
+            - "{{CONGRESO_APACHE_HTTP_PORT}}:{{CONGRESO_APACHE_HTTP_PORT}}"
+            - "{{CONGRESO_APACHE_HTTPS_PORT}}:{{CONGRESO_APACHE_HTTPS_PORT}}"
         volumes:
             - ./volumefiles/httpd.conf:/usr/local/apache2/conf/httpd.conf
             - ./volumefiles/default/:/var/www/default/
