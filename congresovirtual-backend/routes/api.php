@@ -292,6 +292,7 @@ Route::group(['middleware' => ['auth:api', 'has.roles:ADMIN']], function() {
         Route::get('/{stopword}', 'OffensiveWordController@show');
         Route::put('/{stopword}', 'OffensiveWordController@update');
         Route::delete('/{stopword}', 'OffensiveWordController@destroy');
+    });
 });
 
 Route::group(['middleware' => ['is.auth:api']], function() {
