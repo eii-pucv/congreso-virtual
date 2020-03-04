@@ -84,9 +84,10 @@ class PublicConsultationController extends Controller
                 'detalle' => 'required|string',
                 'resumen' => 'required|string',
                 'fecha_inicio' => 'required|date_format:Y-m-d H:i:s',
-                'fecha_termino' => 'required|date_format:Y-m-d H:i:s|after_or_equal:fecha_inicio|nullable',
+                'fecha_termino' => 'required|date_format:Y-m-d H:i:s|after_or_equal:fecha_inicio',
                 'icono' => 'string|max:191|nullable',
-                'video' => 'string|max:191|nullable',
+                'video_code' => 'string|max:191|nullable',
+                'video_source' => 'string|max:191|nullable',
                 'terms_id' => 'array'
             ]);
             if($validator->fails()) {
@@ -102,7 +103,8 @@ class PublicConsultationController extends Controller
                 'fecha_inicio' => $request->fecha_inicio,
                 'fecha_termino' => $request->fecha_termino,
                 'icono' => $request->icono,
-                'video' => $request->video
+                'video_code' => $request->video_code,
+                'video_source' => $request->video_source
             ]);
             DB::beginTransaction();
             $publicConsultation->save();
@@ -149,7 +151,10 @@ class PublicConsultationController extends Controller
     public function show($id)
     {
         try {
-            return response()->json(PublicConsultation::with(['votes', 'terms'])->findOrFail($id), 200);
+            $publicConsultation = PublicConsultation::with(['votes', 'terms'])->findOrFail($id);
+            $data = $publicConsultation->toArray();
+            $data['files'] = $publicConsultation->files();
+            return response()->json($data, 200);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the public consultation was not found.'], 412);
@@ -174,9 +179,10 @@ class PublicConsultationController extends Controller
                 'detalle' => 'required|string',
                 'resumen' => 'required|string',
                 'fecha_inicio' => 'required|date_format:Y-m-d H:i:s',
-                'fecha_termino' => 'required|date_format:Y-m-d H:i:s|after_or_equal:fecha_inicio|nullable',
+                'fecha_termino' => 'required|date_format:Y-m-d H:i:s|after_or_equal:fecha_inicio',
                 'icono' => 'string|max:191|nullable',
-                'video' => 'string|max:191|nullable'
+                'video_code' => 'string|max:191|nullable',
+                'video_source' => 'string|max:191|nullable'
             ]);
             if($validator->fails()) {
                 return response()->json($validator->errors(), 412);
@@ -192,7 +198,8 @@ class PublicConsultationController extends Controller
                 'fecha_inicio' => $request->fecha_inicio,
                 'fecha_termino' => $request->fecha_termino,
                 'icono' => $request->icono,
-                'video' => $request->video
+                'video_code' => $request->video_code,
+                'video_source' => $request->video_source
             ]);
             $publicConsultation->save();
             return response()->json([

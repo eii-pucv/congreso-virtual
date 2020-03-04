@@ -58,7 +58,11 @@ trait PublicConsultationSearchable
             'type' => 'keyword',
             'index' => false
         ],
-        'video' => [
+        'video_code' => [
+            'type' => 'keyword',
+            'index' => false
+        ],
+        'video_source' => [
             'type' => 'keyword',
             'index' => false
         ],

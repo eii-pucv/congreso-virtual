@@ -26,7 +26,7 @@ class CreateProposalsTable extends Migration
             $table->integer('petitions')->default(0);   // Cantidad de peticiones para incluir a Congreso Virtual
             $table->integer('urgencies')->default(0);   // Cantidad de peticiones de urgencia
             $table->text('argument')->nullable();
-            $table->string('video_url')->nullable();
+            $table->string('video_code')->nullable();
             $table->string('video_source')->nullable();
             $table->bigInteger('user_id')->unsigned();        // Usuario que propuso el proyecto de ley
             $table->timestamps();

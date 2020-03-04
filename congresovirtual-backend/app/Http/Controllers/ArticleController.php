@@ -34,11 +34,18 @@ class ArticleController extends Controller
 
             if(Auth::check() && Auth::user()->hasRole('ADMIN')) {
                 $filter['projectIsPublic'] = $request->query('is_public', null);
+                if(isset($request->only_trashed) && $request->only_trashed) {
+                    $articles = Article::filter($filter)->onlyTrashed();
+                    $totalResults = Article::filter($filter)->onlyTrashed()->count();
+                } else {
+                    $articles = Article::filter($filter);
+                    $totalResults = Article::filter($filter)->count();
+                }
             } else {
                 $filter['projectIsPublic'] = true;
+                $articles = Article::filter($filter);
+                $totalResults = Article::filter($filter)->count();
             }
-            $articles = Article::filter($filter);
-            $totalResults = Article::filter($filter)->count();
 
             if($request->has('order_by')) {
                 $order = $request->query('order', 'ASC');

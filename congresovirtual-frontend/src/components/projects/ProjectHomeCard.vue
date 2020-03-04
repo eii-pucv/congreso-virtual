@@ -42,7 +42,9 @@
                         :src="getImgUrl()"
                         style="object-fit: cover;"
                 />
-                <a class="btn text-white bg-indigo-light-2 top-right mt-5" data-toggle="modal" :data-target="'#myModal' + project.id"><span class="btn-text"><font-awesome-icon icon="share-square"/></span></a>
+                <a class="btn text-white bg-indigo-light-2 top-right mt-5" data-toggle="modal" :data-target="'#myModal' + project.id">
+                    <span class="btn-text"><font-awesome-icon icon="share-square"/></span>
+                </a>
                 <div v-if="project.terms.length > 0" class="top-left">
                     <a :href="'/projects?terms_id[]=' + project.terms[0].id" class="badge badge-pill badge-dark font-12 m-1">{{ project.terms[0].value }}</a>
                 </div>

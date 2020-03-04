@@ -31,11 +31,8 @@
     import ProjectsHomeList from '../components/projects/ProjectsHomeList';
     import PublicConsultationsHomeList from '../components/public_consultations/PublicConsultationsHomeList';
     import ProposalsHomeList from '../components/proposals/ProposalsHomeList';
-    import axios from '../backend/axios';
     import Loading from 'vue-loading-overlay';
     import 'vue-loading-overlay/dist/vue-loading.css';
-    import router from '../router';
-    import store from '../store';
 
     export default {
         name: 'Home',
@@ -51,33 +48,25 @@
                 mode: String
             };
         },
-        async mounted() {
-            if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
+        mounted() {
+            if ((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
                 this.mode = 'dark';
             } else {
                 this.mode = 'light';
             }
 
             if(this.$route.query.access_token) {
-                let access_token = this.$route.query.access_token;
-                axios.defaults.headers.common["Authorization"] = "Bearer " + access_token;
-                localStorage.access_token = access_token;
-                axios
-                    .get('/auth/user')
-                    .then(res => {
-                        let user_data = res.data;
-                        localStorage.user = JSON.stringify(res.data);
-                        store.dispatch('login', {access_token, user_data})
-                            .then();
-                        this.$toastr('success', 'Iniciaste sesión con éxito', 'Sesión iniciada');
+                let accessToken = this.$route.query.access_token;
+                this.$store.dispatch('loginRrss', accessToken)
+                    .then(() => {
+                        this.$toastr('success', this.$t('login.contenido.mensajes.exito.generico.cuerpo'), this.$t('login.contenido.mensajes.exito.generico.titulo'));
                     })
-                    .finally(() => router.push("/"));
-            }
-            if(this.$route.query.error === 0) {
-                this.$toastr('error', 'Prueba iniciando sesión con tu correo electrónico, si no recuerdas tu contraseña puedes recuperarla', 'Ya existe este correo electrónico');
+                    .catch(() => {
+                        this.$toastr('error', this.$t('login.contenido.mensajes.fallido.generico_rrss.cuerpo'), this.$t('login.contenido.mensajes.fallido.generico_rrss.titulo'));
+                    });
             }
         }
-    };
+    }
 </script>
 
 <style>

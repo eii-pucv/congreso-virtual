@@ -11,7 +11,7 @@
         <div v-if="!loadIdeas">
             <div v-if="ideas.length > 0">
                 <div v-for="idea in ideas" :key="idea.id" class="shadow-sm p-3 mb-5 rounded my-25" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
-                    <h5 class="mx-5" :style="mode==='dark'?'color: #fff':''">{{ idea.titulo }}</h5>
+                    <h5 :style="mode==='dark'?'color: #fff':''">{{ idea.titulo }}</h5>
                     <div class="row no-gutters">
                         <div class="col-sm-7 pr-5">
                             <p class="text-justify">{{ idea.detalle }}</p>

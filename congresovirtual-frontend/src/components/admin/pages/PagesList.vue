@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <div class="row mt-20 mx-10">
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="min-height: 300px;">
                                 <table class="table table-sm table-hover table-bordered vld-parent" ref="tableContainer">
                                     <thead>
                                         <tr>

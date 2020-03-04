@@ -42,27 +42,26 @@
                     />
                   </label>
                   <label class="col-12 font-weight-bold" :style="mode==='dark'?'color: #fff':''">            
-                    Fecha de Ingreso
+                    {{ $t('propuestas.contenido.fecha') }}
                     <date-picker v-model="fechaIngreso" :config="dateOptions" :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"></date-picker>
                   </label>
                   <label class="col-12 font-weight-bold" :style="mode==='dark'?'color: #fff':''">
-                    Autores
+                    {{ $t('propuestas.contenido.autores') }}
                     <input
                       v-model="autores"
                       class="form-control text mt-5"
-                      :placeholder="'Ingrese el/los autores'"
+                      :placeholder="$t('propuestas.contenido.autores_placeholder')"
                       :style="mode==='dark'?'background: #080035; color: #fff':''"
                     />
                   </label>
                   <label class="col-12 font-weight-bold" :style="mode==='dark'?'color: #fff':''">
-                    Origen
+                    {{ $t('propuestas.contenido.origen') }}
                       <select
                         v-model="origen"
                         class="form-control custom-select d-block"
                         id="filterOrigen"
                       >
-                        <option value="C. Diputados">C. Diputados</option>
-                        <option value="Senado">Senado</option>
+                       <option v-for="(source, index) in sourceProposals" :key="'origen_tipo_' + index" :value="source">{{ source }}</option>
                       </select>
                   </label>
                   <div class="btn-group btn-group-toggle btn-block mt-10">
@@ -319,6 +318,7 @@ export default {
         .get("https://slr.senado.cl/getListaProyectosConMovto/S/30")
         .then(res => {
           this.projects.push(...res.data);
+          this.sourceProposals = [...new Set(this.projects.map(project => project.ORIGEN))]
           this.isLoading = true;
         })
         .catch(e => console.error("FAIL: " + JSON.stringify(e)));
@@ -372,9 +372,10 @@ export default {
       type: null,
       projectsToShow: 10,
       maxToShow: 10,
+      sourceProposals: [],
       dateOptions: {
         format: 'DD/MM/YYYY',
-        useCurrent: true,
+        useCurrent: false,
       }, 
     };
   },

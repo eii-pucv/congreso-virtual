@@ -16,6 +16,7 @@ use App\FileType;
 use App\Notifications\NewProject;
 use App\Notifications\UpdateProject;
 use App\Notifications\CloseProject;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -67,8 +68,14 @@ class ProjectController extends Controller
             if(isset($request->is_enabled)) {
                 $whereAndFilter[] = ['is_enabled', $request->is_enabled];
             }
-            $projects = Project::filter($filter)->where($whereAndFilter);
-            $totalResults = Project::filter($filter)->where($whereAndFilter)->count();
+
+            if(Auth::check() && Auth::user()->hasRole('ADMIN') && isset($request->only_trashed) && $request->only_trashed) {
+                $projects = Project::filter($filter)->where($whereAndFilter)->onlyTrashed();
+                $totalResults = Project::filter($filter)->where($whereAndFilter)->onlyTrashed()->count();
+            } else {
+                $projects = Project::filter($filter)->where($whereAndFilter);
+                $totalResults = Project::filter($filter)->where($whereAndFilter)->count();
+            }
 
             if($request->has('order_by')) {
                 $order = $request->query('order', 'ASC');
@@ -106,16 +113,17 @@ class ProjectController extends Controller
                 'titulo' => 'required|string',
                 'postulante' => 'string|max:191|nullable',
                 'estado' => 'string|max:191|nullable',
-                'etapa' => 'integer|in:0,1,2|nullable',
-                'detalle' => 'string|nullable',
-                'resumen' => 'string|nullable',
-                'fecha_inicio' => 'date_format:Y-m-d H:i:s|nullable',
-                'fecha_termino' => 'date_format:Y-m-d H:i:s|after_or_equal:fecha_inicio|nullable',
+                'etapa' => 'required|integer|in:0,1,2',
+                'detalle' => 'required|string',
+                'resumen' => 'required|string',
+                'fecha_inicio' => 'required|date_format:Y-m-d H:i:s|nullable',
+                'fecha_termino' => 'required|date_format:Y-m-d H:i:s|after_or_equal:fecha_inicio',
                 'boletin' => 'required|string|max:191',
                 'is_principal' => 'boolean',
                 'is_public' => 'boolean',
                 'is_enabled' => 'boolean',
-                'video' => 'string|max:191|nullable',
+                'video_code' => 'string|max:191|nullable',
+                'video_source' => 'string|max:191|nullable',
                 'notificar_correo' => 'boolean',
                 'terms_id' => 'array'
             ]);
@@ -136,7 +144,8 @@ class ProjectController extends Controller
                 'is_principal' => $request->has('is_principal') ? $request->is_principal : false,
                 'is_public' => $request->has('is_public') ? $request->is_public : false,
                 'is_enabled' => $request->has('is_enabled') ? $request->is_enabled : true,
-                'video' => $request->video
+                'video_code' => $request->video_code,
+                'video_source' => $request->video_source
             ]);
             DB::beginTransaction();
             $project->save();
@@ -206,7 +215,7 @@ class ProjectController extends Controller
                 throw new \Exception();
             }
 
-            $data = $project;
+            $data = $project->toArray();
             $data['files'] = $project->files();
             return response()->json($data, 200);
         } catch (\Exception $exception) {
@@ -230,16 +239,17 @@ class ProjectController extends Controller
                 'titulo' => 'required|string',
                 'postulante' => 'string|max:191|nullable',
                 'estado' => 'string|max:191|nullable',
-                'etapa' => 'integer|in:0,1,2|nullable',
-                'detalle' => 'string|nullable',
-                'resumen' => 'string|nullable',
-                'fecha_inicio' => 'date_format:Y-m-d H:i:s|nullable',
-                'fecha_termino' => 'date_format:Y-m-d H:i:s|after_or_equal:fecha_inicio|nullable',
+                'etapa' => 'required|integer|in:0,1,2',
+                'detalle' => 'required|string',
+                'resumen' => 'required|string',
+                'fecha_inicio' => 'required|date_format:Y-m-d H:i:s',
+                'fecha_termino' => 'required|date_format:Y-m-d H:i:s|after_or_equal:fecha_inicio|nullable',
                 'boletin' => 'required|string|max:191',
                 'is_principal' => 'boolean',
                 'is_public' => 'boolean',
                 'is_enabled' => 'boolean',
-                'video' => 'string|max:191|nullable',
+                'video_code' => 'string|max:191|nullable',
+                'video_source' => 'string|max:191|nullable',
                 'notificar_correo' => 'boolean'
             ]);
             if($validator->fails()) {
@@ -260,7 +270,8 @@ class ProjectController extends Controller
                 'is_principal' => $request->has('is_principal') ? $request->is_principal : $project->is_principal,
                 'is_public' => $request->has('is_public') ? $request->is_public : $project->is_public,
                 'is_enabled' => $request->has('is_enabled') ? $request->is_enabled : $project->is_enabled,
-                'video' => $request->video
+                'video_code' => $request->video_code,
+                'video_source' => $request->video_source
             ]);
             DB::beginTransaction();
             $project->save();
@@ -688,7 +699,7 @@ class ProjectController extends Controller
      * Return the users associated terms of project.
      *
      * @param  $projectId
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     private function usersWithProjectTerms($projectId)
     {
@@ -718,10 +729,30 @@ class ProjectController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function usersParticipantsOnProject($id)
+    public function usersParticipantsOnProjectRequest($id)
     {
         try {
-            $project = Project::findOrFail($id);
+            $users = $this->usersParticipantsOnProject($id);
+            if(!$users) {
+                throw new \Exception();
+            }
+            return response()->json($users, 200);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'message' => 'Error: the project was not found.'], 412);
+        }
+    }
+
+    /**
+     * Return the users who have commented or voted on a project.
+     *
+     * @param  $projectId
+     * @return mixed
+     */
+    private function usersParticipantsOnProject($projectId)
+    {
+        try {
+            $project = Project::findOrFail($projectId);
 
             $firstQuery = User::where('active', true)
                 ->join('votes', function ($join) use ($project) {
@@ -739,13 +770,9 @@ class ProjectController extends Controller
                 ->union($firstQuery)
                 ->get();
 
-            if(!$users) {
-                throw new \Exception();
-            }
-            return response()->json($users, 200);
+            return $users;
         } catch (\Exception $exception) {
-            return response()->json([
-                'message' => 'Error: the project was not found.'], 412);
+            return null;
         }
     }
 

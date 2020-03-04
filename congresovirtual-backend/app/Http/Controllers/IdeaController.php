@@ -34,11 +34,18 @@ class IdeaController extends Controller
 
             if(Auth::check() && Auth::user()->hasRole('ADMIN')) {
                 $filter['projectIsPublic'] = $request->query('is_public', null);
+                if(isset($request->only_trashed) && $request->only_trashed) {
+                    $ideas = Idea::filter($filter)->onlyTrashed();
+                    $totalResults = Idea::filter($filter)->onlyTrashed()->count();
+                } else {
+                    $ideas = Idea::filter($filter);
+                    $totalResults = Idea::filter($filter)->count();
+                }
             } else {
                 $filter['projectIsPublic'] = true;
+                $ideas = Idea::filter($filter);
+                $totalResults = Idea::filter($filter)->count();
             }
-            $ideas = Idea::filter($filter);
-            $totalResults = Idea::filter($filter)->count();
 
             if($request->has('order_by')) {
                 $order = $request->query('order', 'ASC');

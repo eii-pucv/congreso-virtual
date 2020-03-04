@@ -31,7 +31,10 @@
                             <div class="container">
                                 <div class="row">
                                     <a class="col-12 px-5">{{ publicConsultation.resumen }}</a>
-                                    <div class="col-12 px-5 my-10" v-html="publicConsultation.detalle">
+                                    <div class="col-12 px-5 my-10" v-html="publicConsultation.detalle"></div>
+                                    <div v-if="publicConsultation.video" class="col-12 px-5 mt-30">
+                                        <h5>{{ $t('consulta.contenido.video') }}</h5>
+                                        <div class="embed-responsive embed-responsive-16by9 mt-20" v-html="publicConsultation.video"></div>
                                     </div>
                                 </div>
                             </div>

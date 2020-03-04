@@ -2,13 +2,29 @@
     "navbar" : {
         "registrar": "Registrar",
         "iniciar_sesion": "Iniciar Sesión",
-        "cerrar_sesion": "Cerrar Sesión",
         "admin": "Admin",
         "perfil": "Perfil",
         "panel": "Panel",
         "busqueda": "Búsqueda",
         "modo_oscuro": "Modo oscuro",
-        "idioma": "Idioma"
+        "idioma": "Idioma",
+        "cerrar_sesion": {
+            "titulo": "Cerrar Sesión",
+            "mensajes": {
+                "exito": {
+                    "generico": {
+                        "titulo": "Cierre de sesión exitoso",
+                        "cuerpo": "Ha cerrado exitosamente su sesión"
+                    }
+                },
+                "fallido": {
+                    "generico": {
+                        "titulo": "Cierre de sesión fallido",
+                        "cuerpo": "No se ha podido cerrar su sesión correctamente"
+                    }
+                }
+            }
+        }
     },
     "home": {
         "breadcumb":"Inicio /",
@@ -129,6 +145,7 @@
                     "segundo": "tiene por objetivo examinar el proyecto de ley en detalle y por artículos."
                 }
             },
+            "video": "Video",
             "generar_informe": "Generar Informe",
             "sin_articulos": "No hay artículos de ley para mostrar.",
             "sin_ideas": "No hay ideas fundamentales para mostrar.",
@@ -186,7 +203,8 @@
             "propuesta": "Propuesta"
         },
         "contenido": {
-            "detalle": "Detalle"
+            "detalle": "Detalle",
+            "video": "Video"
         },
         "componentes": {
             "header": {
@@ -240,12 +258,50 @@
             "titulo": "Registro",
             "subtitulo1": "Crea tu cuenta para poder interactuar con nuestro sitio",
             "subtitulo2": "O crea tu cuenta con redes sociales o Clave Única.",
+            "placeholders": {
+                "nombre": "Nombre",
+                "apellido": "Apellido",
+                "alias": "Alias/Seudónimo",
+                "correo": "Dirección de correo electrónico",
+                "contrasena": "Contraseña",
+                "confirmar_contrasena": "Confirmar contraseña"
+            },
             "leido": "He leído los",
             "terminos": "términos y condiciones",
             "registrar": "Registrar",
             "cuenta": "¿Ya tienes una cuenta?",
             "identificar": "Identificate aquí",
-            "clave": "Clave Única"
+            "clave": "Clave Única",
+            "mensajes": {
+                "exito": {
+                    "generico": {
+                        "titulo": "Registro exitoso",
+                        "cuerpo": "Se le ha enviado un mensaje de correo electrónico para que verifique su dirección"
+                    }
+                },
+                "fallido": {
+                    "generico": {
+                        "titulo": "Registro fallido",
+                        "cuerpo": "Ha ocurrido un problema, intenta nuevamente"
+                    },
+                    "correo_existe": {
+                        "titulo": "Registro fallido",
+                        "cuerpo": "Ya existe una cuenta de usuario con esta dirección de correo electrónico"
+                    },
+                    "alias_existe": {
+                        "titulo": "Registro fallido",
+                        "cuerpo": "Ya existe una cuenta de usuario con este alias"
+                    },
+                    "term_cond_no_aceptadas": {
+                        "titulo": "Registro fallido",
+                        "cuerpo": "No se han aceptado los términos y condiciones"
+                    },
+                    "contrasena_no_coincide": {
+                        "titulo": "Registro fallido",
+                        "cuerpo": "La contraseña no está bien confirmada"
+                    }
+                }
+            }
         }
     },
     "confirmacion": {
@@ -292,13 +348,35 @@
         "contenido": {
             "titulo": "Identificarme",
             "subtitulo": "Inicia sesión aquí para poder interactuar con el sitio.",
+            "placeholders": {
+                "correo": "Dirección de correo electrónico",
+                "contrasena": "Contraseña"
+            },
             "mantener": "Mantenerme con la sesión iniciada",
             "iniciar": "Iniciar sesión",
             "olvidar": "¿Olvidaste tu contraseña?",
             "recuperar": "Recuperar contraseña",
             "sin_cuenta": "¿No tienes cuenta?",
             "registrar": "Registrarme",
-            "clave": "Clave Única" 
+            "clave": "Clave Única",
+            "mensajes": {
+                "exito": {
+                    "generico": {
+                        "titulo": "Inicio de sesión exitoso",
+                        "cuerpo": "Ha iniciado exitosamente su sesión"
+                    }
+                },
+                "fallido": {
+                    "generico": {
+                        "titulo": "Inicio de sesión fallido",
+                        "cuerpo": "Comprueba que tu dirección de correo electrónico y contraseña sean los correctos e intenta nuevamente"
+                    },
+                    "generico_rrss": {
+                        "titulo": "Inicio de sesión fallido",
+                        "cuerpo": "No se ha podido enlazar tu cuenta de servicio externo con Congreso Virtual"
+                    }
+                }
+            }
         }
     },
     "consulta": {
@@ -309,10 +387,10 @@
         },
         "contenido": {
             "detalle": "Detalle",
+            "video": "Video",
             "comentarios": "Comentarios",
             "participantes": "Participantes",
             "sin_participantes": "No hay participantes que mostrar."
-
         },
         "componentes": {
             "header": {
@@ -339,7 +417,9 @@
             }
         },
         "componentes": {
-            "encuesta": "Temas de interés",
+            "proyectos_interes": {
+                "no_hay_resultados": "No se han encontrado proyectos de tu interés"
+            },
             "edicion_perfil": {
                 "titulo": "Datos Personales",
                 "nombre": "Nombre",
@@ -353,36 +433,44 @@
                 "comuna": "Comuna/Ciudad",
                 "sector": {
                     "titulo": "Sector",
-                    "urbano": "Urbano",
-                    "rural": "Rural"
-                },
-                "genero": {
-                    "titulo": "Género",
-                    "opcion1": "Masculino",
-                    "opcion2": "Femenino",
-                    "opcion3": "Otro",
-                    "opcion4": "No sabe/No responde"
+                    "opciones": [
+                        { "id": 1, "label": "Urbano" },
+                        { "id": 2, "label": "Rural" }
+                    ]
                 },
                 "nivel": {
                     "titulo": "Nivel educacional",
-                    "opcion1": "Educación básica",
-                    "opcion2": "Educación media incompleta",
-                    "opcion3": "Educación media completa",
-                    "opcion4": "Educación técnica incompleta",
-                    "opcion5": "Educación técnica completa",
-                    "opcion6": "Educación universitaria incompleta",
-                    "opcion7": "Educación universitaria completa",
-                    "opcion8": "Estudios de postgrado"
+                    "opciones": [
+                        { "id": 1, "label": "Educación básica" },
+                        { "id": 2, "label": "Educación media incompleta" },
+                        { "id": 3, "label": "Educación media completa" },
+                        { "id": 4, "label": "Educación técnica incompleta" },
+                        { "id": 5, "label": "Educación técnica completa" },
+                        { "id": 6, "label": "Educación universitaria incompleta" },
+                        { "id": 7, "label": "Educación universitaria completa" },
+                        { "id": 8, "label": "Estudios de postgrado" }
+                    ]
+                },
+                "genero": {
+                    "titulo": "Género",
+                    "opciones": [
+                        { "id": 1, "label": "Masculino" },
+                        { "id": 2, "label": "Femenino" },
+                        { "id": 3, "label": "Otro" },
+                        { "id": 4, "label": "No responde" }
+                    ]
                 },
                 "actividad": {
                     "titulo": "Actividad",
-                    "opcion1": "Estudiante",
-                    "opcion2": "Trabajador/a dependiente",
-                    "opcion3": "Trabajador/a independiente",
-                    "opcion4": "Empresario/a",
-                    "opcion5": "Dueño/a de casa",
-                    "opcion6": "Jubilado/a",
-                    "opcion7": "Desempleado/a"
+                    "opciones": [
+                        { "id": 1, "label": "Estudiante" },
+                        { "id": 2, "label": "Trabajador(a) dependiente" },
+                        { "id": 3, "label": "Trabajador(a) independiente" },
+                        { "id": 4, "label": "Empresario(a)" },
+                        { "id": 5, "label": "Dueño(a) de casa" },
+                        { "id": 6, "label": "Jubilado(a)" },
+                        { "id": 7, "label": "Desempleado(a)" }
+                    ]
                 },
                 "temas_interes": "Temas de interés",
                 "buscar_tema_interes": "Buscar temas de interés",
@@ -392,20 +480,20 @@
                     "profesion": {
                         "titulo": "Título profesional",
                         "opciones": [
-                            "Abogado",
-                            "Arquitecto",
-                            "Médico",
-                            "Médico Veterinario",
-                            "Ingeniero",
-                            "Sicólogo",
-                            "Profesor Educación Básica",
-                            "Profesor Educación Media",
-                            "Profesor de Educación Diferencial",
-                            "Periodista",
-                            "Trabajador Social/Asistente Social",
-                            "Contador Auditor",
-                            "Sociólogo",
-                            "Otro"
+                            { "id":  1, "label": "Abogado" },
+                            { "id":  2, "label": "Arquitecto" },
+                            { "id":  3, "label": "Médico" },
+                            { "id":  4, "label": "Médico Veterinario" },
+                            { "id":  5, "label": "Ingeniero" },
+                            { "id":  6, "label": "Sicólogo" },
+                            { "id":  7, "label": "Profesor Educación Básica" },
+                            { "id":  8, "label": "Profesor Educación Media" },
+                            { "id":  9, "label": "Profesor de Educación Diferencial" },
+                            { "id":  10, "label": "Periodista" },
+                            { "id":  11, "label": "Trabajador Social/Asistente Social" },
+                            { "id":  12, "label": "Contador Auditor" },
+                            { "id":  13, "label": "Sociólogo" },
+                            { "id":  14, "label": "Otro" }
                         ]
                     },
                     "estudios": {
@@ -413,31 +501,33 @@
                     },
                     "experiencia": {
                         "titulo": "Experiencia laboral",
-                        "opcion1": "Menos de 5 años",
-                        "opcion2": "Entre 5 y 10 años",
-                        "opcion3": "Entre 10 y 15 años",
-                        "opcion4": "Más de 15 años"
+                        "opciones": [
+                            { "id": 1, "label": "Menos de 5 años" },
+                            { "id": 2, "label": "Entre 5 y 10 años" },
+                            { "id": 3, "label": "Entre 10 y 15 años" },
+                            { "id": 4, "label": "Más de 15 años" }
+                        ]
                     },
                     "area_desempenio": {
                         "titulo": "Área de desempeño",
                         "buscar": "Buscar áreas de desempeño",
                         "opciones": [
-                            { "id": 1, "value": "Administración centralizada" },
-                            { "id": 2, "value": "Municipio" },
-                            { "id": 3, "value": "Gobierno regional/provincial" },
-                            { "id": 4, "value": "Congreso nacional" },
-                            { "id": 5, "value": "Poder Judicial/órganos auxiliares/fiscalía/defensoría" },
-                            { "id": 6, "value": "Universidad estatal" },
-                            { "id": 7, "value": "Empresas públicas" },
-                            { "id": 8, "value": "Otros órganos del Estado" },
-                            { "id": 9, "value": "Gran empresa" },
-                            { "id": 10, "value": "Empresa de tamaño medio" },
-                            { "id": 11, "value": "Pequeña o microempresa" },
-                            { "id": 12, "value": "Consultora" },
-                            { "id": 13, "value": "Independiente" },
-                            { "id": 14, "value": "Academia (universidades no estatales)" },
-                            { "id": 15, "value": "ONG" },
-                            { "id": 16, "value": "Organizaciones de la sociedad civil" }
+                            { "id": 1, "label": "Administración centralizada" },
+                            { "id": 2, "label": "Municipio" },
+                            { "id": 3, "label": "Gobierno regional/provincial" },
+                            { "id": 4, "label": "Congreso nacional" },
+                            { "id": 5, "label": "Poder Judicial/órganos auxiliares/fiscalía/defensoría" },
+                            { "id": 6, "label": "Universidad estatal" },
+                            { "id": 7, "label": "Empresas públicas" },
+                            { "id": 8, "label": "Otros órganos del Estado" },
+                            { "id": 9, "label": "Gran empresa" },
+                            { "id": 10, "label": "Empresa de tamaño medio" },
+                            { "id": 11, "label": "Pequeña o microempresa" },
+                            { "id": 12, "label": "Consultora" },
+                            { "id": 13, "label": "Independiente" },
+                            { "id": 14, "label": "Academia (universidades no estatales)" },
+                            { "id": 15, "label": "ONG" },
+                            { "id": 16, "label": "Organizaciones de la sociedad civil" }
                         ]
                     },
                     "temas": "Temas principales de su trabajo"
@@ -449,6 +539,9 @@
                     "confirmar": "Repita la nueva contraseña",
                     "consejo": "La contraseña debe ser de 8-20 caracteres."
                 }
+            },
+            "temas_interes": {
+                "titulo": "Temas de interés"
             },
             "votos": {
                 "titulo": "Tus votaciones",
@@ -508,6 +601,9 @@
             "boletin": "Boletín",
             "autoria": "Autoría",
             "fecha": "Fecha ingreso",
+            "autores": "Autores",
+            "autores_placeholder": "Ingrese el/los autores",
+            "origen": "Origen",
             "incluir": "Incluir a Congreso Virtual",
             "pedir": "Pedir urgencia",
             "cargar": "Cargar Más",
@@ -734,10 +830,6 @@
         "propuesta": "PROPUESTA",
         "cargar":"Cargar Más"
     },
-    "tematica_video": {
-        "leyes": "Cómo se hacen las leyes",
-        "parrafo": "En esta página podrás encontrar contenido multimedia que te permitirán comprender de manera sencilla los procesos para elaborar leyes que se lleva a cabo en el Congreso Nacional de Chile"
-    },
     "contacto": {
         "breadcumb": {
             "inicio": "Inicio",
@@ -746,9 +838,18 @@
         "contenido": {
             "titulo": "Contacto del Congreso Virtual",
             "texto": "Aquí puedes contactarte directamente con el personal del Congreso Virtual, en el caso de que tengas alguna duda, sugerencia u alguna otra cosa en particular.",
-            "nombre": "Nombre",
-            "correo": "Dirección de correo electrónico",
-            "mensaje": "Mensaje",
+            "nombre": {
+                "titulo": "Nombre",
+                "placeholder": "Ingresa tu nombre completo"
+            },
+            "correo": {
+                "titulo": "Dirección de correo electrónico",
+                "placeholder": "Ingresa tu dirección de correo electrónico"
+            },
+            "mensaje": {
+                "titulo": "Mensaje",
+                "placeholder": "Ingresa tu mensaje"
+            },
             "info": "Información de contacto"
         }
     },
@@ -762,7 +863,6 @@
             "usuarios": {
                 "titulo": "Usuarios",
                 "lista_usuarios": "Lista de Usuarios",
-                "lista_expertos": "Lista Usuarios Expertos",
                 "lista_organizaciones": "Lista de Organizaciones",
                 "crear_usuario": "Crear Usuario"
             },
@@ -803,8 +903,7 @@
                 "titulo": "Configuración",
                 "config": "Configuración General",
                 "menu": "Conf. Menú Principal",
-                "footer": "Conf. Footer (Pié de Página)",
-                "google_analytics": "Conf. Google Analytics"
+                "footer": "Conf. Footer (Pié de Página)"
             }
         },
         "table_list": {
@@ -843,7 +942,7 @@
                 "titulo1": "Crear Proyecto",
                 "titulo2": "Editar Proyecto",
                 "boletin": "Boletín",
-                "titulo": "Titulo del proyecto",
+                "titulo": "Título",
                 "postulante": "Postulante",
                 "fecha_inicio": "Fecha de inicio",
                 "popover_fecha_inicio": "Fecha y hora de inicio de las votaciones. Fuera del plazo de votaciones ningún usuario (incluyendo administradores) puede votar. NOTA: Ingrese la fecha y hora según su zona horaria, está será convertida automáticamente a UTC.",
@@ -856,6 +955,25 @@
                     "opcion1": "Votación general",
                     "opcion2": "Votación particular",
                     "opcion3": "Votación cerrada"
+                },
+                "fuente_video": {
+                    "titulo": "Servicio de origen del video",
+                    "popover": "Servicio externo en donde está alojado el video.",
+                    "opciones": [
+                        { "id": null, "label": "Sin video" },
+                        { "id": "youtube", "label": "YouTube" },
+                        { "id": "vimeo", "label": "Vimeo" },
+                        { "id": "dailymotion", "label": "Dailymotion" }
+                    ]
+                },
+                "codigo_video": {
+                    "titulo": "Código de acceso al video",
+                    "popover": "Corresponde al código, generalmente alfanumérico, que identifica al video y que es parte de la URL para acceder a visualizar el mismo.",
+                    "prepends": [
+                        { "id": "youtube", "label": "youtube.com/watch?v=" },
+                        { "id": "vimeo", "label": "vimeo.com/" },
+                        { "id": "dailymotion", "label": "dailymotion.com/video/" }
+                    ]
                 },
                 "tema_asociado": {
                     "titulo": "Temas asociados",
@@ -877,23 +995,178 @@
                 "popover_principal": "Que esté marcado como destacado, quiere decir que el proyecto debe mostrarse en el primer carrusel de proyectos de ley de la página principal.",
                 "habilitado": "¿Desea que este proyecto esté habilitado para ser votado y comentado?",
                 "popover_habilitado": "Permite, en cualquier momento, dejar de aceptar comentarios y votos, incluso aunque el proyecto esté en etapas que impliquen votación y dentro de los plazos para votar. NOTA: Los administradores igualmente podrán votar y comentar en proyectos inhabilitados.",
-                "guardar": "Guardar",
-                "habilitar": "Habilitar",
-                "deshabilitar": "Deshabilitar",
                 "agregar_idea": "Agregar Idea Fundamental",
-                "agregar_articulo": "Agregar Artículo"
+                "agregar_articulo": "Agregar Artículo",
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Proyecto guardado exitosamente",
+                                "cuerpo": "Has registrado correctamente los datos del proyecto"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Proyecto actualizado exitosamente",
+                                "cuerpo": "Has actualizado correctamente los datos del proyecto"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error al guardar el proyecto",
+                                "cuerpo": "No se han podido guardar los datos del proyecto"
+                            },
+                            "falta_detalle": {
+                                "titulo": "Error al guardar el proyecto",
+                                "cuerpo": "Falta que le agregues un detalle al proyecto"
+                            },
+                            "stopwords": {
+                                "titulo": "Error al guardar el proyecto",
+                                "cuerpo": "Las stopwords del proyecto no se han podido guardar"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error al actualizar el proyecto",
+                                "cuerpo": "No se han podido actualizar los datos del proyecto"
+                            },
+                            "falta_detalle": {
+                                "titulo": "Error al actualizar el proyecto",
+                                "cuerpo": "Falta que le agregues un detalle al proyecto"
+                            },
+                            "terminos": {
+                                "titulo": "Error al actualizar el proyecto",
+                                "cuerpo": "Los temas de interés del proyecto no se han podido actualizar"
+                            },
+                            "stopwords": {
+                                "titulo": "Error al actualizar el proyecto",
+                                "cuerpo": "Las stopwords del proyecto no se han podido actualizar"
+                            },
+                            "imagen_actualizada": {
+                                "titulo": "Error al actualizar el proyecto",
+                                "cuerpo": "La imagen principal del proyecto no se ha podido actualizar"
+                            },
+                            "imagen_eliminada": {
+                                "titulo": "Error al actualizar el proyecto",
+                                "cuerpo": "La imagen principal del proyecto no se ha podido eliminar"
+                            },
+                            "archivos_agregados": {
+                                "titulo": "Error al actualizar el proyecto",
+                                "cuerpo": "Los nuevos archivos del proyecto no se han podido agregar"
+                            },
+                            "archivos_eliminados": {
+                                "titulo": "Error al actualizar el proyecto",
+                                "cuerpo": "Los archivos del proyecto no se han podido eliminar"
+                            }
+                        }
+                    }
+                }
             },
             "crear_consulta": {
                 "titulo1": "Crear Consulta Pública",
                 "titulo2": "Editar Consulta Pública",
                 "titulo": "Titulo",
                 "autor": "Autor",
-                "icono": "Ícono"
+                "fecha_inicio": "Fecha de inicio",
+                "popover_fecha_inicio": "Fecha y hora de inicio de las votaciones. Fuera del plazo de votaciones ningún usuario (incluyendo administradores) puede votar. NOTA: Ingrese la fecha y hora según su zona horaria, está será convertida automáticamente a UTC.",
+                "fecha_termino": "Fecha de término",
+                "popover_fecha_termino": "Fecha y hora de término de las votaciones. Fuera del plazo de votaciones ningún usuario (incluyendo administradores) puede votar. NOTA: Ingrese la fecha y hora según su zona horaria, está será convertida automáticamente a UTC.",
+                "fuente_video": {
+                    "titulo": "Servicio de origen del video",
+                    "popover": "Servicio externo en donde está alojado el video.",
+                    "opciones": [
+                        { "id": null, "label": "Sin video" },
+                        { "id": "youtube", "label": "YouTube" },
+                        { "id": "vimeo", "label": "Vimeo" },
+                        { "id": "dailymotion", "label": "Dailymotion" }
+                    ]
+                },
+                "codigo_video": {
+                    "titulo": "Código de acceso al video",
+                    "popover": "Corresponde al código, generalmente alfanumérico, que identifica al video y que es parte de la URL para acceder a visualizar el mismo.",
+                    "prepends": [
+                        { "id": "youtube", "label": "youtube.com/watch?v=" },
+                        { "id": "vimeo", "label": "vimeo.com/" },
+                        { "id": "dailymotion", "label": "dailymotion.com/video/" }
+                    ]
+                },
+                "estado": {
+                    "titulo": "Estado",
+                    "popover": "Inactiva: no se aceptan votos ni comentarios de usuarios que no sean administradores. Permite, en cualquier momento, dejar de aceptar votos, incluso aunque la consulta esté dentro de los plazos para votar. Activa: se permiten votos y comentarios de parte de cualquier usuario.",
+                    "opcion1": "Inactiva",
+                    "opcion2": "Activa"
+                },
+                "tema_asociado": {
+                    "titulo": "Temas asociados",
+                    "buscar": "Buscar tema"
+                },
+                "imagen": "Imagen principal",
+                "icono": "Ícono",
+                "resumen": "Resumen",
+                "detalle": "Detalle",
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Consulta pública guardada exitosamente",
+                                "cuerpo": "Has registrado correctamente los datos de la consulta pública"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Consulta pública actualizada exitosamente",
+                                "cuerpo": "Has actualizado correctamente los datos de la consulta pública"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error al guardar la consulta pública",
+                                "cuerpo": "No se han podido guardar los datos de la consulta pública"
+                            },
+                            "falta_detalle": {
+                                "titulo": "Error al guardar la consulta pública",
+                                "cuerpo": "Falta que le agregues un detalle a la consulta pública"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error al actualizar la consulta pública",
+                                "cuerpo": "No se han podido actualizar los datos de la consulta pública"
+                            },
+                            "falta_detalle": {
+                                "titulo": "Error al actualizar la consulta pública",
+                                "cuerpo": "Falta que le agregues un detalle a la consulta pública"
+                            },
+                            "terminos": {
+                                "titulo": "Error al actualizar la consulta pública",
+                                "cuerpo": "Los temas de interés de la consulta pública no se han podido actualizar"
+                            },
+                            "imagen_actualizada": {
+                                "titulo": "Error al actualizar la consulta pública",
+                                "cuerpo": "La imagen principal de la consulta pública no se ha podido actualizar"
+                            },
+                            "imagen_eliminada": {
+                                "titulo": "Error al actualizar la consulta pública",
+                                "cuerpo": "La imagen principal de la conuslta pública no se ha podido eliminar"
+                            }
+                        }
+                    }
+                }
             },
             "crear_taxonomia": {
                 "titulo1": "Crear Taxonomía",
                 "titulo2": "Editar Taxonomía",
                 "nombre": "Nombre taxonomía"
+            },
+            "crear_palabra_ofensiva": {
+                "titulo1": "Crear Palabra Ofensiva",
+                "titulo2": "Editar Palabra Ofensiva",
+                "nombre": "Nombre palabra ofensiva",
+                "palabra_ofensiva_placeholder": "Ingrese la palabra ofensiva"
             },
             "articulo": {
                 "titulo": "Titulo",
@@ -980,8 +1253,10 @@
                         "direccion": "Dirección",
                         "sector": {
                             "titulo": "Sector",
-                            "urbano": "Urbano",
-                            "rural": "Rural"
+                            "opciones": [
+                                { "id": 1, "label": "Urbano" },
+                                { "id": 2, "label": "Rural" }
+                            ]
                         },
                         "principal": "Marcar esta sede como principal",
                         "seleccione1": "Seleccione primero el país",
@@ -1073,21 +1348,118 @@
             "crear_pagina": {
                 "titulo1": "Crear Página",
                 "titulo2": "Editar Página",
-                "nombre": "Nombre",
-                "categorias": "Categorías",
+                "titulo": "Título",
+                "slug": "Slug",
+                "tema_asociado": {
+                    "titulo": "Temas asociados",
+                    "buscar": "Buscar tema"
+                },
                 "contenido": "Contenido de la página",
-                "publica": "¿Desea que esta página sea pública?"
+                "publica": "¿Desea que esta página sea pública?",
+                "popover_publica": "Si está pública, es visible para todos, de lo contrario, los usuarios no administradores no podrán acceder a ella.",
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Página guardada exitosamente",
+                                "cuerpo": "Has registrado correctamente los datos de la página"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Página actualizada exitosamente",
+                                "cuerpo": "Has actualizado correctamente los datos de la página"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error al guardar la página",
+                                "cuerpo": "No se han podido guardar los datos de la página"
+                            },
+                            "falta_contenido": {
+                                "titulo": "Error al guardar la página",
+                                "cuerpo": "Falta que le agregues un contenido a la página"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error al actualizar la página",
+                                "cuerpo": "No se han podido actualizar los datos de la página"
+                            },
+                            "falta_contenido": {
+                                "titulo": "Error al actualizar la página",
+                                "cuerpo": "Falta que le agregues un contenido a la página"
+                            },
+                            "terminos": {
+                                "titulo": "Error al actualizar la página",
+                                "cuerpo": "Los temas de interés de la página no se han podido actualizar"
+                            }
+                        }
+                    }
+                }
             },
             "configuracion_general": {
                 "titulo": "Configuración General",
-                "nombre": "Nombre del sitio",
-                "propuestas": "Propuestas",
-                "peticiones": "Número máximo de peticiones",
-                "redes": "Redes sociales"
-            },
-            "codigo_google": {
-                "titulo": "Código Google Analytics",
-                "codigo": "Código"
+                "datos_basicos": {
+                    "titulo": "Datos básicos",
+                    "nombre_sitio": "Nombre del sitio web",
+                    "direccion": {
+                        "titulo": "Dirección de ubicación física",
+                        "popover": "Por ejemplo la dirección en donde está ubicada la sede central de la institución que está a cargo de este sitio web."
+                    },
+                    "fonos_contacto": {
+                        "titulo": "Números de teléfono de contacto",
+                        "telefono": "Número de teléfono"
+                    },
+                    "correos_contacto": {
+                        "titulo": "Direcciones de correo electrónico de contacto",
+                        "correo": "Dirección de correo electrónico",
+                        "popover": "La primera dirección de correo electrónico será por defecto a la que los usuarios enviarán el mensaje al llenar el formulario en la sección de \"Contacto\"."
+                    }
+                },
+                "propuestas": {
+                    "titulo": "Propuestas",
+                    "max_peticiones": "Número máximo de peticiones"
+                },
+                "redes_sociales": {
+                    "titulo": "Redes sociales",
+                    "facebook": "Facebook",
+                    "twitter": "Twitter",
+                    "instagram": "Instagram",
+                    "youtube": "Youtube"
+                },
+                "google_analytics": {
+                    "titulo": "Google Analytics",
+                    "codigo": "Código ID de Google Analytics"
+
+                },
+                "codigos_insercion_videos": {
+                    "titulo": "Códigos de inserción de videos",
+                    "popover": "Se deben colocar fragmentos de código HTML que contienen el reproductor de video del servicio externo en donde se aloja este tipo de multimedia. Para obtener estos códigos, en la mayoría de los casos, debe seleccionar las opciones \"Compartir\" y luego \"Insertar\".",
+                    "youtube": "YouTube",
+                    "vimeo": "Vimeo",
+                    "dailymotion": "Dailymotion"
+                },
+                "mensajes": {
+                    "exito": {
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Configuraciones actualizadas exitosamente",
+                                "cuerpo": "Has actualizado correctamente las configuraciones"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error al actualizar las configuraciones",
+                                "cuerpo": "No se han podido actualizar las configuraciones"
+                            }
+                        }
+                    }
+                }
             },
             "propuestas": "Lista de Propuestas",
             "crear_propuesta": {
@@ -1097,16 +1469,76 @@
                 "boletin": "Boletín",
                 "autoria": "Autoría",
                 "fecha_ingreso": "Fecha ingreso",
-                "tipo": "Tipo",
-                "propuesta": "Propuesta",
-                "urgencia": "Urgencia",
+                "popover_fecha_ingreso": "Fecha ingreso de la propuesta. NOTA: Ingrese la fecha según su zona horaria, está será convertida automáticamente a UTC.",
+                "estado": {
+                    "titulo": "Estado",
+                    "popover": "Inactiva: no se puede agregar ni argumento ni video a la propuesta. Activa: se puede agregar argumento y/o video a la propuesta.",
+                    "opcion1": "Inactiva",
+                    "opcion2": "Activa"
+                },
+                "tipo": {
+                    "titulo": "Tipo",
+                    "opcion1": "Inclusión a Congreso Virtual",
+                    "opcion2": "Petición de urgencia"
+                },
                 "detalle": "Detalle",
                 "argumento": "Argumento",
-                "video_url": "Video URL",
-                "fuente_video": "Fuente del video",
+                "fuente_video": {
+                    "titulo": "Servicio de origen del video",
+                    "popover": "Servicio externo en donde está alojado el video.",
+                    "opciones": [
+                        { "id": null, "label": "Sin video" },
+                        { "id": "youtube", "label": "YouTube" },
+                        { "id": "vimeo", "label": "Vimeo" },
+                        { "id": "dailymotion", "label": "Dailymotion" }
+                    ]
+                },
+                "codigo_video": {
+                    "titulo": "Código de acceso al video",
+                    "popover": "Corresponde al código, generalmente alfanumérico, que identifica al video y que es parte de la URL para acceder a visualizar el mismo.",
+                    "prepends": [
+                        { "id": "youtube", "label": "youtube.com/watch?v=" },
+                        { "id": "vimeo", "label": "vimeo.com/" },
+                        { "id": "dailymotion", "label": "dailymotion.com/video/" }
+                    ]
+                },
                 "publica": "¿Desea que esta propuesta se muestre públicamente?",
-                "activar": "Activar",
-                "desactivar": "Desactivar"
+                "popover_publica": "Si está pública, es visible para todos, de lo contrario, los usuarios no administradores no podrán acceder a ella.",
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Propuesta guardada exitosamente",
+                                "cuerpo": "Has registrado correctamente los datos de la propuesta"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Propuesta actualizada exitosamente",
+                                "cuerpo": "Has actualizado correctamente los datos de la propuesta"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error al guardar la propuesta",
+                                "cuerpo": "No se han podido guardar los datos de la propuesta"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error al actualizar la propuesta",
+                                "cuerpo": "No se han podido actualizar los datos de la propuesta"
+                            }
+                        },
+                        "generico": {
+                            "otra_propuesta_activa": {
+                                "cuerpo": "Ya existe una propuesta activa para este usuario; un usuario solo puede tener una propuesta activa"
+                            }
+                        }
+                    }
+                }
             }
         }
     },
@@ -1115,7 +1547,8 @@
             "horas": "Hrs.",
             "formato_con_hora": "D MMM YYYY, HH:mm",
             "formato_sin_hora": "D MMM YYYY",
-            "formato_editable_con_hora": "DD-MM-YYYY HH:mm:ss"
+            "formato_editable_con_hora": "DD-MM-YYYY HH:mm:ss",
+            "formato_editable_sin_hora": "DD-MM-YYYY"
         },
         "dropzone": {
             "dictDefaultMessage": "Haz click aquí para subir los archivos",
@@ -1176,9 +1609,8 @@
             "minutos": "Minutos"
         },
         "footer": {
-            "avenida": "Avenida",
-            "telefonos": "Teléfonos",
-            "congreso": "Congreso Virtual"
+            "direccion": "Dirección",
+            "telefonos": "Teléfonos"
         }
     },
     "invalid-feedback": {

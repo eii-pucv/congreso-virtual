@@ -13,6 +13,7 @@
                     :project="project"
                     :key="project.id"
             ></ProjectInterestCard>
+            <div v-if="projects.length === 0" class="py-50 text-center">{{ $t('perfil_usuario.componentes.proyectos_interes.no_hay_resultados') }}</div>
         </div>
     </div>
 </template>

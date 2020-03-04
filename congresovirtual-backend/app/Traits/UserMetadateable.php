@@ -118,7 +118,7 @@ trait UserMetadateable
         $metaAttribute = UserMeta::where([
             ['key', $attributeName],
             ['user_id', parent::getKey()]
-        ])->first();
+        ])->withTrashed()->first();
 
         if($metaAttribute) {
             if($this->hasCast($attributeName)) {

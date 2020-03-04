@@ -10,7 +10,7 @@
                     <ol class="breadcrumb" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
                         <li class="breadcrumb-item"><a href="/#" :style="mode==='dark'?'color: #fff':''">{{ $t('pagina.breadcumb.inicio') }}</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><a href="/pages" :style="mode==='dark'?'color: #fff':''">{{ $t('pagina.breadcumb.paginas') }}</a></li>
-                        <li class="breadcrumb-item active" aria-current="page" :style="mode==='dark'?'color: #fff':''">{{ $t('pagina.breadcumb.pagina') }} {{ page.id }}</li>
+                        <li v-if="page.id" class="breadcrumb-item active" aria-current="page" :style="mode==='dark'?'color: #fff':''">{{ $t('pagina.breadcumb.pagina') }} {{ page.id }}</li>
                     </ol>
                 </nav>
                 <div class="col-sm-12 hk-sec-wrapper hk-gallery-wrap" :style="mode==='dark'?'background: rgb(12, 1, 80);color: #fff':''">
@@ -76,6 +76,11 @@
                     })
                     .then(res => {
                         this.page = res.data.results[0];
+                        if(!this.page) {
+                            this.page = {
+                                content: '<div class="text-center"><h1 class="mb-3">¡No se ha encontrado la página!</h1><p class="font-weight-light">Puede que no exista o haya cambiado de nombre</p></div>'
+                            }
+                        }
                     })
                     .finally(() => {
                         this.loadPage = false;

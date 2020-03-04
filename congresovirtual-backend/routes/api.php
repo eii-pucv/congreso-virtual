@@ -14,8 +14,8 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
     Route::get('signup/activate/{token}', 'AuthController@signupActivate');
-    Route::get('/{provider}/callback', 'AuthController@handleProviderCallback');
     Route::get('/{provider}', 'AuthController@redirectToProvider');
+    Route::get('/{provider}/callback', 'AuthController@handleProviderCallback');
 });
 
 Route::group([
@@ -162,7 +162,7 @@ Route::group(['middleware' => ['auth:api', 'has.roles:ADMIN']], function() {
         Route::post('/{project}/image', 'ProjectController@updateImage');
         Route::delete('/{project}/image', 'ProjectController@removeImage');
         Route::get('/{project}/users_with_project_terms', 'ProjectController@usersWithProjectTermsRequest');
-        Route::get('/{project}/users_participants', 'ProjectController@usersParticipantsOnProject');
+        Route::get('/{project}/users_participants', 'ProjectController@usersParticipantsOnProjectRequest');
         Route::post('/{project}/terms', 'ProjectController@associateTerms');
         Route::delete('/{project}/terms', 'ProjectController@dissociateAllTerms');
         Route::post('/{project}/stopwords', 'ProjectController@associateStopwords');
@@ -284,6 +284,14 @@ Route::group(['middleware' => ['auth:api', 'has.roles:ADMIN']], function() {
         Route::post('/', 'StopwordTypeController@store');
         Route::put('/{stopwordType}', 'StopwordTypeController@update');
         Route::delete('/{stopwordType}', 'StopwordTypeController@destroy');
+    });
+    
+    Route::group(['prefix' => 'offensive_words'], function () {
+        Route::post('/', 'OffensiveWordController@store');
+        Route::get('/', 'OffensiveWordController@index');
+        Route::get('/{stopword}', 'OffensiveWordController@show');
+        Route::put('/{stopword}', 'OffensiveWordController@update');
+        Route::delete('/{stopword}', 'OffensiveWordController@destroy');
     });
 });
 

@@ -32,6 +32,7 @@ import HighlightText from 'vue-highlight-text';
 import LiquorTree from 'liquor-tree';
 import { i18n } from '@/plugins/i18n';
 import 'vue-multiselect/dist/vue-multiselect.min.css';
+import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 
 Vue.use('tree', LiquorTree);
 
@@ -61,9 +62,9 @@ Vue.component('HighlightText', HighlightText);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.use(VueAxios, axios);
 
-const token = localStorage.getItem('token');
-if(token) {
-    Vue.prototype.$http.defaults.headers.common['Authorization'] = token;
+const accessToken = localStorage.getItem('access_token');
+if(accessToken) {
+    Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
 }
 
 const moment = require('moment');

@@ -2,7 +2,7 @@
     <div class="container mt-20">
         <section class="hk-sec-wrapper" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
             <h4 v-if="!project_id" class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_proyecto.titulo1') }}</h4>
-            <h4 v-else="" class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_proyecto.titulo2') }}</h4>
+            <h4 v-else class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_proyecto.titulo2') }}</h4>
             <div class="mt-20 vld-parent">
                 <div v-if="loadProject" style="height: 300px;">
                     <Loading
@@ -13,7 +13,7 @@
                     ></Loading>
                 </div>
                 <div v-if="!loadProject">
-                    <form @submit.prevent="saveProject" class="needs-validation">
+                    <form @submit.prevent="saveProject">
                         <div class="form-row align-items-center justify-content-center">
                             <div class="col-md-8 mb-10">
                                 <label for="titulo" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_proyecto.titulo') }}</label>
@@ -46,7 +46,6 @@
                                         v-model="project.postulante"
                                         type="text"
                                         class="form-control"
-                                        required
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
                                 />
                             </div>
@@ -62,6 +61,7 @@
                                         id="fecha_inicio"
                                         v-model="fechaInicioLocal"
                                         :config="dateOptions"
+                                        required
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
                                 ></DatePicker>
                             </div>
@@ -77,6 +77,7 @@
                                         id="fecha_termino"
                                         v-model="fechaTerminoLocal"
                                         :config="dateOptions"
+                                        required
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
                                 ></DatePicker>
                             </div>
@@ -89,7 +90,6 @@
                                         v-model="project.estado"
                                         type="text"
                                         class="form-control"
-                                        required
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
                                 />
                             </div>
@@ -105,12 +105,60 @@
                                         id="etapa"
                                         v-model="project.etapa"
                                         class="form-control custom-select d-block w-100"
+                                        required
                                         :style="mode==='dark'?'background: #080035; color: #fff':''"
                                 >
                                     <option value="1">{{ $t('administrador.componentes.crear_proyecto.etapa.opcion1') }}</option>
                                     <option value="2">{{ $t('administrador.componentes.crear_proyecto.etapa.opcion2') }}</option>
                                     <option value="3">{{ $t('administrador.componentes.crear_proyecto.etapa.opcion3') }}</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-row align-items-center justify-content-center">
+                            <div class="col-md-4 mb-10">
+                                <label for="video_source" :style="mode==='dark'?'color: #fff':''">{{  $t('administrador.componentes.crear_proyecto.fuente_video.titulo') }}</label>
+                                <v-popover>
+                                    <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                    <template slot="popover">
+                                        <p>{{ $t('administrador.componentes.crear_proyecto.fuente_video.popover') }}</p>
+                                    </template>
+                                </v-popover>
+                                <select
+                                        id="video_source"
+                                        v-model="project.video_source"
+                                        class="form-control custom-select d-block w-100"
+                                        :style="mode==='dark'?'background: #080035; color: #fff':''"
+                                >
+                                    <option
+                                            v-for="videoSource in videoSources"
+                                            :key="'video_source-' + videoSource.id"
+                                            :value="videoSource.id"
+                                    >
+                                        {{ videoSource.label }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-10">
+                                <label for="video_code" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_proyecto.codigo_video.titulo') }}</label>
+                                <v-popover>
+                                    <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                    <template slot="popover">
+                                        <p>{{ $t('administrador.componentes.crear_proyecto.codigo_video.popover') }}</p>
+                                    </template>
+                                </v-popover>
+                                <div class="input-group">
+                                    <div v-if="project.video_source" class="input-group-prepend">
+                                        <span class="input-group-text">{{ videoCodePrepends.find(videoCodePrepend => videoCodePrepend.id === project.video_source).label }}</span>
+                                    </div>
+                                    <input
+                                            id="video_code"
+                                            v-model="project.video_code"
+                                            v-bind:disabled="!project.video_source"
+                                            type="text"
+                                            class="form-control"
+                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                                    />
+                                </div>
                             </div>
                         </div>
                         <div class="form-row align-items-center justify-content-center">
@@ -187,7 +235,8 @@
                                         id="resumen"
                                         v-model="project.resumen"
                                         class="form-control"
-                                        rows="5"
+                                        rows="6"
+                                        required
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
                                 ></textarea>
                             </div>
@@ -195,12 +244,11 @@
                         <div class="form-row align-items-center justify-content-center">
                             <div class="col-md-10 mb-10">
                                 <label for="detalle" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_proyecto.detalle') }}</label>
-                                <tinymce
+                                <editor
                                         id="detalle"
                                         v-model="project.detalle"
-                                        :tag="'textarea'"
-                                        :config="detalleTinymceOptions"
-                                ></tinymce>
+                                        :init="tinymceInitOptions"
+                                />
                             </div>
                         </div>
                         <div class="form-row align-items-center justify-content-center">
@@ -280,7 +328,7 @@
                         <div class="text-center mt-20">
                             <button class="btn btn-primary vld-parent" type="submit">
                                 <font-awesome-icon icon="save" />
-                                <span class="btn-text"> {{ $t('administrador.componentes.crear_proyecto.guardar') }}</span>
+                                <span class="btn-text"> {{ $t('guardar') }}</span>
                                 <Loading
                                         :active.sync="loadBtnSave"
                                         :is-full-page="fullPage"
@@ -288,14 +336,14 @@
                                         :color="'#ffffff'"
                                 ></Loading>
                             </button>
-                            <button v-if="project.id" class="btn btn-outline-primary ml-10" :href="'/admin/project/' + project.id + '/idea'">
+                            <a v-if="project.id" class="btn btn-outline-primary ml-10" :href="'/admin/project/' + project.id + '/idea'">
                                 <font-awesome-icon icon="pencil-alt" />
                                 <span class="btn-text" :style="mode==='dark'?'color: #fff':''"> {{ $t('administrador.componentes.crear_proyecto.agregar_idea') }}</span>
-                            </button>
-                            <button v-if="project.id" class="btn btn-outline-primary ml-10" :href="'/admin/project/' + project.id + '/article'">
+                            </a>
+                            <a v-if="project.id" class="btn btn-outline-primary ml-10" :href="'/admin/project/' + project.id + '/article'">
                                 <font-awesome-icon icon="book" />
                                 <span class="btn-text" :style="mode==='dark'?'color: #fff':''"> {{ $t('administrador.componentes.crear_proyecto.agregar_articulo') }}</span>
-                            </button>
+                            </a>
                             <button @click="back" class="btn btn-danger text-white ml-10">
                                 <font-awesome-icon icon="window-close" />
                                 <span class="btn-text" :style="mode==='dark'?'color: #fff':''"> {{ $t('cancelar') }}</span>
@@ -308,22 +356,23 @@
     </div>
 </template>
 
-
 <script>
-    import axios from '../../../backend/axios';
-    import vue2Dropzone from 'vue2-dropzone';
-    import Multiselect from 'vue-multiselect';
-    import DatePicker from 'vue-bootstrap-datetimepicker';
-    import { API_URL } from '../../../backend/data_server';
     import Loading from 'vue-loading-overlay';
+    import DatePicker from 'vue-bootstrap-datetimepicker';
+    import Multiselect from 'vue-multiselect';
+    import vue2Dropzone from 'vue2-dropzone';
+    import Editor from '@tinymce/tinymce-vue';
+    import axios from '../../../backend/axios';
+    import { API_URL } from '../../../backend/data_server';
 
     export default {
         name: 'CreateOrEditProject',
         components: {
-            vueDropzone: vue2Dropzone,
-            Multiselect,
+            Loading,
             DatePicker,
-            Loading
+            Multiselect,
+            vueDropzone: vue2Dropzone,
+            'editor': Editor
         },
         props: {
             project_id: Number
@@ -343,13 +392,16 @@
                     is_principal: false,
                     is_public: false,
                     is_enabled: true,
-                    video: null,
+                    video_code: null,
+                    video_source: null,
                     imagen: null,
                     files: [],
                     notificar_correo: false
                 },
                 fechaInicioLocal: this.$moment().local(),
                 fechaTerminoLocal: this.$moment().local(),
+                videoSources: this.$t('administrador.componentes.crear_proyecto.fuente_video.opciones'),
+                videoCodePrepends: this.$t('administrador.componentes.crear_proyecto.codigo_video.prepends'),
                 currentProjectTerms: [],
                 oldProjectTerms: [],
                 taxonomyTerms: [],
@@ -381,12 +433,22 @@
                 },
                 newFiles: [],
                 deleteFiles: [],
-                detalleTinymceOptions: {
-                    events: {
-                        initialized() {
-                            console.log('initialized');
-                        }
-                    }
+                tinymceInitOptions: {
+                    height: 300,
+                    language: this.$i18n.locale,
+                    language_url: '/tinymce/langs/es.js',
+                    skin_url: '/tinymce/skins/lightgray',
+                    plugins: [
+                        'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                        'searchreplace wordcount visualblocks visualchars code fullscreen',
+                        'insertdatetime media nonbreaking save table contextmenu directionality',
+                        'template paste textcolor colorpicker textpattern imagetools toc help emoticons hr codesample'
+
+                    ],
+                    toolbar:
+                        'insertfile undo redo | formatselect | styleselect | bold italic strikethrough forecolor backcolor | \
+                        alignleft aligncenter alignright alignjustify | \
+                        bullist numlist outdent indent | link image | removeformat'
                 },
                 loadProject: true,
                 loadBtnSave: false,
@@ -396,7 +458,7 @@
                 API_URL
             }
         },
-        async mounted() {
+        mounted() {
             if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
                 this.mode = 'dark';
             } else {
@@ -424,8 +486,8 @@
                     .get('/projects/' + this.project_id)
                     .then(res => {
                         this.project = res.data;
-                        this.fechaInicioLocal = this.$moment.utc(this.project.fecha_inicio, 'YYYY-MM-DD HH:mm:ss').local();
-                        this.fechaTerminoLocal = this.$moment.utc(this.project.fecha_termino, 'YYYY-MM-DD HH:mm:ss').local();
+                        this.fechaInicioLocal = this.project.fecha_inicio ? this.$moment.utc(this.project.fecha_inicio, 'YYYY-MM-DD HH:mm:ss').local() : null;
+                        this.fechaTerminoLocal = this.project.fecha_termino ? this.$moment.utc(this.project.fecha_termino, 'YYYY-MM-DD HH:mm:ss').local() : null;
                         this.currentProjectTerms = this.project.terms;
                         this.oldProjectTerms = this.currentProjectTerms;
                         this.getProjectStopwords();
@@ -495,64 +557,106 @@
             },
             saveProject() {
                 this.loadBtnSave = true;
-                this.project.fecha_inicio = this.$moment(this.fechaInicioLocal, this.$t('componentes.moment.formato_editable_con_hora')).utc().format('YYYY-MM-DD HH:mm:ss');
-                this.project.fecha_termino = this.$moment(this.fechaTerminoLocal, this.$t('componentes.moment.formato_editable_con_hora')).utc().format('YYYY-MM-DD HH:mm:ss');
+                this.project.fecha_inicio = this.fechaInicioLocal ? this.$moment(this.fechaInicioLocal, this.$t('componentes.moment.formato_editable_con_hora')).utc().format('YYYY-MM-DD HH:mm:ss') : null;
+                this.project.fecha_termino = this.fechaTerminoLocal ? this.$moment(this.fechaTerminoLocal, this.$t('componentes.moment.formato_editable_con_hora')).utc().format('YYYY-MM-DD HH:mm:ss') : null;
                 if(this.project.id) {
-                    axios
-                        .put('/projects/' + this.project.id, this.project)
-                        .then(() => {
-                            let promises = [
-                                this.updateProjectTerms(),
-                                this.updateProjectStopwords(),
-                                this.updateOrDeleteImagen(),
-                                this.addNewFiles(),
-                                this.deleteOldFiles()
-                            ];
-                            Promise.all(promises)
-                                .then(() => {
-                                    this.$toastr('success', 'Has actualizado correctamente los datos del proyecto', 'Proyecto actualizado');
-                                })
-                                .catch(error => {
-                                    this.$toastr('error', error.detail, error.title);
-                                })
-                                .finally(() => {
-                                    this.loadBtnSave = false;
-                                });
-                        })
-                        .catch(() => {
-                            this.loadBtnSave = false;
-                            this.$toastr('error', 'Intenta nuevamente', 'Ha ocurrido un problema');
-                        });
-                } else {
-                    let projectFormData = this.generateProjectFormData();
-                    axios
-                        .post('/projects', projectFormData)
-                        .then(res => {
-                            this.project = res.data.data;
-                            this.oldProjectTerms = this.currentProjectTerms;
-
-                            if(this.currentProjectStopwords.length > 0) {
-                                axios
-                                    .post('/projects/' + this.project.id + '/stopwords', {
-                                        stopwords: this.currentProjectStopwords
-                                    })
+                    if(this.project.detalle) {
+                        axios
+                            .put('/projects/' + this.project.id, this.project)
+                            .then(() => {
+                                let promises = [
+                                    this.updateProjectTerms(),
+                                    this.updateProjectStopwords(),
+                                    this.updateOrDeleteImagen(),
+                                    this.addNewFiles(),
+                                    this.deleteOldFiles()
+                                ];
+                                Promise.all(promises)
                                     .then(() => {
-                                        this.oldProjectStopwords = this.currentProjectStopwords;
-                                        this.$toastr('success', 'Has registrado correctamente los datos del proyecto', 'Proyecto guardado');
+                                        this.$toastr(
+                                            'success',
+                                            this.$t('administrador.componentes.crear_proyecto.mensajes.exito.modificado.generico.cuerpo'),
+                                            this.$t('administrador.componentes.crear_proyecto.mensajes.exito.modificado.generico.titulo')
+                                        );
                                     })
-                                    .catch(() => {
-                                        this.$toastr('error', 'Las stopwords del proyecto no han podido guardarse', 'Stopwords no guardadas')
+                                    .catch(error => {
+                                        this.$toastr('error', error.detail, error.title);
+                                    })
+                                    .finally(() => {
+                                        this.loadBtnSave = false;
                                     });
-                            } else {
-                                this.$toastr('success', 'Has registrado correctamente los datos del proyecto', 'Proyecto guardado');
-                            }
-                        })
-                        .catch(() => {
-                            this.$toastr('error', 'Intenta nuevamente', 'Ha ocurrido un problema');
-                        })
-                        .finally(() => {
-                            this.loadBtnSave = false;
-                        });
+                            })
+                            .catch(() => {
+                                this.loadBtnSave = false;
+                                this.$toastr(
+                                    'error',
+                                    this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.modificado.generico.cuerpo'),
+                                    this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.modificado.generico.titulo')
+                                );
+                            });
+                    } else {
+                        this.loadBtnSave = false;
+                        this.$toastr(
+                            'error',
+                            this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.modificado.falta_detalle.cuerpo'),
+                            this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.modificado.falta_detalle.titulo')
+                        );
+                    }
+                } else {
+                    if(this.project.detalle) {
+                        let projectFormData = this.generateProjectFormData();
+                        axios
+                            .post('/projects', projectFormData)
+                            .then(res => {
+                                this.project = res.data.data;
+                                this.oldProjectTerms = this.currentProjectTerms;
+
+                                if(this.currentProjectStopwords.length > 0) {
+                                    axios
+                                        .post('/projects/' + this.project.id + '/stopwords', {
+                                            stopwords: this.currentProjectStopwords
+                                        })
+                                        .then(() => {
+                                            this.oldProjectStopwords = this.currentProjectStopwords;
+                                            this.$toastr(
+                                                'success',
+                                                this.$t('administrador.componentes.crear_proyecto.mensajes.exito.guardado.generico.cuerpo'),
+                                                this.$t('administrador.componentes.crear_proyecto.mensajes.exito.guardado.generico.titulo')
+                                            );
+                                        })
+                                        .catch(() => {
+                                            this.$toastr(
+                                                'error',
+                                                this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.guardado.stopwords.cuerpo'),
+                                                this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.guardado.stopwords.titulo')
+                                            );
+                                        });
+                                } else {
+                                    this.$toastr(
+                                        'success',
+                                        this.$t('administrador.componentes.crear_proyecto.mensajes.exito.guardado.generico.cuerpo'),
+                                        this.$t('administrador.componentes.crear_proyecto.mensajes.exito.guardado.generico.titulo')
+                                    );
+                                }
+                            })
+                            .catch(() => {
+                                this.$toastr(
+                                    'error',
+                                    this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.guardado.generico.cuerpo'),
+                                    this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.guardado.generico.titulo')
+                                );
+                            })
+                            .finally(() => {
+                                this.loadBtnSave = false;
+                            });
+                    } else {
+                        this.loadBtnSave = false;
+                        this.$toastr(
+                            'error',
+                            this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.guardado.falta_detalle.cuerpo'),
+                            this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.guardado.falta_detalle.titulo')
+                        );
+                    }
                 }
             },
             updateProjectTerms() {
@@ -573,8 +677,8 @@
                             })
                             .catch(() => {
                                 reject({
-                                    title: 'Datos no actualizados',
-                                    detail: 'Los temas de interés no han podido actualizarce'
+                                    title: this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.modificado.terminos.titulo'),
+                                    detail: this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.modificado.terminos.cuerpo')
                                 });
                             });
                     } else {
@@ -595,18 +699,12 @@
                                     .then(() => {
                                         this.oldProjectStopwords = this.currentProjectStopwords;
                                         resolve(true);
-                                    })
-                                    .catch(() => {
-                                        reject({
-                                            title: 'Datos no actualizados',
-                                            detail: 'Las stopwords no han podido actualizarce'
-                                        });
                                     });
                             })
                             .catch(() => {
                                 reject({
-                                    title: 'Datos no actualizados',
-                                    detail: 'Las stopwords antiguas no han podido eliminarse'
+                                    title: this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.modificado.stopwords.titulo'),
+                                    detail: this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.modificado.stopwords.cuerpo')
                                 });
                             });
                     } else {
@@ -631,8 +729,8 @@
                                 }
                                 this.newImagen = null;
                                 reject({
-                                    title: 'Imagen no actualizada',
-                                    detail: 'La imagen principal no ha podido actualizarce'
+                                    title: this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.modificado.imagen_actualizada.titulo'),
+                                    detail: this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.modificado.imagen_actualizada.cuerpo')
                                 });
                             });
                     } else if(this.deleteImagen) {
@@ -644,8 +742,8 @@
                             })
                             .catch(() => {
                                 reject({
-                                    title: 'Imagen no eliminada',
-                                    detail: 'La imagen principal no ha podido eliminarse'
+                                    title: this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.modificado.imagen_eliminada.titulo'),
+                                    detail: this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.modificado.imagen_eliminada.cuerpo')
                                 });
                             });
                     } else {
@@ -677,8 +775,8 @@
                                 }
                                 this.newFiles = [];
                                 reject({
-                                    title: 'Archivos nuevos no agregados',
-                                    detail: 'Los archivos nuevos no han podido agregarse'
+                                    title: this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.modificado.archivos_agregados.titulo'),
+                                    detail: this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.modificado.archivos_agregados.cuerpo')
                                 });
                             });
                     } else {
@@ -701,8 +799,8 @@
                             })
                             .catch(() => {
                                 reject({
-                                    title: 'Archivos no eliminados',
-                                    detail: 'Los archivos del proyecto no han podido eliminarse'
+                                    title: this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.modificado.archivos_eliminados.titulo'),
+                                    detail: this.$t('administrador.componentes.crear_proyecto.mensajes.fallido.modificado.archivos_eliminados.cuerpo')
                                 });
                             });
                     } else {
@@ -725,7 +823,8 @@
                 projectFormData.append('is_principal', this.project.is_principal ? 1 : 0);
                 projectFormData.append('is_public', this.project.is_public ? 1 : 0);
                 projectFormData.append('is_enabled', this.project.is_enabled ? 1 : 0);
-                if(this.project.video) projectFormData.append('video', this.project.video);
+                if(this.project.video_code) projectFormData.append('video_code', this.project.video_code);
+                if(this.project.video_source) projectFormData.append('video_source', this.project.video_source);
                 projectFormData.append('notificar_correo', this.project.notificar_correo ? 1 : 0);
 
                 this.currentProjectTerms.forEach(term => {
@@ -816,6 +915,13 @@
                     format: this.$t('componentes.moment.formato_editable_con_hora'),
                     locale: this.$moment.locale()
                 };
+            }
+        },
+        watch: {
+            'project.video_source': function (value) {
+                if(!this.loadProject && !value) {
+                    this.project.video_code = null;
+                }
             }
         }
     }

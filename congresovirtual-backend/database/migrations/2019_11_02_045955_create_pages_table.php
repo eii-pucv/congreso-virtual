@@ -17,7 +17,7 @@ class CreatePagesTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('slug')->unique();
-            $table->longText('content')->nullable();
+            $table->longText('content');
             $table->boolean('is_public')->default(false);
             $table->timestamps();
             $table->softDeletes();

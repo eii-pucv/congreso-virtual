@@ -12,13 +12,15 @@ class Proposal extends Model
 {
     use Filterable, ProposalSearchable, SoftDeletes;
 
+    protected $appends = ['video'];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'titulo', 'detalle', 'autoria', 'boletin', 'fecha_ingreso', 'state', 'type', 'is_public', 'argument', 'video_url', 'video_source', 'user_id'
+        'titulo', 'detalle', 'autoria', 'boletin', 'fecha_ingreso', 'state', 'type', 'is_public', 'argument', 'video_code', 'video_source', 'user_id'
     ];
 
     /**
@@ -60,6 +62,18 @@ class Proposal extends Model
             default:
                 throw new \Exception();
         }
+    }
+
+    public function getVideoAttribute()
+    {
+        if($this->video_code && $this->video_source) {
+            $iframes = json_decode(Setting::where('key', 'video_iframes')->first()->value);
+            $iframe = isset($iframes->{$this->video_source}) ? $iframes->{$this->video_source} : null;
+            if($iframe) {
+                return str_replace('[VIDEO_CODE]', $this->video_code, $iframe);
+            }
+        }
+        return null;
     }
 
     /**

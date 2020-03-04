@@ -4,7 +4,6 @@ import Router from "vue-router";
 import store from "./store";
 
 import UsersList from "./components/admin/users/UsersList";
-import ExpertUsersList from "./components/admin/users/ExpertUsersList";
 import OrganizationsList from "./components/admin/users/OrganizationsList";
 import CreateOrEditUser from "./components/admin/users/CreateOrEditUser";
 
@@ -36,18 +35,19 @@ import aporteReportado from "./components/admin/comments/aporteReportado";
 import aporteEnEspera from "./components/admin/comments/aporteEnEspera";
 import aporteBloqueado from "./components/admin/comments/aporteBloqueado";
 import ClassifiedComment from "./components/admin/comments/ClassifiedComment";
-import palabrasOfensivas from "./components/admin/palabrasOfensivas";
 import editPerception from "./components/admin/comments/editPerception";
+
+import OffensiveWordsList from "./components/admin/offensive_words/OffensiveWordsList";
+import CreateOrEditOffensiveWord from "./components/admin/offensive_words/CreateOrEditOffensiveWord";
 
 import PagesList from "./components/admin/pages/PagesList";
 import CreateOrEditPage from "./components/admin/pages/CreateOrEditPage";
 
 import deleteElement from "./components/admin/deleteElement";
-import menuConfig from "./components/admin/menuConfig";
 
 import ProfileEdit from "./components/user/ProfileEdit";
-import configuracionGeneral from "./components/admin/configuracionGeneral";
-import codeGoogleAnalytic from "./components/admin/codeGoogleAnalytic";
+import GeneralSettings from "./components/admin/GeneralSettings";
+import menuConfig from "./components/admin/menuConfig";
 import footerConfig from "./components/admin/footerConfig";
 
 Vue.use(Router);
@@ -178,10 +178,10 @@ const routes = [
         component: () => import('./views/Somos.vue')
     },
     {
-        path: '/contactanos',
-        name: 'Contacto',
+        path: '/contact',
+        name: 'Contact',
         props: true,
-        component: () => import('./views/contacto.vue')
+        component: () => import('./views/Contact.vue')
     },
     {
         path: '/reglamento',
@@ -241,11 +241,6 @@ const routes = [
                 path: 'users',
                 props: true,
                 component: UsersList
-            },
-            {
-                path: 'experts',
-                props: true,
-                component: ExpertUsersList
             },
             {
                 path: 'organizations',
@@ -335,7 +330,7 @@ const routes = [
                 component: CreateOrEditPublicConsultation
             },
             {
-                path: 'public_consultation/:consultation_id',
+                path: 'public_consultation/:public_consultation_id',
                 props: true,
                 component: CreateOrEditPublicConsultation
             },
@@ -400,7 +395,17 @@ const routes = [
             {
                 path: 'offensive-words',
                 props: true,
-                component: palabrasOfensivas
+                component: OffensiveWordsList
+            },
+            {
+                path: 'offensive-word',
+                props: true,
+                component: CreateOrEditOffensiveWord
+            },
+            {
+                path: 'offensive-word/:offensiveword_id',
+                props: true,
+                component: CreateOrEditOffensiveWord
             },
             {
                 path: 'waiting/:comment_id',
@@ -427,7 +432,6 @@ const routes = [
                 props: true,
                 component: aporteReportado
             },
-            
             /*-- PAGES ADMINISTRATION --*/
             {
                 path: 'pages',
@@ -444,11 +448,27 @@ const routes = [
                 props: true,
                 component: CreateOrEditPage
             },
-            /*-- ? ADMINISTRATION --*/
+            /*-- PERSONAL ACCOUNT ADMINISTRATION --*/
             {
                 path: 'profile',
                 props: true,
                 component: ProfileEdit
+            },
+            /*-- SETTINGS ADMINISTRATION --*/
+            {
+                path: 'general_settings',
+                props: true,
+                component: GeneralSettings
+            },
+            {
+                path: 'menu',
+                props: true,
+                component: menuConfig
+            },
+            {
+                path: 'footer',
+                props: true,
+                component: footerConfig
             },
             // Para borrar proyectos, usuarios, consultas y taxonomias
             {
@@ -462,26 +482,6 @@ const routes = [
                 props: true,
                 component: deleteElement
             },
-            {
-                path: 'menu',
-                props: true,
-                component: menuConfig
-            },
-            {
-                path: 'footer',
-                props: true,
-                component: footerConfig
-            },
-            {
-                path: 'configuration',
-                props: true,
-                component: configuracionGeneral
-            },
-            {
-                path: 'google-analytics',
-                props: true,
-                component: codeGoogleAnalytic
-            }
         ]
     }
 ];
@@ -499,7 +499,6 @@ router.beforeEach((to, from, next) => {
             } else {
                 next('/');
             }
-            return;
         } else {
             next('login');
         }
