@@ -131,6 +131,8 @@ function congreso_command_applyconfig() {
 		congreso_check_error((array_key_exists("APP_URL", $options) && $options["APP_URL"]!=""), "APP_URL missing.");
 		congreso_check_error((array_key_exists("APP_CLIENT_URL", $options) && $options["APP_CLIENT_URL"]!=""), "APP_CLIENT_URL missing.");
 		congreso_check_error((array_key_exists("CONGRESO_DPL_USE_HTTPS", $options) && $options["CONGRESO_DPL_USE_HTTPS"]!=""), "CONGRESO_DPL_USE_HTTPS missing.");
+		congreso_check_error((array_key_exists("CONGRESO_APACHE_HTTP_PORT", $options) && $options["CONGRESO_APACHE_HTTP_PORT"]!=""), "CONGRESO_APACHE_HTTP_PORT missing.");
+		congreso_check_error((array_key_exists("CONGRESO_APACHE_HTTPS_PORT", $options) && $options["CONGRESO_APACHE_HTTPS_PORT"]!=""), "CONGRESO_APACHE_HTTPS_PORT missing.");
 		congreso_check_error((array_key_exists("DB_DATABASE", $options) && $options["DB_DATABASE"]!=""), "DB_DATABASE missing.");
 		congreso_check_error((array_key_exists("DB_USERNAME", $options) && $options["DB_USERNAME"]!=""), "DB_USERNAME missing.");
 		congreso_check_error((array_key_exists("DB_PASSWORD", $options) && $options["DB_PASSWORD"]!=""), "DB_PASSWORD missing.");
@@ -141,14 +143,22 @@ function congreso_command_applyconfig() {
 		replace_in_file("/app/dist/volumefiles/httpd.conf", array(
 			"{{CONGRESO_DPL_USE_HTTPS}}" => ($options["CONGRESO_DPL_USE_HTTPS"]=="1"?"":"#"),
 			"{{APP_CLIENT_URL}}" => explode("/", explode("://", $options["APP_CLIENT_URL"])[1])[0],
-			"{{APP_URL}}" => explode("/", explode("://", $options["APP_URL"])[1])[0]
+			"{{APP_URL}}" => explode("/", explode("://", $options["APP_URL"])[1])[0],
+			"{{CONGRESO_APACHE_HTTP_PORT}}" => $options["CONGRESO_APACHE_HTTP_PORT"],
+			"{{CONGRESO_APACHE_HTTPS_PORT}}" => $options["CONGRESO_APACHE_HTTPS_PORT"]
 		));
+		
+		echo "Setting proper permissions to Apache certificate chain (if exists)\n";
+		$out = congreso_execute("chown -R 33:" . $options["CONGRESO_USER_GID"] . "/app/dist/volumefiles/certs/cert.crt /app/dist/volumefiles/certs/cert.key || true");
+		congreso_check_error($out, "Error while setting proper permissions to Apache certificate chain.");
 		
 		echo "Writing docker compose configuration\n";
 		replace_in_file("/app/dist/docker-compose.yml", array(
 			"{{DB_DATABASE}}" => $options["DB_DATABASE"],
 			"{{DB_USERNAME}}" => $options["DB_USERNAME"],
 			"{{DB_PASSWORD}}" => $options["DB_PASSWORD"],
+			"{{CONGRESO_APACHE_HTTP_PORT}}" => $options["CONGRESO_APACHE_HTTP_PORT"],
+			"{{CONGRESO_APACHE_HTTPS_PORT}}" => $options["CONGRESO_APACHE_HTTPS_PORT"]
 		));
 		
 		echo "Writing analytics configuration\n";
