@@ -18,39 +18,147 @@
         <script type="text/javascript">
             function init() {
                 google.load('visualization', '1.1', {
-                    packages: ['corechart'],
+                    packages: [
+                        'corechart',
+                        'geochart'
+                    ],
                     callback: 'drawCharts'
                 });
             }
 
             function drawCharts() {
-                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-                chart.draw(
+                var votacionGeneralPieChart = new google.visualization.PieChart(document.getElementById('votacion-general-pie-chart'));
+                votacionGeneralPieChart.draw(
                     google.visualization.arrayToDataTable([
                         ['Voto', 'Cantidad'],
-                        ['A favor', {{ $project->votos_a_favor }}],
-                        ['En contra', {{ $project->votos_en_contra }}],
-                        ['Abstención', {{ $project->abstencion }}]
-                    ]), {
-                    //title: 'Votación general',
-                    colors:['green','red','gray']
-                    //legend: 'none'
-                });
+                        ['A favor', {{ $project->votos_a_favor }} ],
+                        ['En contra', {{ $project->votos_en_contra }} ],
+                        ['Abstención', {{ $project->abstencion }} ]
+                    ]),
+                    {
+                        is3D: true,
+                        backgroundColor: 'transparent',
+                        chartArea: {
+                            width: '100%',
+                            height: '90%'
+                        },
+                        width: 350,
+                        height: 200
+                    }
+                );
 
-                var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
-
-                chart2.draw(
+                var participantesGeneroPieChart = new google.visualization.PieChart(document.getElementById('participantes-genero-pie-chart'));
+                participantesGeneroPieChart.draw(
                     google.visualization.arrayToDataTable([
-                        ['Género', "Cantidad"],
-                        ['Masculino', 12],
-                        ['Femenino', 11],
-                        ['Otro', 1]
-                    ]), {
-                    //title: 'Votación por género',
-                    colors:['pink','orange','yellow']
-                    //legend: 'none'
+                        ['Género', 'Cantidad'],
+                        ['Masculino', {{ $usersParticipantsGenderCount->male }} ],
+                        ['Femenino', {{ $usersParticipantsGenderCount->female }} ],
+                        ['Otro', {{ $usersParticipantsGenderCount->other }} ],
+                        ['No responde', {{ $usersParticipantsGenderCount->not_answer }} ]
+                    ]),
+                    {
+                        is3D: true,
+                        backgroundColor: 'transparent',
+                        chartArea: {
+                            width: '100%',
+                            height: '90%'
+                        },
+                        width: 350,
+                        height: 200
+                    }
+                );
+
+                var participantesEdadPieChart = new google.visualization.PieChart(document.getElementById('participantes-edad-pie-chart'));
+                participantesEdadPieChart.draw(
+                    google.visualization.arrayToDataTable([
+                        ['Rango de edad', 'Cantidad'],
+                        ['10-19', {{ $usersParticipantsAgeRangeCount->_10_19 }} ],
+                        ['20-29', {{ $usersParticipantsAgeRangeCount->_20_29 }} ],
+                        ['30-39', {{ $usersParticipantsAgeRangeCount->_30_39 }} ],
+                        ['40-49', {{ $usersParticipantsAgeRangeCount->_40_49 }} ],
+                        ['50-59', {{ $usersParticipantsAgeRangeCount->_50_59 }} ],
+                        ['60-69', {{ $usersParticipantsAgeRangeCount->_60_69 }} ],
+                        ['70-79', {{ $usersParticipantsAgeRangeCount->_70_79 }} ],
+                        ['80-89', {{ $usersParticipantsAgeRangeCount->_80_89 }} ]
+                    ]),
+                    {
+                        is3D: true,
+                        backgroundColor: 'transparent',
+                        chartArea: {
+                            width: '100%',
+                            height: '90%'
+                        },
+                        width: 350,
+                        height: 200
+                    }
+                );
+
+                var participantesEdadGeneroColumnChart = new google.visualization.ColumnChart(document.getElementById('participantes-edad-genero-column-chart'));
+                participantesEdadGeneroColumnChart.draw(
+                    google.visualization.arrayToDataTable([
+                        ['Rango de edad', 'Masculino', 'Femenino', 'Otro', 'No responde'],
+                        ['10-19', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_10_19)) }} ],
+                        ['20-29', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_20_29)) }} ],
+                        ['30-39', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_30_39)) }} ],
+                        ['40-49', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_40_49)) }} ],
+                        ['50-59', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_50_59)) }} ],
+                        ['60-69', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_60_69)) }} ],
+                        ['70-79', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_70_79)) }} ],
+                        ['80-89', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_80_89)) }} ]
+                    ]),
+                    {
+                        vAxis: {
+                            format: 'decimal'
+                        },
+                        backgroundColor: 'transparent',
+                        chartArea: {
+                            width: '70%',
+                            height: '80%',
+                            left: 60
+                        },
+                        width: 650,
+                        height: 250
+                    }
+                );
+
+                var usersParticipantsProvincesCount = @json((array) $usersParticipantsProvincesCount);
+                usersParticipantsProvincesCount.forEach(function (usersParticipantsProvinceCount) {
+                    if(usersParticipantsProvinceCount.code === 'CL-NB') {
+                        var nubleProvince = usersParticipantsProvinceCount;
+                        usersParticipantsProvincesCount.forEach(function (usersParticipantsProvinceCount) {
+                            if(usersParticipantsProvinceCount.code === 'CL-BI') {
+                                usersParticipantsProvinceCount.count += nubleProvince.count;
+                            }
+                        });
+                    }
                 });
+
+                var geoChartData = [[ 'Región', 'Cantidad' ]];
+                usersParticipantsProvincesCount.forEach(function (usersParticipantsProvinceCount) {
+                    geoChartData.push([
+                        {
+                            f: usersParticipantsProvinceCount.name,
+                            v: usersParticipantsProvinceCount.code
+                        },
+                        usersParticipantsProvinceCount.count
+                    ]);
+                });
+
+                var participantesRegionGeoChart = new google.visualization.GeoChart(document.getElementById('participantes-region-geo-chart'));
+                participantesRegionGeoChart.draw(
+                    google.visualization.arrayToDataTable(geoChartData),
+                    {
+                        region: 'CL',
+                        resolution: 'provinces',
+                        colorAxis: {
+                            colors: 'blue'
+                        },
+                        backgroundColor: 'transparent',
+                        width: 550,
+                        height: 400,
+                    }
+                );
+
                 var test = @json($project_detail);
                 // List of words
                 var myWords = test.split(" ");
@@ -152,7 +260,6 @@
                 </tbody>
             </table>
         </div>
-        <hr>
         <div>
             <h3>Información General de Participación</h3>
             <table class="table table-striped">
@@ -203,7 +310,101 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="alert alert-info">
+                <h4 class="alert-heading">Nota</h4>
+                <p>Un usuario se considera participante si éste realizó un voto o al menos un comentario en el proyecto de ley.</p>
+            </div>
         </div>
+        <div style="display: block; page-break-before: always;"></div>
+        <div>
+            <h3>Información Detallada de Participación</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">Indicador</th>
+                        <th style="width: 30%">Gráfico</th>
+                        <th>Detalles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Votación general del proyecto de ley</th>
+                        <td>
+                            <div id="votacion-general-pie-chart"></div>
+                        </td>
+                        <td>
+                            @if($project->votes()->count() > 1)
+                                De un total de {{ $project->votes()->count() }} votos totales:
+                                <ul>
+                                    <li>Hubo {{ $project->votos_a_favor }} a favor, correspondiente al {{ round($project->votos_a_favor/$project->votes()->count() * 100, 2) }}% de los votos.</li>
+                                    <li>Hubo {{ $project->votos_en_contra }} en contra, correspondiente al {{ round($project->votos_en_contra/$project->votes()->count() * 100, 2) }}% de los votos.</li>
+                                    <li>Hubo {{ $project->abstencion }} abstenciones, correspondiente al {{ round($project->abstencion/$project->votes()->count() * 100, 2) }}% de los votos.</li>
+                                </ul>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Participantes clasificados por género</th>
+                        <td>
+                            <div id="participantes-genero-pie-chart"></div>
+                        </td>
+                        <td>
+                            @if(count($usersParticipantsOnProject) > 1)
+                                De un total de {{ count($usersParticipantsOnProject) }} usuarios participantes:
+                                <ul>
+                                    @if($usersParticipantsGenderCount->male > 0) <li>Hubo {{ $usersParticipantsGenderCount->male }} de género masculino, correspondiente al {{ round($usersParticipantsGenderCount->male/count($usersParticipantsOnProject) * 100, 2) }}% de los participantes.</li> @endif
+                                    @if($usersParticipantsGenderCount->female > 0) <li>Hubo {{ $usersParticipantsGenderCount->female }} de género femenino, correspondiente al {{ round($usersParticipantsGenderCount->female/count($usersParticipantsOnProject) * 100, 2) }}% de los participantes.</li> @endif
+                                    @if($usersParticipantsGenderCount->other > 0) <li>Hubo {{ $usersParticipantsGenderCount->other }} de otro género, correspondiente al {{ round($usersParticipantsGenderCount->other/count($usersParticipantsOnProject) * 100, 2) }}% de los participantes.</li> @endif
+                                    @if($usersParticipantsGenderCount->not_answer > 0) <li>Hubo {{ $usersParticipantsGenderCount->not_answer }} que no informa su género, correspondiente al {{ round($usersParticipantsGenderCount->not_answer/count($usersParticipantsOnProject) * 100, 2) }}% de los participantes.</li> @endif
+                                </ul>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Participantes clasificados por rango etario</th>
+                        <td>
+                            <div id="participantes-edad-pie-chart"></div>
+                        </td>
+                        <td>
+                            @if(count($usersParticipantsOnProject) > 1)
+                                De un total de {{ count($usersParticipantsOnProject) }} usuarios participantes:
+                                <ul>
+                                    @if($usersParticipantsAgeRangeCount->_10_19 > 0) <li>Hubo {{ $usersParticipantsAgeRangeCount->_10_19 }} de entre 10 y 19 años de edad, correspondiente al {{ round($usersParticipantsAgeRangeCount->_10_19/$usersParticipantsAgeRangeCount->total * 100, 2) }}% de los participantes.</li> @endif
+                                    @if($usersParticipantsAgeRangeCount->_20_29 > 0) <li>Hubo {{ $usersParticipantsAgeRangeCount->_20_29 }} de entre 20 y 29 años de edad, correspondiente al {{ round($usersParticipantsAgeRangeCount->_20_29/$usersParticipantsAgeRangeCount->total * 100, 2) }}% de los participantes.</li> @endif
+                                    @if($usersParticipantsAgeRangeCount->_30_39 > 0) <li>Hubo {{ $usersParticipantsAgeRangeCount->_30_39 }} de entre 30 y 39 años de edad, correspondiente al {{ round($usersParticipantsAgeRangeCount->_30_39/$usersParticipantsAgeRangeCount->total * 100, 2) }}% de los participantes.</li> @endif
+                                    @if($usersParticipantsAgeRangeCount->_40_49 > 0) <li>Hubo {{ $usersParticipantsAgeRangeCount->_40_49 }} de entre 40 y 49 años de edad, correspondiente al {{ round($usersParticipantsAgeRangeCount->_40_49/$usersParticipantsAgeRangeCount->total * 100, 2) }}% de los participantes.</li> @endif
+                                    @if($usersParticipantsAgeRangeCount->_50_59 > 0) <li>Hubo {{ $usersParticipantsAgeRangeCount->_50_59 }} de entre 50 y 59 años de edad, correspondiente al {{ round($usersParticipantsAgeRangeCount->_50_59/$usersParticipantsAgeRangeCount->total * 100, 2) }}% de los participantes.</li> @endif
+                                    @if($usersParticipantsAgeRangeCount->_60_69 > 0) <li>Hubo {{ $usersParticipantsAgeRangeCount->_60_69 }} de entre 60 y 69 años de edad, correspondiente al {{ round($usersParticipantsAgeRangeCount->_60_69/$usersParticipantsAgeRangeCount->total * 100, 2) }}% de los participantes.</li> @endif
+                                    @if($usersParticipantsAgeRangeCount->_70_79 > 0) <li>Hubo {{ $usersParticipantsAgeRangeCount->_70_79 }} de entre 70 y 79 años de edad, correspondiente al {{ round($usersParticipantsAgeRangeCount->_70_79/$usersParticipantsAgeRangeCount->total * 100, 2) }}% de los participantes.</li> @endif
+                                    @if($usersParticipantsAgeRangeCount->_80_89 > 0) <li>Hubo {{ $usersParticipantsAgeRangeCount->_80_89 }} de entre 80 y 89 años de edad, correspondiente al {{ round($usersParticipantsAgeRangeCount->_80_89/$usersParticipantsAgeRangeCount->total * 100, 2) }}% de los participantes.</li> @endif
+                                </ul>
+                            @endif
+                            <div class="alert alert-info small">
+                                <h4 class="alert-heading">Nota</h4>
+                                <p>Es posible que la suma de los participantes por rangos etarios no corresponda al total de participantes debido a que por fines estadísticos no se consideran edades inferiores a los 9 años y superiores a los 90 años (ambas inclusive), o bien participantes que no han informado su fecha de nacimiento.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Participantes clasificados por rango etario y género</th>
+                        <td colspan="2">
+                            <div id="participantes-edad-genero-column-chart" style="width: 500px; height: 250px;"></div>
+                        </td>s
+                    </tr>
+                    <tr>
+                        <th>Participantes clasificados por región de residencia</th>
+                        <td colspan="2">
+                            <div id="participantes-region-geo-chart" style="width: 500px;"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+
         <h2>Participantes</h2>
         <div class="row">
             <div class="col-xs-6">

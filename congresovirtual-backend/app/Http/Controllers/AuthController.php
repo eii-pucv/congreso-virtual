@@ -395,10 +395,10 @@ class AuthController extends Controller
             } else {
                 $validator = Validator::make($request->all(), [
                     'titulo_profesional'    => 'integer|nullable',
-                    'estudios_adicionales'  => 'array|nullable',
+                    'estudios_adicionales'  => 'string|nullable',
                     'anios_experiencia_laboral' => 'integer|nullable',
                     'areas_desempenio'      => 'array|nullable',
-                    'temas_trabajo'         => 'array|nullable'
+                    'temas_trabajo'         => 'string|nullable'
                 ]);
                 if($validator->fails()) {
                     throw new \Exception();
@@ -411,10 +411,10 @@ class AuthController extends Controller
                 $fillArray = [
                     'es_experto'            => true,
                     'titulo_profesional'    => $request->titulo_profesional,
-                    'estudios_adicionales'  => json_encode($request->estudios_adicionales),
+                    'estudios_adicionales'  => $request->estudios_adicionales,
                     'anios_experiencia_laboral' => $request->anios_experiencia_laboral,
                     'areas_desempenio'      => json_encode($request->areas_desempenio),
-                    'temas_trabajo'         => json_encode($request->temas_trabajo)
+                    'temas_trabajo'         => $request->temas_trabajo
                 ];
             }
             $user->fill($fillArray)->save();

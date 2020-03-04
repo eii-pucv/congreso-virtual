@@ -23,9 +23,7 @@ trait UserMetadateable
         'es_experto' => 'boolean',
         'es_organizacion' => 'boolean',
         'tiene_per_jur' => 'boolean',
-        'estudios_adicionales' => 'json',
-        'areas_desempenio' => 'json',
-        'temas_trabajo' => 'json'
+        'areas_desempenio' => 'json'
     ];
     private $tempMetaAttributes = [];
 
