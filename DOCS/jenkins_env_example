@@ -9,8 +9,8 @@ APP_URL=http://api.congresovirtual.domain\n
 APP_CLIENT_URL=http://congresovirtual.domain\n
 \n
 #This will be the default HTTP and HTTPS ports for output.\n
-CONGRESO_APACHE_HTTP_PORT =80\n
-CONGRESO_APACHE_HTTPS_PORT =443\n
+CONGRESO_APACHE_HTTP_PORT=80\n
+CONGRESO_APACHE_HTTPS_PORT=443\n
 \n
 #Configure with 0 or 1 if this site will be use HTTPS. If you intend to use a reverse proxy, you must leave as 0.\n
 #If enabled, please put your certificates in dist/volumefiles/certs as cert.cert and cert.key (you can customize your configuration in httpd.conf).\n
@@ -68,7 +68,12 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"\n
 TWITTER_ID=\n
 TWITTER_SECRET=\n
 TWITTER_URL=\n
+FACEBOOK_ID=\n
 FACEBOOK_SECRET=\n
 FACEBOOK_URL=\n
+GOOGLE_ID=\n
 GOOGLE_SECRET=\n
 GOOGLE_URL=\n
+CLAVEUNICA_CLIENT_ID=\n
+CLAVEUNICA_SECRET_ID=\n
+CLAVEUNICA_REDIRECT=\n
