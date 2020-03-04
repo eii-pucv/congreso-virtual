@@ -149,7 +149,7 @@ function congreso_command_applyconfig() {
 		));
 		
 		echo "Setting proper permissions to Apache certificate chain (if exists)\n";
-		$out = congreso_execute("chown -R 33:" . $options["CONGRESO_USER_GID"] . "/app/dist/volumefiles/certs/cert.crt /app/dist/volumefiles/certs/cert.key || true");
+		$out = congreso_execute("chown -R 33:" . $options["CONGRESO_USER_GID"] . " /app/dist/volumefiles/certs/cert.crt /app/dist/volumefiles/certs/cert.key || true");
 		congreso_check_error($out, "Error while setting proper permissions to Apache certificate chain.");
 		
 		echo "Writing docker compose configuration\n";
