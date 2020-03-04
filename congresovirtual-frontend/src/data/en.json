@@ -1162,6 +1162,12 @@
                 "titulo2": "Edit Taxonomy",
                 "nombre": "Taxonomy Name"
             },
+            "crear_palabra_ofensiva": {
+                "titulo1": "Create Offensive Word",
+                "titulo2": "Edit Offensive Word",
+                "nombre": "Offensive word name",
+                "palabra_ofensiva_placeholder": "Insert offensive word"
+            },
             "articulo": {
                 "titulo": "Title",
                 "detalle": "Item Detail"
