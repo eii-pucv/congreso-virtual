@@ -1162,6 +1162,12 @@
                 "titulo2": "Editar Taxonomía",
                 "nombre": "Nombre taxonomía"
             },
+            "crear_palabra_ofensiva": {
+                "titulo1": "Crear Palabra Ofensiva",
+                "titulo2": "Editar Palabra Ofensiva",
+                "nombre": "Nombre palabra ofensiva",
+                "palabra_ofensiva_placeholder": "Ingrese la palabra ofensiva"
+            },
             "articulo": {
                 "titulo": "Titulo",
                 "detalle": "Detalle de Artículo"

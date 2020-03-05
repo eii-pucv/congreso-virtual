@@ -54,7 +54,7 @@ Route::get('/ngram', function(Request $request) {
 });
 
 Route::get('/topicmodel', function(Request $request) {
-    set_time_limit(480);
+    set_time_limit(1800);
 
     $client = new \GuzzleHttp\Client();
     $request = $client->request(
@@ -284,6 +284,14 @@ Route::group(['middleware' => ['auth:api', 'has.roles:ADMIN']], function() {
         Route::post('/', 'StopwordTypeController@store');
         Route::put('/{stopwordType}', 'StopwordTypeController@update');
         Route::delete('/{stopwordType}', 'StopwordTypeController@destroy');
+    });
+    
+    Route::group(['prefix' => 'offensive_words'], function () {
+        Route::post('/', 'OffensiveWordController@store');
+        Route::get('/', 'OffensiveWordController@index');
+        Route::get('/{stopword}', 'OffensiveWordController@show');
+        Route::put('/{stopword}', 'OffensiveWordController@update');
+        Route::delete('/{stopword}', 'OffensiveWordController@destroy');
     });
 });
 
