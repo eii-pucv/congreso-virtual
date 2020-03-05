@@ -54,7 +54,7 @@ Route::get('/ngram', function(Request $request) {
 });
 
 Route::get('/topicmodel', function(Request $request) {
-    set_time_limit(480);
+    set_time_limit(1800);
 
     $client = new \GuzzleHttp\Client();
     $request = $client->request(

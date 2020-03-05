@@ -232,7 +232,7 @@ function congreso_command_update() {
 	
 	//copy env file from tmp to dist location
 	echo "Restoring old configuration data... \n";
-	$out = congreso_execute("cp -f /app/tmp/.env /app/dist/volumefiles/");
+	$out = congreso_execute("cp -fp /app/tmp/.env /app/dist/volumefiles/");
 	congreso_check_error($out, "Error while restoring old configuration data.");
 	
 	//apply configuration
