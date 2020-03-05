@@ -19,19 +19,19 @@
             >
                 {{ $t('votacion_cerrada') }}
             </div>
-            <div class="row mx-0 text-center my-5">
+            <div class="row mx-0 text-center">
                 <div class="col-4 px-0" style="display: inline-block;">
-                    <span class="d-block font-24 text-green"><i class="fa fa-thumbs-up"></i></span>
+                    <span class="d-block font-20"><i class="fa fa-thumbs-up"></i></span>
                     <span class="d-block font-14">{{ $t('votos.a_favor') }}</span>
-                    <span class="d-block display-6 text-green">{{ project.votos_a_favor }}</span>
+                    <span class="d-block display-6">{{ project.votos_a_favor }}</span>
                 </div>
                 <div class="col-4 px-0" style="display: inline-block;">
-                    <span class="d-block font-24 text-red"><i class="fa fa-thumbs-down"></i></span>
+                    <span class="d-block font-20"><i class="fa fa-thumbs-down"></i></span>
                     <span class="d-block font-14">{{ $t('votos.en_contra') }}</span>
-                    <span class="d-block display-6 text-red">{{ project.votos_en_contra }}</span>
+                    <span class="d-block display-6">{{ project.votos_en_contra }}</span>
                 </div>
                 <div class="col-4 px-0" style="display: inline-block;">
-                    <span class="d-block font-24"><font-awesome-icon icon="minus-circle"/></span>
+                    <span class="d-block font-20"><font-awesome-icon icon="minus-circle"/></span>
                     <span class="d-block font-14">{{ $t('votos.abstencion') }}</span>
                     <span class="d-block display-6">{{ project.abstencion }}</span>
                 </div>
@@ -49,12 +49,12 @@
                     <a :href="'/projects?terms_id[]=' + project.terms[0].id" class="badge badge-pill badge-dark font-12 m-1">{{ project.terms[0].value }}</a>
                 </div>
             </div>
-            <div id="project-name" class="card-body font-16 font-weight-bold overflow-auto px-10 py-10 custom-scrollbar-wk custom-scrollbar-mz">{{ project.titulo }}</div>
+            <div id="project-name" class="card-body font-16 font-weight-bold overflow-auto px-10 py-10 custom-scrollbar-wk custom-scrollbar-mz text-justify" style="line-height:1.3">{{ project.titulo }}</div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item text-center" :style="mode==='dark'?'background: #080035':''">
-                    <span><i class="fa fa-clock font-20 mr-10"></i><span class="font-18">{{ $t('tiempo') }}</span></span><span class="text-right"></span>
-                    <Countdown v-if="isAvailableVoting" class="pt-10 font-18" :date="votingEndDate"></Countdown>
-                    <Countdown v-else class="pt-10 text-red font-18" :date="votingEndDate"></Countdown>
+                <li class="list-group-item p-0 px-2 py-3" :style="mode==='dark'?'background: #080035':''">
+                    <span class="d-flex"><i class="fa fa-clock font-16 mr-5"></i><span class="font-14" style="line-height:1">{{ $t('tiempo') }}</span>
+                    <Countdown v-if="isAvailableVoting" class="font-16" :date="votingEndDate"></Countdown>
+                    <Countdown v-else class="text-red font-16" :date="votingEndDate"></Countdown>
                 </li>
             </ul>
             <div class="btn-group-vertical btn-block mt-auto">

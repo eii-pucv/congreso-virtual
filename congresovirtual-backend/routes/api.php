@@ -289,9 +289,9 @@ Route::group(['middleware' => ['auth:api', 'has.roles:ADMIN']], function() {
     Route::group(['prefix' => 'offensive_words'], function () {
         Route::post('/', 'OffensiveWordController@store');
         Route::get('/', 'OffensiveWordController@index');
-        Route::get('/{stopword}', 'OffensiveWordController@show');
-        Route::put('/{stopword}', 'OffensiveWordController@update');
-        Route::delete('/{stopword}', 'OffensiveWordController@destroy');
+        Route::get('/{offensiveword}', 'OffensiveWordController@show');
+        Route::put('/{offensiveword}', 'OffensiveWordController@update');
+        Route::delete('/{offensiveword}', 'OffensiveWordController@destroy');
     });
 });
 
