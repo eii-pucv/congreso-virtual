@@ -2,6 +2,8 @@
 
 ![Build Status](https://congresovirtual.senado.cl/jenkins/buildStatus/icon?job=CongresoVirtual&style=plastic)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=EL-BID_congreso-virtual&metric=alert_status)](https://sonarcloud.io/dashboard?id=EL-BID_congreso-virtual)
+
 [English documentation](..blob/master/README_en.md)
 
 Software que busca la participación ciudadana en el proceso de fomación de la ley a traves del conocimiento y debate en los proyectos.
