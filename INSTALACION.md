@@ -292,7 +292,6 @@ sudo chcon -R -t httpd_sys_rw_content_t /var/www/congresovirtual-backend/storage
 
 ```
 cd /var/www/congresovirtual-backend
-composer install
 ```
 
 4. En esta carpeta crear un archivo llamado `.env`
@@ -372,13 +371,19 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
 **Importante:** Por favor borrar los (*) del archivo, ya que son utilizados solo como guía visual para identificar los párametros que debe configurar.
 
-6. Una vez configurado el archivo de variables de entorno `.env`, es recomendable ejecutar el siguiente comando para que Laravel actualice la cache con dichas configuraciones.
+6. Instalar las dependencias del backend con Composer
+
+```
+composer install
+```
+
+7. Una vez configurado el archivo de variables de entorno `.env`, es recomendable ejecutar el siguiente comando para que Laravel actualice la cache con dichas configuraciones.
 
 ```
 php artisan config:clear
 ```
 
-7. Finalizar instalación creando una API key para el backend y el relleno inicial de bases de datos.
+8. Finalizar instalación creando una API key para el backend y el relleno inicial de bases de datos.
 
 ```
 php artisan key:generate
