@@ -22,8 +22,16 @@
                         'corechart',
                         'geochart'
                     ],
-                    callback: 'drawCharts'
+                    callback: drawCharts
                 });
+
+                var chartsRun = 1;
+                setInterval(function() {
+                    if(chartsRun) {
+                        chartsRun = 0;
+                        google.setOnLoadCallback(drawCharts);
+                    }
+                }, 30000);
             }
 
             function drawCharts() {
@@ -389,7 +397,7 @@
                         <th>Participantes clasificados por rango etario y género</th>
                         <td colspan="2">
                             <div id="participantes-edad-genero-column-chart" style="width: 500px; height: 250px;"></div>
-                        </td>s
+                        </td>
                     </tr>
                     <tr>
                         <th>Participantes clasificados por región de residencia</th>

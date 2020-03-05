@@ -152,9 +152,7 @@
                                         <h2>{{ $t('administrador.componentes.analitica.datos') }}:</h2>
                                         <p class="text-justify">{{ $t('administrador.componentes.analitica.seccion') }}</p>
                                         <div class="col-md-12 mt-15 mb-15">
-                                            <div class="col-6 px-4">
-                                                <VotosStackedChart v-bind:votacionGeneral="[23,141,2,42]" :project_id="project_id"></VotosStackedChart>
-                                            </div>
+                                            <ProjectBarCharts :project_id="project_id"></ProjectBarCharts>
                                         </div>
                                     </div>
                                 </div>
@@ -178,7 +176,7 @@ import WordCloud from '../../projects/WordCloud';
 import TreemapUsuariosPorRegion from "../../projects/TreeMapUsuariosPorRegion";
 import HorizontalUserGenderBarChart from "../../projects/AnalitycUsersGenderChart";
 import HorizontalUserAgesBarChart from "../../projects/AnalitycUsersAgesChart";
-import VotosStackedChart from "../../projects/StackedChartVotosPorProyecto";
+import ProjectBarCharts from "../../projects/ProjectBarCharts";
 import TopicModeling from "./TopicModeling";
 import axios from '../../../backend/axios';
 import HighlightText from 'vue-highlight-text';
@@ -192,7 +190,7 @@ export default {
         TreemapUsuariosPorRegion,
         HorizontalUserGenderBarChart,
         HorizontalUserAgesBarChart,
-        VotosStackedChart,
+        ProjectBarCharts,
         TopicModeling,
         HighlightText,
         Loading

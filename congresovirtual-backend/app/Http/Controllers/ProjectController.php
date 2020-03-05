@@ -1498,7 +1498,7 @@ class ProjectController extends Controller
                 'articles' => $articles
             ]);
             $pdf->setOption('enable-javascript', true);
-            $pdf->setOption('javascript-delay', 5000);
+            $pdf->setOption('javascript-delay', 10000);
             $pdf->setOption('enable-smart-shrinking', true);
             $pdf->setOption('no-stop-slow-scripts', true);
             $pdf->setOption('lowquality', false);

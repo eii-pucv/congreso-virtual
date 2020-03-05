@@ -244,7 +244,7 @@
                                      role="tabpanel"
                                      aria-labelledby="comments-tab"
                                 >
-                                    <Traces v-if="project.id" :project_boletin="project.boletin" :project_id="project.id"></Traces>
+                                    <ProjectTraces v-if="project.id" :project_boletin="project.boletin" :project_id="project.id"></ProjectTraces>
                                 </div>
                                 <div class="tab-pane fade show"
                                      id="analisis"
@@ -255,7 +255,7 @@
                                          :style="mode==='dark'?'background: rgb(12, 1, 80);':''"
                                          :class="mode==='dark'?'':'bg-light-15'"
                                     >
-                                        <div class="row">
+                                        <div class="row mx-0">
                                             <div class="col-md-12 mt-15 mb-10">
                                                 <h5 class="hk-sec-title text-center"
                                                     :style="mode==='dark'?'color: #fff':''"
@@ -263,15 +263,14 @@
                                             </div>
                                             <div class="col-md-12 mt-15 mb-10">
                                                 <h7 class="hk-sec-title"
-                                                    style=" border-style: dotted; border-width: 1px;"
-                                                    :style="mode==='dark'?'color: #fff; border-color:#fff':'border-color:#000'"
+                                                    :style="mode==='dark'?'color: #fff':''"
                                                 >{{ $t('proyecto.contenido.recomendacion') }}</h7>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12 mt-15 mb-15">
                                                 <div class="col-12">
-                                                    <VotosStackedChart :project_id="project.id" :key="keyStackedChartComponent"></VotosStackedChart>
+                                                    <ProjectBarCharts :project="project" :key="keyStackedChartComponent"></ProjectBarCharts>
                                                 </div>
                                             </div>
                                         </div>
@@ -340,7 +339,7 @@
                                     <div>
                                         <div class="row">
                                             <div class="col-12">
-                                                <ProjectDocuments v-if="project.id" :project_id="project.id"></ProjectDocuments>
+                                                <ProjectFiles v-if="project.id" :project_id="project.id"></ProjectFiles>
                                             </div>
                                         </div>
                                     </div>
@@ -359,22 +358,23 @@
 </template>
 
 <script>
-    import ProjectHeader from "../components/projects/ProjectHeader";
-    import ProjectComments from "./Comments";
-    import ProjectIdeas from "../components/projects/ProjectIdeas";
-    import ProjectArticles from "../components/projects/ProjectArticles";
-    import jsPDF from "jspdf";
-    import Traces from "../components/projects/ProjectTraces";
+    import ProjectHeader from '../components/projects/ProjectHeader';
+    import ProjectComments from './Comments';
+    import ProjectIdeas from '../components/projects/ProjectIdeas';
+    import ProjectArticles from '../components/projects/ProjectArticles';
+    import ProjectTraces from '../components/projects/ProjectTraces';
+    import ProjectBarCharts from '../components/projects/ProjectBarCharts';
+    import ProjectFiles from '../components/projects/ProjectFiles';
+    import WordCloud from "../components/projects/WordCloud";
+
     import axios from "../backend/axios";
     import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-    import Loading from "vue-loading-overlay";
-    import "vue-loading-overlay/dist/vue-loading.css";
-    import axioma from "axios";
-    import WordCloud from "../components/projects/WordCloud";
     import PieChart from "../PieChart.js";
+    import ChartDataLabels from 'chartjs-plugin-datalabels';
+    //import "vue-loading-overlay/dist/vue-loading.css";
+    import axioma from "axios";
+    import jsPDF from "jspdf";
     import htmlToImage from "html-to-image";
-    import VotosStackedChart from "../components/projects/StackedChartVotosPorProyecto";
-    import ProjectDocuments from "../components/projects/DocumentosDisponibles";
     import "intro.js/minified/introjs.min.css";
     import { bus } from "../main";
 
@@ -385,13 +385,13 @@
             ProjectComments,
             ProjectIdeas,
             ProjectArticles,
+            ProjectTraces,
+            ProjectBarCharts,
+            ProjectFiles,
             WordCloud,
-            Traces,
             FontAwesomeIcon,
-            Loading,
             PieChart,
-            VotosStackedChart,
-            ProjectDocuments,
+            ChartDataLabels
         },
         props: {
             project_id: Number,

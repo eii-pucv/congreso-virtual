@@ -142,15 +142,10 @@
                                     <div class="media-body">
                                         <div class="row">
                                             <div class="col-9 mb-2">
-                                                <h6 v-if="parentComment.user && parentComment.user.username">{{ parentComment.user.username }}
-                                                    <small>{{ parentComment.created_at }}</small>
-                                                </h6>
-                                                <h6 v-else-if="parentComment.user && !parentComment.user.username">{{ parentComment.user.name }} {{ parentComment.user.surname }}
-                                                    <small>{{ parentComment.created_at }}</small>
-                                                </h6>
-                                                <h6 v-else>{{ $t('componentes.comentarios.no_identificado') }}
-                                                    <small>{{ parentComment.created_at }}</small>
-                                                </h6>
+                                                <h6 v-if="parentComment.user && parentComment.user.username">{{ parentComment.user.username }}</h6>
+                                                <h6 v-else-if="parentComment.user && !parentComment.user.username">{{ parentComment.user.name }} {{ parentComment.user.surname }}</h6>
+                                                <h6 v-else>{{ $t('componentes.comentarios.no_identificado') }}</h6>
+                                                <small class="text-grey">{{ new Date(toLocalDatetime(parentComment.created_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}</small>
                                             </div>
                                         </div>
                                         <p class="comment-body custom-scrollbar-wk custom-scrollbar-mz">{{ parentComment.body }}</p>
