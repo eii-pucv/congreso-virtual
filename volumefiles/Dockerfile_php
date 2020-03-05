@@ -22,13 +22,23 @@ RUN apt-get update && apt-get install -y \
     curl \
     libxrender1 \
     libqt5core5a \
-    wkhtmltopdf 
+    wkhtmltopdf \
+    xfonts-75dpi
+
+# fix libqt5corea
+RUN strip -R .note.ABI-tag /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.11.3
+
+# Set working directory
+WORKDIR /tmp
+
+RUN curl -L -v https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.buster_amd64.deb -o out.deb
+RUN dpkg -i out.deb
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# fix libqt5corea
-RUN strip -R .note.ABI-tag /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.11.3
+# Set working directory
+WORKDIR /var/www
 
 # Install extensions
 RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl

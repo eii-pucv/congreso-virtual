@@ -15,7 +15,7 @@
                     <li class="next btn bg-indigo-dark-2 text-white font-18 right-control" data-controls="next" aria-controls="customize" tabindex="-1">
                         <span><i class="fa fa-angle-right"></i></span>
                     </li>
-                    <li id="btn-autoplay" class="btn bg-indigo-dark-2 text-white font-18 mx-auto mb-2" data-controls="autoplay" aria-controls="customize" tabindex="-1" style="width:43px;height:43px;"></li>
+                    <li id="btn-autoplay" class="btn btn-autoplay bg-indigo-dark-2 text-white font-18 mx-auto mb-2 d-none" data-controls="stop" tabindex="-1" style="width:43px;height:43px;"></li>
                 </ul>
                 <tiny-slider v-bind="tinySliderOptions" ref="tinySlider">
                     <ProjectHomeCard v-for="project in projects" :key="project.id" :project="project"></ProjectHomeCard>
@@ -92,17 +92,17 @@
                     nav: false,
                     mouseDrag: true,
                     touchDrag: true,
-                    loop: true,
                     gutter: 20,
                     items: 1,
-                    autoplay: true,
+                    autoplay: false,
+                    autoplayHoverPause: false,
                     autoplayButton: "#btn-autoplay",
-                    // autoplayHoverPause: true,
                     autoplayTimeout: 4000,
                     autoplayText: [
                         "▶",
                         "❚❚"
                     ],
+                    swipeAngle: false,
                     controlsContainer: '#customize-controls',
                     responsive: {
                         992: { items: 3 },
@@ -147,7 +147,8 @@
     .left-control, .right-control {
         position: absolute;
         z-index: 3;
-        margin-top: 290px;
+        margin-top: 240px;
+        /* margin-top: 290px; */
     }
     .left-control {
         left: -3%;
