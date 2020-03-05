@@ -3,20 +3,280 @@
 
 Ofrecemos dos alternativas de instalación de la Plataforma Congreso Virtual. Una instalación completa desde la clonar el repositorio y su configuración de ambiente y dependencias: [Instalación tradicional](#Instalación-tradicional). La otra alternativa, es usar contenedores  Docker, que permite una instalación más ágil, ya que configurando algunos párametros y ejecutando unos pocos comandos, podrás montar rápidamente la Plataforma: [Instalación con Docker](#Instalación-con-Docker).
 
+---
+
 ## Instalación tradicional
+
+---
 
 La arquitectura de Congreso Virtual está compuesta con 3 partes para su correcto funcionamiento: Backend, Frontend y Data-Analytics.
 
 Por lo tanto, para instalar y hacer funcionar el sistema, deberá clonar el repositorio completo en una carpeta arbitraria que ud. elija, ya que luego tendrá mover las carpetas contenidas en el repositorio a las rutas que deben quedar cada una de las partes.
+
+## Instalación de Ambiente (componente obligatorios)
+
+### Preparación del Sistema Operativo
+
+1. Requerimientos:
+    * Sistema Operativo Requerido: CentOS 7
+    * Firewal: No configurado
+
+2. Actualizar paquetería del sistema operativo.
+
+```
+        sudo yum update
+```
+
+3. Instalar paqueterías EPEL y REMI, necesarias para obtener numerosas dependencias del proyecto.
+
+```
+        sudo yum install epel-release
+        sudo rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+```
+
+4. Instalar herramientas de uso general.
+
+```
+        sudo yum install zip unzip gcc-c++ make screen
+```
+
+5. Instalar paquetes necesarios para la generación de reportes en PDF por parte de la API.
+
+```
+        sudo yum install libXrender wkhtmltopdf
+```
+
+6. Preparar la carpeta `/var/www` para que pueda ser usada por el usuario actual, y por el servidor HTTP de
+Apache. Reemplazar USUARIO por el usuario actual de sistema.
+
+```
+        sudo chown -R USUARIO:apache /var/www/
+        sudo chmod -R 755 /var/www/
+```
+
+---
+
+### Instalación de Base de Datos
+
+1. Instalar MariaDB desde el repositorio EPEL.
+
+```
+        sudo chown -R USUARIO:apache /var/www/
+        sudo chmod -R 755 /var/www/
+```
+
+2. Iniciar servicio, y marcarlo para inicio automático en caso de reinicio del servidor.
+
+```
+        sudo systemctl enable mariadb
+        sudo service mariadb start
+```
+
+3. Efectuar configuración inicial de MySQL. Contestar las preguntas acordes a como desee su configuración.
+
+```
+        /usr/bin/mysql_secure_installation
+```
+
+4. Crear una base de datos y un usuario para la plataforma de Congreso Virtual. Guarde el usuario,contraseña y bases de datos creadas para su uso mas adelante.
+
+A modo de ayuda, se muestra un ejemplo de cómo debe efectuarse la configuración, aunque puede
+efectuarse de cualquier forma como el instalador desee.
+
+```
+        sudo mysql -u root -p
+        mysql> CREATE DATABASE mibd;
+        mysql> CREATE USER 'miusuario' IDENTIFIED BY 'mipassword';
+        mysql> GRANT USAGE ON *.* TO 'congreso'@localhost IDENTIFIED BY 'congreso';
+        mysql> GRANT USAGE ON *.* TO 'congreso'@'%' IDENTIFIED BY 'congreso';
+        mysql> GRANT ALL privileges ON `congreso`.* TO 'congreso'@localhost;
+        mysql> FLUSH PRIVILEGES;
+```
+
+---
+
+### Instalación del servidor web
+
+1. Instalar servidor Apache HTTPD Server.
+
+```
+        sudo yum --enablerepo=remi,epel install httpd -y
+```
+
+2. Iniciar servicio y marcarlo para inicio automático en caso de reinicio de servidor.
+
+```
+        sudo systemctl enable httpd
+        sudo service httpd start
+```
+
+3. Configurar firewall para permitir comunicación por puerto 80. Puede repetir el paso si desea habilitar HTTPS (puerto 443) si gusta.
+
+```
+        sudo firewall-cmd --zone=public --add-port=80/tcp --permanent
+        sudo firewall-cmd –reload
+```
+
+4. Configurar servidor web apache para servir una página web (backend/api) en `/var/www/congresovirtual-backend/public`. Si desea puede cambiar la ruta a otra, bajo su responsabilidad. Del mismo modo, puede
+modificar esta configuración para permitir HTTPS si lo desea.
+
+5. Agregar el siguiente contenido al fichero `/etc/httpd/conf/httpd.conf` (puede usar editores como Vim o
+Nano, o bien editores integrados de su cliente FTP para tal fin). Reemplace dominiocongresoapi.com por
+el dominio que utilizará.
+
+```
+        <VirtualHost *:80>
+            ServerName dominiocongresoapi.com
+            DocumentRoot /var/www/congresovirtual-backend/public
+            <Directory /var/www/congresovirtual-backend>
+                AllowOverride All
+            </Directory>
+        </VirtualHost>
+```
+
+6. Configurar servidor web de Apache para servir el frontend del sitio en `/var/www/congresovirtual-frontend/dist`. Si desea puede cambiar la ruta a otra, bajo su responsabilidad. Del mismo modo, puede modificar esta configuración para permitir HTTPS si lo desea.
+
+7. Agregar el siguiente contenido al fichero `/etc/httpd/conf/httpd.conf` (puede usar editores como Vim o Nano, o bien editores integrados de su cliente FTP para tal fin). Reemplace `dominiocongreso.com` por el dominio que utilizará.
+
+```
+        <VirtualHost *:80>
+            ServerName dominiocongreso.com
+            DocumentRoot /var/www/congresovirtual-frontend/dist
+            <Directory /var/www/congresovirtual-frontend/dist>
+                AllowOverride All
+            </Directory>
+        </VirtualHost>
+```
+
+8. Reinicie el servidor web de Apache
+
+```
+        sudo service httpd restart
+```
+
+---
+
+### Instalación de PHP y Composer
+
+1. Activar la paquetería REMI para PHP 7.3, previamente instalada.
+
+```
+sudo yum install yum-utils
+sudo yum-config-manager --enable remi-php73
+```
+
+2. Instalar PHP, junto con las extensiones necesarias para el funcionamiento de congreso.
+```
+        sudo yum --enablerepo=remi,epel install php php-zip php-mysql php-mcrypt php-xml php-mbstring
+```
+
+3. Descargar e instalar Composer desde el sitio oficial (las versiones de paqueterías usualmente presentan incompatibilidades).
+
+```
+        curl -sS https://getcomposer.org/installer | php
+        sudo mv composer.phar /usr/bin/composer
+        sudo chmod +x /usr/bin/composer
+```
+
+4. Configurar PHP para que acepte la subida de ficheros de un mayor tamaño al que viene configurado por defecto. Para ello se debe modificar el fichero `/etc/php.ini` y establecer las siguientes directivas con los siguientes valores recomendados o cómo se estime conveniente.
+
+```
+post_max_size = 60M
+file_uploads = On
+upload_max_filesize = 20M
+max_file_uploads = 20
+```
+
+5.  Una vez configurado PHP debe reiniciar el servidor web de Apache.
+
+```
+        sudo service httpd restart
+```
+
+---
+
+### Instalación de GIT
+
+1. Instalar GIT desde el gestor de paquetes
+
+```
+        sudo yum install git
+```
+
+---
+
+### Instalación de Elasticsearch
+
+1. Agregar paquetería propia de Elasticsearch al sistema operativo. Se empezará agregando la llave GPG.
+```
+        sudo rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+```
+
+2. Luego hay que editar el archivo `/etc/yum.repos.d/elasticsearch.repo` (crearlo si no existe) y colocar el siguiente contenido en él.
+
+```
+        [elasticsearch]
+        name=Elasticsearch repository for 7.x packages
+        baseurl=https://artifacts.elastic.co/packages/7.x/yum
+        gpgcheck=1
+        gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        enabled=0
+        autorefresh=1
+        type=rpm-md
+```
+
+3. Instalar Elasticsearch desde la paquetería recién añadida.
+
+```
+        sudo yum install --enablerepo=elasticsearch elasticsearch
+```
+
+4. Iniciar servicio y marcarlo para inicio automático en caso de reinicio de servidor.
+
+```
+        sudo /bin/systemctl daemon-reload
+        sudo /bin/systemctl enable elasticsearch.service
+        sudo systemctl start elasticsearch.service
+```
+
+---
+
+### Instalación de NodeJS
+
+Instalar NodeJS 12.x desde los repositorios oficiales de Nodesource.
+
+```
+        Instalar NodeJS 12.x desde los repositorios oficiales de Nodesource.
+```
+
+---
+
+### Instalación de Python
+
+1. Instalar Python junto con las librerías de cabecera del anterior y MariaDB (usado para las dependencias a
+instalar).
+
+```
+        sudo yum install python36 mariadb-devel python36-devel
+```
+
+2. Actualizar el gestor de paquetes Pip3.
+```
+        sudo python3.6 -m ensurepip
+```
+
+---
+
+### Clonar el Repositorio
 
 Clonar el repositorio usando el comando:
 ```
 git clone https://github.com/eii-pucv/congreso-virtual.git
 ```
 
-### Instalación y configuración del Backend/API
-
 ---
+
+### Instalación y configuración del Backend/API
 
 1. Desde el repositorio clonado, mover completamente la carpeta `congresovirtual-backend` a la ruta `/var/www/`
 2. Asignar permisos indicados a las carpetas del proyecto recién copiado.
@@ -233,8 +493,11 @@ screen -d -m bash -c "cd /var/www/congresovirtual-data-analytics/; python3 -m fl
 
 _Para ver el estado del servidor de analítica, se deberá usar una terminal paralela creada para tal fin. Para acceder a la terminal paralela, escribir screen -r y para salir de ella hay que presionar las teclas Ctrl+a+d ._
 
+---
+
 ## Instalación con Docker
 
+---
 Congreso Virtual ofrece la opción de Instalación rápida, el cual luego de configurar algunos parámetros permite construir y correr Congreso Virtual en su servidor mediante contenedores Docker. Es una alternativa más ágil que montar la plataforma de forma tradicional, según describe la documentación.
 
 1. Para efectuar la instalación rápida de Congreso Virtual se necesitará tener instalado en su sistema operativo los siguientes componentes:
@@ -292,7 +555,9 @@ Congreso Virtual ofrece la opción de Instalación rápida, el cual luego de con
     ./scripts/run.sh
 ```
 
-## Actualización con uso de consola bash
+---
+
+### Actualización con uso de consola bash
 
 De la misma forma que la instalación, Congreso Virtual permite una forma rápida de actualizar la plataforma a su versión más reciente.
 
@@ -303,6 +568,8 @@ De la misma forma que la instalación, Congreso Virtual permite una forma rápid
 ```
 
 2. Deberá esperar aproximadamente 30 minutos dependiendo del rendimiento del servidor (durante este periodo Congreso Virtual estará fuera de servicio). Una vez finalizado y esperado los 5 minutos post instalación, Congreso Virtual se encontrará actualizado y nuevamente listo para operar.
+
+---
 
 ## Mantenimiento manual con scripts
 
@@ -381,6 +648,8 @@ El primer script es `./scripts/configure.sh`  cuya tarea es ayudar en las tareas
 ```
 
 * Esto rescatará la configuración y data persistente de Congreso Virtual, y luego actulalizará el código fuente, para finalmente efectuar la restauración de los datos de la antigua versión. Una vez terminado el proceso deberá recompilar el frontend con los pasos descritos mas arriba.
+
+---
 
 ## Instalación con Jenkins
 
