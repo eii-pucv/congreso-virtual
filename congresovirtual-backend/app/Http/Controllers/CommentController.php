@@ -11,6 +11,7 @@ use App\PublicConsultation;
 use App\Vote;
 use App\File;
 use App\FileType;
+use App\OffensiveWord;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -197,6 +198,18 @@ class CommentController extends Controller
                 if(!$this->storeFiles($comment, $files)) {
                     throw new \Exception();
                 }
+                $comment->fill(['state' => 1])->save();
+            }
+
+            $offensive_comment = DB::select(
+                DB::raw("SELECT * FROM 
+                (SELECT :comment_body AS comentario) AS tabla, offensive_words 
+                WHERE tabla.comentario 
+                LIKE CONCAT('%', offensive_words.word, '%') 
+                LIMIT 1"), ['comment_body' => $comment->body]
+            );
+            
+            if(count($offensive_comment) > 0) {
                 $comment->fill(['state' => 1])->save();
             }
 

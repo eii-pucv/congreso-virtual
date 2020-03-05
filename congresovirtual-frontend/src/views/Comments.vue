@@ -142,15 +142,10 @@
                                     <div class="media-body">
                                         <div class="row">
                                             <div class="col-9 mb-2">
-                                                <h6 v-if="parentComment.user && parentComment.user.username">{{ parentComment.user.username }}
-                                                    <small>{{ parentComment.created_at }}</small>
-                                                </h6>
-                                                <h6 v-else-if="parentComment.user && !parentComment.user.username">{{ parentComment.user.name }} {{ parentComment.user.surname }}
-                                                    <small>{{ parentComment.created_at }}</small>
-                                                </h6>
-                                                <h6 v-else>{{ $t('componentes.comentarios.no_identificado') }}
-                                                    <small>{{ parentComment.created_at }}</small>
-                                                </h6>
+                                                <h6 v-if="parentComment.user && parentComment.user.username">{{ parentComment.user.username }}</h6>
+                                                <h6 v-else-if="parentComment.user && !parentComment.user.username">{{ parentComment.user.name }} {{ parentComment.user.surname }}</h6>
+                                                <h6 v-else>{{ $t('componentes.comentarios.no_identificado') }}</h6>
+                                                <small class="text-grey">{{ new Date(toLocalDatetime(parentComment.created_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}</small>
                                             </div>
                                         </div>
                                         <p class="comment-body custom-scrollbar-wk custom-scrollbar-mz">{{ parentComment.body }}</p>
@@ -376,7 +371,6 @@
                     id: null
                 },
 
-
                 shareComment: {},
 
                 title: '',
@@ -386,10 +380,7 @@
                     user_id: null,
                     vote: null
                 },
-
-
                 comment_has_file: false,
-                comentario_ofensivo: false,
                 files: [],
                 new_files: new FormData(),
                 deleted_files: [],
@@ -402,7 +393,7 @@
                 comm: null,
                 denounced_comment: null,
                 index: 10,
-                palabrasOfensivas: ['mierda', 'conchetumare', 'culiao', 'qlo', 'culiaos', 'maricon', 'maricón', 'maraco', 'wea', 'puta'],
+                palabrasOfensivas: [],
                 denunciation: {
                     razon: '',
                     descripcion: ''
@@ -429,7 +420,6 @@
             } else {
                 this.mode = 'light';
             }
-
             this.configComponent();
             this.search();
         },
@@ -676,12 +666,15 @@
                                 axios
                                     .post('/comments', commentFormData)
                                     .then(res => {
-                                        this.comments.push(res.data.data);
+                                        let newComment = res.data.data
+                                        this.comments.push(newComment);
                                         this.clearComment();
 
                                         if(this.comment.files.length > 0) {
                                             this.$refs.commentDropzone.removeAllFiles();
                                             this.$toastr('success', 'Tu comentario fue registrado con éxito, pero debido a que contiene archivos pasará a moderación antes de ser publicado', 'Comentario registrado');
+                                        } else if (newComment.state === 1) {
+                                            this.$toastr('success', 'Tu comentario fue registrado con éxito, pero debido al contenido pasará a moderación antes de ser publicado', 'Comentario registrado');
                                         } else {
                                             this.$toastr('success', 'Tu comentario fue registrado con éxito', 'Comentario registrado');
                                         }
@@ -762,9 +755,7 @@
                                 this.files.push(archivo) 
                             })
                         }  
-                    } catch (error) {
-                        //console.log(error);
-                    }
+                    } catch (error) {/* console.log(error); */}
                 } else {
                     this.$toastr('warning', 'Debes acceder a tu cuenta para poder comentar, si no tienes cuenta puedes crearte una aquí', 'No has iniciado sesión');
                 }
@@ -785,9 +776,7 @@
                                     if(archivoEliminar.name + "." + archivoEliminar.type.split('/')[1] === archivo.original_filename) {
                                         axios
                                             .delete('/comments/' + this.id_com + '/file/' + archivo.id)
-                                            .then(res => {
-                                                //console.log("archivo eliminado");
-                                            })
+                                            .then(res => {})
                                             .catch((error) => {
                                                 this.$toastr.error('error','','No se ha podido eliminar un archivo');
                                             });
@@ -816,7 +805,6 @@
                                 const res = await axios.post("/comments/" + this.id_com + "/files",this.new_files);
                                 this.$toastr('success','Se enviarán sus cambios a moderación, y se publicarán una vez que sean aceptados','Cambios guardados');
                             } catch (error) {
-                                console.log(error)
                                 this.$toastr('error','','Error al subir los archivos');
                             }
                         }
@@ -834,7 +822,6 @@
                         this.deleteComment(id_d);
                         this.$toastr('success', 'Tu comentario fue eliminado con éxito.', 'Comentario eliminado');
                     } catch (error) {
-                        console.log(error)
                         this.$toastr('error', '', 'Comentario no eliminado');
                     }
                 } else {
@@ -863,7 +850,6 @@
                         this.comment_has_file = false
                     }
                 } catch (error) {
-                    console.log(error)
                     this.$toastr('error', 'No se ha podido ingresar tu comentario', 'ERROR')
                 }
                 this.files = [];
@@ -906,13 +892,6 @@
                     index++;
                 });
             },
-            offensiveComment() {
-                this.palabrasOfensivas.forEach(palabra => {
-                    if(this.comment.body.includes(palabra)) {
-                        this.comentario_ofensivo = true
-                    }
-                });
-            },
             verificarLogin() {
                 try {
                     if(this.$store.getters.isLoggedIn) {
@@ -937,7 +916,6 @@
                     this.$toastr('success', 'Su denuncia ha sido realizada', 'Denuncia enviada')
                     this.cleanModal()
                 } catch (error) {
-                    console.log(error)
                     this.$toastr('error', 'Su denuncia no se ha podido realizar. Puede que ya hayas denunciado anteriormente este comentario. ','Denuncia no enviada');
                     this.cleanModal()
                 }

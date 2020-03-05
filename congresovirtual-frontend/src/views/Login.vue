@@ -146,6 +146,7 @@
                     .then(() => {
                         this.$toastr('success', this.$t('login.contenido.mensajes.exito.generico.cuerpo'), this.$t('login.contenido.mensajes.exito.generico.titulo'));
                         this.loadBtnLogin = false;
+                        this.error = false;
                         this.$router.push('/');
                     })
                     .catch(() => {

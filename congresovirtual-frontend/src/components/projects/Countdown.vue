@@ -1,18 +1,15 @@
 <template id="countdown-template">
-    <div class="countdown row">
-        <div class="block col-4" style="padding:0px">
-            <a class="digit">{{ days | two_digits }}</a>
-            <br>
+    <div class="countdown d-flex align-items-center mx-5">
+        <div class="" style="padding:0px">
+            <a class="digit">{{ days | two_digits }}&nbsp;</a>
             <a class="text">{{ $t('componentes.cuenta_regresiva.dias') }}</a>
         </div>
-        <div class="block col-4" style="padding:0px">
-            <a class="digit">{{ hours | two_digits }}</a>
-            <br>
+        <div class="" style="padding:0px;margin:0 10px">
+            <a class="digit">{{ hours | two_digits }}&nbsp;</a>
             <a class="text">{{ $t('componentes.cuenta_regresiva.horas') }}</a>
         </div>
-        <div class="block col-4" style="padding:0px">
-            <a class="digit">{{ minutes | two_digits }}</a>
-            <br>
+        <div class="" style="padding:0px">
+            <a class="digit">{{ minutes | two_digits }}&nbsp;</a>
             <a class="text">{{ $t('componentes.cuenta_regresiva.minutos') }}</a>
         </div>
     </div>

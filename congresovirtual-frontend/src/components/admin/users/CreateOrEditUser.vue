@@ -899,8 +899,6 @@
             saveUser() {
                 this.loadBtnSave = true;
                 this.user.birthday = this.birthday ? this.$moment(this.birthday, this.$t('componentes.moment.formato_editable_sin_hora')).format('YYYY-MM-DD') : null;
-                this.user.estudios_adicionales = this.user.estudios_adicionales == null ? null : [this.user.estudios_adicionales];
-                this.user.temas_trabajo = this.user.temas_trabajo == null ? null : [this.user.temas_trabajo];
                 if(this.user.id) {
                     axios
                         .put('/users/' + this.user.id, this.user)

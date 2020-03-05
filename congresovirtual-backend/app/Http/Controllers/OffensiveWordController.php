@@ -46,7 +46,6 @@ class OffensiveWordController extends Controller
             ], 200);
         } catch (\Exception $exception) {
             return response()->json([
-                'e' => $exception->getMessage(),
                 'message' => 'Error: offensive words were not found.'], 412);
         }
     }

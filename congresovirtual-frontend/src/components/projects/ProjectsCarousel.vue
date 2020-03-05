@@ -1,5 +1,5 @@
 <template>
-    <div v-if="projects.length" id="carouselFade" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false">
+    <div v-if="projects.length" id="carouselFade" class="carousel slide carousel-fade" ref="carousel">
         <div v-if="loadCarrousel" class="load-carousel vld-parent pa-50 d-flex">
             <loading
                 :active.sync="loadCarrousel"
@@ -68,6 +68,12 @@
                 </div>
             </div>
         </div>
+        <div class="container-autoplay position-relative text-center">
+            <button class="btn-autoplay-projects btn btn-outline-secondary btn-rounded position-absolute" @click="toggle()">
+                <span class="text-white" v-if="toggleValue === 'cycle'">▶</span>
+                <span class="text-white" v-else>❚❚</span>
+            </button>
+        </div>
         <a class="carousel-control-prev" href="#carouselFade" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
@@ -98,7 +104,7 @@
                 projects: [],
                 currentMoment: this.$moment().local(),
                 fullPage: false,
-                toggleValue: 'pause',
+                toggleValue: 'cycle',
                 mode: String
             };
         },
@@ -122,8 +128,18 @@
                 })
                 .then(res => {
                     this.projects = res.data.results;
+                })
+                .finally(() => {
                     this.loadCarrousel = false;
-                });
+                    this.$nextTick(function () {
+                        $('#carouselFade').carousel({
+                            interval: 4000,
+                            pause: 'false'
+                        });
+                        this.toggle();
+                        $('.carousel-control-next').trigger('click');
+                    })
+                })
         },
         methods:{
             getImgUrl(projectId, projectImage) {
@@ -190,9 +206,26 @@
         height: 32rem;
     }
 
+    .btn-autoplay-projects {
+        width: 50px;
+        height: 50px;
+        bottom: 30px;
+        z-index:1;
+    }
+
     @media (max-width: 575px) {
         .carousel {
             height: 750px;
+        }
+        .container-autoplay {
+            margin-right: 30px;
+        }
+        .btn-autoplay-projects {
+            width: 40px;
+            height: 40px;
+        }
+        .btn-autoplay-projects span{
+            font-size: 14px;
         }
     }
 
