@@ -790,7 +790,7 @@
                         this.actual_files.forEach(archivoActual => {
                             let index = 0;
                             this.comment.files.forEach(archivoOrigen => {
-                                if (archivoActual.name + "." + archivoActual.type.split('/')[1] === archivoOrigen.original_filename) {
+                                if(archivoActual.name + "." + archivoActual.type.split('/')[1] === archivoOrigen.original_filename) {
                                     this.actual_files.splice(index, 1);
                                 }
                                 index++;
