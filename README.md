@@ -1,8 +1,6 @@
 # Congreso Virtual
 
-![Build Status](https://congresovirtual.senado.cl/jenkins/buildStatus/icon?job=CongresoVirtual&style=plastic)
-
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=EL-BID_congreso-virtual&metric=alert_status)](https://sonarcloud.io/dashboard?id=EL-BID_congreso-virtual)
+![Build Status](https://congresovirtual.senado.cl/jenkins/buildStatus/icon?job=CongresoVirtual&style=plastic)       [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=EL-BID_congreso-virtual&metric=alert_status)](https://sonarcloud.io/dashboard?id=EL-BID_congreso-virtual)
 
 [English documentation](..blob/master/README_en.md)
 
@@ -21,7 +19,6 @@ El Congreso Virtual está a cargo de un Comité integrado por el Grupo Bicameral
 En la carpeta DOCS podrás encontrar información para instalar, configurar y usar el software Congreso Virtual. Además de cómo hacer uso de la herramienta para explotación de datos.
 * [Guía de usuario](https://github.com/eii-pucv/congreso-virtual/blob/master/DOCS/MANUAL_USUARIO.pdf): Manual para explorar las funcionalidades de Congreso Virtual.
 * [Guía de instalación](https://github.com/eii-pucv/congreso-virtual/blob/master/INSTALACION.md): Podrás hacer una instalación completa de Congreso Virtual, desde la prepación del ambiente recomendado para su funcionamiento y las dependencias. Además incluimos una forma abreviada de instalación, mediante uso de contenedores Docker para ampliar los entornos de ejecución de Congreso Virtual.
-* [Instalación de ambiente](https://github.com/eii-pucv/congreso-virtual/blob/master/DOCS/INSTALACION_AMBIENTE.pdf): Para que puedas configurar el ambiente recomendado para hacer uso de esta plataforma. Además incluye una sección de _Soluciones a Problemas Comunes_.
 
 ## Información adicional
 
