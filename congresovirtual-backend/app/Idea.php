@@ -31,37 +31,41 @@ class Idea extends Model
 
     public static function incrementingCountVotes($params)
     {
-        $idea = Idea::findOrFail($params->attributes['idea_id']);
-        switch ($params->attributes['vote']) {
-            case 0:
-                $idea->update(['votos_a_favor' => $idea->votos_a_favor + 1]);
-                break;
-            case 1:
-                $idea->update(['votos_en_contra' => $idea->votos_en_contra + 1]);
-                break;
-            case 2:
-                $idea->update(['abstencion' => $idea->abstencion + 1]);
-                break;
-            default:
-                throw new \Exception();
+        $idea = Idea::find($params->attributes['idea_id']);
+        if($idea) {
+            switch ($params->attributes['vote']) {
+                case 0:
+                    $idea->update(['votos_a_favor' => $idea->votos_a_favor + 1]);
+                    break;
+                case 1:
+                    $idea->update(['votos_en_contra' => $idea->votos_en_contra + 1]);
+                    break;
+                case 2:
+                    $idea->update(['abstencion' => $idea->abstencion + 1]);
+                    break;
+                default:
+                    throw new \Exception();
+            }
         }
     }
 
     public static function decrementingCountVotes($params)
     {
-        $idea = Idea::findOrFail($params->original['idea_id']);
-        switch ($params->original['vote']) {
-            case 0:
-                $idea->update(['votos_a_favor' => $idea->votos_a_favor - 1]);
-                break;
-            case 1:
-                $idea->update(['votos_en_contra' => $idea->votos_en_contra - 1]);
-                break;
-            case 2:
-                $idea->update(['abstencion' => $idea->abstencion - 1]);
-                break;
-            default:
-                throw new \Exception();
+        $idea = Idea::find($params->original['idea_id']);
+        if($idea) {
+            switch ($params->original['vote']) {
+                case 0:
+                    $idea->update(['votos_a_favor' => $idea->votos_a_favor - 1]);
+                    break;
+                case 1:
+                    $idea->update(['votos_en_contra' => $idea->votos_en_contra - 1]);
+                    break;
+                case 2:
+                    $idea->update(['abstencion' => $idea->abstencion - 1]);
+                    break;
+                default:
+                    throw new \Exception();
+            }
         }
     }
 

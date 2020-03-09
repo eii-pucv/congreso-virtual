@@ -33,4 +33,13 @@ class UrgencyObserver
             throw new \Exception();
         }
     }
+
+    public function restoring($urgency)
+    {
+        if(isset($urgency->proposal_id) && $urgency->proposal_id !== null) {
+            Proposal::incrementingCountUrgencies($urgency);
+        } else {
+            throw new \Exception();
+        }
+    }
 }

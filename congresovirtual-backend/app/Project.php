@@ -43,37 +43,41 @@ class Project extends Model
 
     public static function incrementingCountVotes($params)
     {
-        $project = Project::findOrFail($params->attributes['project_id']);
-        switch ($params->attributes['vote']) {
-            case 0:
-                $project->update(['votos_a_favor' => $project->votos_a_favor + 1]);
-                break;
-            case 1:
-                $project->update(['votos_en_contra' => $project->votos_en_contra + 1]);
-                break;
-            case 2:
-                $project->update(['abstencion' => $project->abstencion + 1]);
-                break;
-            default:
-                throw new \Exception();
+        $project = Project::find($params->attributes['project_id']);
+        if($project) {
+            switch ($params->attributes['vote']) {
+                case 0:
+                    $project->update(['votos_a_favor' => $project->votos_a_favor + 1]);
+                    break;
+                case 1:
+                    $project->update(['votos_en_contra' => $project->votos_en_contra + 1]);
+                    break;
+                case 2:
+                    $project->update(['abstencion' => $project->abstencion + 1]);
+                    break;
+                default:
+                    throw new \Exception();
+            }
         }
     }
 
     public static function decrementingCountVotes($params)
     {
-        $project = Project::findOrFail($params->original['project_id']);
-        switch ($params->original['vote']) {
-            case 0:
-                $project->update(['votos_a_favor' => $project->votos_a_favor - 1]);
-                break;
-            case 1:
-                $project->update(['votos_en_contra' => $project->votos_en_contra - 1]);
-                break;
-            case 2:
-                $project->update(['abstencion' => $project->abstencion - 1]);
-                break;
-            default:
-                throw new \Exception();
+        $project = Project::find($params->original['project_id']);
+        if($project) {
+            switch ($params->original['vote']) {
+                case 0:
+                    $project->update(['votos_a_favor' => $project->votos_a_favor - 1]);
+                    break;
+                case 1:
+                    $project->update(['votos_en_contra' => $project->votos_en_contra - 1]);
+                    break;
+                case 2:
+                    $project->update(['abstencion' => $project->abstencion - 1]);
+                    break;
+                default:
+                    throw new \Exception();
+            }
         }
     }
 

@@ -31,31 +31,35 @@ class PublicConsultation extends Model
 
     public static function incrementingCountVotes($params)
     {
-        $publicConsultation = PublicConsultation::findOrFail($params->attributes['public_consultation_id']);
-        switch ($params->attributes['vote']) {
-            case 0:
-                $publicConsultation->update(['votos_a_favor' => $publicConsultation->votos_a_favor + 1]);
-                break;
-            case 1:
-                $publicConsultation->update(['votos_en_contra' => $publicConsultation->votos_en_contra + 1]);
-                break;
-            default:
-                throw new \Exception();
+        $publicConsultation = PublicConsultation::find($params->attributes['public_consultation_id']);
+        if($publicConsultation) {
+            switch ($params->attributes['vote']) {
+                case 0:
+                    $publicConsultation->update(['votos_a_favor' => $publicConsultation->votos_a_favor + 1]);
+                    break;
+                case 1:
+                    $publicConsultation->update(['votos_en_contra' => $publicConsultation->votos_en_contra + 1]);
+                    break;
+                default:
+                    throw new \Exception();
+            }
         }
     }
 
     public static function decrementingCountVotes($params)
     {
-        $publicConsultation = PublicConsultation::findOrFail($params->original['public_consultation_id']);
-        switch ($params->original['vote']) {
-            case 0:
-                $publicConsultation->update(['votos_a_favor' => $publicConsultation->votos_a_favor - 1]);
-                break;
-            case 1:
-                $publicConsultation->update(['votos_en_contra' => $publicConsultation->votos_en_contra - 1]);
-                break;
-            default:
-                throw new \Exception();
+        $publicConsultation = PublicConsultation::find($params->original['public_consultation_id']);
+        if($publicConsultation) {
+            switch ($params->original['vote']) {
+                case 0:
+                    $publicConsultation->update(['votos_a_favor' => $publicConsultation->votos_a_favor - 1]);
+                    break;
+                case 1:
+                    $publicConsultation->update(['votos_en_contra' => $publicConsultation->votos_en_contra - 1]);
+                    break;
+                default:
+                    throw new \Exception();
+            }
         }
     }
 

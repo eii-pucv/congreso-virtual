@@ -3,24 +3,31 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" >
+        <!-- Bootstrap 4 minified CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap4.min.css') }}" >
+
+        <!-- Font Awesome minified CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('fontawesome/css/all.min.css') }}">
+
+        {{-- make sure you are using http, and not https --}}
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
         <!-- Load d3.js -->
-        <script src="{{ asset('js/d3.v4.js') }}"></script>
+        <script src="{{ asset('js/d3.v3.min.js') }}"></script>
 
         <!-- Load d3-cloud -->
         <script src="{{ asset('js/d3.layout.cloud.js') }}"></script>
 
-        {{-- make sure you are using http, and not https --}}
-        <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+        <!-- Load WordCloud2.js (not used)-->
+        <!--<script src="{{ asset('js/wordcloud2.js') }}"></script>-->
 
         <script type="text/javascript">
             function init() {
                 google.load('visualization', '1.1', {
                     packages: [
                         'corechart',
-                        'geochart'
+                        'geochart',
+                        'bar'
                     ],
                     callback: drawCharts
                 });
@@ -35,71 +42,60 @@
             }
 
             function drawCharts() {
-                var votacionGeneralPieChart = new google.visualization.PieChart(document.getElementById('votacion-general-pie-chart'));
-                votacionGeneralPieChart.draw(
-                    google.visualization.arrayToDataTable([
+                function generatePieChart(data, idElementToSelect) {
+                    var pieChart = new google.visualization.PieChart(document.getElementById(idElementToSelect));
+                    pieChart.draw(
+                        google.visualization.arrayToDataTable(data),
+                        {
+                            is3D: true,
+                            backgroundColor: 'transparent',
+                            chartArea: {
+                                width: '100%',
+                                height: '90%'
+                            },
+                            width: 350,
+                            height: 200
+                        }
+                    );
+                }
+
+                generatePieChart([
+                    ['Voto', 'Cantidad'],
+                    ['A favor', {{ $project->votos_a_favor }} ],
+                    ['En contra', {{ $project->votos_en_contra }} ],
+                    ['Abstención', {{ $project->abstencion }} ]
+                ], 'votacion-general-pie-chart');
+
+                generatePieChart([
+                    ['Género', 'Cantidad'],
+                    ['Masculino', {{ $usersParticipantsGenderCount->male }} ],
+                    ['Femenino', {{ $usersParticipantsGenderCount->female }} ],
+                    ['Otro', {{ $usersParticipantsGenderCount->other }} ],
+                    ['No responde', {{ $usersParticipantsGenderCount->not_answer }} ]
+                ], 'participantes-genero-pie-chart');
+
+                generatePieChart([
+                    ['Rango de edad', 'Cantidad'],
+                    ['10-19', {{ $usersParticipantsAgeRangeCount->_10_19 }} ],
+                    ['20-29', {{ $usersParticipantsAgeRangeCount->_20_29 }} ],
+                    ['30-39', {{ $usersParticipantsAgeRangeCount->_30_39 }} ],
+                    ['40-49', {{ $usersParticipantsAgeRangeCount->_40_49 }} ],
+                    ['50-59', {{ $usersParticipantsAgeRangeCount->_50_59 }} ],
+                    ['60-69', {{ $usersParticipantsAgeRangeCount->_60_69 }} ],
+                    ['70-79', {{ $usersParticipantsAgeRangeCount->_70_79 }} ],
+                    ['80-89', {{ $usersParticipantsAgeRangeCount->_80_89 }} ]
+                ], 'participantes-edad-pie-chart');
+
+
+                var projectIdeas = @json($project->ideas);
+                projectIdeas.forEach(function (idea) {
+                    generatePieChart([
                         ['Voto', 'Cantidad'],
-                        ['A favor', {{ $project->votos_a_favor }} ],
-                        ['En contra', {{ $project->votos_en_contra }} ],
-                        ['Abstención', {{ $project->abstencion }} ]
-                    ]),
-                    {
-                        is3D: true,
-                        backgroundColor: 'transparent',
-                        chartArea: {
-                            width: '100%',
-                            height: '90%'
-                        },
-                        width: 350,
-                        height: 200
-                    }
-                );
-
-                var participantesGeneroPieChart = new google.visualization.PieChart(document.getElementById('participantes-genero-pie-chart'));
-                participantesGeneroPieChart.draw(
-                    google.visualization.arrayToDataTable([
-                        ['Género', 'Cantidad'],
-                        ['Masculino', {{ $usersParticipantsGenderCount->male }} ],
-                        ['Femenino', {{ $usersParticipantsGenderCount->female }} ],
-                        ['Otro', {{ $usersParticipantsGenderCount->other }} ],
-                        ['No responde', {{ $usersParticipantsGenderCount->not_answer }} ]
-                    ]),
-                    {
-                        is3D: true,
-                        backgroundColor: 'transparent',
-                        chartArea: {
-                            width: '100%',
-                            height: '90%'
-                        },
-                        width: 350,
-                        height: 200
-                    }
-                );
-
-                var participantesEdadPieChart = new google.visualization.PieChart(document.getElementById('participantes-edad-pie-chart'));
-                participantesEdadPieChart.draw(
-                    google.visualization.arrayToDataTable([
-                        ['Rango de edad', 'Cantidad'],
-                        ['10-19', {{ $usersParticipantsAgeRangeCount->_10_19 }} ],
-                        ['20-29', {{ $usersParticipantsAgeRangeCount->_20_29 }} ],
-                        ['30-39', {{ $usersParticipantsAgeRangeCount->_30_39 }} ],
-                        ['40-49', {{ $usersParticipantsAgeRangeCount->_40_49 }} ],
-                        ['50-59', {{ $usersParticipantsAgeRangeCount->_50_59 }} ],
-                        ['60-69', {{ $usersParticipantsAgeRangeCount->_60_69 }} ],
-                        ['70-79', {{ $usersParticipantsAgeRangeCount->_70_79 }} ],
-                        ['80-89', {{ $usersParticipantsAgeRangeCount->_80_89 }} ]
-                    ]),
-                    {
-                        is3D: true,
-                        backgroundColor: 'transparent',
-                        chartArea: {
-                            width: '100%',
-                            height: '90%'
-                        },
-                        width: 350,
-                        height: 200
-                    }
-                );
+                        ['A favor', idea.votos_a_favor ],
+                        ['En contra', idea.votos_en_contra ],
+                        ['Abstención', idea.abstencion ]
+                    ], 'votacion-idea-' + idea.id + '-pie-chart');
+                });
 
                 var participantesEdadGeneroColumnChart = new google.visualization.ColumnChart(document.getElementById('participantes-edad-genero-column-chart'));
                 participantesEdadGeneroColumnChart.draw(
@@ -130,6 +126,32 @@
                 );
 
                 var usersParticipantsProvincesCount = @json((array) $usersParticipantsProvincesCount);
+
+                var barChartData = [['Region', 'Cantidad', { role: 'annotation' }]];
+                usersParticipantsProvincesCount.forEach(function (usersParticipantsProvinceCount) {
+                    barChartData.push([
+                        usersParticipantsProvinceCount.name,
+                        usersParticipantsProvinceCount.count,
+                        usersParticipantsProvinceCount.count
+                    ]);
+                });
+
+                var participantesRegionBarChart = new google.visualization.BarChart(document.getElementById('participantes-region-bar-chart'));
+                participantesRegionBarChart.draw(
+                    google.visualization.arrayToDataTable(barChartData),
+                    {
+                        backgroundColor: 'transparent',
+                        legend: { position: 'none' },
+                        chartArea: {
+                            width: '40%',
+                            height: '80%',
+                            right: 120
+                        },
+                        width: 650,
+                        height: 400
+                    }
+                );
+
                 usersParticipantsProvincesCount.forEach(function (usersParticipantsProvinceCount) {
                     if(usersParticipantsProvinceCount.code === 'CL-NB') {
                         var nubleProvince = usersParticipantsProvinceCount;
@@ -151,7 +173,6 @@
                         usersParticipantsProvinceCount.count
                     ]);
                 });
-
                 var participantesRegionGeoChart = new google.visualization.GeoChart(document.getElementById('participantes-region-geo-chart'));
                 participantesRegionGeoChart.draw(
                     google.visualization.arrayToDataTable(geoChartData),
@@ -167,69 +188,78 @@
                     }
                 );
 
-                var test = @json($project_detail);
-                // List of words
-                var myWords = test.split(" ");
+                var wordCloudData = @json($wordCloudData);
+                if(wordCloudData) {
+                    var parsedWords = wordCloudData.map(function (word) {
+                        return {
+                            text: word.word,
+                            size: 10 + Math.random() * (word.freq / 2)
+                        };
+                    });
+                    generateWordCloud(parsedWords, '#word-cloud');
+                }
 
-                // set the dimensions and margins of the graph
-                var margin = {top: 10, right: 10, bottom: 10, left: 10},
-                    width = 450 - margin.left - margin.right,
-                    height = 450 - margin.top - margin.bottom;
+                function generateWordCloud(words, selector) {
+                    var fill = d3.scale.category10();
+                    var width = 900;
+                    var height = 300;
 
-                // append the svg object to the body of the page
-                var svg = d3.select("#my_dataviz").append("svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
-                    .append("g")
-                    .attr("transform",
-                          "translate(" + margin.left + "," + margin.top + ")");
-
-                // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
-                var layout = d3.layout.cloud()
-                    .size([width, height])
-                    .words(myWords.map(function(d) { return {text: d}; }))
-                    .padding(10)
-                    .fontSize(60)
-                    .on("end", draw);
-                layout.start();
-
-                // This function takes the output of 'layout' above and draw the words
-                // Better not to touch it. To change parameters, play with the 'layout' variable above
-                function draw(words) {
-                    svg
+                    var svg = d3.select(selector).append("svg")
+                        .attr("width", width)
+                        .attr("height", height)
                         .append("g")
-                        .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
-                        .selectAll("text")
-                        .data(words)
-                        .enter().append("text")
-                        .style("font-size", function(d) { return d.size + "px"; })
-                        .attr("text-anchor", "middle")
-                        .attr("transform", function(d) {
-                            return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-                        })
-                        .text(function(d) { return d.text; });
+                        .attr("transform", "translate(" + width/2 + "," + height/2 + ")");
+
+                    d3.layout.cloud().size([width, height])
+                        .words(words)
+                        .padding(3)
+                        .rotate(0)
+                        .font("Impact")
+                        .fontSize(function(d) { return d.size; })
+                        .on("end", draw)
+                        .start();
+
+                    function draw(words) {
+                        var cloud = svg.selectAll("g text")
+                            .data(words, function(d) { return d.text; })
+
+                        cloud.enter()
+                            .append("text")
+                            .style("font-family", "Impact")
+                            .style("fill", function(d, i) { return fill(i); })
+                            .attr("text-anchor", "middle")
+                            .attr('font-size', 1)
+                            .text(function(d) { return d.text; });
+
+                        cloud
+                            .style("font-size", function(d) { return d.size + "px"; })
+                            .attr("transform", function(d) {
+                                return "translate(" + [d.x, d.y] + ")";
+                            });
+                    }
                 }
             }
         </script>
     </head>
     <body onload="init()">
         <div class="page-header text-center">
-            <h1>
+            <h2>
                 Reporte Generado por {{ config('app.name') }}<br>
                 para el Proyecto de Ley:
-            </h1>
-            <h2>
-                {{ $project->titulo }}<br>
-                <small>N° de Boletín: {{ $project->boletin }}</small>
             </h2>
+            <h3>
+                {{ $project->titulo }}<br>
+                <small class="text-secondary">N° de Boletín: {{ $project->boletin }}</small>
+            </h3>
         </div>
+        <hr>
         <div>
-            <h3>Información General del Proyecto de Ley</h3>
+            <h4 class="mt-5 mb-3">Información General del Proyecto de Ley</h4>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th style="width: 30%;">Atributo</th>
-                        <th>Valor</th>
+                        <th style="width: 30%;">Ítem</th>
+                        <th>Detalle</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -255,7 +285,7 @@
                     </tr>
                     <tr>
                         <th>Resumen</th>
-                        <td class="ellipsis" style="max-height: 60px;">{{ $project->resumen }}</td>
+                        <td>{{ $project->resumen }}</td>
                     </tr>
                     <tr>
                         <th>Enlace</th>
@@ -269,12 +299,12 @@
             </table>
         </div>
         <div>
-            <h3>Información General de Participación</h3>
+            <h4 class="mt-5 mb-3">Información General de Participación</h4>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th style="width: 30%;">Atributo</th>
-                        <th>Valor</th>
+                        <th style="width: 30%;">Ítem</th>
+                        <th>Detalle</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -290,11 +320,11 @@
                     </tr>
                     <tr>
                         <th>Fecha de inicio de las votaciones</th>
-                        <td>{{ $fechaInicio->format('d/m/Y H:m:s') }} Hrs. (UTC)</td>
+                        <td>{{ $fechaInicio->formatLocalized('%d %b %Y, %H:%M:%S') }} Hrs. (UTC)</td>
                     </tr>
                     <tr>
                         <th>Fecha de término de las votaciones</th>
-                        <td>{{ $fechaTermino->format('d/m/Y H:m:s') }} Hrs. (UTC)</td>
+                        <td>{{ $fechaTermino->formatLocalized('%d %b %Y, %H:%M:%S') }} Hrs. (UTC)</td>
                     </tr>
                     <tr>
                         <th>Cantidad de días de votación</th>
@@ -319,45 +349,54 @@
                 </tbody>
             </table>
             <div class="alert alert-info">
-                <h4 class="alert-heading">Nota</h4>
-                <p>Un usuario se considera participante si éste realizó un voto o al menos un comentario en el proyecto de ley.</p>
+                <span><i class="fas fa-info-circle"></i> Un usuario se considera participante si éste realizó un voto o al menos un comentario en el proyecto de ley.</span>
             </div>
         </div>
-        <div style="display: block; page-break-before: always;"></div>
         <div>
-            <h3>Información Detallada de Participación</h3>
-            <table class="table table-striped">
+            <h4 class="mt-5 mb-3">Información Detallada de Participación</h4>
+            <table class="table table-striped" style="page-break-inside: avoid;">
                 <thead>
                     <tr>
-                        <th style="width: 20%;">Indicador</th>
-                        <th style="width: 30%">Gráfico</th>
-                        <th>Detalles</th>
+                        <th colspan="2">Votación general del proyecto de ley</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th>Votación general del proyecto de ley</th>
-                        <td>
-                            <div id="votacion-general-pie-chart"></div>
-                        </td>
-                        <td>
-                            @if($project->votes()->count() > 1)
+                        @if($project->votes()->count() > 0)
+                            <td style="width: 30%; vertical-align: middle;">
+                                <div id="votacion-general-pie-chart"></div>
+                            </td>
+                            <td>
                                 De un total de {{ $project->votes()->count() }} votos totales:
                                 <ul>
                                     <li>Hubo {{ $project->votos_a_favor }} a favor, correspondiente al {{ round($project->votos_a_favor/$project->votes()->count() * 100, 2) }}% de los votos.</li>
                                     <li>Hubo {{ $project->votos_en_contra }} en contra, correspondiente al {{ round($project->votos_en_contra/$project->votes()->count() * 100, 2) }}% de los votos.</li>
                                     <li>Hubo {{ $project->abstencion }} abstenciones, correspondiente al {{ round($project->abstencion/$project->votes()->count() * 100, 2) }}% de los votos.</li>
                                 </ul>
-                            @endif
-                        </td>
+                            </td>
+                        @else
+                            <td colspan="2">
+                                <div class="alert alert-warning mb-0">
+                                    <span><i class="fas fa-exclamation-circle"></i> El proyecto de ley no cuenta con votos en general.</span>
+                                </div>
+                            </td>
+                        @endif
                     </tr>
+                </tbody>
+            </table>
+            <table class="table table-striped" style="page-break-inside: avoid;">
+                <thead>
                     <tr>
-                        <th>Participantes clasificados por género</th>
-                        <td>
-                            <div id="participantes-genero-pie-chart"></div>
-                        </td>
-                        <td>
-                            @if(count($usersParticipantsOnProject) > 1)
+                        <th colspan="2">Participantes clasificados por género</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @if(count($usersParticipantsOnProject) > 0)
+                            <td style="width: 30%; vertical-align: middle;">
+                                <div id="participantes-genero-pie-chart"></div>
+                            </td>
+                            <td>
                                 De un total de {{ count($usersParticipantsOnProject) }} usuarios participantes:
                                 <ul>
                                     @if($usersParticipantsGenderCount->male > 0) <li>Hubo {{ $usersParticipantsGenderCount->male }} de género masculino, correspondiente al {{ round($usersParticipantsGenderCount->male/count($usersParticipantsOnProject) * 100, 2) }}% de los participantes.</li> @endif
@@ -365,16 +404,30 @@
                                     @if($usersParticipantsGenderCount->other > 0) <li>Hubo {{ $usersParticipantsGenderCount->other }} de otro género, correspondiente al {{ round($usersParticipantsGenderCount->other/count($usersParticipantsOnProject) * 100, 2) }}% de los participantes.</li> @endif
                                     @if($usersParticipantsGenderCount->not_answer > 0) <li>Hubo {{ $usersParticipantsGenderCount->not_answer }} que no informa su género, correspondiente al {{ round($usersParticipantsGenderCount->not_answer/count($usersParticipantsOnProject) * 100, 2) }}% de los participantes.</li> @endif
                                 </ul>
-                            @endif
-                        </td>
+                            </td>
+                        @else
+                            <td colspan="2">
+                                <div class="alert alert-warning mb-0">
+                                    <span><i class="fas fa-exclamation-circle"></i> El proyecto de ley no cuenta con participantes.</span>
+                                </div>
+                            </td>
+                        @endif
                     </tr>
+                </tbody>
+            </table>
+            <table class="table table-striped" style="page-break-inside: avoid;">
+                <thead>
                     <tr>
-                        <th>Participantes clasificados por rango etario</th>
-                        <td>
-                            <div id="participantes-edad-pie-chart"></div>
-                        </td>
-                        <td>
-                            @if(count($usersParticipantsOnProject) > 1)
+                        <th colspan="2">Participantes clasificados por rango etario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @if(count($usersParticipantsOnProject) > 0)
+                            <td style="width: 30%; vertical-align: middle;">
+                                <div id="participantes-edad-pie-chart"></div>
+                            </td>
+                            <td>
                                 De un total de {{ count($usersParticipantsOnProject) }} usuarios participantes:
                                 <ul>
                                     @if($usersParticipantsAgeRangeCount->_10_19 > 0) <li>Hubo {{ $usersParticipantsAgeRangeCount->_10_19 }} de entre 10 y 19 años de edad, correspondiente al {{ round($usersParticipantsAgeRangeCount->_10_19/$usersParticipantsAgeRangeCount->total * 100, 2) }}% de los participantes.</li> @endif
@@ -386,201 +439,156 @@
                                     @if($usersParticipantsAgeRangeCount->_70_79 > 0) <li>Hubo {{ $usersParticipantsAgeRangeCount->_70_79 }} de entre 70 y 79 años de edad, correspondiente al {{ round($usersParticipantsAgeRangeCount->_70_79/$usersParticipantsAgeRangeCount->total * 100, 2) }}% de los participantes.</li> @endif
                                     @if($usersParticipantsAgeRangeCount->_80_89 > 0) <li>Hubo {{ $usersParticipantsAgeRangeCount->_80_89 }} de entre 80 y 89 años de edad, correspondiente al {{ round($usersParticipantsAgeRangeCount->_80_89/$usersParticipantsAgeRangeCount->total * 100, 2) }}% de los participantes.</li> @endif
                                 </ul>
-                            @endif
-                            <div class="alert alert-info small">
-                                <h4 class="alert-heading">Nota</h4>
-                                <p>Es posible que la suma de los participantes por rangos etarios no corresponda al total de participantes debido a que por fines estadísticos no se consideran edades inferiores a los 9 años y superiores a los 90 años (ambas inclusive), o bien participantes que no han informado su fecha de nacimiento.</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Participantes clasificados por rango etario y género</th>
-                        <td colspan="2">
-                            <div id="participantes-edad-genero-column-chart" style="width: 500px; height: 250px;"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Participantes clasificados por región de residencia</th>
-                        <td colspan="2">
-                            <div id="participantes-region-geo-chart" style="width: 500px;"></div>
-                        </td>
+                                <div class="alert alert-info small">
+                                    <span><i class="fas fa-info-circle"></i> Es posible que la suma de los participantes por rangos etarios no corresponda al total de participantes debido a que por fines estadísticos no se consideran edades inferiores a los 9 años y superiores a los 90 años (ambas inclusive), o bien participantes que no han informado su fecha de nacimiento.</span>
+                                </div>
+                            </td>
+                        @else
+                            <td colspan="2">
+                                <div class="alert alert-warning mb-0">
+                                    <span><i class="fas fa-exclamation-circle"></i> El proyecto de ley no cuenta con participantes.</span>
+                                </div>
+                            </td>
+                        @endif
                     </tr>
                 </tbody>
             </table>
-        </div>
-
-
-
-
-
-        <h2>Participantes</h2>
-        <div class="row">
-            <div class="col-xs-6">
-                <h4>Votación general</h4>
-                <div id="piechart" class="pie-chart" style="width: 450px; height: 250px;"></div>
-            </div>
-            <div class="col-xs-6">
-                <h4>Votación por artículos</h4>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Artículo</th>
-                            <th>Resultados</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($articles as $key => $article)
-                            <tr>
-                                <th scope="row">{{ $article->titulo }}</th>
-                                <td>
-                                    <div class="progress">
-                                        @if($article->votos_a_favor + $article->votos_en_contra + $article->abstencion > 0)
-                                            <div class="progress-bar progress-bar-success" style="width: {{ 100 }}%">
-                                                <span class="sr-only">A favor</span>
-                                            </div>
-                                            <div class="progress-bar progress-bar-danger" style="width: {{ 100 }}%">
-                                                <span class="sr-only">En contra</span>
-                                            </div>
-                                            <div class="progress-bar" style="width: {{ 100 }}% ; background-color: #aca9a9;">
-                                                <span class="sr-only">Abstención</span>
-                                            </div>
-                                        @else
-                                            <div class="progress-bar progress-bar-success" style="width: 0%">
-                                                <span class="sr-only">A favor</span>
-                                            </div>
-                                            <div class="progress-bar progress-bar-danger" style="width: 0%">
-                                                <span class="sr-only">En contra</span>
-                                            </div>
-                                            <div class="progress-bar" style="width: 0% ; background-color: #aca9a9;">
-                                                <span class="sr-only">Abstención</span>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-xs-6">
-                <h4>Votación por género</h4>
-                <div id="piechart2" class="pie-chart" style="width: 450px; height: 250px;"></div>
-            </div>
-            <div class="col-xs-6">
-                <h4>Edades</h4>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Rango</th>
-                            <th>Frecuencia</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">0-18</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">19-26</th>
-                            <td>2</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">27-40</th>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">41-50</th>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">51-60</th>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">+60</th>
-                            <td>1</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-xs-6">
-                <h4>Artículos más comentados</h4>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Artículo</th>
-                            <th>Cantidad</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($articles as $key => $article)
-                            @if($key < 5)
-                                <tr>
-                                    <th scope="row">{{ $article->titulo }}</th>
-                                    <td>{{ $article->comments_count }}</td>
-                                </tr>
-                            @endif
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-xs-6">
-                <h4>Artículos más comentados por edades</h4>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Artículo</th>
-                            <th>0-18</th>
-                            <th>19-26</th>
-                            <th>27-40</th>
-                            <th>41-50</th>
-                            <th>51-60</th>
-                            <th>+60</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($articles as $key => $article)
-                            @if($key < 5)
-                                <tr>
-                                    <th scope="row">{{ $article->titulo }}</th>
-                                    <td>{{ $article->comments_count }}</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
-                            @endif
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-xs-6">
-                <div id="my_dataviz"></div>
-            </div>
-            <!-- Add the extra clearfix for only the required viewport -->
-            <div class="clearfix visible-xs-block"></div>
-        </div>
-        <h2>Artículos</h2>
-        <div class="row">
-            <div class="col-xs-12">
-                @foreach($articles as $article)
-                    <h3>{{ $article->titulo }}</h3>
-                    <ul class="media-list">
-                        @foreach($article->comments as $comment)
-                            <li class="media">
-                                <div class="media-body">
-                                    <h4 class="media-heading">{{ $comment->user->name }} {{ $comment->user->surname }}
-                                        <span class="label label-success">{{ $comment->votos_a_favor }}</span>
-                                        <span class="label label-danger">{{ $comment->votos_en_contra }}</span>
-                                    </h4>
-                                    {{ $comment->body }}
+            <table class="table table-striped" style="page-break-inside: avoid;">
+                <thead>
+                    <tr>
+                        <th>Participantes clasificados por rango etario y género</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @if(count($usersParticipantsOnProject) > 0)
+                            <td class="text-center">
+                                <div id="participantes-edad-genero-column-chart" style="width: 650px; height: 250px; display: inline-block;"></div>
+                            </td>
+                        @else
+                            <td>
+                                <div class="alert alert-warning mb-0">
+                                    <span><i class="fas fa-exclamation-circle"></i> El proyecto de ley no cuenta con participantes.</span>
                                 </div>
-                            </li>
-                        @endforeach
-                    </ul>
+                            </td>
+                        @endif
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-striped" style="page-break-inside: avoid;">
+                <thead>
+                    <tr>
+                        <th colspan="2">Participantes clasificados por región de residencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @if(count($usersParticipantsOnProject) > 0)
+                            <td colspan="2" class="text-center">
+                                <div>
+                                    <div id="participantes-region-bar-chart" style="width: 650px; display: inline-block;"></div>
+                                </div>
+                                <div>
+                                    <div id="participantes-region-geo-chart" style="width: 550px; display: inline-block;"></div>
+                                </div>
+                            </td>
+                        @else
+                            <td>
+                                <div class="alert alert-warning mb-0">
+                                    <span><i class="fas fa-exclamation-circle"></i> El proyecto de ley no cuenta con participantes.</span>
+                                </div>
+                            </td>
+                        @endif
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-striped" style="page-break-inside: avoid;">
+                <thead>
+                    <tr>
+                        <th colspan="2">Nube de palabras de los comentarios del proyecto de ley</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @if($wordCloudData)
+                            <td colspan="2" class="text-center">
+                                <div id="word-cloud"></div>
+                            </td>
+                        @else
+                            <td>
+                                <div class="alert alert-warning mb-0">
+                                    <span><i class="fas fa-exclamation-circle"></i> No se ha podido generar la nube de palabras, esto puede deberse a que no existen comentarios que procesar.</span>
+                                </div>
+                            </td>
+                        @endif
+                    </tr>
+                </tbody>
+            </table>
+            <h5 class="mt-3 mb-2">Comentarios con Mayor Cantidad de Reacciones Totales del Proyecto de Ley en General</h5>
+            <ul class="list-unstyled">
+                @if(count($projectCommentsRanking->total_all_votes) > 0)
+                    @foreach($projectCommentsRanking->total_all_votes as $comment)
+                        @component('report.components.comment', ['comment' => $comment])
+                        @endcomponent
+                    @endforeach
+                @else
+                    <div class="alert alert-warning">
+                        <span><i class="fas fa-exclamation-circle"></i> El proyecto de ley no cuenta con comentarios.</span>
+                    </div>
+                @endif
+            </ul>
+            <h5 class="mt-3 mb-2">Comentarios con Mayor Cantidad de Reacciones Positivas del Proyecto de Ley en General</h5>
+            <ul class="list-unstyled">
+                @if(count($projectCommentsRanking->accord_votes) > 0)
+                    @foreach($projectCommentsRanking->accord_votes as $comment)
+                        @component('report.components.comment', ['comment' => $comment])
+                        @endcomponent
+                    @endforeach
+                @else
+                    <div class="alert alert-warning">
+                        <span><i class="fas fa-exclamation-circle"></i> El proyecto de ley no cuenta con comentarios.</span>
+                    </div>
+                @endif
+            </ul>
+            <h5 class="mt-3 mb-2">Comentarios con Mayor Cantidad de Reacciones Negativas del Proyecto de Ley en General</h5>
+            <ul class="list-unstyled">
+                @if(count($projectCommentsRanking->desaccord_votes) > 0)
+                    @foreach($projectCommentsRanking->desaccord_votes as $comment)
+                        @component('report.components.comment', ['comment' => $comment])
+                        @endcomponent
+                    @endforeach
+                @else
+                    <div class="alert alert-warning">
+                        <span><i class="fas fa-exclamation-circle"></i> El proyecto de ley no cuenta con comentarios.</span>
+                    </div>
+                @endif
+            </ul>
+        </div>
+        <div>
+            <h3>Ideas Fundamentales</h3>
+            @if(count($project->ideas) > 0)
+                @foreach($project->ideas as $idea)
+                    @component('report.components.idea', ['idea' => $idea, 'ideaCommentsRanking' => $ideasCommentsRanking->{$idea->id}])
+                    @endcomponent
                 @endforeach
-            </div>
+            @else
+                <div class="alert alert-warning">
+                    <span><i class="fas fa-exclamation-circle"></i> El proyecto de ley no cuenta con ideas fundamentales.</span>
+                </div>
+            @endif
+        </div>
+        <div>
+            <h3>Artículos</h3>
+            @if(count($project->articles) > 0)
+                @foreach($project->articles as $article)
+                    @component('report.components.article', ['article' => $article, 'articleCommentsRanking' => $articlesCommentsRanking->{$article->id}])
+                    @endcomponent
+                @endforeach
+            @else
+                <div class="alert alert-warning">
+                    <span><i class="fas fa-exclamation-circle"></i> El proyecto de ley no cuenta con artículos.</span>
+                </div>
+            @endif
         </div>
     </body>
 </html>

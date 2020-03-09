@@ -59,26 +59,11 @@
         },
         data() {
             return {
-                articles: [],
-                ideas: [],
-                articlesVotos: [],
-                ideasVotos: [],
-
-                article_votos_a_favor: [],
-                article_votos_en_contra: [],
-                article_abstencion: [],
-
-                ideas_votos_a_favor: [],
-                ideas_votos_en_contra: [],
-                ideas_abstencion: [],
-
-                labels: [],
-                labels2: [],
-
-
                 generalVotingChartData: Object,
                 ideasVotingChartData: Object,
                 articlesVotingChartData: Object,
+                ideasLabelChartData: [],
+                articlesChartData: [],
                 generalVotingChartOptions: {
                     scales: {
                         xAxes: [
@@ -130,7 +115,9 @@
                         position: 'top'
                     },
                 },
-
+                agreeColor: '#9de19c',
+                disagreeColor: '#e19c9c',
+                abstentionColor: '#b1b1b1',
                 loadProject: true,
                 mode: String
             };
@@ -171,72 +158,74 @@
                     labels: ['A favor', 'En contra', 'Abstenciones'],
                     datasets: [
                         {
-                            backgroundColor: ['#9de19c', '#e19c9c', '#b1b1b1'],
+                            backgroundColor: [this.agreeColor, this.disagreeColor, this.abstentionColor],
                             data: [this.project.votos_a_favor, this.project.votos_en_contra, this.project.abstencion],
                         },
                     ],
                 };
             },
             generateIdeasVotingChartData() {
-                for(var i = 0; i < this.project.ideas.length; i++){
-                    let idea = this.project.ideas[i]
-
-                    this.labels2.push("Idea fundamental: "+(i+1));
-
-                    this.ideas_votos_a_favor.push(idea.votos_a_favor);
-                    this.ideas_votos_en_contra.push(idea.votos_en_contra);
-                    this.ideas_abstencion.push(idea.abstencion);
-                }
+                let ideasLabels = [];
+                let ideasAgreeVotes = [];
+                let ideasDisagreeVotes = [];
+                let ideasAbstentionVotes = [];
+                this.project.ideas.forEach((idea, index) => {
+                    ideasLabels.push('Idea fundamental: ' + (index + 1));
+                    ideasAgreeVotes.push(idea.votos_a_favor);
+                    ideasDisagreeVotes.push(idea.votos_en_contra);
+                    ideasAbstentionVotes.push(idea.abtencion);
+                });
 
                 this.ideasVotingChartData = {
-                    labels: this.labels2,
+                    labels: ideasLabels,
                     datasets: [
                         {
                             label: 'A favor',
-                            data: this.ideas_votos_a_favor,
-                            backgroundColor: '#9de19c'
+                            data: ideasAgreeVotes,
+                            backgroundColor: this.agreeColor
                         },
                         {
                             label: 'En contra',
-                            data: this.ideas_votos_en_contra,
-                            backgroundColor: '#e19c9c'
+                            data: ideasDisagreeVotes,
+                            backgroundColor: this.disagreeColor
                         },
                         {
                             label: 'Abstenciones',
-                            data: this.ideas_abstencion,
-                            backgroundColor: '#b1b1b1'
+                            data: ideasAbstentionVotes,
+                            backgroundColor: this.abstentionColor
                         },
                     ]
                 };
             },
             generateArticlesVotingChartData() {
-                for(var i = 0; i < this.project.articles.length; i++){
-                    let article = this.project.articles[i];
-
-                    this.labels.push("Articulo: "+(i+1));
-
-                    this.article_votos_a_favor.push(article.votos_a_favor);
-                    this.article_votos_en_contra.push(article.votos_en_contra);
-                    this.article_abstencion.push(article.abstencion);
-                }
+                let articlesLabels = [];
+                let articlesAgreeVotes = [];
+                let articlesDisagreeVotes = [];
+                let articlesAbstentionVotes = [];
+                this.project.articles.forEach((article, index) => {
+                    articlesLabels.push('Artículo: ' + (index + 1));
+                    articlesAgreeVotes.push(article.votos_a_favor);
+                    articlesDisagreeVotes.push(article.votos_en_contra);
+                    articlesAbstentionVotes.push(article.abtencion);
+                });
 
                 this.articlesVotingChartData = {
-                    labels: this.labels,
+                    labels: articlesLabels,
                     datasets: [
                         {
                             label: 'A favor',
-                            data: this.article_votos_a_favor,
-                            backgroundColor: '#9de19c'
+                            data: articlesAgreeVotes,
+                            backgroundColor: this.agreeColor
                         },
                         {
                             label: 'En contra',
-                            data: this.article_votos_en_contra,
-                            backgroundColor: '#e19c9c'
+                            data: articlesDisagreeVotes,
+                            backgroundColor: this.disagreeColor
                         },
                         {
                             label: 'Abstenciones',
-                            data: this.article_abstencion,
-                            backgroundColor: '#b1b1b1'
+                            data: articlesAbstentionVotes,
+                            backgroundColor: this.abstentionColor
                         },
                     ]
                 };
