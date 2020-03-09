@@ -53,8 +53,8 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item p-0 px-2 py-3" :style="mode==='dark'?'background: #080035':''">
                     <span class="d-flex"><i class="fa fa-clock font-16 mr-5"></i><span class="font-14" style="line-height:1">{{ $t('tiempo') }}</span>
-                    <Countdown v-if="isAvailableVoting" class="font-16" :date="votingEndDate"></Countdown>
-                    <Countdown v-else class="text-red font-16" :date="votingEndDate"></Countdown>
+                    <Countdown v-if="isAvailableVoting" class="font-14" :date="votingEndDate"></Countdown>
+                    <Countdown v-else class="text-red font-14" :date="votingEndDate"></Countdown>
                 </li>
             </ul>
             <div class="btn-group-vertical btn-block mt-auto">
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-    import Countdown from './Countdown';
+    import Countdown from './ProjectHomeCardCountdown';
     import { API_URL } from '../../backend/data_server';
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import { library } from '@fortawesome/fontawesome-svg-core';

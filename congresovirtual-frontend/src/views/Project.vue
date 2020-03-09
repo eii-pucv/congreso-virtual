@@ -10,10 +10,11 @@
                     />
                 </div>
                 <ProjectHeader
+                        id="project-header"
+                        :data-intro="$t('proyecto.ruta_guiada.pasos.paso_2')"
+                        data-step="2"
                         v-if="!loadProject"
                         :project="project"
-                        data-intro="¡Puedes participar en la votación principal del proyecto!"
-                        data-step="2"
                 ></ProjectHeader>
                 <nav v-if="!loadProject" aria-label="breadcrumb" class="container px-0">
                     <ol class="breadcrumb" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
@@ -37,12 +38,13 @@
                                     id="myTab"
                                     class="nav nav-light nav-tabs"
                                     role="tablist"
-                                    data-intro="¿Deseas seguir realizando actividades en el proyecto?"
+                                    :data-intro="$t('proyecto.ruta_guiada.pasos.paso_1')"
                                     data-step="1"
                             >
                                 <li
+                                        id="list-sections"
                                         class="nav-item active"
-                                        data-intro="O puedes seguir realizando votos de ideas fundamentales o por artículo"
+                                        :data-intro="$t('proyecto.ruta_guiada.pasos.paso_3')"
                                         data-step="3"
                                 >
                                     <a
@@ -57,9 +59,10 @@
                                             :style="mode==='dark'?'color: #fff':''"
                                     >{{ $t('proyecto.contenido.tab.articulos_ideas') }}</a>
                                 </li>
-                                <li class="nav-item"
-                                        data-intro="Entérate de cada detalle del proyecto en la sección de detalles."
-                                        data-step="4"
+                                <li id="section-info" 
+                                    class="nav-item"
+                                    :data-intro="$t('proyecto.ruta_guiada.pasos.paso_5')"
+                                    data-step="5"
                                 >
                                     <a
                                             @click="changeTab"
@@ -73,10 +76,9 @@
                                             :style="mode==='dark'?'color: #fff':''"
                                     >{{ $t('proyecto.contenido.tab.detalle') }}</a>
                                 </li>
-                                <li
-                                        class="nav-item"
-                                        data-intro="También puedes seguir el avance del proyecto a tiempo real en la sección de 'Seguimiento' "
-                                        data-step="6"
+                                <li id="section-traces" class="nav-item"
+                                    :data-intro="$t('proyecto.ruta_guiada.pasos.paso_6')"
+                                    data-step="6"	
                                 >
                                     <a
                                             @click="changeTab"
@@ -90,8 +92,8 @@
                                             :style="mode==='dark'?'color: #fff':''"
                                     >{{ $t('proyecto.contenido.tab.seguimiento') }}</a>
                                 </li>
-                                <li class="nav-item"
-                                    data-intro="Entérate más a fondo de toda la participación ciudadana en el proyecto"
+                                <li id="section-analysis" class="nav-item"
+                                    :data-intro="$t('proyecto.ruta_guiada.pasos.paso_7')"
                                     data-step="7"
                                 >
                                     <a
@@ -106,10 +108,10 @@
                                             :style="mode==='dark'?'color: #fff':''"
                                     >{{ $t('proyecto.contenido.tab.estadistica') }}</a>
                                 </li>
-                                <li
-                                        class="nav-item"
-                                        data-intro="O revisa los documentos disponibles para entender mejor los detalles del proyecto"
-                                        data-step="8"
+                                <li id="section-documents" 
+                                    class="nav-item"
+                                    :data-intro="$t('proyecto.ruta_guiada.pasos.paso_8')"
+                                    data-step="8"
                                 >
                                     <a
                                             @click="changeTab"
@@ -168,7 +170,10 @@
                                                                 <small class :class="mode==='dark'?'':'text-muted '" :style="mode==='dark'?'color: #fff':''">{{ project.resumen }}</small>
                                                             </h5>
                                                         </div>
-                                                        <div class="step col-sm" v-bind:class="[(project.etapa === 1) ? 'current bg-primary' : '', (project.etapa === 2) ? 'bg-secondary' : '']">
+                                                        <div id="section-votes" 
+                                                            class="step col-sm"
+                                                            v-bind:class="[(project.etapa === 1) ? 'current bg-primary' : '', (project.etapa === 2) ? 'bg-secondary' : '']"
+                                                        >
                                                             <h6 class="text-white">{{ $t('proyecto.contenido.votacion_general.titulo') }}</h6>
                                                             <p class="text-white my-5">
                                                                 {{ $t('proyecto.contenido.votacion_general.descripcion1') }}
@@ -184,7 +189,7 @@
                                                                 </v-popover>
                                                                 {{ $t('proyecto.contenido.votacion_general.descripcion2') }}
                                                             </p>
-                                                            <button class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#collapseIdeas" aria-expanded="false" aria-controls="collapseIdeas">
+                                                            <button id="btn-ideas" class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#collapseIdeas" aria-expanded="false" aria-controls="collapseIdeas">
                                                                 {{ $t('mostrar') }}
                                                             </button>
                                                         </div>
@@ -332,9 +337,9 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade show"
-                                     id="documentosAdjuntos"
-                                     role="tabpanel"
-                                     aria-labelledby="comments-tab"
+                                    id="documentosAdjuntos"
+                                    role="tabpanel"
+                                    aria-labelledby="comments-tab"
                                 >
                                     <div>
                                         <div class="row">
@@ -351,6 +356,25 @@
                             <ProjectComments v-if="!loadProject" :project="project"></ProjectComments>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalMessage" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Votación Realizada</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Además de votar a favor, en contra o abstención sobre un proyecto, puede hacerlo también con las <strong>Ideas Fundamentales</strong> y <strong>Artículos</strong> del proyecto de ley actual.</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</a>
+                    <a href="#section-votes" type="button" class="btn btn-primary" @click="focusVotesSection($event)">Aceptar</a>
+                </div>
                 </div>
             </div>
         </div>
@@ -377,7 +401,7 @@
     import htmlToImage from "html-to-image";
     import "intro.js/minified/introjs.min.css";
     import { bus } from "../main";
-
+    
     export default {
         name: 'Project',
         components: {
@@ -438,14 +462,27 @@
 
             this.getProject();
 
+            let lablesButtons = {
+                nextLabel: this.$t('proyecto.ruta_guiada.opciones.boton_siguiente'),
+                prevLabel: this.$t('proyecto.ruta_guiada.opciones.boton_anterior'),
+                skipLabel: this.$t('proyecto.ruta_guiada.opciones.boton_salir'),
+                doneLabel: this.$t('proyecto.ruta_guiada.opciones.boton_finalizar')
+            }
             bus.$on('tour', function() {
-                const introJS = require('intro.js');
+                const introJS = require('intro.js');     
                 introJS
                     .introJs()
-                    .setOption('nextLabel', ' Siguiente ')
-                    .setOption('skipLabel', ' Salir ')
-                    .setOption('prevLabel', ' Anterior ')
-                    .start();
+                    .setOption('nextLabel', lablesButtons.nextLabel)
+                    .setOption('prevLabel', lablesButtons.prevLabel)
+                    .setOption('skipLabel', lablesButtons.skipLabel)
+                    .setOption('doneLabel', lablesButtons.doneLabel)
+                    .setOption('scrollToElement', true)
+                    .start()
+                    .onchange(function (targetElement) {
+                        if($(targetElement).attr("data-step") == 4) {
+                            $('#btn-ideas').click();
+                        }
+                    })
             });
 
             axios
@@ -485,6 +522,14 @@
             });
         },
         methods: {
+            focusVotesSection(e) {
+                $('#modalMessage').modal('hide')
+
+                $('html, body').animate({
+                    scrollTop: $('#section-votes').offset().top + "px"
+                }, 1500);
+                $('#btn-ideas').click();
+            },
             getProject() {
                 axios
                     .get('/projects/' + this.project_id)
@@ -828,7 +873,6 @@
     #principalRow {
         height: fit-content;
     }
-
     #app {
         font-family: "Avenir", Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
@@ -839,7 +883,6 @@
         width: 100%;
         height: 100%;
     }
-
     .arrow-steps .step {
         font-size: 14px;
         cursor: default;
@@ -853,7 +896,6 @@
         user-select: none;
         transition: background-color 0.2s ease;
     }
-
     .arrow-steps .step:after,
     .arrow-steps .step:before {
         content: " ";
@@ -868,18 +910,15 @@
         z-index: 2;
         transition: border-color 0.2s ease;
     }
-
     .arrow-steps .step:before {
         right: auto;
         left: 0;
         border-left: 17px solid #fff;
         z-index: 0;
     }
-
     .arrow-steps .step:first-child:before {
         border: none;
     }
-
     .arrow-steps .step:first-child {
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
@@ -888,7 +927,6 @@
     .arrow-steps .step span {
         position: relative;
     }
-
     .arrow-steps .step span:before {
         opacity: 0;
         content: "✔";
@@ -896,7 +934,6 @@
         top: -2px;
         left: -20px;
     }
-
     .arrow-steps .step.done span:before {
         opacity: 1;
         -webkit-transition: opacity 0.3s ease 0.5s;
@@ -904,16 +941,13 @@
         -ms-transition: opacity 0.3s ease 0.5s;
         transition: opacity 0.3s ease 0.5s;
     }
-
     .arrow-steps .step.current {
         color: #fff;
         background-color: green !important;
     }
-
     .arrow-steps .step.current:after {
         border-left: 17px solid green !important;
     }
-
     .tab-content {
         -webkit-box-shadow: inherit !important;
         box-shadow: inherit !important;

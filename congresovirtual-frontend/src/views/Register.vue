@@ -96,6 +96,10 @@
                                 <a href="/page/terms-and-conditions" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
                                     <u>{{ $t('registro.contenido.terminos') }}</u>
                                 </a>
+                                {{ $t('registro.contenido.y') }}
+                                <a href="/page/privacy-policies" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
+                                    <u>{{ $t('registro.contenido.politicas') }}</u>
+                                </a>
                             </label>
                         </div>
                         <div v-if="loadBtnRegister" class="btn btn-primary d-block vld-parent pa-20">

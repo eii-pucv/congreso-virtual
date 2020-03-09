@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
         <div v-if="loadIdeas" class="vld-parent" style="height: 500px;">
             <Loading
                     :active.sync="loadIdeas"
@@ -8,7 +8,13 @@
                     :color="color"
             ></Loading>
         </div>
-        <div v-if="!loadIdeas">
+        <div v-if="!loadIdeas" 
+            id="project-ideas-container"
+            :data-intro="$t('proyecto.ruta_guiada.pasos.paso_4')" 
+            data-step="4"
+            data-position="right"
+            data-scrollTo="tooltip"
+        >
             <div v-if="ideas.length > 0">
                 <div v-for="idea in ideas" :key="idea.id" class="shadow-sm p-3 mb-5 rounded my-25" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
                     <h5 :style="mode==='dark'?'color: #fff':''">{{ idea.titulo }}</h5>
