@@ -209,7 +209,7 @@ Route::group(['middleware' => ['auth:api', 'has.roles:ADMIN']], function() {
         Route::patch('/{comment}/state', 'CommentController@updateState');
         Route::patch('/{comment}/perception', 'CommentController@updatePerception');
         Route::get('/{comment}/denounces', 'CommentController@denounces');
-        Route::get('/sorted_by', 'CommentController@indexSortedBy');
+        Route::get('/sorted_by', 'CommentController@indexSortedByRequest');
     });
 
     Route::group(['prefix' => 'denounces'], function () {
@@ -285,7 +285,7 @@ Route::group(['middleware' => ['auth:api', 'has.roles:ADMIN']], function() {
         Route::put('/{stopwordType}', 'StopwordTypeController@update');
         Route::delete('/{stopwordType}', 'StopwordTypeController@destroy');
     });
-    
+
     Route::group(['prefix' => 'offensive_words'], function () {
         Route::post('/', 'OffensiveWordController@store');
         Route::get('/', 'OffensiveWordController@index');

@@ -39,28 +39,34 @@ class Proposal extends Model
     }
 
     public static function incrementingCountUrgencies($params) {
-        switch ($params->attributes['urgency']) {
-            case 1:
-                Proposal::findOrFail($params->attributes['proposal_id'])->increment('petitions');
-                break;
-            case 2:
-                Proposal::findOrFail($params->attributes['proposal_id'])->increment('urgencies');
-                break;
-            default:
-                throw new \Exception();
+        $proposal = Proposal::find($params->attributes['proposal_id']);
+        if($proposal) {
+            switch ($params->attributes['urgency']) {
+                case 1:
+                    $proposal->increment('petitions');
+                    break;
+                case 2:
+                    $proposal->increment('urgencies');
+                    break;
+                default:
+                    throw new \Exception();
+            }
         }
     }
 
     public static function decrementingCountUrgencies($params) {
-        switch ($params->original['urgency']) {
-            case 1:
-                Proposal::findOrFail($params->original['proposal_id'])->decrement('petitions');
-                break;
-            case 2:
-                Proposal::findOrFail($params->original['proposal_id'])->decrement('urgencies');
-                break;
-            default:
-                throw new \Exception();
+        $proposal = Proposal::find($params->original['proposal_id']);
+        if($proposal) {
+            switch ($params->original['urgency']) {
+                case 1:
+                    $proposal->decrement('petitions');
+                    break;
+                case 2:
+                    $proposal->decrement('urgencies');
+                    break;
+                default:
+                    throw new \Exception();
+            }
         }
     }
 

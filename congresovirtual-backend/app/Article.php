@@ -31,37 +31,41 @@ class Article extends Model
 
     public static function incrementingCountVotes($params)
     {
-        $article = Article::findOrFail($params->attributes['article_id']);
-        switch ($params->attributes['vote']) {
-            case 0:
-                $article->update(['votos_a_favor' => $article->votos_a_favor + 1]);
-                break;
-            case 1:
-                $article->update(['votos_en_contra' => $article->votos_en_contra + 1]);
-                break;
-            case 2:
-                $article->update(['abstencion' => $article->abstencion + 1]);
-                break;
-            default:
-                throw new \Exception();
+        $article = Article::find($params->attributes['article_id']);
+        if($article) {
+            switch ($params->attributes['vote']) {
+                case 0:
+                    $article->update(['votos_a_favor' => $article->votos_a_favor + 1]);
+                    break;
+                case 1:
+                    $article->update(['votos_en_contra' => $article->votos_en_contra + 1]);
+                    break;
+                case 2:
+                    $article->update(['abstencion' => $article->abstencion + 1]);
+                    break;
+                default:
+                    throw new \Exception();
+            }
         }
     }
 
     public static function decrementingCountVotes($params)
     {
-        $article = Article::findOrFail($params->original['article_id']);
-        switch ($params->original['vote']) {
-            case 0:
-                $article->update(['votos_a_favor' => $article->votos_a_favor - 1]);
-                break;
-            case 1:
-                $article->update(['votos_en_contra' => $article->votos_en_contra - 1]);
-                break;
-            case 2:
-                $article->update(['abstencion' => $article->abstencion - 1]);
-                break;
-            default:
-                throw new \Exception();
+        $article = Article::find($params->original['article_id']);
+        if($article) {
+            switch ($params->original['vote']) {
+                case 0:
+                    $article->update(['votos_a_favor' => $article->votos_a_favor - 1]);
+                    break;
+                case 1:
+                    $article->update(['votos_en_contra' => $article->votos_en_contra - 1]);
+                    break;
+                case 2:
+                    $article->update(['abstencion' => $article->abstencion - 1]);
+                    break;
+                default:
+                    throw new \Exception();
+            }
         }
     }
 

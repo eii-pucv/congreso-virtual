@@ -19,31 +19,35 @@ class WordCloudController extends Controller
         try {
             $words = $request->query('words', 10000);
             $project = Project::findOrFail($request->project_id);
-
-            $client = new \GuzzleHttp\Client();
-            $analyticRequest = $client->request(
-                'GET',
-                env('APP_ANALYTIC_URL') . '/wordcloud',
-                [
-                    'query' => [
-                        'words' => $words,
-                        'project_id' => $project->id
-                    ]
-                ]
-            );
-            $analyticResponse = json_decode(($analyticRequest->getBody()));
-            if(!is_array($analyticResponse) || !isset($analyticResponse[0])) {
-                $strWordCloud = $project->resumen;
-            } else {
-                $strWordCloud = $analyticResponse[0];
-            }
-            $wordCloudData = $this->loadWordCloud($strWordCloud, $project);
+            $wordCloudData = $this->getWordCloudData($project, $words);
 
             return response()->json($wordCloudData);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the word cloud was not generated.'], 412);
         }
+    }
+
+    public function getWordCloudData($project, $words = 100)
+    {
+        $client = new \GuzzleHttp\Client();
+        $analyticRequest = $client->request(
+            'GET',
+            env('APP_ANALYTIC_URL') . '/wordcloud',
+            [
+                'query' => [
+                    'words' => $words,
+                    'project_id' => $project->id
+                ]
+            ]
+        );
+        $analyticResponse = json_decode(($analyticRequest->getBody()));
+        if(!is_array($analyticResponse) || !isset($analyticResponse[0])) {
+            $strWordCloud = $project->resumen;
+        } else {
+            $strWordCloud = $analyticResponse[0];
+        }
+        return $this->loadWordCloud($strWordCloud, $project);
     }
 
     private function loadWordCloud($strWordCloud, $project)

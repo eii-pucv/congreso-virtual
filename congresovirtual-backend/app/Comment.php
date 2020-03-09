@@ -30,31 +30,35 @@ class Comment extends Model
 
     public static function incrementingCountVotes($params)
     {
-        $comment = Comment::findOrFail($params->attributes['comment_id']);
-        switch ($params->attributes['vote']) {
-            case 0:
-                $comment->update(['votos_a_favor' => $comment->votos_a_favor + 1]);
-                break;
-            case 1:
-                $comment->update(['votos_en_contra' => $comment->votos_en_contra + 1]);
-                break;
-            default:
-                throw new \Exception();
+        $comment = Comment::find($params->attributes['comment_id']);
+        if($comment) {
+            switch ($params->attributes['vote']) {
+                case 0:
+                    $comment->update(['votos_a_favor' => $comment->votos_a_favor + 1]);
+                    break;
+                case 1:
+                    $comment->update(['votos_en_contra' => $comment->votos_en_contra + 1]);
+                    break;
+                default:
+                    throw new \Exception();
+            }
         }
     }
 
     public static function decrementingCountVotes($params)
     {
-        $comment = Comment::findOrFail($params->original['comment_id']);
-        switch ($params->original['vote']) {
-            case 0:
-                $comment->update(['votos_a_favor' => $comment->votos_a_favor - 1]);
-                break;
-            case 1:
-                $comment->update(['votos_en_contra' => $comment->votos_en_contra - 1]);
-                break;
-            default:
-                throw new \Exception();
+        $comment = Comment::find($params->original['comment_id']);
+        if($comment) {
+            switch ($params->original['vote']) {
+                case 0:
+                    $comment->update(['votos_a_favor' => $comment->votos_a_favor - 1]);
+                    break;
+                case 1:
+                    $comment->update(['votos_en_contra' => $comment->votos_en_contra - 1]);
+                    break;
+                default:
+                    throw new \Exception();
+            }
         }
     }
 

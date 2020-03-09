@@ -208,7 +208,7 @@ class CommentController extends Controller
                 LIKE CONCAT('%', offensive_words.word, '%') 
                 LIMIT 1"), ['comment_body' => $comment->body]
             );
-            
+
             if(count($offensive_comment) > 0) {
                 $comment->fill(['state' => 1])->save();
             }
@@ -953,7 +953,7 @@ class CommentController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function indexSortedBy(Request $request)
+    public function indexSortedByRequest(Request $request)
     {
         try {
             $option = strtoupper($request->option);
@@ -964,62 +964,94 @@ class CommentController extends Controller
             $limit = $request->query('limit', 10);
             $offset = $request->query('offset', 0);
 
-
-            $whereFilter = [];
-            if(isset($request->project_id)) {
-                if(isset($request->article_id) || isset($request->idea_id) || isset($request->public_consultation_id)) {
-                    throw new \Exception();
-                }
-                $whereFilter[] = ['project_id', $request->project_id];
-            } else if(isset($request->article_id)) {
-                if(isset($request->idea_id) || isset($request->public_consultation_id)) {
-                    throw new \Exception();
-                }
-                $whereFilter[] = ['article_id', $request->article_id];
-            } else if(isset($request->idea_id)) {
-                if(isset($request->public_consultation_id)) {
-                    throw new \Exception();
-                }
-                $whereFilter[] = ['idea_id', $request->idea_id];
-            } else if(isset($request->public_consultation_id)) {
-                $whereFilter[] = ['public_consultation_id', $request->public_consultation_id];
+            $comments = $this->indexSortdedBy(
+                $option,
+                $order,
+                $limit,
+                $offset,
+                $request->project_id,
+                $request->article_id,
+                $request->idea_id,
+                $request->public_consultation
+            );
+            if(!$comments) {
+                throw new \Exception();
             }
 
-            switch ($option) {
-                case 'TOTAL_ALL_VOTES':
-                    $comments = Comment::where($whereFilter)
-                        ->select(
-                            'comments.*',
-                            DB::raw('(votos_a_favor + votos_en_contra) AS total_all_votes')
-                        )
-                        ->orderBy('total_all_votes', $order);
-                    break;
-                case 'PROPORTION_ACCORD_VOTES':
-                    $comments = Comment::where($whereFilter)
-                        ->select(
-                            'comments.*',
-                            DB::raw('(votos_a_favor/(votos_a_favor + votos_en_contra)) AS proportion_accord_votes')
-                    )
-                        ->orderBy('proportion_accord_votes', $order);
-                    break;
-                case 'PROPORTION_DESACCORD_VOTES':
-                    $comments = Comment::where($whereFilter)
-                        ->select(
-                            'comments.*',
-                            DB::raw('(votos_en_contra/(votos_a_favor + votos_en_contra)) AS proportion_desaccord_votes')
-                    )
-                        ->orderBy('proportion_desaccord_votes', $order);
-                    break;
-                default:
-                    throw new \Exception();
-            }
-            $comments = $comments->offset($offset)
-                ->limit($limit)
-                ->get();
             return response()->json($comments, 200);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: it was not possible to list the requested information.'], 412);
         }
+    }
+
+    public function indexSortedBy($option, $order = 'DESC', $limit = 10, $offset = 0, $projectId = null, $articleId = null, $ideaId = null, $publicConsultationId = null)
+    {
+        $whereFilter = [];
+        if(isset($projectId)) {
+            if(isset($articleId) || isset($ideaId) || isset($publicConsultationId)) {
+                return false;
+            }
+            $whereFilter[] = ['project_id', $projectId];
+        } else if(isset($articleId)) {
+            if(isset($request->idea_id) || isset($publicConsultationId)) {
+                return false;
+            }
+            $whereFilter[] = ['article_id', $articleId];
+        } else if(isset($ideaId)) {
+            if(isset($publicConsultationId)) {
+                return false;
+            }
+            $whereFilter[] = ['idea_id', $ideaId];
+        } else if(isset($publicConsultationId)) {
+            $whereFilter[] = ['public_consultation_id', $publicConsultationId];
+        }
+
+        switch ($option) {
+            case 'TOTAL_ALL_VOTES':
+                $comments = Comment::where($whereFilter)
+                    ->select(
+                        'comments.*',
+                        DB::raw('(votos_a_favor + votos_en_contra) AS total_all_votes')
+                    )
+                    ->orderBy('total_all_votes', $order);
+                break;
+            case 'ACCORD_VOTES':
+                $comments = Comment::where($whereFilter)
+                    ->select(
+                        'comments.*',
+                        DB::raw('votos_a_favor AS accord_votes')
+                    )
+                    ->orderBy('accord_votes', $order);
+                break;
+            case 'DESACCORD_VOTES':
+                $comments = Comment::where($whereFilter)
+                    ->select(
+                        'comments.*',
+                        DB::raw('votos_en_contra AS desaccord_votes')
+                    )
+                    ->orderBy('desaccord_votes', $order);
+                break;
+            case 'PROPORTION_ACCORD_VOTES':
+                $comments = Comment::where($whereFilter)
+                    ->select(
+                        'comments.*',
+                        DB::raw('(votos_a_favor/(votos_a_favor + votos_en_contra)) AS proportion_accord_votes')
+                    )
+                    ->orderBy('proportion_accord_votes', $order);
+                break;
+            case 'PROPORTION_DESACCORD_VOTES':
+                $comments = Comment::where($whereFilter)
+                    ->select(
+                        'comments.*',
+                        DB::raw('(votos_en_contra/(votos_a_favor + votos_en_contra)) AS proportion_desaccord_votes')
+                    )
+                    ->orderBy('proportion_desaccord_votes', $order);
+                break;
+            default:
+                return false;
+        }
+
+        return $comments->offset($offset)->limit($limit)->get();
     }
 }

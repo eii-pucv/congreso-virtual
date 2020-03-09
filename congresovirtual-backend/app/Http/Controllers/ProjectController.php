@@ -6,6 +6,7 @@ use App\Position;
 use App\Project;
 use App\Article;
 use App\Comment;
+use App\Reports\ProjectReport;
 use App\Stopword;
 use App\StopwordType;
 use App\Vote;
@@ -18,6 +19,7 @@ use App\Notifications\UpdateProject;
 use App\Notifications\CloseProject;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -701,7 +703,7 @@ class ProjectController extends Controller
      * @param  $projectId
      * @return mixed
      */
-    private function usersWithProjectTerms($projectId)
+    public function usersWithProjectTerms($projectId)
     {
         try {
             $project = Project::findOrFail($projectId);
@@ -749,7 +751,7 @@ class ProjectController extends Controller
      * @param  $projectId
      * @return mixed
      */
-    private function usersParticipantsOnProject($projectId)
+    public function usersParticipantsOnProject($projectId)
     {
         try {
             $project = Project::findOrFail($projectId);
@@ -1422,327 +1424,29 @@ class ProjectController extends Controller
         }
     }
 
-    /**
-     * Build a report like a resume for one project.
-     * About access control: Only ADMIN type users can use this method (see routes).
-     *
-     * @param  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function reportOld($id)
-    {
-        try {
-            $project = Project::findOrFail($id);
-            $articles = Article::with('comments')->withCount(['comments'])->where('project_id', $id)->get();
-
-            $pdf = \PDF::loadView('chartjs', array(
-                'project_title' => $project->titulo,
-                'project_boletin' => $project->boletin,
-                'project_detail' => $project->resumen,
-                'project' => $project,
-                'articles' => $articles
-            ));
-            $pdf->setOption('enable-javascript', true);
-            $pdf->setOption('javascript-delay', 5000);
-            $pdf->setOption('enable-smart-shrinking', true);
-            $pdf->setOption('no-stop-slow-scripts', true);
-            $pdf->setOption('lowquality', false);
-            $pdf->setOption('load-error-handling', 'ignore');
-
-            return $pdf->download('Project report ' . date("Y-m-d H:i:s", time()) . '.pdf');
-        } catch (\Exception $exception) {
-            return response()->json([
-                'message' => 'Error: Report project was not be created.'], 412);
-        }
-    }
-
     public function report($id)
     {
         try {
             $project = Project::findOrFail($id);
-            $articles = Article::with('comments')->withCount(['comments'])->where('project_id', $id)->get();
-            $usersParticipantsOnProject = $this->usersParticipantsOnProject($project->id);
-            $usersWithProjectTerms = $this->usersWithProjectTerms($project->id);
-            $usersParticipantsGenderCount = $this->usersParticipantsGenderCount($usersParticipantsOnProject);
-            $usersParticipantsAgeRangeCount = $this->usersParticipantsAgeRangeCount($usersParticipantsOnProject);
-            $usersParticipantsAgeRangeGenderCount = $this->usersParticipantsAgeRangeGenderCount($usersParticipantsOnProject);
-            $usersParticipantsProvincesCount = $this->usersParticipantsProvincesCount($usersParticipantsOnProject);
+            $projectReport = new ProjectReport($project, $this);
 
-            /*return view('report.project', [
-                'project' => $project,
-                'fechaInicio' =>  Carbon::create($project->fecha_inicio),
-                'fechaTermino' =>  Carbon::create($project->fecha_termino),
-                'usersParticipantsOnProject' => $usersParticipantsOnProject,
-                'usersWithProjectTerms' => $usersWithProjectTerms,
-                'usersParticipantsGenderCount' => $usersParticipantsGenderCount,
-                'usersParticipantsAgeRangeCount' => $usersParticipantsAgeRangeCount,
-                'usersParticipantsAgeRangeGenderCount' => $usersParticipantsAgeRangeGenderCount,
-                'usersParticipantsProvincesCount' => $usersParticipantsProvincesCount,
+            //return $projectReport->generateView();
 
-                'project_detail' => $project->resumen,
-                'articles' => $articles
-            ]);*/
-
-            $pdf = \PDF::loadView('report.project', [
-                'project' => $project,
-                'fechaInicio' =>  Carbon::create($project->fecha_inicio),
-                'fechaTermino' =>  Carbon::create($project->fecha_termino),
-                'usersParticipantsOnProject' => $usersParticipantsOnProject,
-                'usersWithProjectTerms' => $usersWithProjectTerms,
-                'usersParticipantsGenderCount' => $usersParticipantsGenderCount,
-                'usersParticipantsAgeRangeCount' => $usersParticipantsAgeRangeCount,
-                'usersParticipantsAgeRangeGenderCount' => $usersParticipantsAgeRangeGenderCount,
-                'usersParticipantsProvincesCount' => $usersParticipantsProvincesCount,
-
-                'project_detail' => $project->resumen,
-                'articles' => $articles
+            $report = $projectReport->generateReport();
+            $report->setOptions([
+                'enable-javascript' => true,
+                'javascript-delay' => 10000,
+                'enable-smart-shrinking' => true,
+                'no-stop-slow-scripts' => true,
+                'lowquality' => false,
+                'load-error-handling' => 'ignore'
             ]);
-            $pdf->setOption('enable-javascript', true);
-            $pdf->setOption('javascript-delay', 10000);
-            $pdf->setOption('enable-smart-shrinking', true);
-            $pdf->setOption('no-stop-slow-scripts', true);
-            $pdf->setOption('lowquality', false);
-            $pdf->setOption('load-error-handling', 'ignore');
 
-            return $pdf->download('Project report ' . date("Y-m-d H:i:s", time()) . '.pdf');
+            return $report->download('Project report ' . date("Y-m-d H:i:s", time()) . '.pdf');
         } catch (\Exception $exception) {
             return response()->json([
                 'exception' => $exception->getMessage(),
                 'message' => 'Error: Report project was not be created.'], 412);
         }
-    }
-
-    private function usersParticipantsGenderCount($userParticipants)
-    {
-        $usersParticipantsGenderCount = (object) [
-            'male' => 0,
-            'female' => 0,
-            'other' => 0,
-            'not_answer' => 0
-        ];
-        forEach($userParticipants as $userParticipant) {
-            $userGender = $this->determineUserGender($userParticipant);
-            $usersParticipantsGenderCount->{$userGender}++;
-        }
-        return $usersParticipantsGenderCount;
-    }
-
-    private function usersParticipantsAgeRangeCount($userParticipants)
-    {
-        $usersParticipantsAgeRangeCount = (object) [
-            '_10_19' => 0,
-            '_20_29' => 0,
-            '_30_39' => 0,
-            '_40_49' => 0,
-            '_50_59' => 0,
-            '_60_69' => 0,
-            '_70_79' => 0,
-            '_80_89' => 0,
-            'total' => 0
-        ];
-        foreach($userParticipants as $userParticipant) {
-            $userAgeRange = $this->determineUserAgeRange($userParticipant);
-            if($userAgeRange) {
-                $usersParticipantsAgeRangeCount->{$userAgeRange}++;
-                $usersParticipantsAgeRangeCount->total++;
-            }
-        }
-        return $usersParticipantsAgeRangeCount;
-    }
-
-    private function usersParticipantsAgeRangeGenderCount($userParticipants)
-    {
-        $usersParticipantsAgeRangeGenderCount = (object) [
-            '_10_19' => (object) [
-                'male' => 0,
-                'female' => 0,
-                'other' => 0,
-                'not_answer' => 0
-            ],
-            '_20_29' => (object) [
-                'male' => 0,
-                'female' => 0,
-                'other' => 0,
-                'not_answer' => 0
-            ],
-            '_30_39' => (object) [
-                'male' => 0,
-                'female' => 0,
-                'other' => 0,
-                'not_answer' => 0
-            ],
-            '_40_49' => (object) [
-                'male' => 0,
-                'female' => 0,
-                'other' => 0,
-                'not_answer' => 0
-            ],
-            '_50_59' => (object) [
-                'male' => 0,
-                'female' => 0,
-                'other' => 0,
-                'not_answer' => 0
-            ],
-            '_60_69' => (object) [
-                'male' => 0,
-                'female' => 0,
-                'other' => 0,
-                'not_answer' => 0
-            ],
-            '_70_79' => (object) [
-                'male' => 0,
-                'female' => 0,
-                'other' => 0,
-                'not_answer' => 0
-            ],
-            '_80_89' => (object) [
-                'male' => 0,
-                'female' => 0,
-                'other' => 0,
-                'not_answer' => 0
-            ]
-        ];
-        foreach($userParticipants as $userParticipant) {
-            $userAgeRange = $this->determineUserAgeRange($userParticipant);
-            if($userAgeRange) {
-                $userGender = $this->determineUserGender($userParticipant);
-                $usersParticipantsAgeRangeGenderCount->{$userAgeRange}->{$userGender}++;
-            }
-        }
-        return $usersParticipantsAgeRangeGenderCount;
-    }
-
-    private function determineUserAgeRange($user)
-    {
-        $now = Carbon::now();
-        $userBirthday = Carbon::create($user->birthday);
-        $userAges = $userBirthday->diffInYears($now);
-
-        if($userAges >= 10 && $userAges <= 19) {
-            return '_10_19';
-        } else if($userAges >= 20 && $userAges <= 29) {
-            return '_20_29';
-        } else if($userAges >= 30 && $userAges <= 39) {
-            return '_30_39';
-        } else if($userAges >= 40 && $userAges <= 49) {
-            return '_40_49';
-        } else if($userAges >= 50 && $userAges <= 59) {
-            return '_50_59';
-        } else if($userAges >= 60 && $userAges <= 69) {
-            return '_60_69';
-        } else if($userAges >= 70 && $userAges <= 79) {
-            return '_70_79';
-        } else if($userAges >= 80 && $userAges <= 89) {
-            return '_80_89';
-        }
-        return null;
-    }
-
-    private function determineUserGender($user)
-    {
-        if($user->genero == 1) {
-            return 'male';
-        } else if($user->genero == 2) {
-            return 'female';
-        } else if($user->genero == 3) {
-            return 'other';
-        }
-        return 'not_answer';
-    }
-
-    private function usersParticipantsProvincesCount($userParticipants)
-    {
-        $usersParticipantsProvincesCount = (object) [
-            (object) [
-                'code' => 'CL-AN',
-                'name' => 'Antofagasta',
-                'count' => 0
-            ],
-            (object) [
-                'code' => 'CL-AR',
-                'name' => 'Araucanía',
-                'count' => 0
-            ],
-            (object) [
-                'code' => 'CL-AP',
-                'name' => 'Arica y Parinacota',
-                'count' => 0
-            ],
-            (object) [
-                'code' => 'CL-AT',
-                'name' => 'Atacama',
-                'count' => 0
-            ],
-            (object) [
-                'code' => 'CL-AI',
-                'name' => 'Aysén del Gral. Carlos Ibáñez del Campo',
-                'count' => 0
-            ],
-            (object) [
-                'code' => 'CL-BI',
-                'name' => 'Bío Bío',
-                'count' => 0
-            ],
-            (object) [
-                'code' => 'CL-CO',
-                'name' => 'Coquimbo',
-                'count' => 0
-            ],
-            (object) [
-                'code' => 'CL-LI',
-                'name' => 'Libertador General Bernardo O\'Higgins',
-                'count' => 0
-            ],
-            (object) [
-                'code' => 'CL-LL',
-                'name' => 'Los Lagos',
-                'count' => 0
-            ],
-            (object) [
-                'code' => 'CL-LR',
-                'name' => 'Los Ríos',
-                'count' => 0
-            ],
-            (object) [
-                'code' => 'CL-MA',
-                'name' => 'Magallanes y de la Antártica Chilena',
-                'count' => 0
-            ],
-            (object) [
-                'code' => 'CL-ML',
-                'name' => 'Maule',
-                'count' => 0
-            ],
-            (object) [
-                'code' => 'CL-RM',
-                'name' => 'Metropolitana de Santiago',
-                'count' => 0
-            ],
-            (object) [
-                'code' => 'CL-NB', // = 'CL-BI'
-                'name' => 'Ñuble',
-                'count' => 0
-            ],
-            (object) [
-                'code' => 'CL-TA',
-                'name' => 'Tarapacá',
-                'count' => 0
-            ],
-            (object) [
-                'code' => 'CL-VS',
-                'name' => 'Valparaíso',
-                'count' => 0
-            ]
-        ];
-        foreach($userParticipants as $userParticipant) {
-            if($userParticipant->pais == 'Chile') {
-                foreach($usersParticipantsProvincesCount as $usersParticipantsProvinceCount) {
-                    if($usersParticipantsProvinceCount->name == $userParticipant->region) {
-                        $usersParticipantsProvinceCount->count++;
-                    }
-                }
-            }
-        }
-        return $usersParticipantsProvincesCount;
     }
 }

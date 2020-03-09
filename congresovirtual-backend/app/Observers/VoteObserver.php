@@ -65,4 +65,21 @@ class VoteObserver
             throw new \Exception();
         }
     }
+
+    public function restoring($vote)
+    {
+        if(isset($vote->project_id) && $vote->project_id !== null) {
+            Project::incrementingCountVotes($vote);
+        } else if(isset($vote->article_id) && $vote->article_id !== null) {
+            Article::incrementingCountVotes($vote);
+        } else if(isset($vote->idea_id) && $vote->idea_id !== null) {
+            Idea::incrementingCountVotes($vote);
+        } else if(isset($vote->comment_id) && $vote->comment_id !== null) {
+            Comment::incrementingCountVotes($vote);
+        } else if(isset($vote->public_consultation_id) && $vote->public_consultation_id !== null) {
+            PublicConsultation::incrementingCountVotes($vote);
+        } else {
+            throw new \Exception();
+        }
+    }
 }
