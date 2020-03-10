@@ -11,13 +11,25 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Volcando datos para la tabla congreso-virtual.articles: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla congreso-generico.articles: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `articles` DISABLE KEYS */;
 INSERT INTO `articles` (`id`, `titulo`, `detalle`, `votos_a_favor`, `votos_en_contra`, `abstencion`, `project_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Artículo 1', 'Descripción del artículo.', 0, 0, 0, 1, '2020-02-27 17:25:35', '2020-02-27 17:25:35', NULL);
 /*!40000 ALTER TABLE `articles` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-virtual.file_types: ~7 rows (aproximadamente)
+-- Volcando datos para la tabla congreso-generico.comments: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
+
+-- Volcando datos para la tabla congreso-generico.denounces: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `denounces` DISABLE KEYS */;
+/*!40000 ALTER TABLE `denounces` ENABLE KEYS */;
+
+-- Volcando datos para la tabla congreso-generico.files: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `files` DISABLE KEYS */;
+/*!40000 ALTER TABLE `files` ENABLE KEYS */;
+
+-- Volcando datos para la tabla congreso-generico.file_types: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `file_types` DISABLE KEYS */;
 INSERT INTO `file_types` (`id`, `value`, `table_name`, `created_at`, `updated_at`) VALUES
 	(1, 'PRIMARY-IMAGE', 'projects', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
@@ -29,33 +41,70 @@ INSERT INTO `file_types` (`id`, `value`, `table_name`, `created_at`, `updated_at
 	(7, 'DOCUMENT', 'projects', '2020-02-27 17:25:36', '2020-02-27 17:25:36');
 /*!40000 ALTER TABLE `file_types` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-virtual.ideas: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla congreso-generico.ideas: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `ideas` DISABLE KEYS */;
 INSERT INTO `ideas` (`id`, `titulo`, `detalle`, `votos_a_favor`, `votos_en_contra`, `abstencion`, `project_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Idea Fundamental 1', 'Descripción de la idea fundamental.', 0, 0, 0, 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
 /*!40000 ALTER TABLE `ideas` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-virtual.projects: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla congreso-generico.location_orgs: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `location_orgs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `location_orgs` ENABLE KEYS */;
+
+-- Volcando datos para la tabla congreso-generico.member_orgs: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `member_orgs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `member_orgs` ENABLE KEYS */;
+
+-- Volcando datos para la tabla congreso-generico.pages: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `pages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pages` ENABLE KEYS */;
+
+-- Volcando datos para la tabla congreso-generico.page_term: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `page_term` DISABLE KEYS */;
+/*!40000 ALTER TABLE `page_term` ENABLE KEYS */;
+
+-- Volcando datos para la tabla congreso-generico.positions: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `positions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `positions` ENABLE KEYS */;
+
+-- Volcando datos para la tabla congreso-generico.projects: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
-INSERT INTO `projects` (`id`, `titulo`, `postulante`, `estado`, `etapa`, `detalle`, `resumen`, `fecha_inicio`, `fecha_termino`, `boletin`, `is_principal`, `is_public`, `is_enabled`, `votos_a_favor`, `votos_en_contra`, `abstencion`, `video`, `imagen_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'Proyecto de Demostración', 'Nombre 1 Apellido 1, Nombre 2 Apellido 2', 'Proceso de elaboración', 2, '<p>Detalle del proyecto de ley.</p>', 'Resumen del proyecto de ley.', '2020-01-01 03:00:00', '2020-03-01 02:59:59', '00001-01', 1, 1, 1, 0, 0, 0, NULL, NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
+INSERT INTO `projects` (`id`, `titulo`, `postulante`, `estado`, `etapa`, `detalle`, `resumen`, `fecha_inicio`, `fecha_termino`, `boletin`, `is_principal`, `is_public`, `is_enabled`, `votos_a_favor`, `votos_en_contra`, `abstencion`, `video_code`, `video_source`, `imagen_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'Proyecto de Demostración', 'Nombre 1 Apellido 1, Nombre 2 Apellido 2', 'Proceso de elaboración', 2, '<p>Detalle del proyecto de ley.</p>', 'Resumen del proyecto de ley.', '2020-01-01 03:00:00', '2020-03-01 02:59:59', '00001-01', 1, 1, 1, 0, 0, 0, NULL, NULL, NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-virtual.settings: ~9 rows (aproximadamente)
+-- Volcando datos para la tabla congreso-generico.project_term: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `project_term` DISABLE KEYS */;
+/*!40000 ALTER TABLE `project_term` ENABLE KEYS */;
+
+-- Volcando datos para la tabla congreso-generico.proposals: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `proposals` DISABLE KEYS */;
+/*!40000 ALTER TABLE `proposals` ENABLE KEYS */;
+
+-- Volcando datos para la tabla congreso-generico.public_consultations: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `public_consultations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `public_consultations` ENABLE KEYS */;
+
+-- Volcando datos para la tabla congreso-generico.public_consultation_term: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `public_consultation_term` DISABLE KEYS */;
+/*!40000 ALTER TABLE `public_consultation_term` ENABLE KEYS */;
+
+-- Volcando datos para la tabla congreso-generico.settings: ~10 rows (aproximadamente)
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
 INSERT INTO `settings` (`id`, `key`, `label`, `value`, `created_at`, `updated_at`) VALUES
 	(1, 'site_name', 'Nombre del sitio', 'Congreso Virtual', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
-	(5, 'site_menu_principal', 'Menú principal', '{"name":"Configuración menú principal","lastCategoriesId":25,"categorias":[{"id":1,"text":"Proyectos de Ley","url":"#","subcategorias":[{"id":2,"text":"Todos los Proyectos","parent_id":1,"url":"/projects"},{"id":3,"text":"En Votación","parent_id":1,"url":"/projects?is_available_voting=1"},{"id":4,"text":"Votaciones Cerradas","parent_id":1,"url":"/projects?is_available_voting=0"}]},{"id":5,"text":"Consultas Públicas","url":"#","subcategorias":[{"id":6,"text":"Todas las Consultas","parent_id":5,"url":"/public_consultations"},{"id":7,"text":"En Votación","parent_id":5,"url":"/public_consultations?is_available_voting=1"},{"id":8,"text":"Votaciones Cerradas","parent_id":5,"url":"/public_consultations?is_available_voting=0"}]},{"id":9,"text":"Propuestas de Ley","url":"#","subcategorias":[{"id":10,"text":"Todas las Propuestas","parent_id":9,"url":"/proposals"},{"id":11,"text":"Incorporación de Proyectos","parent_id":9,"url":"/proposals?type=1"},{"id":12,"text":"Peticiones de Urgencias","parent_id":9,"url":"/proposals?type=2"}]},{"id":13,"text":"Formación Ciudadana","url":"#","subcategorias":[{"id":14,"text":"Videos Temáticos","parent_id":13,"url":"/page/tematics-videos"},{"id":15,"text":"Formación de Ley","parent_id":13,"url":"/page/formacion-de-ley"}]},{"id":16,"text":"Acerca de","url":"#","subcategorias":[{"id":17,"text":"Preguntas Frecuentes","parent_id":16,"url":"/page/preguntas-frecuentes"},{"id":18,"text":"Manual de Uso","parent_id":16,"url":"/instructive"},{"id":19,"text":"Política de Privacidad","parent_id":16,"url":"/page/privacy-policies"},{"id":20,"text":"Términos y Condiciones","parent_id":16,"url":"/page/terms-and-conditions"},{"id":21,"text":"Reglamento","parent_id":16,"url":"/reglamento"},{"id":22,"text":"Glosario de Términos","parent_id":16,"url":"/glosario"},{"id":23,"text":"¿Quiénes Somos?","parent_id":16,"url":"/somos"},{"id":24,"text":"Contacto","parent_id":16,"url":"/contact"}]}]}', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
+	(5, 'site_menu_principal', 'Menú principal', '{"name":"Configuración menú principal","lastCategoriesId":25,"categorias":[{"id":1,"text":"Proyectos de Ley","url":"#","subcategorias":[{"id":2,"text":"Todos los Proyectos","parent_id":1,"url":"/projects"},{"id":3,"text":"En Votación","parent_id":1,"url":"/projects?is_available_voting=1"},{"id":4,"text":"Votaciones Cerradas","parent_id":1,"url":"/projects?is_available_voting=0"}]},{"id":5,"text":"Consultas Públicas","url":"#","subcategorias":[{"id":6,"text":"Todas las Consultas","parent_id":5,"url":"/public_consultations"},{"id":7,"text":"En Votación","parent_id":5,"url":"/public_consultations?is_available_voting=1"},{"id":8,"text":"Votaciones Cerradas","parent_id":5,"url":"/public_consultations?is_available_voting=0"}]},{"id":9,"text":"Propuestas de Ley","url":"#","subcategorias":[{"id":10,"text":"Todas las Propuestas","parent_id":9,"url":"/proposals"},{"id":11,"text":"Incorporación de Proyectos","parent_id":9,"url":"/proposals?type=1"},{"id":12,"text":"Peticiones de Urgencias","parent_id":9,"url":"/proposals?type=2"}]},{"id":16,"text":"Acerca de","url":"#","subcategorias":[{"id":17,"text":"Preguntas Frecuentes","parent_id":16,"url":"/page/preguntas-frecuentes"},{"id":18,"text":"Manual de Uso","parent_id":16,"url":"/instructive"},{"id":19,"text":"Política de Privacidad","parent_id":16,"url":"/page/privacy-policies"},{"id":20,"text":"Términos y Condiciones","parent_id":16,"url":"/page/terms-and-conditions"},{"id":21,"text":"Reglamento","parent_id":16,"url":"/reglamento"},{"id":22,"text":"Glosario de Términos","parent_id":16,"url":"/glosario"},{"id":23,"text":"¿Quiénes Somos?","parent_id":16,"url":"/somos"},{"id":24,"text":"Contacto","parent_id":16,"url":"/contact"}]}]}', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
 	(6, 'max_necessary_petitions', 'Peticiones máximas', '{"number_petitions":"100"}', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
-	(7, 'social_networks', 'Redes sociales', '{"facebook":"https://www.facebook.com/SenadodeChile/?modal=admin_todo_tour","twitter":"https://twitter.com/senado_chile","instagram":"https://www.instagram.com/senadochile","youtube":"https://www.youtube.com/c/TVSENADOCHILE"}', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
-	(8, 'code_google_analytics', 'Código de google analytics', 'AB7cDEf3GHIjkl-MnOP8qr', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
+	(7, 'social_networks', 'Redes sociales', '{"facebook":"https://www.facebook.com/foo_bar","twitter":"https://twitter.com/foo_bar","instagram":"https://www.instagram.com/foo_bar","youtube":"https://www.youtube.com/c/foo_bar"}', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
+	(8, 'code_google_analytics', 'Código de google analytics', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
 	(9, 'site_footer', 'Footer del sitio', '{"name":"Configuración footer","lastCategoriesId":19,"categorias":[{"id":1,"text":"Proyectos de Ley","url":"/projects","subcategorias":[{"id":2,"text":"En Votación","parent_id":1,"url":"/projects?is_available_voting=1"},{"id":3,"text":"Votaciones Cerradas","parent_id":1,"url":"/projects?is_available_voting=0"}]},{"id":4,"text":"Consultas públicas","url":"/public_consultations","subcategorias":[{"id":5,"text":"En Votación","parent_id":4,"url":"/public_consultations?is_available_voting=1"},{"id":6,"text":"Votaciones Cerradas","parent_id":4,"url":"/public_consultations?is_available_voting=0"}]},{"id":7,"text":"Propuestas de Ley","url":"/proposals","subcategorias":[{"id":8,"text":"Incorporación de Proyectos","parent_id":7,"url":"/proposals?type=1"},{"id":9,"text":"Peticiones de Urgencias","parent_id":7,"url":"/proposals?type=2"}]},{"id":10,"text":"Acerca de","url":"#","subcategorias":[{"id":11,"text":"Preguntas Frecuentes","parent_id":10,"url":"/page/preguntas-frecuentes"},{"id":12,"text":"Manual de Uso","parent_id":10,"url":"/instructive"},{"id":13,"text":"Política de Privacidad","parent_id":10,"url":"/page/privacy-policies"},{"id":14,"text":"Términos y Condiciones","parent_id":10,"url":"/page/terms-and-conditions"},{"id":15,"text":"Reglamento","parent_id":10,"url":"/reglamento"},{"id":16,"text":"Glosario de Términos","parent_id":10,"url":"/glosario"},{"id":17,"text":"¿Quiénes Somos?","parent_id":10,"url":"/somos"},{"id":18,"text":"Contacto","parent_id":10,"url":"/contacto"}]}]}', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
-	(11, 'contact_emails', 'Direcciones de Correo Electrónico de Contacto', '["congreso-virtual@informaticapucv.cl","admin@congresovirtual.cl"]', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
-	(12, 'address', 'Dirección', 'Avenida Pedro Montt s/n Valparaíso', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
-	(13, 'contact_phones', 'Teléfonos de Contacto', '["(56-32) 250 5000","(56-2) 2674 7800"]', '2020-02-27 17:25:36', '2020-02-27 17:25:36');
+	(11, 'contact_emails', 'Direcciones de Correo Electrónico de Contacto', '["contacto@dominio.cl","admin@dominio.cl"]', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
+	(12, 'address', 'Dirección', 'Avenida Foo Bar N°1234, Lorem City', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
+	(13, 'contact_phones', 'Teléfonos de Contacto', '["(12) 34 5678 9012","(12) 34 5678 9013"]', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
+	(14, 'video_iframes', 'Códigos de Inserción de Videos', '{"youtube":"<iframe class=\\"embed-responsive-item\\" src=\\"https://www.youtube.com/embed/[VIDEO_CODE]\\" allowfullscreen=\\"allowfullscreen\\"></iframe>","vimeo":"<iframe class=\\"embed-responsive-item\\" src=\\"https://player.vimeo.com/video/[VIDEO_CODE]\\" allowfullscreen=\\"allowfullscreen\\"></iframe>","dailymotion":"<iframe class=\\"embed-responsive-item\\" src=\\"https://www.dailymotion.com/embed/video/[VIDEO_CODE]\\" allowfullscreen=\\"allowfullscreen\\"></iframe>"}', '2020-03-02 12:38:26', '2020-03-02 17:33:48');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-virtual.stopwords: ~514 rows (aproximadamente)
+-- Volcando datos para la tabla congreso-generico.stopwords: ~514 rows (aproximadamente)
 /*!40000 ALTER TABLE `stopwords` DISABLE KEYS */;
 INSERT INTO `stopwords` (`id`, `value`, `stopword_type_id`, `object_id`, `created_at`, `updated_at`) VALUES
 	(1, '1', 2, 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
@@ -574,7 +623,7 @@ INSERT INTO `stopwords` (`id`, `value`, `stopword_type_id`, `object_id`, `create
 	(514, 'pone', 2, 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36');
 /*!40000 ALTER TABLE `stopwords` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-virtual.stopword_types: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla congreso-generico.stopword_types: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `stopword_types` DISABLE KEYS */;
 INSERT INTO `stopword_types` (`id`, `label`, `table_name`, `created_at`, `updated_at`) VALUES
 	(1, 'General', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
@@ -582,15 +631,14 @@ INSERT INTO `stopword_types` (`id`, `label`, `table_name`, `created_at`, `update
 	(3, 'Términos', 'terms', '2020-02-27 17:25:36', '2020-02-27 17:25:36');
 /*!40000 ALTER TABLE `stopword_types` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-virtual.taxonomies: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla congreso-generico.taxonomies: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `taxonomies` DISABLE KEYS */;
 INSERT INTO `taxonomies` (`id`, `value`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Categorías', '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(2, 'Tags', '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(3, 'Categorías BCN', '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
+	(2, 'Tags', '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
 /*!40000 ALTER TABLE `taxonomies` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-virtual.taxonomy_term: ~252 rows (aproximadamente)
+-- Volcando datos para la tabla congreso-generico.taxonomy_term: ~29 rows (aproximadamente)
 /*!40000 ALTER TABLE `taxonomy_term` DISABLE KEYS */;
 INSERT INTO `taxonomy_term` (`id`, `taxonomy_id`, `term_id`) VALUES
 	(1, 1, 1),
@@ -621,233 +669,10 @@ INSERT INTO `taxonomy_term` (`id`, `taxonomy_id`, `term_id`) VALUES
 	(26, 2, 26),
 	(27, 2, 27),
 	(28, 2, 28),
-	(29, 2, 29),
-	(30, 3, 30),
-	(31, 3, 31),
-	(32, 3, 32),
-	(33, 3, 33),
-	(34, 3, 34),
-	(35, 3, 35),
-	(36, 3, 36),
-	(37, 3, 37),
-	(38, 3, 38),
-	(39, 3, 39),
-	(40, 3, 40),
-	(41, 3, 41),
-	(42, 3, 42),
-	(43, 3, 43),
-	(44, 3, 44),
-	(45, 3, 45),
-	(46, 3, 46),
-	(47, 3, 47),
-	(48, 3, 48),
-	(49, 3, 49),
-	(50, 3, 50),
-	(51, 3, 51),
-	(52, 3, 52),
-	(53, 3, 53),
-	(54, 3, 54),
-	(55, 3, 55),
-	(56, 3, 56),
-	(57, 3, 57),
-	(58, 3, 58),
-	(59, 3, 59),
-	(60, 3, 60),
-	(62, 3, 61),
-	(63, 3, 62),
-	(64, 3, 63),
-	(65, 3, 64),
-	(66, 3, 65),
-	(67, 3, 66),
-	(68, 3, 67),
-	(69, 3, 68),
-	(72, 3, 71),
-	(73, 3, 72),
-	(74, 3, 73),
-	(75, 3, 74),
-	(76, 3, 75),
-	(77, 3, 76),
-	(78, 3, 77),
-	(79, 3, 78),
-	(80, 3, 79),
-	(81, 3, 80),
-	(82, 3, 81),
-	(83, 3, 82),
-	(84, 3, 83),
-	(85, 3, 84),
-	(86, 3, 85),
-	(87, 3, 86),
-	(88, 3, 87),
-	(89, 3, 88),
-	(90, 3, 89),
-	(91, 3, 90),
-	(92, 3, 91),
-	(93, 3, 92),
-	(94, 3, 93),
-	(95, 3, 94),
-	(96, 3, 95),
-	(97, 3, 96),
-	(98, 3, 97),
-	(99, 3, 98),
-	(100, 3, 99),
-	(101, 3, 100),
-	(102, 3, 101),
-	(103, 3, 102),
-	(104, 3, 103),
-	(105, 3, 104),
-	(106, 3, 105),
-	(107, 3, 106),
-	(108, 3, 107),
-	(109, 3, 108),
-	(110, 3, 109),
-	(111, 3, 110),
-	(112, 3, 111),
-	(113, 3, 112),
-	(114, 3, 113),
-	(115, 3, 114),
-	(116, 3, 115),
-	(117, 3, 116),
-	(118, 3, 117),
-	(119, 3, 118),
-	(120, 3, 119),
-	(121, 3, 120),
-	(122, 3, 121),
-	(123, 3, 122),
-	(124, 3, 123),
-	(125, 3, 124),
-	(126, 3, 125),
-	(127, 3, 126),
-	(128, 3, 127),
-	(129, 3, 128),
-	(130, 3, 129),
-	(131, 3, 130),
-	(132, 3, 131),
-	(133, 3, 132),
-	(134, 3, 133),
-	(135, 3, 134),
-	(136, 3, 135),
-	(137, 3, 136),
-	(138, 3, 137),
-	(139, 3, 138),
-	(140, 3, 139),
-	(141, 3, 140),
-	(142, 3, 141),
-	(143, 3, 142),
-	(144, 3, 143),
-	(145, 3, 144),
-	(146, 3, 145),
-	(147, 3, 146),
-	(148, 3, 147),
-	(149, 3, 148),
-	(150, 3, 149),
-	(151, 3, 150),
-	(152, 3, 151),
-	(153, 3, 152),
-	(154, 3, 153),
-	(155, 3, 154),
-	(156, 3, 155),
-	(157, 3, 156),
-	(158, 3, 157),
-	(159, 3, 158),
-	(160, 3, 159),
-	(161, 3, 160),
-	(162, 3, 161),
-	(163, 3, 162),
-	(164, 3, 163),
-	(165, 3, 164),
-	(166, 3, 165),
-	(167, 3, 166),
-	(168, 3, 167),
-	(169, 3, 168),
-	(170, 3, 169),
-	(171, 3, 170),
-	(172, 3, 171),
-	(173, 3, 172),
-	(174, 3, 173),
-	(175, 3, 174),
-	(176, 3, 175),
-	(177, 3, 176),
-	(178, 3, 177),
-	(179, 3, 178),
-	(180, 3, 179),
-	(181, 3, 180),
-	(182, 3, 181),
-	(183, 3, 182),
-	(184, 3, 183),
-	(185, 3, 184),
-	(186, 3, 185),
-	(187, 3, 186),
-	(188, 3, 187),
-	(189, 3, 188),
-	(190, 3, 189),
-	(191, 3, 190),
-	(192, 3, 191),
-	(193, 3, 192),
-	(194, 3, 193),
-	(195, 3, 194),
-	(196, 3, 195),
-	(197, 3, 196),
-	(198, 3, 197),
-	(199, 3, 198),
-	(200, 3, 199),
-	(201, 3, 200),
-	(202, 3, 201),
-	(203, 3, 202),
-	(204, 3, 203),
-	(205, 3, 204),
-	(206, 3, 205),
-	(207, 3, 206),
-	(208, 3, 207),
-	(209, 3, 208),
-	(210, 3, 209),
-	(211, 3, 210),
-	(212, 3, 211),
-	(213, 3, 212),
-	(214, 3, 213),
-	(215, 3, 214),
-	(216, 3, 215),
-	(217, 3, 216),
-	(218, 3, 217),
-	(219, 3, 218),
-	(220, 3, 219),
-	(221, 3, 220),
-	(222, 3, 221),
-	(223, 3, 222),
-	(224, 3, 223),
-	(225, 3, 224),
-	(226, 3, 225),
-	(227, 3, 226),
-	(228, 3, 227),
-	(229, 3, 228),
-	(230, 3, 229),
-	(231, 3, 230),
-	(232, 3, 231),
-	(233, 3, 232),
-	(234, 3, 233),
-	(235, 3, 234),
-	(236, 3, 235),
-	(237, 3, 236),
-	(238, 3, 237),
-	(239, 3, 238),
-	(240, 3, 239),
-	(241, 3, 240),
-	(242, 3, 241),
-	(243, 3, 242),
-	(244, 3, 243),
-	(245, 3, 244),
-	(246, 3, 245),
-	(247, 3, 246),
-	(248, 3, 247),
-	(249, 3, 248),
-	(250, 3, 249),
-	(251, 3, 250),
-	(252, 3, 251),
-	(253, 3, 252),
-	(254, 3, 253),
-	(255, 3, 254);
+	(29, 2, 29);
 /*!40000 ALTER TABLE `taxonomy_term` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-virtual.terms: ~252 rows (aproximadamente)
+-- Volcando datos para la tabla congreso-generico.terms: ~29 rows (aproximadamente)
 /*!40000 ALTER TABLE `terms` DISABLE KEYS */;
 INSERT INTO `terms` (`id`, `value`, `parent_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Aplicación de transporte', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
@@ -878,246 +703,34 @@ INSERT INTO `terms` (`id`, `value`, `parent_id`, `created_at`, `updated_at`, `de
 	(26, 'Vida', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
 	(27, 'Acoso Virtual', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
 	(28, 'Bullying', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(29, 'Estudiantes', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(30, 'Administración del estado', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(31, 'Asentamientos humanos', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(32, 'Ciencia y Tecnología', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(33, 'Defensa', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(34, 'Demografía', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(35, 'Deportes y recreación', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(36, 'Derecho', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(37, 'Economía', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(38, 'Educación', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(39, 'Energía', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(40, 'Expresiones culturales', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(41, 'Género', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(42, 'Grupos de población', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(43, 'Historia', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(44, 'Industria y comercio', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(45, 'Información territorial', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(46, 'Justicia', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(47, 'Medioambiente', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(48, 'Participación ciudadana', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(49, 'Protección social', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(50, 'Recursos naturales', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(51, 'Referencia departamente de producción', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(52, 'Relaciones internacionales', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(53, 'Salud', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(54, 'Seguridad', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(55, 'Trabajo', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(56, 'Gobierno regional', 30, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(57, 'Municipalidades', 30, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(58, 'Órganos autónomos', 30, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(59, 'Poder ejecutivo', 30, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(60, 'Poder judicial', 30, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(61, 'Poder legislativo', 30, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(62, 'Probidad y transparencia', 30, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(63, 'Agenda digital', 32, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(64, 'Biotecnología', 32, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(65, 'Innovación', 32, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(66, 'Institucionalidad - Ciencia y Tecnología', 32, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(67, 'Investigación', 32, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(68, 'Nanotecnología', 32, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(71, 'Patentes', 32, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(72, 'Consejo de Seguridad', 33, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(73, 'Defensa Civil', 33, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(74, 'Defensa Nacional', 33, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(75, 'Institucionalidad - Defensa', 33, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(76, 'Integración y Cooperación', 33, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(77, 'Operaciones de Paz', 33, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(78, 'Institucionalidad - Demografía', 34, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(79, 'Migración', 34, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(80, 'Mortalidad', 34, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(81, 'Natalidad', 34, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(82, 'Deporte de Alto Rendimiento', 35, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(83, 'Entretenimiento', 35, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(84, 'Infraestructura Deportiva', 35, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(85, 'Institucionalidad - Deportes y Recreación', 35, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(86, 'Vida sana', 35, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(87, 'Derecho Administrativo', 36, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(88, 'Derecho Ambiental', 36, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(89, 'Derecho Civil', 36, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(90, 'Derecho Comercial', 36, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(91, 'Derecho Constitucional', 36, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(92, 'Derecho de Familia', 36, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(93, 'Derecho Económico', 36, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(94, 'Derecho Internacional', 36, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(95, 'Derecho Laboral y Seguridad Social', 36, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(96, 'Derecho Penal', 36, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(97, 'Derecho Procesal', 36, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(98, 'Derechos Humanos', 36, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(99, 'Derecho Tributario y Fiscal', 36, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(100, 'Coyuntura Económica Internacional', 37, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(101, 'Coyuntura Económica Nacional', 37, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(102, 'Desarrollo Económico', 37, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(103, 'Finanzas y Políticas Financieras', 37, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(104, 'Institucionalidad - Economía', 37, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(105, 'Libre Competencia', 37, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(106, 'Mercados', 37, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(107, 'Políticas Monetarias', 37, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(108, 'Políticas Presupuestarias y Gasto Público', 37, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(109, 'Tributación y Políticas Fiscales', 37, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(110, 'Educación Adultos', 38, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(111, 'Educación Escolar Básica', 38, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(112, 'Educación Escolar Media', 38, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(113, 'Educación Permanente', 38, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(114, 'Educación Superior', 38, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(115, 'Institucionalidad - Educación', 38, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(116, 'Políticas Educativas', 38, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(117, 'Pre-Escolar', 38, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(118, 'Combustibles', 39, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(119, 'Eficiencia Energética', 39, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(120, 'Energía Eléctrica', 39, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(121, 'Energía Eólica', 39, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(122, 'Energía Geotérmica', 39, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(123, 'Energía Hidroeléctrica', 39, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(124, 'Energía Nuclear', 39, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(125, 'Energía Renovable', 39, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(126, 'Energías No Renovables', 39, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(127, 'Institucionalidad - Energía', 39, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(128, 'Políticas Energéticas', 39, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(129, 'Derechos de Autor', 40, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(130, 'Donaciones y Patrimonios', 40, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(131, 'Institucionalidad - Expresiones Culturales', 40, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(132, 'Medios de Comunicación', 40, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(133, 'Museos y Bibliotecas', 40, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(134, 'Sector Audiovisual y Libros', 40, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(135, 'Temas Ético-Religiosos', 40, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(136, 'Género y Alimentación', 41, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(137, 'Género y Derechos Humanos', 41, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(138, 'Género y Desarrollo', 41, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(139, 'Género y Migración', 41, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(140, 'Género y Pobreza', 41, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(141, 'Género y Política', 41, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(142, 'Género y Salud', 41, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(143, 'Género y Trabajo', 41, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(144, 'Violencia Intrafamiliar', 41, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(145, 'Adultos Mayores', 42, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(146, 'Discapacitados', 42, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(147, 'Familia', 42, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(148, 'Hombres', 42, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(149, 'Institucionalidad - Grupos de Población', 42, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(150, 'Jóvenes', 42, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(151, 'Minorías Sexuales', 42, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(152, 'Mujeres', 42, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(153, 'Niños', 42, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(154, 'Pueblos Originarios', 42, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(155, 'Historia de América', 43, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(156, 'Historia de Chile', 43, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(157, 'Historia de otras latitudes', 43, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(158, 'Historia Local', 43, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(159, 'Historia Política', 43, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(160, 'Historia Universal', 43, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(161, 'Comercio', 44, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(162, 'Empresas', 44, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(163, 'Institucionalidad - Industria y comercio', 44, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(164, 'MiPyMEs', 44, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(165, 'Organización Industrial', 44, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(166, 'Responsabilidad Social Empresarial', 44, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(167, 'Servicios', 44, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(168, 'Telecomunicaciones', 44, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(169, 'Transporte', 44, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(170, 'Turismo', 44, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(171, 'Actualidad Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(172, 'Chile – Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(173, 'III Región de Atacama – Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(174, 'II Región de Antofagasta – Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(175, 'Informes distritales', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(176, 'I Región de Tarapacá – Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(177, 'IV Región de Coquimbo – Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(178, 'IX Región de la Araucanía – Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(179, 'Mapas Vectoriales', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(180, 'Región Metropolitana de Santiago – Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(181, 'VIII Región del Bío Bío – Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(182, 'VII Región del Maule – Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(183, 'VI Región del Libertador General Bernardo O\'Higgins – Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(184, 'V Región de Valparaíso – Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(185, 'XII Región de Magallanes y la Antártica Chilena – Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(186, 'XI Región de Aisén del General Carlos Ibáñez del Campo – Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(187, 'XIV Región de Los Ríos – Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(188, 'X Región de los Lagos – Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(189, 'XVI Región de Ñuble - Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(190, 'XV Región de Arica y Parinacota – Información Territorial', 45, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(191, 'Institucionalidad - Justicia', 46, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(192, 'Justicia - Procedimientos', 46, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(193, 'Justicia - Reformas', 46, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(194, 'Tribunales', 46, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(195, 'Biodiversidad', 47, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(196, 'Cambio Climático', 47, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(197, 'Catástrofes', 47, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(198, 'Contaminación', 47, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(199, 'Desarrollo Sustentable', 47, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(200, 'Institucionalidad - Medioambiente', 47, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(201, 'Acceso Información Pública', 48, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(202, 'Consumidores', 48, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(203, 'Elecciones', 48, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(204, 'Institucionalidad - Participación Ciudadana', 48, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(205, 'Opinión Pública', 48, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(206, 'Partidos Políticos', 48, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(207, 'Sociedad Civil', 48, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(208, 'Desigualdad', 49, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(209, 'Institucionalidad - Protección Social', 49, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(210, 'Instrumentos de Protección Social', 49, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(211, 'Pobreza', 49, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(212, 'Sistema Previsional', 49, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(213, 'Institucionalidad - Recursos Naturales', 50, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(214, 'Plagas', 50, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(215, 'Recursos Agrícolas', 50, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(216, 'Recursos Forestales', 50, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(217, 'Recursos Ganaderos', 50, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(218, 'Recursos Hídricos', 50, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(219, 'Recursos Mineros', 50, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(220, 'Recursos Pesqueros', 50, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(221, 'Referencia Bibliográfica', 51, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(222, 'Globalización', 52, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(223, 'Institucionalidad - Relaciones Internacionales', 52, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(224, 'Organismos Internacionales', 52, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(225, 'Países Limítrofes', 52, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(226, 'Política Internacional', 52, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(227, 'Política Latinoamericana', 52, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(228, 'Tratados de Libre Comercio', 52, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(229, 'Tratados y Convenciones Internacionales', 52, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(230, 'Alimentación y Nutrición', 53, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(231, 'Ciencias de la Salud', 53, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(232, 'Drogas', 53, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(233, 'Enfermedades', 53, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(234, 'Fármacos', 53, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(235, 'Institucionalidad - Salud', 53, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(236, 'Medicina Tradicional y Alternativa', 53, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(237, 'Plan Auge', 53, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(238, 'Sistemas de Salud', 53, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(239, 'Cárcel', 54, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(240, 'Delitos', 54, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(241, 'Institucionalidad - Seguridad', 54, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(242, 'Prevención', 54, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(243, 'Rehabilitación', 54, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(244, 'Seguridad Ciudadana', 54, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(245, 'Seguridad Privada', 54, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(246, 'Capacitación', 55, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(247, 'Institucionalidad - Trabajo', 55, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(248, 'Mercado Laboral', 55, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(249, 'Relaciones Laborales', 55, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(250, 'Sector Formal', 55, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(251, 'Sector Informal', 55, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(252, 'Sindicalización', 55, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(253, 'Trabajo Dependiente', 55, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
-	(254, 'Trabajo Independiente', 55, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
+	(29, 'Estudiantes', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
 /*!40000 ALTER TABLE `terms` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-virtual.users: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla congreso-generico.term_user: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `term_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `term_user` ENABLE KEYS */;
+
+-- Volcando datos para la tabla congreso-generico.urgencies: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `urgencies` DISABLE KEYS */;
+/*!40000 ALTER TABLE `urgencies` ENABLE KEYS */;
+
+-- Volcando datos para la tabla congreso-generico.users: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-/* Password user ID 1: 'abc123456' */
 INSERT INTO `users` (`id`, `name`, `surname`, `rol`, `email`, `avatar_id`, `active`, `activation_token`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'Administrador', 'Congreso Virtual', 'ADMIN', 'admin@congresovirtual.cl', NULL, 1, NULL, '$2y$10$KL4xqSutN7bU8CT.IYZV7e.C.b/HFbMZYyAvrOgPCa3rVt5OJPQy2', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
+	(1, 'Administrador', 'Congreso Virtual', 'ADMIN', 'admin@dominio.com', NULL, 1, NULL, '$2y$10$KL4xqSutN7bU8CT.IYZV7e.C.b/HFbMZYyAvrOgPCa3rVt5OJPQy2', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-virtual.user_metas: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla congreso-generico.user_metas: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `user_metas` DISABLE KEYS */;
 INSERT INTO `user_metas` (`id`, `key`, `value`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'username', 'admin-cv', 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
 	(2, 'es_experto', '0', 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
 	(3, 'es_organizacion', '0', 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
 /*!40000 ALTER TABLE `user_metas` ENABLE KEYS */;
+
+-- Volcando datos para la tabla congreso-generico.votes: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `votes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `votes` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
