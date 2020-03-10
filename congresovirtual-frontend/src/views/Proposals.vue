@@ -64,103 +64,51 @@
                        <option v-for="(source, index) in sourceProposals" :key="'origen_tipo_' + index" :value="source">{{ source }}</option>
                       </select>
                   </label>
-                  <div class="btn-group btn-group-toggle btn-block mt-10">
+                  <label class="col-12 font-weight-bold" :style="mode==='dark'?'color: #fff':''">
+                    {{ $t('propuestas.contenido.ordenar') }}
+                      <select
+                        @change="sort"
+                        v-model="ordenar"
+                        class="form-control custom-select d-block"
+                        id="filterOrigen"
+                      >
+                       <option v-for="(sort, index) in sortOptions" :key="'ordenar_' + index" :value="sort.value">{{ sort.name }}</option>
+                      </select>
+                  </label>
+                  <div class="btn-group btn-group-toggle btn-block mt-10 mx-15">
                     <button
                       @click="clearFilters"
-                      class="btn btn-primary mx-3"
+                      class="btn btn-outline-primary"
                       type="button"
                       :class="mode==='dark'?'btn-light':'btn-primary'"
                       :style="mode==='dark'?'color: #fff':''"
                     >{{ $t('proyectos.contenido.limpiar') }}</button>
-                    <!-- <button class="vld-parent btn btn-primary" @click="search">{{ $t('proyectos.contenido.buscar') }}
+                    <button class="vld-parent btn btn-primary" @click="search">{{ $t('proyectos.contenido.buscar') }}
                       <loading
                         :active.sync="loadBtnSearch"
                         :is-full-page="fullPage"
                         :height="24"
                         :color="color"
                       ></loading>
-                    </button> -->
+                    </button>
                   </div>
                    <label
                     class="col-12 font-weight-bold"
                     :style="mode==='dark'?'color: #fff':''"
-                  >{{this.filteredList.length}} {{ $t('propuestas.contenido.resultados') }}</label>
+                  >{{ projects.length }} {{ $t('propuestas.contenido.resultados') }}</label>
                 </form>
               </div>
             </div>
           </form>
         </div>
-        <div v-if="this.isLoading && this.filteredList.length > 0 && !buscar && !autores && !fechaIngreso && !origen" class="col-sm-8">
-          <div
-            v-for="projectIdx in projectsToShow"
-            class="col-12"
-            :key="'card-project_'+projectIdx"
-          >
-            <div class="ma-5 col-lg-13">
-              <div
-                class="card"
-                :style="mode === 'dark' ? 'background: rgb(12, 1, 80); border-color: #fff;' : ''"
-              >
+        <div class="col-sm-8 mt-25" v-if="projects.length > 0">
+          <div class="col-12" v-for="(project, index) in projects.slice(0, limit)" :key="'card-project_' + index">
+            <div class="ma-5 col-lg-12">
+              <div class="card" :style="mode === 'dark' ? 'background: rgb(12, 1, 80); border-color: #fff;' : ''">
                 <div class="card-header">
-                  <p
-                    class="card-title text-justify font-weight-bold"
-                    :class="mode === 'dark' ? '' : 'text-primary'"
-                  >{{ filteredList[projectIdx - 1].PROYSUMA }}</p>
-                </div>
-                <div class="card-body pt-0">
-                  <p>
-                    <strong>{{ $t('propuestas.contenido.boletin') }}</strong>
-                    {{ filteredList[projectIdx - 1].PROYNUMEROBOLETIN }}
+                  <p class="card-title text-justify font-weight-bold" :class="mode === 'dark' ? '' : 'text-primary'">
+                    {{ project.PROYSUMA }}
                   </p>
-                  <p>
-                    <strong>{{ $t('propuestas.contenido.autoria') }}</strong>
-                    {{ filteredList[projectIdx - 1].AUTORES }}
-                  </p>
-                  <p>
-                    <strong>{{ $t('propuestas.contenido.fecha') }}</strong>
-                    {{ filteredList[projectIdx - 1].FECHAINGRESO }}
-                  </p>
-                </div>
-                <div class="btn-group-vertical">
-                  <a class="font-1"></a>
-                  <div class="btn-group mt-auto" role="group" aria-label="Basic example">
-                    <button
-                      @click="showModal(filteredList[projectIdx - 1],1)"
-                      class="btn text-white bg-primary font-12"
-                    >
-                      <font-awesome-icon icon="vote-yea" />
-                      <span class="btn-text">{{ $t('propuestas.contenido.incluir') }}</span>
-                    </button>
-                    <button
-                      @click="showModal(filteredList[projectIdx - 1],2)"
-                      class="btn text-white bg-warning font-12"
-                    >
-                      <i class="fa fa-warning"></i>
-                      <span class="btn-text text-primary">{{ $t('propuestas.contenido.pedir') }}</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button
-            class="btn btn-primary btn-block"
-            v-if="filteredList.length > projectsToShow"
-            @click="loadMore()"
-          >{{ $t('propuestas.contenido.cargar') }}</button>
-        </div>
-        <div class="col-sm-8" v-else>
-          <div v-for="(project, index) in filteredList" class="col-12" :key="'card-project_'+index">
-            <div class="ma-5 col-lg-13">
-              <div
-                class="card"
-                :style="mode === 'dark' ? 'background: rgb(12, 1, 80); border-color: #fff;' : ''"
-              >
-                <div class="card-header">
-                  <p
-                    class="card-title text-justify font-weight-bold"
-                    :class="mode === 'dark' ? '' : 'text-primary'"
-                  >{{ project.PROYSUMA }}</p>
                 </div>
                 <div class="card-body pt-0">
                   <p>
@@ -177,7 +125,6 @@
                   </p>
                 </div>
                 <div class="btn-group-vertical">
-                  <a class="font-1"></a>
                   <div class="btn-group mt-auto" role="group" aria-label="Basic example">
                     <button
                       @click="showModal(project, 1)"
@@ -198,7 +145,16 @@
               </div>
             </div>
           </div>
-          <div class="py-50 text-center border my-2" v-if="filteredList.length === 0">{{ $t('proyectos.contenido.no_hay_resultados') }}</div>
+          <button
+            class="btn btn-primary btn-block"
+            v-if="limit < projects.length"
+            @click="loadMoreProjects()"
+          >{{ $t('propuestas.contenido.cargar') }}</button>
+        </div>
+        <div class="col-sm-8 my-30 border d-flex align-self-start" v-if="projects.length === 0 && !loadBtnSearch">
+          <p class="text-center w-100 h-100 my-50">
+            {{ $t('propuestas.contenido.no_hay_resultados') }}
+          </p>
         </div>
       </div>
     </div>
@@ -261,40 +217,54 @@ export default {
     mode: String
   },
   methods: {
+    sort() {
+      if(this.ordenar === 'Desc') {
+        this.projects = this.projects.sort((a, b) => {
+          return new Date(b.PROYFECHAINGRESO) - new Date(a.PROYFECHAINGRESO);
+        });
+      } else {
+        this.projects = this.projects.sort((a, b) => {
+          return new Date(a.PROYFECHAINGRESO) - new Date(b.PROYFECHAINGRESO);
+        });
+      }
+    },
     clearFilters() {
       this.buscar = "";
       this.fechaIngreso = "";
       this.autores = "";
       this.origen = "";
-      this.filteredList = this.projects
+      this.limit = 10;
+      this.projects = [...this.startProjects]
     },
     search() {
-      if(this.autores) {
-        var projectsList = []
-        if(this.buscar) {
-          projectsList = this.filteredList
-        } else {
-          projectsList = this.projects
-        }
-        projectsList = this.filteredList.filter(result => {
-          if (result.AUTORES !== undefined) {
-            return result.AUTORES.toLowerCase().includes(
-              this.autores.toLowerCase()
-            );
-          } else return false;
-        })
-        this.filteredList.splice(0,this.filteredList.length)
-        this.filteredList.push(...projectsList)
-        return this.filteredList
-      }
+      var projectsList = []
+      this.projects = [...this.startProjects]
+      projectsList = this.projects.filter(project => {
+        if (project.PROYSUMA !== undefined
+          && project.AUTORES !== undefined
+          && project.FECHAINGRESO !== undefined
+          && project.ORIGEN !== undefined) {
+          return project.PROYSUMA.toLowerCase().includes(
+            this.buscar.toLowerCase()
+          ) && project.AUTORES.toLowerCase().includes(
+              this.autores.toLowerCase())
+            && project.FECHAINGRESO.includes(
+            this.fechaIngreso)
+            && project.ORIGEN.includes(
+            this.origen)
+        } else return false;
+      })
+      this.projects = [...projectsList]
+      this.sort();
+      return this.projects
     },
-    loadMore() {
-      if (this.projectsToShow <= this.filteredList.length) {
-        if (this.filteredList.length - this.projectsToShow < this.maxToShow) {
-          return (this.projectsToShow +=
-            this.filteredList.length - this.projectsToShow);
+    loadMoreProjects() {
+      let projectsLength = this.projects.length
+      if(this.limit < projectsLength) {
+        if(projectsLength - this.limit < 10) {
+          this.limit += projectsLength - this.limit
         } else {
-          return (this.projectsToShow += 10);
+          this.limit += 10
         }
       }
     },
@@ -311,6 +281,7 @@ export default {
         .get("https://slr.senado.cl/getListaProyectosConMovto/D/30")
         .then(res => {
           this.projects.push(...res.data);
+          this.startProjects.push(...res.data);
         })
         .catch(e => console.error("FAIL: " + JSON.stringify(e)));
       axioma
@@ -318,7 +289,8 @@ export default {
         .get("https://slr.senado.cl/getListaProyectosConMovto/S/30")
         .then(res => {
           this.projects.push(...res.data);
-          this.sourceProposals = [...new Set(this.projects.map(project => project.ORIGEN))]
+          this.startProjects.push(...res.data);
+          this.sourceProposals = [...new Set(this.projects.map(project => project.ORIGEN))];
           this.isLoading = true;
         })
         .catch(e => console.error("FAIL: " + JSON.stringify(e)));
@@ -339,7 +311,6 @@ export default {
             this.$toastr("success", "", "Propuesta creada correctamente. Debe esperar a ser aprobado por el administrador");
           })
           .catch(e => {
-            console.error(e);
             this.$toastr("warning", "", "Ya fue propuesto este proyecto");
           });
       } else {
@@ -362,11 +333,22 @@ export default {
       arrayPreferencias: ["postulante", "ASC", "6", []],
       isVoted: false,
       projects: [],
+      startProjects: [],
       buscar: "",
       fechaIngreso: "",
       autores: "",
       origen: "",
+      ordenar: "Desc",
+      sortOptions: [{
+          name:"Fecha de Ingreso (Desc.)",
+          value: 'Desc'
+        },{
+          name: "Fecha de Ingreso (Asc.)", 
+          value:'Asc'
+        }
+      ],
       limit: 10,
+      offset: 0,
       descripcion: "",
       project: null,
       type: null,
@@ -388,26 +370,6 @@ export default {
     this.getProjectPropusalsFromSIR();
   },
   computed: {
-    filteredList() {
-      var filterProjects = this.projects.filter(project => {
-        if (project.PROYSUMA !== undefined && project.AUTORES !== undefined && project.FECHAINGRESO !== undefined && project.ORIGEN !== undefined) {
-          return project.PROYSUMA.toLowerCase().includes(
-            this.buscar.toLowerCase()
-          ) && project.AUTORES.toLowerCase().includes(
-              this.autores.toLowerCase())
-            && project.FECHAINGRESO.includes(
-            this.fechaIngreso)
-            && project.ORIGEN.includes(
-            this.origen)
-        } else return false;
-      });
-      
-      this.projectsToShow = filterProjects.length > this.maxToShow ? 10 : this.maxToShow - filterProjects.length;
-      let filterOrderByDate = filterProjects.sort((a, b) => {
-        return new Date(b.FECHAINGRESO) - new Date(a.FECHAINGRESO);
-      });
-      return filterOrderByDate;
-    },
     isLoggedIn: function() {
       return this.$store.getters.isLoggedIn;
     },
