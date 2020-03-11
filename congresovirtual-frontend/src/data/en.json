@@ -214,6 +214,24 @@
                     }
                 }
             }
+        },
+        "ruta_guiada": {
+            "opciones": {
+                "boton_siguiente": " Next ",
+                "boton_anterior": " Back ",
+                "boton_salir": " Skip ",
+                "boton_finalizar": " Done "
+            },
+            "pasos": {
+                "paso_1": "Do you want to continue activities in the project?",
+                "paso_2": "You can participate in the main vote of the project!",
+                "paso_3": "Or you can continue to take votes on fundamental ideas or by article",
+                "paso_4": "This is the list with the Fundamental Ideas of the project.",
+                "paso_5": "Find out about every detail of the project in the details section.",
+                "paso_6": "You can also follow the progress of the project in real time in the 'Tracking' section",
+                "paso_7": "Find out more about all the citizen participation in the project",
+                "paso_8": "Or review the available documents to better understand the details of the project"
+            }
         }
     },
     "propuesta": {
@@ -288,7 +306,9 @@
             "consejo_contrasena": "The password must contain between 8 and 20 characters.",
             "leido": "I have read the",
             "terminos": "terms and conditions",
+            "y": " and ",
             "registrar": "Register",
+            "politicas": "privacy policies",
             "cuenta": "Do you already have an account?",
             "identificar": "Identify here",
             "clave": "Unique key",
@@ -722,6 +742,7 @@
                 },
                 "autoria": "Authorship",
                 "detalle": "Detail",
+                "ordenar": "Order by",
                 "de": "of",
                 "argumento": "Argument",
                 "video_url": "Video URL",
@@ -752,9 +773,11 @@
             "autores": "Authors",
             "autores_placeholder": "Insert the author(s).",
             "origen": "Source",
+            "ordenar": "Order by",
             "incluir": "Include Virtual Congress",
             "pedir": "Ask for urgency",
             "cargar": "Load More",
+            "no_hay_resultados": "No results found",
             "modal": {
                 "detalle": "Enter a detail for the proposal",
                 "descripcion": "Description",

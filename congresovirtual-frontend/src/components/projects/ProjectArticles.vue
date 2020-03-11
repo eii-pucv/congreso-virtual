@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="project-articles-container">
         <div v-if="loadArticles" class="vld-parent" style="height: 500px;">
             <Loading
                     :active.sync="loadArticles"

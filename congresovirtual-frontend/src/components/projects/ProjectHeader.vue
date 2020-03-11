@@ -185,6 +185,7 @@
                 votingStartDate: this.$moment.utc(this.project.fecha_inicio, 'YYYY-MM-DD HH:mm:ss').local(),
                 votingEndDate: this.$moment.utc(this.project.fecha_termino, 'YYYY-MM-DD HH:mm:ss').local(),
                 isAvailableVoting: false,
+                userHasVoted: false,
                 userVotedAgree: false,
                 userVotedDisagree: false,
                 userVotedAbstention: false,
@@ -204,9 +205,20 @@
 
             if(this.$store.getters.isLoggedIn) {
                 this.getUserVote();
+                this.isFirstVote();
             }
         },
         methods: {
+            isFirstVote() {
+                axios
+                    .get('/users/' + JSON.parse(localStorage.user).id + '/votes')
+                    .then(res => {
+                        let votes = res.data.results;
+                        if(votes.length > 0) {
+                            this.userHasVoted = true;
+                        }
+                    });
+            },
             setIsAvailableVoting() {
                 if(this.$store.getters.userData && this.$store.getters.userData.rol === 'ADMIN') {
                     this.isAvailableVoting = this.currentMoment.isBetween(this.votingStartDate, this.votingEndDate);
@@ -214,24 +226,26 @@
                     this.isAvailableVoting = this.project.is_enabled && this.project.etapa !== 3 && this.currentMoment.isBetween(this.votingStartDate, this.votingEndDate);
                 }
             },
-            getUserVote() {
+            async getUserVote() {
                 let userId = JSON.parse(localStorage.user).id;
-                axios
-                    .get('/projects/' + this.project.id + '/vote', {
+                try {
+                    const res = await axios.get(`/projects/${this.project.id}/vote`, {
                         params: {
                             user_id: userId
                         }
-                    })
-                    .then(res => {
-                        this.vote = res.data;
-                        if(this.vote.vote === 0) {
-                            this.toggleAgree();
-                        } else if(this.vote.vote === 1) {
-                            this.toggleDisagree();
-                        } else if(this.vote.vote === 2) {
-                            this.toggleAbstention();
-                        }
                     });
+                    this.vote = res.data;
+
+                    if(this.vote.vote === 0) {
+                        this.toggleAgree();
+                    } else if(this.vote.vote === 1) {
+                        this.toggleDisagree();
+                    } else if(this.vote.vote === 2) {
+                        this.toggleAbstention();
+                    }
+                } catch (err) {
+                    // this.$toastr('warning', '', 'No se ha encontradon votos del usuario relacionados con el proyecto');
+                }
             },
             toggleAgree() {
                 this.userVotedAgree = true;
@@ -278,7 +292,6 @@
                                         this.project.abstencion += 1;
                                         this.toggleAbstention();
                                     }
-
                                     this.vote.vote = voteValue;
                                     this.$toastr('success', 'Tu voto fue cambiado con éxito', 'Voto actualizado');
                                 })
@@ -303,6 +316,10 @@
                                         this.toggleAbstention();
                                     }
 
+                                    if(!this.userHasVoted) {
+                                        bus.$emit('tour');
+                                        // $('#modalMessage').modal('show');
+                                    }
                                     this.$toastr('success', 'Tu voto fue registrado con éxito', 'Voto guardado');
                                 })
                                 .catch(() => {
@@ -311,17 +328,7 @@
                         }
                     } else {
                         this.$toastr('warning', 'No se pueden realizar votaciones en este proyecto de ley', 'Fuera de plazo, proyecto deshabilitado o en etapa de cierre de votación');
-                    }
-                    //----------
-                    axios
-                        .get('/users/' + JSON.parse(localStorage.user).id + '/votes')
-                        .then(res => {
-                            let votes = res.data;
-                            if(votes.length === 0) {
-                                bus.$emit('tour');
-                            }
-                        });
-                    //-----------
+                    }    
                 } else {
                     this.$toastr('warning', 'Debes acceder con una cuenta para poder votar, si no tienes una puedes crearla', 'No has iniciado sesión');
                 }

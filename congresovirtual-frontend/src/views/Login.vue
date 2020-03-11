@@ -72,7 +72,7 @@
                                 <u>{{ $t('login.contenido.recuperar') }}</u>
                             </a>
                         </p>
-                        <p class="text-center" :style="mode==='dark'?'text-white':'text-primary'">
+                        <p class="text-center mt-15" :style="mode==='dark'?'text-white':'text-primary'">
                             {{ $t('login.contenido.sin_cuenta') }}
                             <a href="/signup" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
                                 <u>{{ $t('login.contenido.registrar') }}</u>

@@ -532,7 +532,7 @@ Congreso Virtual ofrece la opción de Instalación rápida, el cual luego de con
 
 * Se iniciará automáticamente el proceso de instalación y puesta en punto, el cual dependiendo del rendimiento de su servidor tardará dentro de 30 a 40 minutos.
 
-5. Una vez finalizado el proceso, deje unos 15 minutos adicionales para que Congreso Virtual termine de inicializarse en segundo plano (librerías, dependencias y bases de datos). 
+5. Una vez finalizado el proceso, deje aproximadamente unos 10 a 15 minutos adicionales para que Congreso Virtual termine de inicializarse en segundo plano (librerías, dependencias y bases de datos).  Una forma de comprobar si Congreso Virtual ha inicializado satisfactoriamente es entrando a la URL de la API. Si este indica un error 503 Service Unavailable, entonces este no ha terminado de inicializar aún. 
 
 6. Poblar Base de Datos: Una vez funcionando Congreso Virtual, deseará poblar éste con información inicial. Para esto, se recomienda instalar los datos iniciales en la base de datos ejecutando este comando.
 
@@ -614,7 +614,7 @@ El primer script es `./scripts/configure.sh`  cuya tarea es ayudar en las tareas
 
 * Si se **corre por primera vez**, se inicializarán los contenedores, y se crearán los archivos de bases de datos segun lo descrito en el archivo de configuración en `/dist/volumefiles/mysql` y `/dist/volumefiles/elasticsearch`. Si no es la primera vez que se corren, entonces se usarán los archivos ya existentes.
 
-6. Una vez que haya finalizado el inicio, en segundo plano Congreso Virtual correrá las actualizaciónes de Composer y Artisan, lo que puede tardar un tiempo. Puede ver el estado y los logs de Congreso y sus componentes con
+6. Una vez que haya finalizado el inicio, en segundo plano Congreso Virtual correrá las actualizaciónes de Composer y Artisan, lo que puede tardar un tiempo. Una forma de comprobar si Congreso Virtual ha inicializado satisfactoriamente es entrando a la URL de la API. Si este indica un error 503 Service Unavailable, entonces este no ha terminado de inicializar aún. Además, uede ver el estado y los logs de Congreso y sus componentes con
 
 ```
     ./scripts/livelog.sh

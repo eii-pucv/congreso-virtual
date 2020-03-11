@@ -214,6 +214,24 @@
                     }
                 }
             }
+        },
+        "ruta_guiada": {
+            "opciones": {
+                "boton_siguiente": " Siguiente ",
+                "boton_anterior": " Anterior ",
+                "boton_salir": " Salir ",
+                "boton_finalizar": " Finalizar "
+            },
+            "pasos": {
+                "paso_1": "¿Deseas seguir realizando actividades en el proyecto?",
+                "paso_2": "¡Puedes participar en la votación principal del proyecto!",
+                "paso_3": "O puedes seguir realizando votos de ideas fundamentales o por artículo",
+                "paso_4": "Este es el listado con las Ideas Fundamentales del proyecto",
+                "paso_5": "Entérate de cada detalle del proyecto en la sección de detalles.",
+                "paso_6": "También puedes seguir el avance del proyecto en tiempo real en la sección de 'Seguimiento'",
+                "paso_7": "Entérate más a fondo de toda la participación ciudadana en el proyecto",
+                "paso_8": "O revisa los documentos disponibles para entender mejor los detalles del proyecto"
+            }
         }
     },
     "propuesta": {
@@ -288,6 +306,8 @@
             "consejo_contrasena": "La contraseña debe contener entre 8 y 20 caracteres.",
             "leido": "He leído los",
             "terminos": "términos y condiciones",
+            "y": " y ",
+            "politicas": "políticas de privacidad",
             "registrar": "Registrar",
             "cuenta": "¿Ya tienes una cuenta?",
             "identificar": "Identificate aquí",
@@ -722,6 +742,7 @@
                 },
                 "autoria": "Autoría",
                 "detalle": "Detalle",
+                "ordenar": "Ordenar Por",
                 "de": "de",
                 "argumento": "Argumento",
                 "video_url": "Video URL",
@@ -752,9 +773,11 @@
             "autores": "Autores",
             "autores_placeholder": "Ingrese el/los autores",
             "origen": "Origen",
+            "ordenar": "Ordenar Por",
             "incluir": "Incluir a Congreso Virtual",
             "pedir": "Pedir urgencia",
             "cargar": "Cargar Más",
+            "no_hay_resultados": "No se han encontrado resultados",
             "modal": {
                 "detalle": "Ingrese un detalle para la propuesta",
                 "descripcion": "Descripción",
