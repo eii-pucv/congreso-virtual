@@ -1,7 +1,7 @@
 <template>
     <div class="container mt-20">
         <section class="hk-sec-wrapper" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
-            <h4 v-if="!user_id" class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_usuario.titulo1') }}</h4>
+            <h4 v-if="!inEdition" class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_usuario.titulo1') }}</h4>
             <h4 v-else class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_usuario.titulo2') }}</h4>
             <div class="mt-20 vld-parent">
                 <div v-if="loadUser" style="height: 300px;">
@@ -242,7 +242,7 @@
                                     <option value="ADMIN">{{ $t('administrador.componentes.crear_usuario.rol.administrador') }}</option>
                                 </select>
                             </div>
-                            <div v-if="!user_id" class="col-md-4 mb-10">
+                            <div v-if="!inEdition" class="col-md-4 mb-10">
                                 <label for="password" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.contrasena.titulo') }}</label>
                                 <div class="input-group">
                                     <input
@@ -261,7 +261,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="!user_id" class="col-md-3 mb-10">
+                            <div v-if="!inEdition" class="col-md-3 mb-10">
                                 <label for="password_confirmation" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.contrasena.confirme') }}</label>
                                 <input
                                         id="password_confirmation"
@@ -313,7 +313,7 @@
                                             :disabled="user.es_experto"
                                             :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
                                     />
-                                    <label for="es_organizacion" class="custom-control-label" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.registrar_organizacion') }}</label>
+                                    <label for="es_organizacion" class="custom-control-label" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.registrar_organizacion') }}</label>
                                 </div>
                             </div>
                         </div>
@@ -328,7 +328,7 @@
                                         :color="'#ffffff'"
                                 ></Loading>
                             </button>
-                            <button @click="back" class="btn btn-danger text-white ml-10">
+                            <button @click.prevent="back" class="btn btn-danger text-white ml-10">
                                 <font-awesome-icon icon="window-close" />
                                 <span class="btn-text ml-1">{{ $t('cancelar') }}</span>
                             </button>
@@ -435,7 +435,7 @@
                                     :color="'#ffffff'"
                             ></Loading>
                         </button>
-                        <button @click="back" class="btn btn-danger text-white ml-10">
+                        <button @click.prevent="back" class="btn btn-danger text-white ml-10">
                             <font-awesome-icon icon="window-close" />
                             <span class="btn-text ml-1">{{ $t('cancelar') }}</span>
                         </button>
@@ -448,12 +448,12 @@
                 class="hk-sec-wrapper"
                 :style="mode==='dark'?'background: rgb(12, 1, 80);':''"
         >
-            <h4 class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_usuario.organizacion.titulo') }}</h4>
+            <h4 class="hk-sec-title text-center">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.titulo') }}</h4>
             <div class="mt-20">
                 <form @submit.prevent="saveUser">
                     <div class="form-row align-items-center justify-content-center">
                         <div class="col-md-3 mb-10">
-                            <label for="nombre_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.nombre') }}</label>
+                            <label for="nombre_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.nombre') }}</label>
                             <input
                                     id="nombre_org"
                                     v-model="user.nombre_org"
@@ -464,7 +464,7 @@
                             />
                         </div>
                         <div class="col-md-4 mb-10">
-                            <label for="email_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.correo') }}</label>
+                            <label for="email_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.correo') }}</label>
                             <input
                                     id="email_org"
                                     v-model="user.email_org"
@@ -475,7 +475,7 @@
                             />
                         </div>
                         <div class="col-md-3 mb-10">
-                            <label for="enlace_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.enlace') }}</label>
+                            <label for="enlace_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.enlace') }}</label>
                             <input
                                     id="enlace_org"
                                     v-model="user.enlace_org"
@@ -495,13 +495,13 @@
                                         class="custom-control-input"
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
                                 />
-                                <label for="tiene_per_jur" class="custom-control-label" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.per_jur') }}</label>
+                                <label for="tiene_per_jur" class="custom-control-label" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.per_jur') }}</label>
                             </div>
                         </div>
                     </div>
                     <div v-if="user.tiene_per_jur" class="form-row align-items-center justify-content-center">
                         <div class="col-md-3 mb-10">
-                            <label for="dni_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.rut') }}</label>
+                            <label for="dni_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.rut') }}</label>
                             <div class="input-group">
                                 <input
                                         id="dni_org"
@@ -515,7 +515,7 @@
                             <div class="invalid-feedback" :style="mode==='dark'?'color: #fff':''">{{ $t('invalid-feedback.rut') }}</div>
                         </div>
                         <div class="col-md-4 mb-10">
-                            <label for="rep_legal_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.representante') }}</label>
+                            <label for="rep_legal_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.representante') }}</label>
                             <div class="input-group">
                                 <input
                                         id="rep_legal_org"
@@ -529,7 +529,7 @@
                             <div class="invalid-feedback" :style="mode==='dark'?'color: #fff':''">{{ $t('invalid-feedback.representante') }}</div>
                         </div>
                         <div class="col-md-3 mb-10">
-                            <label for="tipo_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.tipo.titulo') }}</label>
+                            <label for="tipo_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.tipo.titulo') }}</label>
                             <select
                                     id="tipo_org"
                                     v-model="user.tipo_org"
@@ -537,13 +537,13 @@
                                     required
                                     :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
                             >
-                                <option value="1">{{ $t('administrador.componentes.crear_usuario.organizacion.tipo.con_fines_lucro') }}</option>
-                                <option value="2">{{ $t('administrador.componentes.crear_usuario.organizacion.tipo.sin_fines_lucro') }}</option>
+                                <option value="1">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.tipo.con_fines_lucro') }}</option>
+                                <option value="2">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.tipo.sin_fines_lucro') }}</option>
                             </select>
                         </div>
                     </div>
                     <hr />
-                    <h4 class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_usuario.organizacion.miembros.titulo') }}</h4>
+                    <h4 class="hk-sec-title text-center">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.miembros.titulo') }}</h4>
                     <div
                             class="form-row align-items-center justify-content-center"
                             v-for="(member, index) in user.member_orgs"
@@ -564,7 +564,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 mb-10">
-                            <label for="name_member_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.nombre') }}</label>
+                            <label for="name_member_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.miembros.nombre') }}</label>
                             <input
                                     id="name_member_org"
                                     v-model="member.name"
@@ -575,7 +575,7 @@
                             />
                         </div>
                         <div class="col-md-4 mb-10">
-                            <label for="surname_member_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.miembros.apellidos') }}</label>
+                            <label for="surname_member_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.miembros.apellidos') }}</label>
                             <input
                                     id="surname_member_org"
                                     v-model="member.surname"
@@ -586,7 +586,7 @@
                             />
                         </div>
                         <div class="col-md-3 mb-10">
-                            <label for="dni_member_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.rut') }}</label>
+                            <label for="dni_member_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.miembros.rut') }}</label>
                             <input
                                     id="dni_member_org"
                                     v-model="member.dni"
@@ -597,7 +597,7 @@
                         </div>
                     </div>
                     <hr />
-                    <h4 class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_usuario.organizacion.ubicaciones.titulo') }}</h4>
+                    <h4 class="hk-sec-title text-center">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.ubicaciones.titulo') }}</h4>
                     <div
                             class="form-row align-items-center justify-content-center mb-20"
                             v-for="(location, index) in user.location_orgs"
@@ -618,7 +618,7 @@
                             </div>
                         </div>
                         <div class="col-md-7 mb-10">
-                            <label for="direccion_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.ubicaciones.direccion') }}</label>
+                            <label for="direccion_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.ubicaciones.direccion') }}</label>
                             <input
                                     id="direccion_location_org"
                                     v-model="location.direccion"
@@ -629,7 +629,7 @@
                             />
                         </div>
                         <div class="col-md-3 mb-10">
-                            <label for="sector_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.organizacion.ubicaciones.sector.titulo') }}</label>
+                            <label for="sector_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.ubicaciones.sector.titulo') }}</label>
                             <select
                                     id="sector_location_org"
                                     v-model="location.sector"
@@ -647,7 +647,7 @@
                             </select>
                         </div>
                         <div class="col-md-3 mb-10">
-                            <label for="pais_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.pais') }}</label>
+                            <label for="pais_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.ubicaciones.pais') }}</label>
                             <select
                                     id="pais_location_org"
                                     @change="refreshStates(location)"
@@ -666,7 +666,7 @@
                             </select>
                         </div>
                         <div class="col-md-4 mb-10">
-                            <label for="region_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.region') }}</label>
+                            <label for="region_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.ubicaciones.region') }}</label>
                             <select
                                     id="region_location_org"
                                     @change="refreshCities(location)"
@@ -687,7 +687,7 @@
                             </select>
                         </div>
                         <div class="col-md-3 mb-10">
-                            <label for="comuna_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.comuna') }}</label>
+                            <label for="comuna_location_org" :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.ubicaciones.comuna') }}</label>
                             <select
                                     id="comuna_location_org"
                                     v-model="location.comuna"
@@ -719,7 +719,7 @@
                                         @click="changeEsPrincipal(index)"
                                 />
                                 <label :for="'es_principal_location_org-' + index" class="custom-control-label" :style="mode==='dark'?'color: #fff':''">
-                                    {{ $t('administrador.componentes.crear_usuario.organizacion.ubicaciones.principal') }}
+                                    {{ $t('perfil_usuario.componentes.edicion_perfil.organizacion.ubicaciones.principal') }}
                                 </label>
                             </div>
                         </div>
@@ -735,7 +735,7 @@
                                     :color="'#ffffff'"
                             ></Loading>
                         </button>
-                        <button @click="back" class="btn btn-danger text-white ml-10">
+                        <button @click.prevent="back" class="btn btn-danger text-white ml-10">
                             <font-awesome-icon icon="window-close" />
                             <span class="btn-text ml-1">{{ $t('cancelar') }}</span>
                         </button>
@@ -833,7 +833,8 @@
                 professions: this.$t('perfil_usuario.componentes.edicion_perfil.usuario_experto.profesion.opciones'),
                 experiences: this.$t('perfil_usuario.componentes.edicion_perfil.usuario_experto.experiencia.opciones'),
                 areasDesempenio: this.$t('perfil_usuario.componentes.edicion_perfil.usuario_experto.area_desempenio.opciones'),
-                orgSectors: this.$t('administrador.componentes.crear_usuario.organizacion.ubicaciones.sector.opciones'),
+                orgSectors: this.$t('perfil_usuario.componentes.edicion_perfil.organizacion.ubicaciones.sector.opciones'),
+                inEdition: false,
                 loadUser: true,
                 loadBtnSave: false,
                 fullPage: false,
@@ -852,6 +853,7 @@
 
             if(this.user_id) {
                 this.getUser();
+                this.inEdition = true;
             } else {
                 this.loadUser = false;
                 if(this.$route.query.es_organizacion === '1') {
@@ -914,53 +916,90 @@
                                             })
                                             .then(() => {
                                                 this.oldUserTerms = this.currentUserTerms;
-                                                this.$toastr('success', 'Has actualizado correctamente los datos del usuario', 'Datos actualizados');
+                                                this.loadBtnSave = false;
+                                                this.$toastr('success', this.$t('administrador.componentes.crear_usuario.mensajes.exito.modificado.generico.cuerpo'), this.$t('administrador.componentes.crear_usuario.mensajes.exito.modificado.generico.titulo'));
                                             });
                                     })
                                     .catch(() => {
-                                        this.$toastr('error', 'Los temas de interés no han podido actualizarse', 'Datos no actualizados');
+                                        this.loadBtnSave = false;
+                                        this.$toastr('error', this.$t('administrador.componentes.crear_usuario.mensajes.fallido.modificado.terminos.cuerpo'), this.$t('administrador.componentes.crear_usuario.mensajes.fallido.modificado.terminos.titulo'));
                                     });
                             } else {
-                                this.$toastr('success', 'Has actualizado correctamente los datos del usuario', 'Datos actualizados');
+                                this.loadBtnSave = false;
+                                this.$toastr('success', this.$t('administrador.componentes.crear_usuario.mensajes.exito.modificado.generico.cuerpo'), this.$t('administrador.componentes.crear_usuario.mensajes.exito.modificado.generico.titulo'));
                             }
                         })
-                        .catch(() => {
-                            this.$toastr('error', 'Intenta nuevamente', 'Ha ocurrido un problema');
-                        })
-                        .finally(() => {
+                        .catch(error => {
                             this.loadBtnSave = false;
+                            let errorType = error.response.data.error;
+                            switch (errorType) {
+                                case 'USER_EMAIL_EXISTS_ERROR':
+                                    this.$toastr('error', this.$t('administrador.componentes.crear_usuario.mensajes.fallido.modificado.correo_existe.cuerpo'), this.$t('administrador.componentes.crear_usuario.mensajes.fallido.modificado.correo_existe.titulo'));
+                                    break;
+                                case 'USER_USERNAME_EXISTS_ERROR':
+                                    this.$toastr('error', this.$t('administrador.componentes.crear_usuario.mensajes.fallido.modificado.alias_existe.cuerpo'), this.$t('administrador.componentes.crear_usuario.mensajes.fallido.modificado.alias_existe.titulo'));
+                                    break;
+                                default:
+                                    this.$toastr('error', this.$t('administrador.componentes.crear_usuario.mensajes.fallido.modificado.generico.cuerpo'), this.$t('administrador.componentes.crear_usuario.mensajes.fallido.modificado.generico.titulo'));
+                                    break;
+                            }
                         });
                 } else {
-                    axios
-                        .post('/users', this.user)
-                        .then(res => {
-                            let userData = res.data.data;
+                    if(this.user.password === this.user.password_confirmation) {
+                        if(this.user.password.length >= 8 && this.user.password.length <= 20) {
+                            axios
+                                .post('/users', this.user)
+                                .then(res => {
+                                    let userData = res.data.data;
 
-                            if(this.currentUserTerms.length > 0) {
-                                let termsId = this.currentUserTerms.map(term => term.id);
-                                axios
-                                    .post('/users/' + userData.id + '/terms', {
-                                        terms_id: termsId
-                                    })
-                                    .then(() => {
-                                        userData.terms = this.currentUserTerms;
+                                    if(this.currentUserTerms.length > 0) {
+                                        let termsId = this.currentUserTerms.map(term => term.id);
+                                        axios
+                                            .post('/users/' + userData.id + '/terms', {
+                                                terms_id: termsId
+                                            })
+                                            .then(() => {
+                                                userData.terms = this.currentUserTerms;
+                                                this.refreshUser(userData);
+                                                this.inEdition = true;
+                                                this.loadBtnSave = false;
+                                                this.$toastr('success', this.$t('administrador.componentes.crear_usuario.mensajes.exito.guardado.generico.cuerpo'), this.$t('administrador.componentes.crear_usuario.mensajes.exito.guardado.generico.titulo'));
+                                            })
+                                            .catch(() => {
+                                                this.loadBtnSave = false;
+                                                this.inEdition = true;
+                                                this.$toastr('error', this.$t('administrador.componentes.crear_usuario.mensajes.fallido.guardado.terminos.cuerpo'), this.$t('administrador.componentes.crear_usuario.mensajes.fallido.guardado.terminos.titulo'));
+                                            });
+                                    } else {
                                         this.refreshUser(userData);
-                                        this.$toastr('success', 'Has registrado correctamente los datos del usuario', 'Registro exitoso');
-                                    })
-                                    .catch(() => {
-                                        this.$toastr('error', 'Los temas de interés no han podido guardarse', 'Datos no guardados')
-                                    });
-                            } else {
-                                this.refreshUser(userData);
-                                this.$toastr('success', 'Has registrado correctamente los datos del usuario', 'Registro exitoso');
-                            }
-                        })
-                        .catch(() => {
-                            this.$toastr('error', 'Intenta nuevamente', 'Ha ocurrido un problema');
-                        })
-                        .finally(() => {
+                                        this.inEdition = true;
+                                        this.loadBtnSave = false;
+                                        this.$toastr('success', this.$t('administrador.componentes.crear_usuario.mensajes.exito.guardado.generico.cuerpo'), this.$t('administrador.componentes.crear_usuario.mensajes.exito.guardado.generico.titulo'));
+                                    }
+                                })
+                                .catch(error => {
+                                    this.loadBtnSave = false;
+                                    let errorType = error.response.data.error;
+                                    switch (errorType) {
+                                        case 'USER_EMAIL_EXISTS_ERROR':
+                                            this.$toastr('error', this.$t('administrador.componentes.crear_usuario.mensajes.fallido.guardado.correo_existe.cuerpo'), this.$t('administrador.componentes.crear_usuario.mensajes.fallido.guardado.correo_existe.titulo'));
+                                            break;
+                                        case 'USER_USERNAME_EXISTS_ERROR':
+                                            this.$toastr('error', this.$t('administrador.componentes.crear_usuario.mensajes.fallido.guardado.alias_existe.cuerpo'), this.$t('administrador.componentes.crear_usuario.mensajes.fallido.guardado.alias_existe.titulo'));
+                                            break;
+                                        default:
+                                            this.$toastr('error', this.$t('administrador.componentes.crear_usuario.mensajes.fallido.guardado.generico.cuerpo'), this.$t('administrador.componentes.crear_usuario.mensajes.fallido.guardado.generico.titulo'));
+                                            break;
+                                    }
+                                });
+                        } else {
                             this.loadBtnSave = false;
-                        });
+                            this.$toastr('error', this.$t('administrador.componentes.crear_usuario.mensajes.fallido.guardado.contrasena_no_valida.cuerpo'), this.$t('administrador.componentes.crear_usuario.mensajes.fallido.guardado.contrasena_no_valida.titulo'));
+                        }
+                    } else {
+                        this.loadBtnSave = false;
+                        this.$toastr('error', this.$t('administrador.componentes.crear_usuario.mensajes.fallido.guardado.contrasena_no_coincide.cuerpo'), this.$t('administrador.componentes.crear_usuario.mensajes.fallido.guardado.contrasena_no_coincide.titulo'));
+                    }
                 }
             },
             refreshUser(userData) {
@@ -1081,7 +1120,7 @@
                 this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
             },
             back() {
-                location.replace(document.referrer);
+                this.$router.go(-1);
             }
         },
         computed: {

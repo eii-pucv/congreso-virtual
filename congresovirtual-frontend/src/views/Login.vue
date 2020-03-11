@@ -74,7 +74,7 @@
                         </p>
                         <p class="text-center" :style="mode==='dark'?'text-white':'text-primary'">
                             {{ $t('login.contenido.sin_cuenta') }}
-                            <a href="/registro" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
+                            <a href="/signup" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
                                 <u>{{ $t('login.contenido.registrar') }}</u>
                             </a>
                         </p>

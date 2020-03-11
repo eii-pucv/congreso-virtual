@@ -136,7 +136,7 @@
                                         </div>
                                     </div>
                                     <div class="text-center mt-20">
-                                        <a @click="back" class="btn text-white bg-danger">
+                                        <a @click.prevent="back" class="btn text-white bg-danger">
                                             <font-awesome-icon icon="arrow-circle-left" />
                                             <span class="btn-text">{{ $t('administrador.componentes.aporte_clasificado.atras') }}</span>
                                         </a>
@@ -212,7 +212,7 @@
                     });
             },
             back() {
-                location.replace(document.referrer);
+                this.$router.go(-1);
             }
         },
         computed: {

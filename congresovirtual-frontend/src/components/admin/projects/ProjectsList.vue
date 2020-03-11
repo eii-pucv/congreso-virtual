@@ -90,7 +90,7 @@
                                                         <a class="dropdown-item" :href="'/admin/project/' + project.id + '/analytic'">Analítica</a>
                                                         <a class="dropdown-item" style="cursor: pointer;" :href="'/admin/project/' + project.id + '/send'">Enviar correo</a>
                                                         <a class="dropdown-item" style="cursor: pointer;" :href="'/admin/project/' + project.id + '/delete'">Eliminar</a>
-                                                        <a class="dropdown-item" style="cursor: pointer;" :href="'/admin/project/' + project.id + '/documents'">Ver documentos</a>
+                                                        <a class="dropdown-item" style="cursor: pointer;" :href="'/admin/project/' + project.id + '/documents'">Ver archivos</a>
                                                         <a class="dropdown-item" @click="downloadReport(project.id)">Ver reporte</a>
                                                     </div>
                                                 </div>

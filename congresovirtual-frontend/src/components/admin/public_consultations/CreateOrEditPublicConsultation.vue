@@ -212,7 +212,7 @@
                                         :color="'#ffffff'"
                                 ></Loading>
                             </button>
-                            <button @click="back" class="btn btn-danger text-white ml-10">
+                            <button @click.prevent="back" class="btn btn-danger text-white ml-10">
                                 <font-awesome-icon icon="window-close" />
                                 <span class="btn-text" :style="mode==='dark'?'color: #fff':''"> {{ $t('cancelar') }}</span>
                             </button>
@@ -562,7 +562,7 @@
                 }
             },
             back() {
-                location.replace(document.referrer);
+                this.$router.go(-1);
             }
         },
         computed: {

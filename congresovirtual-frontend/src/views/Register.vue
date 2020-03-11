@@ -59,7 +59,6 @@
                             <div class="input-group">
                                 <input
                                         v-model="user.password"
-                                        type="password"
                                         class="form-control"
                                         :placeholder="$t('registro.contenido.placeholders.contrasena')"
                                         required
@@ -73,6 +72,7 @@
                                     </button>
                                 </div>
                             </div>
+                            <small class="text-muted d-block" :style="mode==='dark'?'color: #fff':''">{{ $t('registro.contenido.consejo_contrasena') }}</small>
                         </div>
                         <div class="form-group">
                             <input
@@ -189,43 +189,49 @@
             signup() {
                 this.loadBtnRegister = true;
                 if(this.user.password === this.user.password_confirmation) {
-                    if(this.checkTermsAndConditions) {
-                        axios
-                            .post('/auth/signup', {
-                                name: this.user.name,
-                                surname: this.user.surname,
-                                username: this.user.username,
-                                email: this.user.email,
-                                password: this.user.password,
-                                password_confirmation: this.user.password_confirmation
-                            })
-                            .then(() => {
-                                this.$toastr('success', this.$t('registro.contenido.mensajes.exito.generico.cuerpo'), this.$t('registro.contenido.mensajes.exito.generico.titulo'));
-                            })
-                            .catch(error => {
-                                let errorType = error.response.data.error;
-                                switch (errorType) {
-                                    case 'USER_EMAIL_EXISTS_ERROR':
-                                        this.error = this.$t('registro.contenido.mensajes.fallido.correo_existe.titulo') + ': ' + this.$t('registro.contenido.mensajes.fallido.correo_existe.cuerpo') + '.';
-                                        this.$toastr('error', this.$t('registro.contenido.mensajes.fallido.correo_existe.cuerpo'), this.$t('registro.contenido.mensajes.fallido.correo_existe.titulo'));
-                                        break;
-                                    case 'USER_USERNAME_EXISTS_ERROR':
-                                        this.error = this.$t('registro.contenido.mensajes.fallido.alias_existe.titulo') + ': ' + this.$t('registro.contenido.mensajes.fallido.alias_existe.cuerpo') + '.';
-                                        this.$toastr('error', this.$t('registro.contenido.mensajes.fallido.alias_existe.cuerpo'), this.$t('registro.contenido.mensajes.fallido.alias_existe.titulo'));
-                                        break;
-                                    default:
-                                        this.error = this.$t('registro.contenido.mensajes.fallido.generico.titulo') + ': ' + this.$t('registro.contenido.mensajes.fallido.generico.cuerpo') + '.';
-                                        this.$toastr('error', this.$t('registro.contenido.mensajes.fallido.generico.cuerpo'), this.$t('registro.contenido.mensajes.fallido.generico.titulo'));
-                                        break;
-                                }
-                            })
-                            .finally(() => {
-                                this.loadBtnRegister = false;
-                            });
+                    if(this.user.password.length >= 8 && this.user.password.length <= 20) {
+                        if(this.checkTermsAndConditions) {
+                            axios
+                                .post('/auth/signup', {
+                                    name: this.user.name,
+                                    surname: this.user.surname,
+                                    username: this.user.username,
+                                    email: this.user.email,
+                                    password: this.user.password,
+                                    password_confirmation: this.user.password_confirmation
+                                })
+                                .then(() => {
+                                    this.$toastr('success', this.$t('registro.contenido.mensajes.exito.generico.cuerpo'), this.$t('registro.contenido.mensajes.exito.generico.titulo'));
+                                })
+                                .catch(error => {
+                                    let errorType = error.response.data.error;
+                                    switch (errorType) {
+                                        case 'USER_EMAIL_EXISTS_ERROR':
+                                            this.error = this.$t('registro.contenido.mensajes.fallido.correo_existe.titulo') + ': ' + this.$t('registro.contenido.mensajes.fallido.correo_existe.cuerpo') + '.';
+                                            this.$toastr('error', this.$t('registro.contenido.mensajes.fallido.correo_existe.cuerpo'), this.$t('registro.contenido.mensajes.fallido.correo_existe.titulo'));
+                                            break;
+                                        case 'USER_USERNAME_EXISTS_ERROR':
+                                            this.error = this.$t('registro.contenido.mensajes.fallido.alias_existe.titulo') + ': ' + this.$t('registro.contenido.mensajes.fallido.alias_existe.cuerpo') + '.';
+                                            this.$toastr('error', this.$t('registro.contenido.mensajes.fallido.alias_existe.cuerpo'), this.$t('registro.contenido.mensajes.fallido.alias_existe.titulo'));
+                                            break;
+                                        default:
+                                            this.error = this.$t('registro.contenido.mensajes.fallido.generico.titulo') + ': ' + this.$t('registro.contenido.mensajes.fallido.generico.cuerpo') + '.';
+                                            this.$toastr('error', this.$t('registro.contenido.mensajes.fallido.generico.cuerpo'), this.$t('registro.contenido.mensajes.fallido.generico.titulo'));
+                                            break;
+                                    }
+                                })
+                                .finally(() => {
+                                    this.loadBtnRegister = false;
+                                });
+                        } else {
+                            this.loadBtnRegister = false;
+                            this.error = this.$t('registro.contenido.mensajes.fallido.term_cond_no_aceptadas.titulo') + ': ' + this.$t('registro.contenido.mensajes.fallido.term_cond_no_aceptadas.cuerpo') + '.';
+                            this.$toastr('error', this.$t('registro.contenido.mensajes.fallido.term_cond_no_aceptadas.cuerpo'), this.$t('registro.contenido.mensajes.fallido.term_cond_no_aceptadas.titulo'));
+                        }
                     } else {
                         this.loadBtnRegister = false;
-                        this.error = this.$t('registro.contenido.mensajes.fallido.term_cond_no_aceptadas.titulo') + ': ' + this.$t('registro.contenido.mensajes.fallido.term_cond_no_aceptadas.cuerpo') + '.';
-                        this.$toastr('error', this.$t('registro.contenido.mensajes.fallido.term_cond_no_aceptadas.cuerpo'), this.$t('registro.contenido.mensajes.fallido.term_cond_no_aceptadas.titulo'));
+                        this.error = this.$t('registro.contenido.mensajes.fallido.contrasena_no_valida.titulo') + ': ' + this.$t('registro.contenido.mensajes.fallido.contrasena_no_valida.cuerpo') + '.';
+                        this.$toastr('error', this.$t('registro.contenido.mensajes.fallido.contrasena_no_valida.cuerpo'), this.$t('registro.contenido.mensajes.fallido.contrasena_no_valida.titulo'));
                     }
                 } else {
                     this.loadBtnRegister = false;

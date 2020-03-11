@@ -102,40 +102,16 @@ const routes = [
         component: () => import('./views/Page.vue')
     },
     {
-        path: '/about',
-        name: 'About',
-        props: true,
-        component: () => import('./views/About.vue')
-    },
-    {
-        path: '/faq',
-        name: 'FAQ',
-        props: true,
-        component: () => import('./views/Faq.vue')
-    },
-    {
-        path: '/instructive',
-        name: 'Instructive',
-        props: true,
-        component: () => import('./views/Instructive.vue')
-    },
-    {
-        path: '/registro',
+        path: '/signup',
         name: 'Register',
         props: true,
         component: () => import('./views/Register.vue')
     },
     {
         path: '/confirmation',
-        name: 'Confirmation',
+        name: 'UserConfirmation',
         props: true,
-        component: () => import('./components/user/confirmacionUsuario.vue')
-    },
-    {
-        path: '/reset',
-        name: 'Recuperar Clave',
-        props: true,
-        component: () => import('./views/ResetPassword.vue')
+        component: () => import('./components/user/UserConfirmation.vue')
     },
     {
         path: '/login',
@@ -144,16 +120,22 @@ const routes = [
         component: () => import('./views/Login.vue')
     },
     {
-        path: '/request',
-        name: 'requestResetPassword',
-        props: true,
-        component: () => import('./views/RequestResetPassword.vue')
-    },
-    {
         path: '/auth/:provider/callback',
         component: {
             template: '<div class="auth-component"></div>'
         }
+    },
+    {
+        path: '/reset',
+        name: 'ResetPassword',
+        props: true,
+        component: () => import('./views/ResetPassword.vue')
+    },
+    {
+        path: '/request',
+        name: 'RequestResetPassword',
+        props: true,
+        component: () => import('./views/RequestResetPassword.vue')
     },
     {
         path: '/search',
@@ -161,33 +143,10 @@ const routes = [
         component: () => import('./views/Search.vue')
     },
     {
-        path: '/video-tematic',
-        props: true,
-        component: () => import('./views/TematicVideo.vue')
-    },
-    {
-        path: '/glosario',
-        name: 'Glosario',
-        props: true,
-        component: () => import('./views/Glosario.vue')
-    },
-    {
-        path: '/somos',
-        name: 'Somos',
-        props: true,
-        component: () => import('./views/Somos.vue')
-    },
-    {
         path: '/contact',
         name: 'Contact',
         props: true,
         component: () => import('./views/Contact.vue')
-    },
-    {
-        path: '/reglamento',
-        name: 'Reglamento',
-        props: true,
-        component: () => import('./views/reglamento.vue')
     },
     {
         path: '/user',

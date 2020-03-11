@@ -99,7 +99,7 @@
             "resultados": "Total results",
             "limpiar": "Clean Filters",
             "buscar": "Search",
-            "no_hay_resultados": "No results found",
+            "no_hay_resultados": "No results found.",
             "ver_mas": "See more",
             "cargar": "Load More",
             "tipo_objeto": "LAW PROJECT"
@@ -191,9 +191,28 @@
                 "cargando": "Loading word cloud",
                 "no_carga": "We're sorry, there was an error loading word cloud."
             },
-            "documentos": {
-                "texto": "The following documents have been made available by the Virtual Congress administration for the possession of more information when participating in the projects.",
-                "descargar": "Download"
+            "archivos": {
+                "texto": "The following files have been made available by the Virtual Congress administration for the possession of more information when participating in the projects.",
+                "descargar": "Download",
+                "no_hay_archivos": "No files found for this project of law.",
+                "mensajes": {
+                    "exito": {
+                        "descargado": {
+                            "generico": {
+                                "titulo": "The file was successfully downloaded",
+                                "cuerpo": "The project file has been successfully downloaded"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "descargado": {
+                            "generico": {
+                                "titulo": "Error downloading file",
+                                "cuerpo": "Could not download project file"
+                            }
+                        }
+                    }
+                }
             }
         }
     },
@@ -266,6 +285,7 @@
                 "contrasena": "Password",
                 "confirmar_contrasena": "Confirm password"
             },
+            "consejo_contrasena": "The password must contain between 8 and 20 characters.",
             "leido": "I have read the",
             "terminos": "terms and conditions",
             "registrar": "Register",
@@ -296,6 +316,10 @@
                         "titulo": "Sign up failed",
                         "cuerpo": "Terms and conditions have not been accepted"
                     },
+                    "contrasena_no_valida": {
+                        "titulo": "Sign up failed",
+                        "cuerpo": "The password must contain between 8 and 20 characters"
+                    },
                     "contrasena_no_coincide": {
                         "titulo": "Sign up failed",
                         "cuerpo": "The password is not well confirmed"
@@ -315,29 +339,75 @@
             "intentar": "and try again"
         }
     },
-    "reiniciar_contrasena": {
+    "solicitar_recuperacion_contrasena": {
         "breadcumb": {
             "inicio": "Home",
-            "reinicio": "Password reset"
+            "solicitud": "Password recovery request"
         },
         "contenido": {
-            "titulo": "Reset your password",
-            "consejo1": "The password must contain between 8 and 20 characters.",
-            "consejo2": "Tips for passwords:",
-            "consejo3": "Do not put personal data or common words as a password.",
-            "consejo4": "Do not use common words or patterns as a password.",
-            "consejo5": "Do not put dates easy to discover (example: Your birthday).",
-            "reiniciar": "Reset password"
+            "correo": "Enter your user email address",
+            "placeholder": "Email address",
+            "solicitar": "Request recovery email"
+        },
+        "mensajes": {
+            "exito": {
+                "generico": {
+                    "titulo": "Recovery request successfully processed",
+                    "cuerpo": "You have been sent an email to continue the recovery process"
+                }
+            },
+            "fallido": {
+                "generico": {
+                    "titulo": "Recovery request failed",
+                    "cuerpo": "Check that the email address is correct and try again"
+                }
+            }
         }
     },
-    "request_reset": {
+    "recuperar_contrasena": {
         "breadcumb": {
             "inicio": "Home",
-            "resetear": "Reset password"
+            "recuperar": "Recover password"
         },
         "contenido": {
-            "correo": "Enter your user email",
-            "reiniciar": "Reset password"
+            "titulo": "Recover password",
+            "placeholders": {
+                "correo": "Email address",
+                "nueva_contrasena": "New password",
+                "confirmar_contrasena": "Confirm password"
+            },
+            "consejos": "Tips for creating a password:",
+            "consejo1": "The password must contain between 8 and 20 characters (mandatory).",
+            "consejo2": "Do not put personal data or common words.",
+            "consejo3": "Do not use easy words or patterns to guess.",
+            "consejo4": "Do not use easy dates to discover (example: your birthday).",
+            "recuperar": "Recover password"
+        },
+        "mensajes": {
+            "exito": {
+                "generico": {
+                    "titulo": "Password recovery successful",
+                    "cuerpo": "You have successfully recovered your password"
+                }
+            },
+            "fallido": {
+                "generico": {
+                    "titulo": "Password recovery failed",
+                    "cuerpo": "Check that the email address is correct and that it has not been too long since you received the recovery email"
+                },
+                "contrasena_no_valida": {
+                    "titulo": "Password recovery failed",
+                    "cuerpo": "The password must contain between 8 and 20 characters"
+                },
+                "contrasena_no_coincide": {
+                    "titulo": "Password recovery failed",
+                    "cuerpo": "The password is not well confirmed"
+                },
+                "sin_token": {
+                    "titulo": "Password recovery failed",
+                    "cuerpo": "There is no token in the request or the token is invalid"
+                }
+            }
         }
     },
     "login": {
@@ -418,7 +488,7 @@
         },
         "componentes": {
             "proyectos_interes": {
-                "no_hay_resultados": "No projects of your interest found"
+                "no_hay_resultados": "No projects of your interest found."
             },
             "edicion_perfil": {
                 "titulo": "Personal Information",
@@ -532,12 +602,90 @@
                     },
                     "temas": "Main themes of his work"
                 },
+                "registrar_organizacion": "Do you want to register an organization?",
+                "organizacion": {
+                    "titulo": "Organization Registration",
+                    "nombre": "Name",
+                    "correo": "Email",
+                    "enlace": "Link",
+                    "per_jur": "Do you have legal personality?",
+                    "rut": "RUT/DNI",
+                    "representante": "Legal Representative Name",
+                    "tipo": {
+                        "titulo": "Type of organization",
+                        "con_fines_lucro": "For profit",
+                        "sin_fines_lucro": "Non profit"
+                    },
+                    "miembros": {
+                        "titulo": "Members of the Organization",
+                        "nombre": "Name",
+                        "apellidos": "Surnames",
+                        "rut": "RUT/DNI"
+                    },
+                    "ubicaciones": {
+                        "titulo": "Organization Locations",
+                        "direccion": "Direction",
+                        "sector": {
+                            "titulo": "Sector",
+                            "opciones": [
+                                { "id": 1, "label": "Urban" },
+                                { "id": 2, "label": "Rural" }
+                            ]
+                        },
+                        "pais": "Country",
+                        "region": "Region/State",
+                        "comuna": "City/commune",
+                        "principal": "Mark this location as principal"
+                    }
+                },
                 "cambio_contrasena": {
                     "titulo": "Change of Password",
                     "actual": "Enter your current password",
                     "nueva": "Enter new password",
                     "confirmar": "Repeat the new password",
-                    "consejo": "The password must be 8-20 characters."
+                    "consejo": "The password must contain between 8 and 20 characters."
+                },
+                "mensajes": {
+                    "exito": {
+                        "generico": {
+                            "titulo": "Profile updated successfully",
+                            "cuerpo": "You have successfully updated your profile data"
+                        },
+                        "cambio_contrasena": {
+                            "titulo": "Successful password change",
+                            "cuerpo": "You have successfully changed your password"
+                        }
+                    },
+                    "fallido": {
+                        "generico": {
+                            "titulo": "Error updating profile",
+                            "cuerpo": "Failed to update your profile data"
+                        },
+                        "terminos": {
+                            "titulo": "Error updating profile",
+                            "cuerpo": "The topics of interest could not be updated"
+                        },
+                        "correo_existe": {
+                            "titulo": "Error updating profile",
+                            "cuerpo": "Another user account with this email address already exists"
+                        },
+                        "alias_existe": {
+                            "titulo": "Error updating profile",
+                            "cuerpo": "Another user account with this alias already exists"
+                        },
+                        "cambio_contrasena": {
+                            "titulo": "Password change failed",
+                            "cuerpo": "Check that your current password is correct and try again"
+                        },
+                        "contrasena_no_valida": {
+                            "titulo": "Password change failed",
+                            "cuerpo": "The password must contain between 8 and 20 characters"
+                        },
+                        "contrasena_no_coincide": {
+                            "titulo": "Password change failed",
+                            "cuerpo": "The password is not well confirmed"
+                        }
+                    }
                 }
             },
             "temas_interes": {
@@ -614,193 +762,6 @@
             }
         }
     },
-    "faq": {
-        "breadcumb": {
-            "inicio": "Home",
-            "faq": "Frequent questions"
-        },
-        "contenido": {
-            "temas": "Themes",
-            "uso_general": {
-                "titulo1": "General use of the site",
-                "titulo2": "General questions about the use of the site",
-                "participar": {
-                    "titulo": "How do I participate in the Virtual Congress site.",
-                    "descripcion": "To participate in the Virtual Congress site, you must first create a user account, in which you will be asked for important user information, after successfully creating the user account, you already have all the features offered by the site, only it remains to look for the projects of interest in which you want to participate and be a Virtual Congressman."
-                },
-                "postular_proyectos": {
-                    "titulo": "How do I apply for a project of law to Virtual Congress.",
-                    "descripcion": "To apply for a project of law to the site, the following steps must be followed: Log in with the user account (if you do not have a user account before, go to create one). Then go to the list of available projects to be nominated, these projects will be here, either due to inactivity, or have been dispatched before. Select the project that you want to be put into voting, as well as justify the request of the project in question. After this the project will be put to a vote and discussion for the other users."
-                },
-                "postular_urgencia": {
-                    "titulo": "How do I apply for an urgency on a project of law to Virtual Congress.",
-                    "descripcion": "To postulate an urgency on a certain project, the following steps must be followed: Log in with the user account (if you do not have a user account before, go to create one). Then go to the list of available projects to be nominated, these projects will be here, either due to inactivity, or have been dispatched before. Select the project that you want to be placed in an ugencie, you must specify the reason for the ugencie. After this the project will be entered into the Virtual Congress system to be voted either against or in favor of the project. If the urgent project obtains a good reception, this will be notified to the applicant to upload more information to the project, in order to be able to endorse and justify the reason for the request, either by the means that he deems most convenient, for example video, instructive, etc."
-                },
-                "revisar_proyectos": {
-                    "titulo": "Where can I review the projects of law made available for opinion / debate / vote.",
-                    "descripcion": "To review the projects made available to users, you should go to the voting section and all the projects of law will be deployed which are in vote, in addition to showing the votes they have so far and important information about them."
-                },
-                "olvidado_contrasena": {
-                    "titulo": "I forgot my password or it doesn't work for me, what can I do?",
-                    "descripcion": "You can request a new password to have a new password sent to your email. We recommend you try to recover your password with all the email addresses you have."
-                },
-                "rut_en_uso": {
-                    "titulo": "It tells me that my DNI/RUT is already in use",
-                    "descripcion": "If you try to verify your account and an error message appears saying that the 'DNI is already in use', the first thing you have to check is if you have another user account that you have verified with your ID. Keep in mind that you can have many user accounts, but only one with your ID data, which will be with which you can support and vote on proposals, what we call a verified account."
-                }
-            },
-            "proyectos_ley": {
-                "titulo1": "Projects of law",
-                "titulo2": "Questions about projects of law",
-                "dudas_uber": {
-                    "titulo": "Doubts about the Uber project of law.",
-                    "descripcion": "To participate in the Virtual Congress site, you must first create a user account, in which you will be asked for important user information, after successfully creating the user account, you already have all the features offered by the site, only it remains to look for the projects of interest in which you want to participate and be a Virtual Congressman."
-                },
-                "dudas_clima": {
-                    "titulo": "Doubts about the project of law on climate change.",
-                    "descripcion": "To participate in the Virtual Congress site, you must first create a user account, in which you will be asked for important user information, after successfully creating the user account, you already have all the features offered by the site, only it remains to look for the projects of interest in which you want to participate and be a Virtual Congressman."
-                },"dudas_goles": {
-                    "titulo": "Doubts about the goal project of law for everyone.",
-                    "descripcion": "To participate in the Virtual Congress site, you must first create a user account, in which you will be asked for important user information, after successfully creating the user account, you already have all the features offered by the site, only it remains to look for the projects of interest in which you want to participate and be a Virtual Congressman."
-                },
-                "dudas_glaciares": {
-                    "titulo": "Doubts about the glacier protection project of law.",
-                    "descripcion": "To participate in the Virtual Congress site, you must first create a user account, in which you will be asked for important user information, after successfully creating the user account, you already have all the features offered by the site, only it remains to look for the projects of interest in which you want to participate and be a Virtual Congressman."
-                },"dudas_organos": {
-                    "titulo": "Doubts about the organ donation project of law.",
-                    "descripcion": "To participate in the Virtual Congress site, you must first create a user account, in which you will be asked for important user information, after successfully creating the user account, you already have all the features offered by the site, only it remains to look for the projects of interest in which you want to participate and be a Virtual Congressman."
-                },
-                "dudas_bullying": {
-                    "titulo": "Doubts about the project of law against bullying.",
-                    "descripcion": "To participate in the Virtual Congress site, you must first create a user account, in which you will be asked for important user information, after successfully creating the user account, you already have all the features offered by the site, only it remains to look for the projects of interest in which you want to participate and be a Virtual Congressman."
-                }
-            },
-            "consultas_publicas": {
-                "titulo1": "Public consultations",
-                "titulo2": "Questions about public consultations",
-                "consulta1": {
-                    "titulo": "Questions about public consultation 1",
-                    "descripcion": "To participate in the Virtual Congress site, you must first create a user account, in which you will be asked for important user information, after successfully creating the user account, you already have all the features offered by the site, only it remains to look for the projects of interest in which you want to participate and be a Virtual Congressman."
-                }
-            }
-        }
-    },
-    "instructivo": {
-        "breadcumb": {
-            "inicio": "Inicio",
-            "instructivo": "Instructive"
-        },
-        "contenido": {
-            "inicio_sesion": {
-                "titulo": "Login",
-                "descripcion": {
-                    "parrafo1": "In order to participate in the virtual congress website, it is necessary to register and subsequently enter account with their corresponding data, this will allow to have available the features offered by the site.",
-                    "parrafo2": "If you do not have an account, you can view the projects of law anyway."
-                }
-            },
-            "postulacion_proyectos": {
-                "titulo": "Postulation of projects of law",
-                "descripcion": "If you wish to apply for a project of law, you must go to the main virtual congress page and you must enter the option at the bottom of the “make a proposal” page, once your proposal has been submitted, proceed to submit it."
-            },
-            "opinion/debatir": {
-                "titulo": "Opinion / debate / vote on projects of law",
-                "descripcion": "To review and interact with the projects of law, you must go to Projects of law. In voting in the navigation bar, then you must select a project and then make a vote or comment which will be registered in your respective account."
-            },
-            "olvido_contrasena": {
-                "titulo": "Forget password",
-                "descripcion": "A new password can be requested from the login page, stating that you forgot your password, the reassignment will be sent to your email."
-            }
-        },
-        "titulo": "Instructive: Virtual Congress"
-    },
-    "reglamento": {
-        "breadcumb": {
-            "inicio": "Home",
-            "reglamento": "regulation"
-        },
-        "contenido": {
-            "parrafo1": {
-                "titulo": "Paragraph 1st Virtual Congress",
-                "descripcion": "The National Congress of Chile recognizes citizen participation as a valuable as a valuable element of judgment to increase the efficiency in the decision-making of the public functions that the Political Constitution and the laws entrust to it. Below are the provisions of the Regulations regarding the Virtual Congress and Consultations."
-            },
-            "parrafo2": {
-                "titulo": "Paragraph 2nd Virtual Congress",
-                "descripcion": {
-                    "parrafo1": "Article 15. Concept. The Virtual Congress is a digital platform that aims to facilitate interaction between parliamentarians and citizens, allowing them to rule on projects of law in legislative process and, where appropriate, participate in public consultations that are conducted according to the rules established in this regulation.",
-                    "parrafo2": "For this purpose, the option of expressing oneself in favor or against and, where appropriate, of justifying that position and making specific proposals on the matter will be offered.",
-                    "parrafo3": "Article 16. Procedure. The projects of law that may raise greater citizen interest according to the instructions for using this tool will be incorporated into the Virtual Congress, preferring those in respect of which the discussion in general in commission has begun, or is close to its beginning, with the purpose of having its results known by the respective commission before the project is voted by it.",
-                    "parrafo4": "The selection will be made by the Bicameral Transparency Group, the administrative units in charge of citizen participation, communications or press and the secretaries of commissions, which will prepare a summary of the project of law in clear language, as well as questions regarding central aspects of the same that will be submitted to the public pronouncement. They may request technical support from the Library of the National Congress or other suitable agencies that guarantee the necessary neutrality of the consultations.",
-                    "parrafo5": "The incorporation of a new project of law to the Virtual Congress will be published on the institutional electronic site, notwithstanding the dissemination by other means, such as social networks or electronic communications addressed to the persons registered in this modality of participation.",
-                    "parrafo6": "Once the deadline is set, the unit in charge of citizen participation will systematize the responses and contributions received and send them with an analytical summary to the secretariat of the commission in which the project of law is based, so that it is informed to the commission about the results obtained. This document will be published on the institutional website and its result will be recorded in the commission's report."
-                }
-            },
-            "parrafo3": {
-                "titulo": "Párrafo 3°. Consultas Públicas",
-                "descripcion": {
-                    "parrafo1": "Article 17. Concept. Public consultations are virtual, non-binding, public and open participation mechanisms whereby the Chamber of Deputies or a commission consults the citizens about a project of law or a matter of a legislative nature within their competence.",
-                    "parrafo2": "Article 18. Citizen initiative. Any person or organization may request the conduct of a citizen consultation about a project of law in process.",
-                    "parrafo3": "The administrative unit in charge of citizen participation will inform the parliamentary committees or the respective commission if the project is based on it. The pronouncement on the request must be issued in the first session in which this is possible.",
-                    "parrafo4": "Article 19. Procedure. The decision to carry out the public consultation will be informed to the unit in charge of citizen participation, so that it can be convened through the institutional electronic site, social networks and people registered in the Virtual Congress.",
-                    "parrafo5": "The call must indicate its purpose, a minute on the subject in public consultation, the way to participate, the contact information to request clarifications and the period for which it will be open, which may be extended for up to thirty consecutive days.",
-                    "parrafo6": "The consultations will be carried out using the Virtual Congress platform, through a digital form, which will contain one or more short questions written in clear language, which will be prepared by the unit in charge of citizen participation in conjunction with the secretariat of the corresponding commission according to the subject.",
-                    "parrafo7": "The unit in charge of citizen participation will systematize the opinions received and send them together with a summary to the body that agreed to conduct the consultation for evaluation. If the consultation fell on a project of law, the result will be included in the report of the respective commission. In any case, the document that accounts for the public consultation and its result will be published on the institutional website."
-                }
-            }
-        },
-        "titulo": "Regulation"
-    },
-    "glosario": {
-        "breadcumb": {
-            "inicio": "Home",
-            "glosario": "Glosary"
-        },
-        "contenido": {
-            "iniciativa": {
-                "titulo": "Initiative.",
-                "descripcion": "Laws can have two types of origin these are: in the Chamber of Deputies or in the Senate, by message directed by the President of the Republic or by motion of any of its members. With this in mind the President of the Republic can send a project to the National Congress for discussion. This is the so-called 'message'  or 'presidential message'. Also, it can be generated by the parliamentarians themselves, in which case it receives the name of “motion”."
-            },
-            "primer_tramite": {
-                "titulo": "First constitutional process.",
-                "descripcion": "This is the name of the legislative process that takes place in the chamber of origin.At the beginning of each session of the room, the entry of the projects that have been presented by the President of the Republic or by the parliamentarians is realized. Then, at the proposal of the President of the respective Corporation, the room sends the project to one or more commissions to be analyzed in its general aspects by parliamentarians specialized in the matter, or that there is unanimous agreement of the room to skip this procedure, except That it is a project of law that must be analyzed by the finance commission of the Senate or the Chamber of Deputies. Once the project has been studied in general, the commission reports its conclusions to the Chamber, which discusses and decides whether to approve or reject the idea of ​​legislating on it. This regulatory procedure is known as a general discussion, whose objective is to accept or reject the entire project of law, considering its fundamental ideas and admit to discussion the amendments or indications that are presented on the project, by the President of the Republic and the Parliamentarians If no indications have been submitted, the project is deemed approved without the need for the following discussion." 
-            },
-            "segundo_tramite": {
-                "titulo": "Second constitutional process.",
-                "descripcion": "Corresponds to the legislative processing phase that takes place in the review chamber. Once the project has been approved in the Chamber of Origin, it passes to the Review Chamber (which will be the Senate if it is a project of the Chamber of Deputies, and vice versa), which proceeds in the same way as in the first Constitutional Procedure. The Review Chamber studies the project in commissions, and votes in the room, both in general, and in particular, reviewing the entire articles of the project. She can approve, modify or reject the project of law from the Chamber of Origin. If the project is approved in full in equal terms by the Review Chamber, it is sent to the President of the Republic who, if he also approves it, will sign the project so that it becomes law, providing for its promulgation. The new law will enter into force when published in the Official Gazette, unless the same text indicates another effective date." 
-            },
-            "comisiones_mixtas": {
-                "titulo": "Mixed commissions.",
-                "descripcion": "Mixed commissions are created when agreements between the Chambers are not produced. The disagreement between them - which gives rise to the mixed commission."
-            },
-            "promulgacion": {
-                "titulo": "Promulgation.",
-                "descripcion": "Approved the project of law by the President of the Republic, within a period of 10 days must issue a decree, which is called 'promulgation decree.' In this, the existence of the law is declared, ceasing to be a mere project and ordered to be fulfilled."
-            },
-            "urgencias": {
-                "titulo": "Urgencies",
-                "descripcion": "The processing of a law is not subject to a certain time, therefore its delay will depend on the degree of difficulty that it finds in the stages of the process of its formation. However, the President of the Republic may present the urgency for the dispatch of a project of law, in one or all of its procedures, in the corresponding Message or through an official letter addressed to the President of the respective Chamber or to the Senate when the project was in mixed commission. These deadlines are called emergencies and they determine the order of the discussion table."
-            }
-        },
-        "titulo": "Glossary of general terms to better understand the site."
-    },
-    "somos": {
-        "breadcumb": {
-            "inicio": "Home",
-            "somos": "About us"
-        },
-        "contenido": {
-            "parrafo1": "The Chilean Senate created a technological tool called Virtual Senator in 2003, which aimed to make citizens know about the process of law formation. Over time, it went from being an education platform to one of citizen participation in the legislative process with more than 120 thousand people registered.",
-            "parrafo2": "In 2018, seeing the need to improve and promote the processes of citizen participation in the National Congress, the ",
-            "link_parrafo2": "Bicameral Transparency Group",
-            "parrafo2_2": ", He obtained support from the Inter-American Development Bank (IDB) to develop the Virtual Congress. This is how the Virtual Senator was updated in design, functionalities and data analysis so that citizen participation is visualized and the debate on the projects of law is enriched. User comments may become parliamentary indications in the projects of law.",
-            "parrafo3": "The Virtual Congress is in charge of a Committee composed of the Bicameral Transparency Group, the citizen participation, communications / press units and the commission secretariats of both Corporations. In addition, it has the constant support of the IT departments of the Senate and the Chamber of Deputies.",
-            "parrafo4": "As mentioned, this is a project funded by the IDB and is available for sharing with other countries in the region.",
-            "parrafo5": "To know the functions of the Chamber of Deputies ",
-            "link_parrafo5": "click here",
-            "y": " and of the Senate ",
-            "link2_parrafo5": "here"
-        },
-        "titulo": "About us?"
-    },
     "search": {
         "titulo": "General Search Engine",
         "buscar_placeholder": "Insert text here",
@@ -821,7 +782,7 @@
         "resultados": "Total results",
         "limpiar": "Clean Filters",
         "buscar": "Search",
-        "no_hay_resultados": "No results found",
+        "no_hay_resultados": "No results found.",
         "ver_mas": "See more",
         "proyecto": "LAW PROJECT",
         "articulo": "ARTICLE",
@@ -900,7 +861,7 @@
                 "crear": "Create a Page"
             },
             "configuracion": {
-                "titulo": "Settings",
+                "titulo": "Website Settings",
                 "config": "General Settings",
                 "menu": "Main Menu Settings",
                 "footer": "Footer Settings"
@@ -1196,12 +1157,55 @@
                 "datos": "Data by vote",
                 "seccion": "In the next section you can see a graphical analysis of the different votes made. Either in the general vote, as separated according to general ideas and articles."
             },
-            "documentos": {
-                "titulo": "Upload Document",
+            "archivos_proyecto": {
+                "titulo": "Upload Files to the Project",
                 "archivo": "File",
                 "subir": "Upload",
+                "no_hay_archivos": "No files found for this project of law.",
                 "descargar": "Download",
-                "eliminar": "Delete"
+                "eliminar": "Delete",
+                "mensajes": {
+                    "exito": {
+                        "descargado": {
+                            "generico": {
+                                "titulo": "The file was successfully downloaded",
+                                "cuerpo": "The project file has been successfully downloaded"
+                            }
+                        },
+                        "guardado": {
+                            "generico": {
+                                "titulo": "The file was saved successfully",
+                                "cuerpo": "The project file has been successfully uploaded"
+                            }
+                        },
+                        "eliminado": {
+                            "generico": {
+                                "titulo": "The file was successfully deleted",
+                                "cuerpo": "The project file has been successfully deleted"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "descargado": {
+                            "generico": {
+                                "titulo": "Error downloading file",
+                                "cuerpo": "Could not download project file"
+                            }
+                        },
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error saving file",
+                                "cuerpo": "The project file could not be uploaded, it may be because it exceeds the maximum acceptable size or because its format is not allowed"
+                            }
+                        },
+                        "eliminado": {
+                            "generico": {
+                                "titulo": "Error deleting file",
+                                "cuerpo": "Could not delete project file"
+                            }
+                        }
+                    }
+                }
             },
             "eliminar_usuario": {
                 "modal_eliminacion": {
@@ -1230,37 +1234,66 @@
                     "confirme": "Confirm password"
                 },
                 "activo": "Do you want the user to be active?",
-                "registrar_organizacion": "Do you want to register an organization?",
-                "organizacion": {
-                    "titulo": "Organization Registration",
-                    "nombre": "Name",
-                    "correo": "Email",
-                    "enlace": "Link",
-                    "per_jur": "Do you have legal personality?",
-                    "rut": "RUT/DNI",
-                    "representante": "Legal Representative Name",
-                    "tipo": {
-                        "titulo": "Type of organization",
-                        "con_fines_lucro": "For profit",
-                        "sin_fines_lucro": "Non profit"
-                    },
-                    "miembros": {
-                        "titulo": "Members of the Organization",
-                        "apellidos": "Surnames"
-                    },
-                    "ubicaciones": {
-                        "titulo": "Organization Locations",
-                        "direccion": "Direction",
-                        "sector": {
-                            "titulo": "Sector",
-                            "opciones": [
-                                { "id": 1, "label": "Urban" },
-                                { "id": 2, "label": "Rural" }
-                            ]
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "User saved successfully",
+                                "cuerpo": "You have successfully registered user data"
+                            }
                         },
-                        "principal": "Mark this location as principal",
-                        "seleccione1": "Select country first",
-                        "seleccione2": "Select the region first"
+                        "modificado": {
+                            "generico": {
+                                "titulo": "User updated successfully",
+                                "cuerpo": "You have successfully updated user data"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error saving user",
+                                "cuerpo": "Could not save user data"
+                            },
+                            "terminos": {
+                                "titulo": "Error saving user",
+                                "cuerpo": "The topics of interest of the user interest could not be saved"
+                            },
+                            "correo_existe": {
+                                "titulo": "Error saving user",
+                                "cuerpo": "Another user account with this email address already exists"
+                            },
+                            "alias_existe": {
+                                "titulo": "Error saving user",
+                                "cuerpo": "Another user account with this alias already exists"
+                            },
+                            "contrasena_no_valida": {
+                                "titulo": "Error saving user",
+                                "cuerpo": "The password must contain between 8 and 20 characters"
+                            },
+                            "contrasena_no_coincide": {
+                                "titulo": "Error saving user",
+                                "cuerpo": "The password is not well confirmed"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error updating user",
+                                "cuerpo": "Failed to update user data"
+                            },
+                            "terminos": {
+                                "titulo": "Error updating user",
+                                "cuerpo": "The topics of interest of the user could not be updated"
+                            },
+                            "correo_existe": {
+                                "titulo": "Error updating user",
+                                "cuerpo": "Another user account with this email address already exists"
+                            },
+                            "alias_existe": {
+                                "titulo": "Error updating user",
+                                "cuerpo": "Another user account with this alias already exists"
+                            }
+                        }
                     }
                 }
             },

@@ -2,7 +2,7 @@
     <div class="bg-indigo-light-5 d-flex flex-column min-vh-100">
         <Preload></Preload>
         <Navbar :userRol="userRol" :isLoggedIn="isLoggedIn"></Navbar>
-        <router-view></router-view>
+        <router-view :key="$route.fullPath"></router-view>
         <Footer></Footer>
     </div>
 </template>

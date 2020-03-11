@@ -40,10 +40,6 @@
         components: {
             PublicConsultationsList
         },
-        data() {
-            return { };
-        },
-        methods: { },
         mounted() {
             if(this.$store.getters.modo_oscuro === 'dark') {
                 this.mode = 'dark';

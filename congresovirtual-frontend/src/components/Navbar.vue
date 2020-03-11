@@ -4,7 +4,7 @@
             <div class="accordion" id="accordion_1">
                 <Slide ref="Slide" disableOutsideClick>
                     <a v-if="!isLoggedIn" class="nav-item pa-0 d-lg-none">
-                        <router-link class="nav-link btn btn-outline-light mx-1 d-lg-none" :to="{ path: '/registro' }">
+                        <router-link class="nav-link btn btn-outline-light mx-1 d-lg-none" :to="{ path: '/signup' }">
                             <font-awesome-icon icon="user-plus"></font-awesome-icon>{{ $t('navbar.registrar') }}
                         </router-link>
                         <router-link class="nav-link btn btn-light mx-1 d-lg-none" :to="{ path: '/login' }">
@@ -50,20 +50,20 @@
                                 data-parent="#accordion_1"
                                 role="tabpanel"
                         >
-                            <a
+                            <router-link
                                     v-for="subcategory in category.subcategorias"
                                     :key="subcategory.id"
                                     class="card-body pa-0 my-10 ml-10 text-white d-block"
-                                    :href="subcategory.url"
+                                    :to="{ path: subcategory.url }"
                             >
                                 {{ subcategory.text }}
-                            </a>
+                            </router-link>
                         </div>
                     </div>
                     <div class="d-block" v-if="isMobileDevice">
                         <ul class="navbar-nav">
                             <li v-if="!isLoggedIn" class="nav-item mb-10">
-                                <router-link class="nav-link btn btn-outline-light mx-1 d-none d-lg-block" :to="{ path: '/registro' }">
+                                <router-link class="nav-link btn btn-outline-light mx-1 d-none d-lg-block" :to="{ path: '/signup' }">
                                     <font-awesome-icon icon="user-plus" size="lg"></font-awesome-icon> {{ $t('navbar.registrar') }}
                                 </router-link>
                             </li>
@@ -98,7 +98,7 @@
             </a>
             <ul class="navbar-nav top-right">
                 <li v-if="!isLoggedIn" class="nav-item">
-                    <router-link class="nav-link btn btn-outline-light mx-1 d-none d-lg-block" :to="{ path: '/registro' }">
+                    <router-link class="nav-link btn btn-outline-light mx-1 d-none d-lg-block" :to="{ path: '/signup' }">
                         <font-awesome-icon icon="user-plus" size="lg"></font-awesome-icon> {{ $t('navbar.registrar') }}
                     </router-link>
                 </li>
@@ -207,6 +207,9 @@
                     })
                     .catch(() => {
                         this.$toastr('error', this.$t('navbar.cerrar_sesion.mensajes.fallido.generico.cuerpo'), this.$t('navbar.cerrar_sesion.mensajes.fallido.generico.titulo'));
+                    })
+                    .finally(() => {
+                        this.$router.push('/');
                     });
             },
             search() {

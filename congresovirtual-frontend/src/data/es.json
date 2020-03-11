@@ -99,7 +99,7 @@
             "resultados": "Resultados totales",
             "limpiar": "Limpiar Filtros",
             "buscar": "Buscar",
-            "no_hay_resultados": "No se han encontrado resultados",
+            "no_hay_resultados": "No se han encontrado resultados.",
             "ver_mas": "Ver más",
             "cargar": "Cargar Más",
             "tipo_objeto": "PROYECTO DE LEY"
@@ -191,9 +191,28 @@
                 "cargando": "Cargando nube de palabras",
                 "no_carga": "Lo lamentamos, ha ocurrido un error al cargar la nube de palabras."
             },
-            "documentos": {
-                "texto": "Los siguientes documentos se han dejado a disposición por parte de la administración de Congreso Virtual para la tenencia de mayores antecedentes al momento de participar en los proyectos.",
-                "descargar": "Descargar"
+            "archivos": {
+                "texto": "Los siguientes archivos se han dejado a disposición por parte de la administración de Congreso Virtual para la tenencia de mayores antecedentes al momento de participar en los proyectos.",
+                "descargar": "Descargar",
+                "no_hay_archivos": "No se han encontrado archivos para este proyecto de ley.",
+                "mensajes": {
+                    "exito": {
+                        "descargado": {
+                            "generico": {
+                                "titulo": "El archivo fue descargado exitosamente",
+                                "cuerpo": "Se ha descargado correctamente el archivo del proyecto"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "descargado": {
+                            "generico": {
+                                "titulo": "Error al descargar el archivo",
+                                "cuerpo": "No se ha podido descargar el archivo del proyecto"
+                            }
+                        }
+                    }
+                }
             }
         }
     },
@@ -266,6 +285,7 @@
                 "contrasena": "Contraseña",
                 "confirmar_contrasena": "Confirmar contraseña"
             },
+            "consejo_contrasena": "La contraseña debe contener entre 8 y 20 caracteres.",
             "leido": "He leído los",
             "terminos": "términos y condiciones",
             "registrar": "Registrar",
@@ -296,6 +316,10 @@
                         "titulo": "Registro fallido",
                         "cuerpo": "No se han aceptado los términos y condiciones"
                     },
+                    "contrasena_no_valida": {
+                        "titulo": "Registro fallido",
+                        "cuerpo": "La contraseña debe contener entre 8 y 20 caracteres"
+                    },
                     "contrasena_no_coincide": {
                         "titulo": "Registro fallido",
                         "cuerpo": "La contraseña no está bien confirmada"
@@ -315,29 +339,75 @@
             "intentar": "e inténtalo nuevamente"
         }
     },
-    "reiniciar_contrasena": {
+    "solicitar_recuperacion_contrasena": {
         "breadcumb": {
             "inicio": "Inicio",
-            "reinicio": "Reinicio contraseña"
+            "solicitud": "Solicitud de recuperación de contraseña"
         },
         "contenido": {
-            "titulo": "Reinicia tu contraseña",
-            "consejo1": "La contraseña debe contener entre 8 y 20 carácteres.",
-            "consejo2": "Consejos para las contraseñas:",
-            "consejo3": "No coloques datos personales ni palabras comúnes como contraseña.",
-            "consejo4": "No uses palabras o patrones comunes como contraseña.",
-            "consejo5": "No coloques fechas fáciles de descubrir (ej.: Tu cumpleaños).",
-            "reiniciar": "Reiniciar contraseña"
+            "correo": "Ingresa tu dirección de correo electrónico de usuario",
+            "placeholder": "Dirección de correo electrónico",
+            "solicitar": "Solicitar correo de recuperación"
+        },
+        "mensajes": {
+            "exito": {
+                "generico": {
+                    "titulo": "Solicitud de recuperación procesada exitosamente",
+                    "cuerpo": "Se le ha enviado un mensaje de correo electrónico para que continúe con el proceso de recuperación"
+                }
+            },
+            "fallido": {
+                "generico": {
+                    "titulo": "Solicitud de recuperación fallida",
+                    "cuerpo": "Comprueba que la dirección de correo electrónico sea correcta e intenta nuevamente"
+                }
+            }
         }
     },
-    "request_reset": {
+    "recuperar_contrasena": {
         "breadcumb": {
             "inicio": "Inicio",
-            "resetear": "Resetear contraseña"
+            "recuperar": "Recuperar contraseña"
         },
         "contenido": {
-            "correo": "Ingresa tu correo de usuario",
-            "reiniciar": "Reiniciar contraseña"
+            "titulo": "Recuperar contraseña",
+            "placeholders": {
+                "correo": "Dirección de correo electrónico",
+                "nueva_contrasena": "Nueva contraseña",
+                "confirmar_contrasena": "Confirmar contraseña"
+            },
+            "consejos": "Consejos para la creación de una contraseña:",
+            "consejo1": "La contraseña debe contener entre 8 y 20 caracteres (obligatorio).",
+            "consejo2": "No coloques datos personales ni palabras comúnes.",
+            "consejo3": "No uses palabras o patrones fáciles de adivinar.",
+            "consejo4": "No uses fechas fáciles de descubrir (Ej.: tu cumpleaños).",
+            "recuperar": "Recuperar contraseña"
+        },
+        "mensajes": {
+            "exito": {
+                "generico": {
+                    "titulo": "Recuperación de contraseña exitosa",
+                    "cuerpo": "Ha recuperado exitosamente su contraseña"
+                }
+            },
+            "fallido": {
+                "generico": {
+                    "titulo": "Recuperación de contraseña fallida",
+                    "cuerpo": "Comprueba que la dirección de correo electrónico sea correcta y que no ha pasado demasiado tiempo desde que te llegó el correo de recuperación"
+                },
+                "contrasena_no_valida": {
+                    "titulo": "Recuperación de contraseña fallida",
+                    "cuerpo": "La contraseña debe contener entre 8 y 20 caracteres"
+                },
+                "contrasena_no_coincide": {
+                    "titulo": "Recuperación de contraseña fallida",
+                    "cuerpo": "La contraseña no está bien confirmada"
+                },
+                "sin_token": {
+                    "titulo": "Recuperación de contraseña fallida",
+                    "cuerpo": "No hay token en la solicitud o el token es inválido"
+                }
+            }
         }
     },
     "login": {
@@ -418,7 +488,7 @@
         },
         "componentes": {
             "proyectos_interes": {
-                "no_hay_resultados": "No se han encontrado proyectos de tu interés"
+                "no_hay_resultados": "No se han encontrado proyectos de tu interés."
             },
             "edicion_perfil": {
                 "titulo": "Datos Personales",
@@ -532,12 +602,90 @@
                     },
                     "temas": "Temas principales de su trabajo"
                 },
+                "registrar_organizacion": "¿Desea registrar una organización?",
+                "organizacion": {
+                    "titulo": "Registro de Organización",
+                    "nombre": "Nombre",
+                    "correo": "Correo electrónico",
+                    "enlace": "Enlace",
+                    "per_jur": "¿Tiene personalidad jurídica?",
+                    "rut": "RUT/DNI",
+                    "representante": "Nombre representante legal",
+                    "tipo": {
+                        "titulo": "Tipo de organización",
+                        "con_fines_lucro": "Con fines de lucro",
+                        "sin_fines_lucro": "Sin fines de lucro"
+                    },
+                    "miembros": {
+                        "titulo": "Miembros de la Organización",
+                        "nombre": "Nombre",
+                        "apellidos": "Apellidos",
+                        "rut": "RUT/DNI"
+                    },
+                    "ubicaciones": {
+                        "titulo": "Sedes de la Organización",
+                        "direccion": "Dirección",
+                        "sector": {
+                            "titulo": "Sector",
+                            "opciones": [
+                                { "id": 1, "label": "Urbano" },
+                                { "id": 2, "label": "Rural" }
+                            ]
+                        },
+                        "pais": "País",
+                        "region": "Región/Estado",
+                        "comuna": "Comuna/Ciudad",
+                        "principal": "Marcar esta sede como principal"
+                    }
+                },
                 "cambio_contrasena": {
                     "titulo": "Cambio de Contraseña",
                     "actual": "Ingrese su contraseña actual",
                     "nueva": "Ingrese nueva contraseña",
                     "confirmar": "Repita la nueva contraseña",
-                    "consejo": "La contraseña debe ser de 8-20 caracteres."
+                    "consejo": "La contraseña debe contener entre 8 y 20 caracteres."
+                },
+                "mensajes": {
+                    "exito": {
+                        "generico": {
+                            "titulo": "Perfil actualizado exitosamente",
+                            "cuerpo": "Has actualizado correctamente los datos de tu perfil"
+                        },
+                        "cambio_contrasena": {
+                            "titulo": "Cambio de contraseña exitoso",
+                            "cuerpo": "Has cambiado correctamente tu contraseña"
+                        }
+                    },
+                    "fallido": {
+                        "generico": {
+                            "titulo": "Error al actualizar el perfil",
+                            "cuerpo": "No se han podido actualizar los datos de tu perfil"
+                        },
+                        "terminos": {
+                            "titulo": "Error al actualizar el perfil",
+                            "cuerpo": "Los temas de interés no se han podido actualizar"
+                        },
+                        "correo_existe": {
+                            "titulo": "Error al actualizar el perfil",
+                            "cuerpo": "Ya existe otra cuenta de usuario con esta dirección de correo electrónico"
+                        },
+                        "alias_existe": {
+                            "titulo": "Error al actualizar el perfil",
+                            "cuerpo": "Ya existe otra cuenta de usuario con este alias"
+                        },
+                        "cambio_contrasena": {
+                            "titulo": "Cambio de contraseña fallido",
+                            "cuerpo": "Comprueba que tu contraseña actual sea la correcta e intenta nuevamente"
+                        },
+                        "contrasena_no_valida": {
+                            "titulo": "Cambio de contraseña fallido",
+                            "cuerpo": "La contraseña debe contener entre 8 y 20 caracteres"
+                        },
+                        "contrasena_no_coincide": {
+                            "titulo": "Cambio de contraseña fallido",
+                            "cuerpo": "La contraseña no está bien confirmada"
+                        }
+                    }
                 }
             },
             "temas_interes": {
@@ -614,193 +762,6 @@
             }
         }
     },
-    "faq": {
-        "breadcumb": {
-            "inicio": "Inicio",
-            "faq": "Preguntas frecuentes"
-        },
-        "contenido": {
-            "temas": "Temas",
-            "uso_general": {
-                "titulo1": "Uso general del sitio",
-                "titulo2": "Preguntas generales sobre el uso del sitio",
-                "participar": {
-                    "titulo": "Cómo hago para participar en el sitio Congreso Virtual",
-                    "descripcion": "Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedirá información importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contará con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su interés en los cuales se quiera participar y ser un Congresista Virtual."
-                },
-                "postular_proyectos": {
-                    "titulo": "Cómo hago para postular un proyecto de ley a Congreso Virtual",
-                    "descripcion": "Para postular un proyecto de ley al sitio se deben seguir lo siguientes pasos: Logearse con su cuenta de usuario (si no tiene una, diríjase a crearla). Luego ir al apartado de listado de proyectos disponibles para ser postulados, estos proyectos estarán acá, ya sea por inactividad, o haber sido despachados con anterioridad. Seleccionar el proyecto que se desea que sea puesto en votaciones, además también de justificar la petición del proyecto en cuestión. Luego de esto el proyecto será puesto en votación y discusión para los otros usuarios."
-                },
-                "postular_urgencia": {
-                    "titulo": "Cómo hago para postular una urgencia sobre un proyecto de ley a Congreso Virtual",
-                    "descripcion": "Para postular una urgencia sobre cierto proyecto se deben seguir lo siguientes pasos: Logearse con su cuenta de usuario (si no tiene una, diríjase a crearla). Luego ir al apartado de listado de proyectos disponibles para ser postulados, estos proyectos estarán acá, ya sea por inactividad, o haber sido despachados con anterioridad. Seleccionar el proyecto que sea desea que sea puesto en urgencia, se deberá especificar el porqué de la urgencia. Luego de esto el proyecto será ingresado al sistema Congreso Virtual para ser votado ya sea en contra o a favor del proyecto. Si el proyecto en urgencia obtiene un buen acogimiento, este se le será notificado al postulante para subir mas informacion al proyecto, para así poder avalar y justificar el porqué de la petición, ya sea por el medio que estime más conveniente, por ejemplo video, instructivo, etc."
-                },
-                "revisar_proyectos": {
-                    "titulo": "Dónde puedo revisar los proyectos de ley puestos a disposición para opinar/debatir/votar",
-                    "descripcion": "Para revisar los proyectos puestos a disposición de los usuarios, se debe dirigir al apartado de votaciones y se desplegaran todos los proyectos de ley los cuales están en votación, además de mostrar los votos que llevan hasta el momento e información importante sobre estos."
-                },
-                "olvidado_contrasena": {
-                    "titulo": "Me he olvidado de mi contraseña o no me funciona ¿qué puedo hacer?",
-                    "descripcion": "Puedes solicitar un nueva contraseña para que se te envíe una nueva contraseña a tu correo electrónico. Te recomendamos intentar recuperar contraseña con todas las direcciones de email que tengas."
-                },
-                "rut_en_uso": {
-                    "titulo": "Me indica que mi RUT/DNI ya está en uso",
-                    "descripcion": "Si intentas verificar tu cuenta y aparece un mensaje de error diciendo que el 'DNI ya está en uso', lo primero que tienes que revisar es si tienes otra cuenta de usuario que hayas verificado con tu DNI. Ten en cuenta que puedes tener muchas cuentas de usuario, pero solo una con tu DNI, que será con la que puedas apoyar y votar propuestas, lo que llamamos una cuenta verificada."
-                }
-            },
-            "proyectos_ley": {
-                "titulo1": "Proyectos de ley",
-                "titulo2": "Preguntas sobre proyectos de ley",
-                "dudas_uber": {
-                    "titulo": "Dudas acerca del proyecto de ley Uber",
-                    "descripcion": "Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedirá información importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contará con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su interés en los cuales se quiera participar y ser un Congresista Virtual."
-                },
-                "dudas_clima": {
-                    "titulo": "Dudas acerca del proyecto de ley de cambio climático",
-                    "descripcion": "Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedirá información importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contará con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su interés en los cuales se quiera participar y ser un Congresista Virtual."
-                },"dudas_goles": {
-                    "titulo": "Dudas acerca del proyecto de ley de \"Goles para todos\"",
-                    "descripcion": "Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedirá información importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contará con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su interés en los cuales se quiera participar y ser un Congresista Virtual."
-                },
-                "dudas_glaciares": {
-                    "titulo": "Dudas acerca del proyecto de ley de protección de glaciares",
-                    "descripcion": "Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedirá información importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contará con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su interés en los cuales se quiera participar y ser un Congresista Virtual."
-                },"dudas_organos": {
-                    "titulo": "Dudas acerca del proyecto de ley de donación de órganos",
-                    "descripcion": "Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedirá información importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contará con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su interés en los cuales se quiera participar y ser un Congresista Virtual."
-                },
-                "dudas_bullying": {
-                    "titulo": "Dudas acerca del proyecto de ley contra el bullying",
-                    "descripcion": "Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedirá información importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contará con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su interés en los cuales se quiera participar y ser un Congresista Virtual."
-                }
-            },
-            "consultas_publicas": {
-                "titulo1": "Consultas públicas",
-                "titulo2": "Preguntas sobre consultas públicas",
-                "consulta1": {
-                    "titulo": "Preguntas sobre consulta pública 1",
-                    "descripcion": "Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedirá información importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contará con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su interés en los cuales se quiera participar y ser un Congresista Virtual."
-                }
-            }
-        }
-    },
-    "instructivo": {
-        "breadcumb": {
-            "inicio": "Inicio",
-            "instructivo": "Instructivo"
-        },
-        "contenido": {
-            "inicio_sesion": {
-                "titulo": "Inicio de sesión",
-                "descripcion": {
-                    "parrafo1": "Para la participación en el sitio web de congreso virtual, es necesario realizar un registro y posterior ingreso a cuenta con sus datos correspondientes, esto permitirá tener disponible las funcionalidades que ofrece el sitio.",
-                    "parrafo2": "En caso de no contar con una cuenta, se podrá visualizar de todos modos los proyectos de ley."
-                }
-            },
-            "postulacion_proyectos": {
-                "titulo": "Postulación de proyectos de ley",
-                "descripcion": "Si desea postular un proyecto de ley debe dirigirse a la pagina principal de Congreso Virtual y debe ingresar a la opción que se encuentra al inferior de la página \"realizar propuesta\", una vez ingresada su propuesta proceda a enviarla."
-            },
-            "opinion/debatir": {
-                "titulo": "Opinar/debatir/votar proyectos de ley",
-                "descripcion": "Para revisar e interactuar con los proyectos de ley, se debe ir a Proyectos de ley. En votación en barra de navegación, luego se debe seleccionar un proyecto y posteriormente realizar un voto o comentario el cual quedara registrado en su respectiva cuenta."
-            },
-            "olvido_contrasena": {
-                "titulo": "Olvido de contraseña",
-                "descripcion": "Se puede solicitar una nueva contraseña desde la página de login, declarando que olvidó su contraseña, la reasignación será enviada a su correo electrónico."
-            }
-        },
-        "titulo": "Instructivo: Congreso Virtual"
-    },
-    "reglamento": {
-        "breadcumb": {
-            "inicio": "Inicio",
-            "reglamento": "Reglamento"
-        },
-        "contenido": {
-            "parrafo1": {
-                "titulo": "Parrafo 1° Congreso Virtual",
-                "descripcion": "El Congreso Nacional de Chile reconoce la participación ciudadana como un valioso elemento de juicio para incrementar la eficacia en la toma de decisiones propia de las funciones públicas que la Constitución Política y las leyes le encomiendan. A continuación, se encuentran las disposiciones del Reglamento respecto al Congreso Virtual y las Consultas."
-            },
-            "parrafo2": {
-                "titulo": "Párrafo 2° Congreso Virtual",
-                "descripcion": {
-                    "parrafo1": "Artículo 15. Concepto. El Congreso Virtual es una plataforma digital que tiene como finalidad facilitar la interacción entre parlamentarios y ciudadanos, permitiendo que éstos se pronuncien sobre proyectos de ley en tramitación legislativa y, en su caso, participen de las consultas públicas que se realicen de acuerdo a las normas establecidas en este reglamento.",
-                    "parrafo2": "Para este efecto, se ofrecerá la opción de manifestarse a favor o en contra y, cuando corresponda, de justificar esa posición y formular propuestas específicas sobre el particular.",
-                    "parrafo3": "Artículo 16. Procedimiento. Se incorporarán al Congreso Virtual los proyectos de ley que puedan concitar mayor interés ciudadano de acuerdo al instructivo de uso de esta herramienta, prefiriendo aquéllos respecto de los cuales haya comenzado, o se encuentre próximo a su inicio, la discusión en general en comisión, con la finalidad de que sus resultados sean conocidos por la comisión respectiva antes de que el proyecto sea votado por ella.",
-                    "parrafo4": "La selección será efectuada por el Grupo Bicameral de Transparencia, las unidades administrativas a cargo de participación ciudadana, comunicaciones o prensa y las secretarías de comisiones, las cuales elaborarán un resumen del proyecto de ley en lenguaje claro, así como las preguntas relativas a aspectos centrales del mismo que serán sometidas al pronunciamiento público. Podrán solicitar el apoyo técnico de la Biblioteca del Congreso Nacional u otros organismos idóneos que garanticen la necesaria neutralidad de las consultas.",
-                    "parrafo5": "La incorporación de un nuevo proyecto de ley al Congreso Virtual será publicada en el sitio electrónico institucional, sin perjuicio de la difusión por otros medios, como redes sociales o comunicaciones electrónicas dirigidas a las personas inscritas en esta modalidad de participación.",
-                    "parrafo6": "Concluido el plazo que se fije, la unidad a cargo de participación ciudadana sistematizará las respuestas y aportes recibidos y las enviará con un resumen analítico a la secretaría de la comisión en la que esté radicado el proyecto de ley, con la finalidad de que se informe a la comisión acerca de los resultados obtenidos. Dicho documento será publicado en el sitio electrónico institucional y se dejará constancia de su resultado en el informe de la comisión."
-                }
-            },
-            "parrafo3": {
-                "titulo": "Párrafo 3°. Consultas Públicas",
-                "descripcion": {
-                    "parrafo1": "Artículo 17. Concepto. Las consultas públicas son mecanismos de participación virtual, no vinculante, público y abierto por el cual la Cámara de Diputados o una comisión consulta a la ciudadanía acerca de un proyecto de ley o un asunto de índole legislativa propio de su competencia.",
-                    "parrafo2": "Artículo 18. Iniciativa ciudadana. Cualquier persona u organización podrá solicitar la realización de una consulta ciudadana acerca de un proyecto de ley en tramitación.",
-                    "parrafo3": "La unidad administrativa a cargo de participación ciudadana pondrá la solicitud en conocimiento de los comités parlamentarios, o de la comisión respectiva si el proyecto estuviere radicado en ella. El pronunciamiento sobre la solicitud deberá emitirse en la primera sesión en que ello sea posible.",
-                    "parrafo4": "Artículo 19. Procedimiento. La decisión de efectuar la consulta pública será informada a la unidad a cargo de participación ciudadana, para que la convoque por medio del sitio electrónico institucional, redes sociales y personas inscritas en el Congreso Virtual.",
-                    "parrafo5": "La convocatoria deberá señalar su objeto, una minuta acerca del tema en consulta pública, la forma de participar, los datos de contacto para solicitar aclaraciones y el plazo por el cual estará abierta, que podrá extenderse hasta por treinta días corridos.",
-                    "parrafo6": "Las consultas se llevarán a cabo usando la plataforma Congreso Virtual, por medio de un formulario digital, que contendrá una o más preguntas breves redactadas en lenguaje claro, que elaborará la unidad a cargo de participación ciudadana en conjunto con la secretaría de la comisión que corresponda de acuerdo a la materia.",
-                    "parrafo7": "La unidad a cargo de participación ciudadana sistematizará las opiniones que se reciban y las remitirá junto con un resumen al órgano que acordó la realización de la consulta para su evaluación. Si la consulta recayó sobre un proyecto de ley, el resultado será incluido en el informe de la comisión respectiva. En todo caso, el documento que da cuenta de la consulta pública y su resultado se publicará en el sitio electrónico institucional."
-                }
-            }
-        },
-        "titulo": "Reglamento"
-    },
-    "glosario": {
-        "breadcumb": {
-            "inicio": "Inicio",
-            "glosario": "Glosario"
-        },
-        "contenido": {
-            "iniciativa": {
-                "titulo": "Iniciativa",
-                "descripcion": "Las leyes pueden tener dos tipos de origen estos son : en la Cámara de Diputados o en el Senado, por mensaje que dirija el Presidente de la República o por moción de cualquiera de sus miembros.Con esto en mente el Presidente de la República puede enviar un proyecto al Congreso Nacional para su discusión. Este es el llamado “mensaje” o “mensaje presidencial”. También, puede ser generado por los propios parlamentarios, caso en el cual recibe el nombre de \"moción\"."
-            },
-            "primer_tramite": {
-                "titulo": "Primer trámite constitucional",
-                "descripcion": "Se llama así al proceso legislativo que transcurre en la cámara de origen. Al inicio de cada sesión de sala, se da cuenta del ingreso de los proyectos que han sido presentados por el Presidente de la República o por los parlamentarios. Luego, a proposición del Presidente de la Corporación respectiva, la sala envía a una o más comisiones el proyecto para que sea analizado en sus aspectos generales por parlamentarios especializados en la materia, o que exista acuerdo unánime de la sala para omitir este trámite, salvo que se trate de un proyecto de ley que deba ser analizado por la comisión de hacienda del Senado o de la Cámara de Diputados. Una vez estudiado el proyecto en forma general, la comisión informa de sus conclusiones a la Cámara, la cual discute y decide si aprueba o rechaza la idea de legislar sobre él. Este trámite reglamentario se conoce como discusión general, cuyo objetivo es aceptar o desechar en su totalidad el proyecto de ley, considerando sus ideas fundamentales y admitir a discusión las enmiendas o indicaciones que se presenten sobre el proyecto, por el Presidente de la República y los parlamentarios. En caso de que no se hayan presentado indicaciones, el proyecto se entiende aprobado sin necesidad de hacer la siguiente discusión."
-            },
-            "segundo_tramite": {
-                "titulo": "Segundo trámite constitucional",
-                "descripcion": "Corresponde a la fase de tramitación legislativa que tiene lugar en la cámara revisora. Aprobado el proyecto en la Cámara de Origen, pasa a la Cámara Revisora (que será el Senado en caso de ser un proyecto de la Cámara de Diputados, y viceversa), la que procede de la misma manera que en el primer Trámite Constitucional. La Cámara Revisora estudia el proyecto en comisiones, y se vota en sala, tanto en forma general, como particular, revisando todo el articulado del proyecto. Ella puede aprobar, modificar o rechazar el proyecto de ley proveniente de la Cámara de Origen. Si el proyecto se aprueba en su totalidad en iguales términos por la Cámara Revisora, se envía al Presidente de la República quien, si también lo aprueba, firmará el proyecto para que se convierta en ley, disponiendo su promulgación. La nueva ley entrará en vigencia al publicarse en el Diario Oficial, salvo que el mismo texto indique otra fecha de entrada en vigor." 
-            },
-            "comisiones_mixtas": {
-                "titulo": "Comisiones mixtas",
-                "descripcion": "Las comisiones mixtas se crean al no producirse acuerdos entre las Cámaras. La discordancia entre ellas que da origen a la comisión mixta."
-            },
-            "promulgacion": {
-                "titulo": "Promulgación",
-                "descripcion": "Aprobado el proyecto de ley por el Presidente de la República, dentro de un plazo de 10 días debe dictar un decreto, que se denomina \"decreto promulgatorio\". En este se declara la existencia de la ley, dejando de ser ésta un mero proyecto y se ordena sea cumplida."
-            },
-            "urgencias": {
-                "titulo": "Urgencias",
-                "descripcion": "La tramitación de una ley no está sujeta a un tiempo determinado, por lo tanto su demora dependerá del grado de dificultad que encuentre en las etapas del proceso de su formación. Sin embargo, el Presidente de la República puede hacer presente la urgencia para el despacho de un proyecto de ley, en uno o en todos sus trámites, en el correspondiente Mensaje o mediante un oficio dirigido al Presidente de la Cámara respectiva o al Senado cuando el proyecto estuviese en comisión mixta. Estos plazos se denominan urgencias y ellas determinan el orden de la tabla de discusión."
-            }
-        },
-        "titulo": "Glosario de términos generales para entender de mejor manera el sitio."
-    },
-    "somos": {
-        "breadcumb": {
-            "inicio": "Inicio",
-            "somos": "Somos"
-        },
-        "contenido": {
-            "parrafo1": "El Senado de Chile creó una herramienta tecnológica denominada Senador Virtual en 2003, que tenía como objetivo que la ciudadanía conociera el proceso de la formación de la ley. Con el tiempo, pasó de ser una plataforma de educación a una de participación ciudadana en el proceso legislativo con más de 120 mil personas inscritas.",
-            "parrafo2": "En 2018, viendo la necesidad de mejorar y fomentar los procesos de participación ciudadana en el Congreso Nacional, el ",
-            "link_parrafo2": "Grupo Bicameral de Transparencia",
-            "parrafo2_2": ", obtuvo apoyo del Banco Interamericano de Desarrollo (BID) para desarrollar el Congreso Virtual. Es así como se actualizó el Senador Virtual en diseño, funcionalidades y análisis de datos para que se visualice la participación ciudadana y se enriquezca el debate de los proyectos de ley. Las observaciones de los usuarios pueden llegar a ser indicaciones parlamentarias en los proyectos de ley.",
-            "parrafo3": "El Congreso Virtual está a cargo de un Comité integrado por el Grupo Bicameral de Transparencia, las unidades de participación ciudadana, comunicaciones/prensa y las secretarías de comisiones de ambas Corporaciones. Además, cuenta con el apoyo constante de los departamentos de informática del Senado y de la Cámara de Diputados.",
-            "parrafo4": "Cómo se mencionó, este es un proyecto financiado por el BID y está disponible para compartirse con otros países de la región.",
-            "parrafo5": "Para conocer las funciones de la Cámara de Diputados ",
-            "link_parrafo5": "haga clic aquí",
-            "y": " y del senado ",
-            "link2_parrafo5": "aquí"
-        },
-        "titulo": "¿Quiénes somos?"
-    },
     "search": {
         "titulo": "Buscador General",
         "buscar_placeholder": "Ingrese texto aquí",
@@ -821,7 +782,7 @@
         "resultados": "Resultados totales",
         "limpiar": "Limpiar Filtros",
         "buscar": "Buscar",
-        "no_hay_resultados": "No se han encontrado resultados",
+        "no_hay_resultados": "No se han encontrado resultados.",
         "ver_mas": "Ver más",
         "proyecto": "PROYECTO DE LEY",
         "articulo": "ARTÍCULO",
@@ -900,7 +861,7 @@
                 "crear": "Crear una Página"
             },
             "configuracion": {
-                "titulo": "Configuración",
+                "titulo": "Configuración del Sitio Web",
                 "config": "Configuración General",
                 "menu": "Conf. Menú Principal",
                 "footer": "Conf. Footer (Pié de Página)"
@@ -1196,12 +1157,55 @@
                 "datos": "Datos por votación",
                 "seccion": "En la siguiente sección se puede observar un análisis graficado de los distintos votos realizados. Ya sean en al votación general, como separados según ideas generales y por artículos."
             },
-            "documentos": {
-                "titulo": "Subir Documentos",
+            "archivos_proyecto": {
+                "titulo": "Subir Archivos al Proyecto",
                 "archivo": "Archivo",
                 "subir": "Subir",
+                "no_hay_archivos": "No se han encontrado archivos para este proyecto de ley.",
                 "descargar": "Descargar",
-                "eliminar": "Eliminar"
+                "eliminar": "Eliminar",
+                "mensajes": {
+                    "exito": {
+                        "descargado": {
+                            "generico": {
+                                "titulo": "El archivo fue descargado exitosamente",
+                                "cuerpo": "Se ha descargado correctamente el archivo del proyecto"
+                            }
+                        },
+                        "guardado": {
+                            "generico": {
+                                "titulo": "El archivo fue guardado exitosamente",
+                                "cuerpo": "Se ha subido correctamente el archivo del proyecto"
+                            }
+                        },
+                        "eliminado": {
+                            "generico": {
+                                "titulo": "El archivo fue eliminado exitosamente",
+                                "cuerpo": "Se ha eliminado correctamente el archivo del proyecto"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "descargado": {
+                            "generico": {
+                                "titulo": "Error al descargar el archivo",
+                                "cuerpo": "No se ha podido descargar el archivo del proyecto"
+                            }
+                        },
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error al guardar el archivo",
+                                "cuerpo": "No se ha podido subir el archivo del proyecto, puede ser debido a que supera el tamaño máximo aceptable o a que su formato no está permitido"
+                            }
+                        },
+                        "eliminado": {
+                            "generico": {
+                                "titulo": "Error al eliminar el archivo",
+                                "cuerpo": "No se ha podido eliminar el archivo del proyecto"
+                            }
+                        }
+                    }
+                }
             },
             "eliminar_usuario": {
                 "modal_eliminacion": {
@@ -1230,37 +1234,66 @@
                     "confirme": "Confirme contraseña"
                 },
                 "activo": "¿Desea que el usuario quede activo?",
-                "registrar_organizacion": "¿Desea registrar una organización?",
-                "organizacion": {
-                    "titulo": "Registro de Organización",
-                    "nombre": "Nombre",
-                    "correo": "Correo electrónico",
-                    "enlace": "Enlace",
-                    "per_jur": "¿Tiene personalidad jurídica?",
-                    "rut": "RUT/DNI",
-                    "representante": "Nombre representante legal",
-                    "tipo": {
-                        "titulo": "Tipo de organización",
-                        "con_fines_lucro": "Con fines de lucro",
-                        "sin_fines_lucro": "Sin fines de lucro"
-                    },
-                    "miembros": {
-                        "titulo": "Miembros de la Organización",
-                        "apellidos": "Apellidos"
-                    },
-                    "ubicaciones": {
-                        "titulo": "Sedes de la Organización",
-                        "direccion": "Dirección",
-                        "sector": {
-                            "titulo": "Sector",
-                            "opciones": [
-                                { "id": 1, "label": "Urbano" },
-                                { "id": 2, "label": "Rural" }
-                            ]
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Usuario guardado exitosamente",
+                                "cuerpo": "Has registrado correctamente los datos del usuario"
+                            }
                         },
-                        "principal": "Marcar esta sede como principal",
-                        "seleccione1": "Seleccione primero el país",
-                        "seleccione2": "Seleccione primero la región"
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Usuario actualizado exitosamente",
+                                "cuerpo": "Has actualizado correctamente los datos del usuario"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error al guardar el usuario",
+                                "cuerpo": "No se han podido guardar los datos del usuario"
+                            },
+                            "terminos": {
+                                "titulo": "Error al guardar el usuario",
+                                "cuerpo": "Los temas de interés del usuario no se han podido guardar"
+                            },
+                            "correo_existe": {
+                                "titulo": "Error al guardar el usuario",
+                                "cuerpo": "Ya existe otra cuenta de usuario con esta dirección de correo electrónico"
+                            },
+                            "alias_existe": {
+                                "titulo": "Error al guardar el usuario",
+                                "cuerpo": "Ya existe otra cuenta de usuario con este alias"
+                            },
+                            "contrasena_no_valida": {
+                                "titulo": "Error al guardar el usuario",
+                                "cuerpo": "La contraseña debe contener entre 8 y 20 caracteres"
+                            },
+                            "contrasena_no_coincide": {
+                                "titulo": "Error al guardar el usuario",
+                                "cuerpo": "La contraseña no está bien confirmada"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error al actualizar el usuario",
+                                "cuerpo": "No se han podido actualizar los datos del usuario"
+                            },
+                            "terminos": {
+                                "titulo": "Error al actualizar el usuario",
+                                "cuerpo": "Los temas de interés del usuario no se han podido actualizar"
+                            },
+                            "correo_existe": {
+                                "titulo": "Error al actualizar el usuario",
+                                "cuerpo": "Ya existe otra cuenta de usuario con esta dirección de correo electrónico"
+                            },
+                            "alias_existe": {
+                                "titulo": "Error al actualizar el usuario",
+                                "cuerpo": "Ya existe otra cuenta de usuario con este alias"
+                            }
+                        }
                     }
                 }
             },
