@@ -17,7 +17,10 @@ services:
             - ./congresovirtual-backend/:/var/www/congresovirtual-backend/:Z
             - ./congresovirtual-frontend/:/var/www/congresovirtual-frontend/:Z
         networks:
-            - congreso-network
+            congreso-network:
+                aliases:
+                    -"{{APP_URL}}"
+                    -"{{APP_CLIENT_URL}}"
 
     #====================================================
     #PHP
@@ -32,6 +35,7 @@ services:
         tty: true
         depends_on:
             - "mysql"
+            - "apache"
         working_dir: /var/www/congresovirtual-backend/
         volumes:
             - ./congresovirtual-backend/:/var/www/congresovirtual-backend/:Z

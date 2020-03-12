@@ -8,7 +8,7 @@ USER root
 
 RUN apt-get update
 
-RUN apt-get install -y python3-scipy default-libmysqlclient-dev build-essential libpng-dev libfreetype6-dev libopenblas-dev wget
+RUN apt-get install -y python3-scipy default-libmysqlclient-dev build-essential libpng-dev libfreetype6-dev libopenblas-dev wget curl iputils-ping
 
 RUN pip3 install --upgrade pip \
     && pip3 install --no-cache-dir -r requirements.txt
