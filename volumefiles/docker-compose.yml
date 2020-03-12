@@ -19,8 +19,8 @@ services:
         networks:
             congreso-network:
                 aliases:
-                    -"{{APP_URL}}"
-                    -"{{APP_CLIENT_URL}}"
+                    - "{{APP_URL}}"
+                    - "{{APP_CLIENT_URL}}"
 
     #====================================================
     #PHP
