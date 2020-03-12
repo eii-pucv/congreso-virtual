@@ -167,7 +167,7 @@ sudo yum-config-manager --enable remi-php73
 
 2. Instalar PHP, junto con las extensiones necesarias para el funcionamiento de congreso.
 ```
-        sudo yum --enablerepo=remi,epel install php php-zip php-mysql php-mcrypt php-xml php-mbstring
+        sudo yum --enablerepo=remi,epel install php php-zip php-mysql php-mcrypt php-xml php-mbstring php-gd
 ```
 
 3. Descargar e instalar Composer desde el sitio oficial (las versiones de paqueterías usualmente presentan incompatibilidades).
