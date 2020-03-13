@@ -298,7 +298,7 @@
                                     this.$toastr('success', 'Tu voto fue cambiado con éxito', 'Voto actualizado');
                                 })
                                 .catch(() => {
-                                    this.$toastr('error', 'No se ha  podido cambiar tu voto', 'Error');
+                                    this.$toastr('error', 'No se ha podido cambiar tu voto', 'Error');
                                 });
                         } else {
                             axios
@@ -306,7 +306,8 @@
                                     vote: voteValue
                                 })
                                 .then(res => {
-                                    this.votes.push(res.data.data);
+                                    vote = res.data.data
+                                    this.votes.push(vote);
                                     if(voteValue === 0) {
                                         article.votos_a_favor += 1;
                                         this.toggleAgree(article.id);
