@@ -15,7 +15,7 @@
                 <div v-if="!loadProposal">
                     <form @submit.prevent="saveProposal">
                         <div class="form-row align-items-center justify-content-center">
-                            <div class="col-md-8 mb-10">
+                            <div class="col-md-6 mb-10">
                                 <label for="titulo" :style="mode === 'dark' ? 'color: #fff' : ''">{{ $t('administrador.componentes.crear_propuesta.titulo') }}</label>
                                 <input
                                         id="titulo"
@@ -39,6 +39,17 @@
                                         :style="mode === 'dark' ? 'background: rgb(12, 1, 80); color: #fff' : ''"
                                 >
                             </div>
+                            <div class="col-md-2 mb-10">
+                                <label for="usuario" :style="mode === 'dark' ? 'color: #fff' : ''">{{ $t('administrador.componentes.crear_propuesta.usuario') }}</label>
+                                <input
+                                        id="usuario"
+                                        v-model="fullname"
+                                        type="text"
+                                        class="form-control"
+                                        readonly
+                                        :style="mode === 'dark' ? 'background: rgb(12, 1, 80); color: #fff' : ''"
+                                >
+                            </div>
                         </div>
                         <div class="form-row align-items-center justify-content-center">
                             <div class="col-md-10 mb-10">
@@ -55,7 +66,7 @@
                             </div>
                         </div>
                         <div class="form-row align-items-center justify-content-center">
-                            <div class="col-md-3 mb-10">
+                            <div class="col-md-2 mb-10">
                                 <label for="fecha_ingreso" :style="mode === 'dark' ? 'color: #fff' : ''">{{ $t('administrador.componentes.crear_propuesta.fecha_ingreso') }}</label>
                                 <v-popover>
                                     <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
@@ -71,12 +82,12 @@
                                         :style="mode==='dark' ? 'background: rgb(12, 1, 80); color: #fff' : ''"
                                 ></DatePicker>
                             </div>
-                            <div class="col-md-3 mb-10">
+                            <div class="col-md-4 mb-10">
                                 <label for="state" :style="mode === 'dark' ? 'color: #fff' : ''">{{ $t('administrador.componentes.crear_propuesta.estado.titulo') }}</label>
                                 <v-popover>
                                     <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
                                     <template slot="popover">
-                                        <p>{{ $t('administrador.componentes.crear_propuesta.estado.popover') }}</p>
+                                        <p style="white-space:pre-wrap;text-align:left;">{{ $t('administrador.componentes.crear_propuesta.estado.popover') }}</p>
                                     </template>
                                 </v-popover>
                                 <select
@@ -87,6 +98,7 @@
                                 >
                                     <option value="0">{{ $t('administrador.componentes.crear_propuesta.estado.opcion1') }}</option>
                                     <option value="1">{{ $t('administrador.componentes.crear_propuesta.estado.opcion2') }}</option>
+                                    <option value="2">{{ $t('administrador.componentes.crear_propuesta.estado.opcion3') }}</option>
                                 </select>
                             </div>
                             <div class="col-md-4 mb-10">
@@ -116,7 +128,7 @@
                                 ></textarea>
                             </div>
                         </div>
-                        <div v-if="proposal.state == 1">
+                        <div v-if="proposal.state == 2">
                             <div class="form-row align-items-center justify-content-center">
                                 <div class="col-md-10 mb-10">
                                     <label for="argument" :style="mode === 'dark' ? 'color: #fff' : ''">{{ $t('administrador.componentes.crear_propuesta.argumento') }}</label>
@@ -374,7 +386,7 @@
             },
             validateState() {
                 return new Promise((resolve, reject) => {
-                    if(this.proposal.state == 1) {
+                    if(this.proposal.state == 1 || this.proposal.state == 2) {
                         axios
                             .get('/proposals', {
                                 params: {
@@ -383,14 +395,25 @@
                                 }
                             })
                             .then(res => {
-                                let proposalsUserActives = res.data.results;
-                                proposalsUserActives = proposalsUserActives.filter(proposal => proposal.id !== this.proposal.id);
-                                if(proposalsUserActives.length > 0) {
-                                    return reject({
-                                        detail: this.$t('administrador.componentes.crear_propuesta.mensajes.fallido.generico.otra_propuesta_activa.cuerpo')
-                                    });
-                                }
-                                resolve(true);
+                                let proposalsUserActives = res.data.results;    
+                                axios
+                                    .get('/proposals', {
+                                        params: {
+                                            state: 2,
+                                            user_id: this.proposal.user_id
+                                        }
+                                    })
+                                    .then((res) => {
+                                        proposalsUserActives = proposalsUserActives.concat(res.data.results)
+                                        proposalsUserActives = proposalsUserActives.filter(proposal => proposal.id !== this.proposal.id);
+                                        if(proposalsUserActives.length > 0) {
+                                            return reject({
+                                                detail: this.$t('administrador.componentes.crear_propuesta.mensajes.fallido.generico.otra_propuesta_activa.cuerpo')
+                                            });
+                                        }
+                                        resolve(true);
+                                    })
+
                             })
                             .catch(() => {
                                 reject(false);
@@ -410,6 +433,13 @@
                     format: this.$t('componentes.moment.formato_editable_sin_hora'),
                     locale: this.$moment.locale()
                 };
+            },
+            fullname() {
+                if(this.proposal.user) {
+                    return `${this.proposal.user.name} ${this.proposal.user.surname}`
+                } else {
+                    return `${this.$store.getters.userData.name} ${this.$store.getters.userData.surname}`
+                }
             }
         },
         watch: {

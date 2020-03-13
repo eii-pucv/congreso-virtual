@@ -35,13 +35,13 @@
                 "titulo": "Proposed Projects of Law to be Included in Congreso Virtual",
                 "descripcion": "Are there any project that are of your total interest, and that you would like to be incorporated into the Virtual Congress? If it reaches 100 support signatures, it will be added to the site, so that it can be voted and debated by the active community.",
                 "boton_apoyo": "Support Inclusion",
-                "ver": "View Project"
+                "ver": "View Proposal"
             },
             "urgencias_proyectos" : {
                 "titulo": "Proposed Projects of Law for Urgency Requests",
                 "descripcion": "Is there any project, currently under debate in Congress, that you would like to be discussed here too? If you obtain 100 signatures, this will be incorporated into the table with a higher priority, so that it can be discussed quickly in Congress.",
                 "boton_apoyo": "Support Urgency",
-                "ver": "View Project"
+                "ver": "View Proposal"
             },
             "propuesta": {
                 "persona": "Proposed by",
@@ -52,6 +52,7 @@
             },
             "boton_consultas": "View Consultations",
             "boton_proyectos": "View Projects",
+            "boton_propuestas": "View Proposals",
             "sin_datos": "No data to display."
         },
         "componentes": {
@@ -782,6 +783,41 @@
                 "detalle": "Enter a detail for the proposal",
                 "descripcion": "Description",
                 "enviar": "Send"
+            },
+            "opciones_ordenar": {
+                "opcion_1": "Admission date (Desc.)",
+                "opcion_2": "Admission date (Asc.)"
+            }
+        }
+    },
+    "propuestas_usuario": {
+        "contenido": {
+            "titulo": "Proposals",
+            "limpiar":"Clean Filters",
+            "buscar": "Search",
+            "buscar_placeholder": "Title, Bulletin, Authorship...",
+            "filtrar":"Filter By",
+            "ordenar": "Sort By",
+            "boton_propuestas_sugeridas": "Go to Suggested Proposals",
+            "tipo_1": "Inclusion in Virtual Congress",
+            "tipo_2": "Urgency",
+            "ver":"See proposal",
+            "de": "of",
+            "resultados": "Total results",
+            "cargar": "Load More",
+            "no_hay_resultados": "No results found",
+            "mensaje_propuestas_sugeridas": "The Suggested Proposals are all the bills that can be considered in the Virtual Congress thanks to the support of other participants",
+            "opciones_ordenar": {
+                "opcion_1": "Admission date (Desc.)",
+                "opcion_2": "Admission date (Asc.)",
+                "opcion_3": "Amount of Support for Virtual Congress Inclusion Request (Desc.)",
+                "opcion_4": "Amount of Support for Virtual Congress Inclusion Request (Asc.)",
+                "opcion_5": "Amount of Emergency Request Support (Desc.)",
+                "opcion_6": "Amount of Emergency Request Support (Asc.)"
+            },
+            "opciones_filtrar": {
+                "opcion_1": "Inclusion in Virtual Congress",
+                "opcion_2": "Urgent Request"
             }
         }
     },
@@ -1523,14 +1559,16 @@
                 "titulo2": "Edit Proposal",
                 "titulo": "Title",
                 "boletin": "Bulletin",
+                "usuario": "User",
                 "autoria": "Authorship",
                 "fecha_ingreso": "Admission date",
                 "popover_fecha_ingreso": "Proposal admission date. NOTE: Enter the date according to your time zone, it will be automatically converted to UTC.",
                 "estado": {
                     "titulo": "State",
-                    "popover": "Inactive: no argument or video can be added to the proposal. Active: you can add argument and/or video to the proposal.",
-                    "opcion1": "Inactive",
-                    "opcion2": "Active"
+                    "popover": "- Inactive, no vote: no vote can be taken on the proposal. \n- Active, you can vote: you can vote on the proposal. \n- Active, you can vote and add argument + video: you can vote and add argument and/or video to the proposal.",
+                    "opcion1": "Inactive, cannot vote",
+                    "opcion2": "Active, you can vote",
+                    "opcion3": "Activate, can vote and add argument + video"
                 },
                 "tipo": {
                     "titulo": "Type",

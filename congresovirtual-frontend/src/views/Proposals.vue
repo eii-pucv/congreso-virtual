@@ -218,7 +218,7 @@ export default {
   },
   methods: {
     sort() {
-      if(this.ordenar === 'Desc') {
+      if(this.ordenar === 'DESC') {
         this.projects = this.projects.sort((a, b) => {
           return new Date(b.PROYFECHAINGRESO) - new Date(a.PROYFECHAINGRESO);
         });
@@ -281,7 +281,6 @@ export default {
         .get("https://slr.senado.cl/getListaProyectosConMovto/D/30")
         .then(res => {
           this.projects.push(...res.data);
-          this.startProjects.push(...res.data);
         })
         .catch(e => console.error("FAIL: " + JSON.stringify(e)));
       axioma
@@ -289,11 +288,28 @@ export default {
         .get("https://slr.senado.cl/getListaProyectosConMovto/S/30")
         .then(res => {
           this.projects.push(...res.data);
-          this.startProjects.push(...res.data);
-          this.sourceProposals = [...new Set(this.projects.map(project => project.ORIGEN))];
+          this.removeExistingUserProposals();
           this.isLoading = true;
         })
         .catch(e => console.error("FAIL: " + JSON.stringify(e)));
+    },
+    removeExistingUserProposals() {
+      axios
+        .get('/proposals', {
+          params: {
+            return_all: 1
+          }
+        })
+        .then((res) => {
+          let proposals = res.data.results
+
+          this.boletines = proposals.map(proposal => proposal.boletin)
+          this.projects = this.projects.filter(project => !this.boletines.includes(project.PROYNUMEROBOLETIN))
+
+          this.sourceProposals = [...new Set(this.projects.map(project => project.ORIGEN))];
+          this.startProjects.push(...this.projects);
+        })
+        .catch(err => console.error("FAIL: " + err));
     },
     createProposal() {
       let fecha = this.project.FECHAINGRESO.split("/").reverse().join("-");
@@ -334,17 +350,18 @@ export default {
       isVoted: false,
       projects: [],
       startProjects: [],
+      boletines: [],
       buscar: "",
       fechaIngreso: "",
       autores: "",
       origen: "",
-      ordenar: "Desc",
+      ordenar: "DESC",
       sortOptions: [{
-          name:"Fecha de Ingreso (Desc.)",
-          value: 'Desc'
+          name: this.$t('propuestas.contenido.opciones_ordenar.opcion_1'),
+          value: 'DESC'
         },{
-          name: "Fecha de Ingreso (Asc.)", 
-          value:'Asc'
+          name: this.$t('propuestas.contenido.opciones_ordenar.opcion_2'), 
+          value:'ASC'
         }
       ],
       limit: 10,

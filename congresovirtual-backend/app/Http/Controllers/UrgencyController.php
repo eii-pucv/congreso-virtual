@@ -85,6 +85,9 @@ class UrgencyController extends Controller
 
             $user = Auth::user();
 
+            // 0: propuesta inactiva, no se puede votar
+            // 1: propuesta activa, se puede votar
+            // 2: propuesta activa, se puede votar y agregar video|argumento
             $urgency = new Urgency([
                 'urgency' => $request->urgency
             ]);
