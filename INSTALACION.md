@@ -41,12 +41,21 @@ $ sudo yum install zip unzip gcc-c++ make screen
 $ sudo yum install libXrender wkhtmltopdf xorg-x11-fonts-75dpi xorg-x11-fonts-Type1 openssl git-core fontconfig gd gd-devel
 ```
 
-6. Preparar la carpeta `/var/www` para que pueda ser usada por el usuario actual, y por el servidor HTTP de Apache. Reemplazar `USUARIO` por el usuario actual de sistema.
+**Importante**: En el caso de CentOS 7, el paquete `wkhtmltopdf` que se encuentra en los repositorios oficiales prescinde de una función necesaria, por lo que debe ser descargado desde la fuente que provee el desarrollador e instalarse tal como se indica a continuación:
 ```
-$ sudo chown -R USUARIO:apache /var/www/
-$ sudo chmod -R 755 /var/www/
+$ wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm
+$ sudo rpm -Uvh wkhtmltox-0.12.5-1.centos7.x86_64.rpm
 ```
 
+Por otra parte es necesaria la instalación de una fuente de texto, en el caso de CentOS se debe instalar de la siguente forma:
+```
+$ sudo yum install google-roboto-fonts
+```
+
+Para el caso de Debian se puede instalar de esta forma:
+```
+$ sudo apt-get install fonts-roboto
+```
 
 #### Acerca de SELinux
 
@@ -56,7 +65,7 @@ En este caso se está haciendo una instalación de la plataforma en CentOS 7, el
 $ sudo setenforce 0
 ```
 
-- La segunda forma es la recomendada ya que implica que SELinux quede desactivado de forma permanente. Para ello se debe editar el archivo de configuración `/etc/selinux/config` y colocar el valor de `SELINUX` en `disabled`. Quedando de la siguiente forma:
+- La segunda forma es la recomendada ya que implica que SELinux quede desactivado de forma permanente. Para ello se debe editar el archivo de configuración `/etc/selinux/config` y colocar el valor de `SELINUX` en `disabled`, quedando de la siguiente forma:
 
 ```
 ...
@@ -72,8 +81,7 @@ _Para que los cambios del archivo de configuración tengan efecto, se debe reini
 
 1. Instalar MariaDB desde el repositorio EPEL.
 ```
-$ sudo chown -R USUARIO:apache /var/www/
-$ sudo chmod -R 755 /var/www/
+$ sudo yum --enablerepo=remi,epel install mariadb-server
 ```
 
 2. Iniciar servicio, y marcarlo para inicio automático en caso de reinicio del servidor.
@@ -92,11 +100,11 @@ $ /usr/bin/mysql_secure_installation
 A modo de ayuda, se muestra un ejemplo de cómo debe efectuarse la configuración, aunque puede efectuarse de cualquier forma como el instalador desee.
 ```
 $ sudo mysql -u root -p
-mysql> CREATE DATABASE mibd;
-mysql> CREATE USER 'miusuario' IDENTIFIED BY 'mipassword';
-mysql> GRANT USAGE ON *.* TO 'congreso'@localhost IDENTIFIED BY 'congreso';
-mysql> GRANT USAGE ON *.* TO 'congreso'@'%' IDENTIFIED BY 'congreso';
-mysql> GRANT ALL privileges ON `congreso`.* TO 'congreso'@localhost;
+mysql> CREATE DATABASE `congresovirtual-bd`;
+mysql> CREATE USER `cvirtual-user` IDENTIFIED BY 'secret';
+mysql> GRANT USAGE ON *.* TO 'cvirtual-user'@localhost IDENTIFIED BY 'cvirtual-user';
+mysql> GRANT USAGE ON *.* TO 'cvirtual-user'@'%' IDENTIFIED BY 'cvirtual-user';
+mysql> GRANT ALL privileges ON `cvirtual-user`.* TO 'cvirtual-user'@localhost;
 mysql> FLUSH PRIVILEGES;
 ```
 
@@ -109,35 +117,41 @@ mysql> FLUSH PRIVILEGES;
 $ sudo yum --enablerepo=remi,epel install httpd -y
 ```
 
-2. Iniciar servicio y marcarlo para inicio automático en caso de reinicio de servidor.
+2. Preparar la carpeta `/var/www` para que pueda ser usada por el usuario actual, y por el servidor HTTP de Apache.
+```
+$ sudo chown -R $USER:apache /var/www/
+$ sudo chmod -R 755 /var/www/
+```
+
+3. Iniciar servicio y marcarlo para inicio automático en caso de reinicio de servidor.
 ```
 $ sudo systemctl enable httpd
 $ sudo service httpd start
 ```
 
-3. Configurar firewall para permitir comunicación por puerto 80. Puede repetir el paso si desea habilitar HTTPS (puerto 443) si gusta.
+4. Configurar firewall para permitir comunicación por puerto 80. Puede repetir el paso si desea habilitar HTTPS (puerto 443) si gusta.
 ```
 $ sudo firewall-cmd --zone=public --add-port=80/tcp --permanent
-$ sudo firewall-cmd –reload
+$ sudo firewall-cmd --reload
 ```
 
-4. Configurar servidor web apache para servir una página web (backend/api) en `/var/www/congresovirtual-backend/public`. Si desea puede cambiar la ruta a otra, bajo su responsabilidad. Del mismo modo, puede
+5. Configurar el servidor web Apache para servir una página web (backend/API) en `/var/www/congresovirtual-backend/public`. Si desea puede cambiar la ruta a otra, bajo su responsabilidad. Del mismo modo, puede
 modificar esta configuración para permitir HTTPS si lo desea.
 
-5. Agregar el siguiente contenido al fichero `/etc/httpd/conf/httpd.conf` (puede usar editores como Vim o Nano, o bien editores integrados de su cliente FTP para tal fin). Reemplace dominiocongresoapi.com por el dominio que utilizará.
+6. Agregar el siguiente contenido al fichero `/etc/httpd/conf/httpd.conf` (puede usar editores como Vim o Nano, o bien editores integrados de su cliente FTP para tal fin). Reemplace dominiocongresoapi.com por el dominio que utilizará.
 ```
 <VirtualHost *:80>
     ServerName dominiocongresoapi.com
     DocumentRoot /var/www/congresovirtual-backend/public
-    <Directory /var/www/congresovirtual-backend>
+    <Directory /var/www/congresovirtual-backend/public>
         AllowOverride All
     </Directory>
 </VirtualHost>
 ```
 
-6. Configurar servidor web de Apache para servir el frontend del sitio en `/var/www/congresovirtual-frontend/dist`. Si desea puede cambiar la ruta a otra, bajo su responsabilidad. Del mismo modo, puede modificar esta configuración para permitir HTTPS si lo desea.
+7. Configurar servidor web de Apache para servir el frontend del sitio en `/var/www/congresovirtual-frontend/dist`. Si desea puede cambiar la ruta a otra, bajo su responsabilidad. Del mismo modo, puede modificar esta configuración para permitir HTTPS si lo desea.
 
-7. Agregar el siguiente contenido al fichero `/etc/httpd/conf/httpd.conf` (puede usar editores como Vim o Nano, o bien editores integrados de su cliente FTP para tal fin). Reemplace `dominiocongreso.com` por el dominio que utilizará.
+8. Agregar el siguiente contenido al fichero `/etc/httpd/conf/httpd.conf` (puede usar editores como Vim o Nano, o bien editores integrados de su cliente FTP para tal fin). Reemplace `dominiocongreso.com` por el dominio que utilizará.
 ```
 <VirtualHost *:80>
     ServerName dominiocongreso.com
@@ -148,7 +162,7 @@ modificar esta configuración para permitir HTTPS si lo desea.
 </VirtualHost>
 ```
 
-8. Reinicie el servidor web de Apache
+9. Reinicie el servidor web de Apache
 ```
 $ sudo service httpd restart
 ```
@@ -268,11 +282,11 @@ $ git clone https://github.com/eii-pucv/congreso-virtual.git
 ### Instalación y Configuración del Backend/API
 
 1. Desde el repositorio clonado, mover completamente la carpeta `congresovirtual-backend` a la ruta `/var/www/`
-2. Asignar permisos indicados a las carpetas del proyecto recién copiado.
+
+2. Asignar los permisos indicados a las carpetas del proyecto recién copiado.
 ```
-$ sudo chown -R $USER:apache /var/www/
-$ sudo chmod -R 755 /var/www/congresovirtual-backend/
-$ sudo chmod -R 755 /var/www/congresovirtual-backend/storage
+$ sudo chmod -R 775 /var/www/congresovirtual-backend/storage
+$ sudo chmod -R 775 /var/www/congresovirtual-backend/bootstrap/cache
 $ sudo chcon -R -t httpd_sys_rw_content_t /var/www/congresovirtual-backend/storage
 ```
 
@@ -291,7 +305,7 @@ APP_KEY=
 APP_DEBUG=false
 *APP_URL=http://url_api/api
 *APP_CLIENT_URL=http://url_frontend/
-APP_ANALYTIC_URL=http://127.0.0.1:8080
+APP_ANALYTIC_URL=http://127.0.0.1:5000
 *ELASTICSEARCH_ENABLED=true
 *ELASTICSEARCH_HOSTS="localhost:9200"
 LOG_CHANNEL=stack
@@ -386,9 +400,9 @@ $ php artisan passport:install
 
 _Instalar paquetes opcionales de assets si existiesen, siguiendo los pasos correspondientes._
 
-### Instalación y Configuración del Frontend
-
 ---
+
+### Instalación y Configuración del Frontend
 
 1. Desde el repositorio clonado, mover completamente la carpeta `congresovirtual-frontend` a la ruta `/var/www/`.
 
@@ -416,7 +430,7 @@ $ npm run build --max-old-space-size=4096
 
 _Reemplace 4096 por la cantidad de RAM que piensa asignarle para la compilación. Usualmente aquel valor funciona bien en la mayoría de los casos. Espere un momento, ya que el proceso puede tardar unos minutos sin responder._
 
-5. Al terminar la compilación, se habrá generado una carpeta dist. Dentro de esta carpeta cree un fichero llamado `.htaccess`. El contenido del archivo debe ser el siguiente:
+5. Al terminar la compilación, se habrá generado una carpeta `dist`. Dentro de esta carpeta cree un fichero llamado `.htaccess`. El contenido del archivo debe ser el siguiente:
 ```
 <IfModule mod_rewrite.c>
     RewriteEngine On
@@ -430,9 +444,9 @@ _Reemplace 4096 por la cantidad de RAM que piensa asignarle para la compilación
 
 _Cuando se regenere el proyecto, este archivo puede ser sobreescrito o eliminado, por lo que deberá crear el archivo nuevamente. De forma alternativa, puede dejar una copia de seguridad lista para restaurar luego de correr el compilador de VueJS._
 
-### Instalación y Configuración del Servidor de Data-Analytics
-
 ---
+
+### Instalación y Configuración del Servidor de Data-Analytics
 
 1. Desde el repositorio clonado, mover completamente la carpeta `congresovirtual-data-analytics` a la ruta `/var/www/`.
 
@@ -442,12 +456,12 @@ $ cd /var/www/congresovirtual-data-analytics
 $ sudo pip3 install -r requirements.txt
 ```
 
-3. Editar el archivo `dbconfig.py`. En ella, ingresar los datos de conexión de base de datos de Congreso Virtual.
+3. Editar el archivo `dbconfig.py`. En él, ingresar los datos de conexión de base de datos de Congreso Virtual.
 ```
 CONGRESO_MYSQL_HOST="localhost"
-CONGRESO_MYSQL_USER="congreso"
-CONGRESO_MYSQL_PASSWD="congreso"
-CONGRESO_MYSQL_DATABASE="congreso"
+CONGRESO_MYSQL_USER="cvitual-user"
+CONGRESO_MYSQL_PASSWD="secret"
+CONGRESO_MYSQL_DATABASE="congresovirtual-bd"
 ```
 
 4. Configurar el sistema operativo para que inicie el servicio de analítica ante un reinicio del servidor con crontab. Para tal fin, iniciar Crontab.
@@ -480,7 +494,7 @@ $ sudo systemctl enable crond.service
 $ screen -d -m bash -c "cd /var/www/congresovirtual-data-analytics/; python3 -m flask run"
 ```
 
-_Para ver el estado del servidor de analítica, se deberá usar una terminal paralela creada para tal fin. Para acceder a la terminal paralela, escribir screen -r y para salir de ella hay que presionar las teclas Ctrl+a+d ._
+_Para ver el estado del servidor de analítica, se deberá usar una terminal paralela creada para tal fin. Para acceder a la terminal paralela, escribir `screen -r` y para salir de ella hay que presionar las teclas Ctrl+a+d ._
 
 ---
 
@@ -504,7 +518,7 @@ Congreso Virtual ofrece la opción de Instalación rápida, el cual luego de con
 
 **Importante:** El script de instalación **CREARÁ una base de datos** en un contenedor Docker, no es necesario que usted prepare una. Los datos que aparece en la configuración son usados al momento de crear las tablas.
 
-**NOTA:** Si desea **habilitar HTTPS**, por favor, ponga su certificado en `/volumefiles/certs/cert.crt` y `/volumefiles/certs/cert.key`
+**NOTA:** Si desea **habilitar HTTPS**, por favor, ponga su certificado en `/volumefiles/certs/cert.crt` y `/volumefiles/certs/cert.key`.
 
 4. Una vez listo ejecute el siguiente comando para iniciar la instalación. Es recomendable hacer primero `cd` a la carpeta `scripts` y luego ejecutar cada comando. Se aplica lo mismo para todos los comandos de este manual.
 ```
@@ -515,14 +529,14 @@ $ ./scripts/fast_setup.sh
 
 5. Una vez finalizado el proceso, deje aproximadamente unos 10 a 15 minutos adicionales para que Congreso Virtual termine de inicializarse en segundo plano (librerías, dependencias y bases de datos).  Una forma de comprobar si Congreso Virtual ha inicializado satisfactoriamente es entrando a la URL de la API. Si este indica un error 503 Service Unavailable, entonces este no ha terminado de inicializar aún. 
 
-6. Poblar Base de Datos: Una vez funcionando Congreso Virtual, deseará poblar éste con información inicial. Para esto, se recomienda instalar los datos iniciales en la base de datos ejecutando este comando.
+6. Poblar Base de Datos: Una vez funcionando Congreso Virtual, deseará poblar éste con información inicial. Para esto, se recomienda instalar los datos iniciales en la base de datos ejecutando este comando:
 ```
 $ ./scripts/installinitialdata.sh
 ```
 
 * Se creará con ello un **usuario** `admin@congresovirtual.cl` con **contraseña** `abc123456`
 
-* En cualquier momento usted puede ver los **logs** de Congreso Virtual (y sus componentes) ejecutando
+* En cualquier momento usted puede ver los **logs** de Congreso Virtual (y sus componentes) ejecutando:
 ```
 $ ./scripts/livelog.sh
 ```
@@ -532,7 +546,7 @@ $ ./scripts/livelog.sh
 $ ./scripts/stop.sh
 ```
 
-* De la misma forma puede **volver a iniciar** el servidor ejecutando
+* De la misma forma puede **volver a iniciar** el servidor ejecutando:
 ```
 $ ./scripts/run.sh
 ```
@@ -543,7 +557,7 @@ $ ./scripts/run.sh
 
 De la misma forma que la instalación, Congreso Virtual permite una forma rápida de actualizar la plataforma a su versión más reciente.
 
-1. Para ello, simplemente actualice su repositorio (git pull), y luego ejecute el siguiente comando para iniciar la actualización.
+1. Para ello, simplemente actualice su repositorio (git pull), y luego ejecute el siguiente comando para iniciar la actualización:
 ```
 $ ./scripts/fast_update.sh
 ```
@@ -558,30 +572,28 @@ Si desea ir paso por paso por los procesos de instalación y actualización, es 
 
 El primer script es `./scripts/configure.sh`  cuya tarea es ayudar en las tareas de configurar una instancia de Congreso Virtual en un entorno especial para ello, creando una carpeta `dist`, donde en `volumefiles` contiene las configuraciones de cada componente. `./scripts/configure.sh` se encarga de tomar las configuraciones en el archivo `.env` y las reparte en los distintos componentes.
 
-1. Para inicializar una carpeta `dist` se deberá ejecutar el comando
-
+1. Para inicializar una carpeta `dist` se deberá ejecutar el comando:
 ```
 $ ./scripts/configure.sh --prepare=$UID
 ```
 
 2. Donde UID es el ID de usuario actual. Una vez inicializado, el script invitará a configurar el archivo `/dist/volumefiles/.env` con la información correspondiente.
 
-**NOTA:** Si desea habilitar HTTPS, por favor, ponga su certificado en `/dist/volumefiles/certs/cert.crt` y `/dist/volumefiles/certs/cert.key`
+**NOTA:** Si desea habilitar HTTPS, por favor, ponga su certificado en `/dist/volumefiles/certs/cert.crt` y `/dist/volumefiles/certs/cert.key`.
 
-3. Para aplicar la configuración del `.env` ejecutar
-
+3. Para aplicar la configuración del `.env` ejecutar:
 ```
 $ ./scripts/configure.sh --applyconfig
 ```
 
-4. Una vez finalizada la aplicación de la configuración, podrá compilar el frontend de la carpeta dist (basado en vue), ejecutando el comando
+4. Una vez finalizada la aplicación de la configuración, podrá compilar el frontend de la carpeta dist (basado en Vue), ejecutando el comando:
 ```
 $ ./scripts/compile_frontend.sh
 ```
 
 * Inicializará una instancia temporal de vue y compilará el frontend (esto puede tardar mucho tiempo, y puede consumir mucha RAM). Luego añadirá archivos especiales y asignará permisos para apache.  
 
-5. Con el frontend compilado, ya se puede inicializar el proyecto con el comando 
+5. Con el frontend compilado, ya se puede inicializar el proyecto con el comando: 
 ```
 $ ./scripts/run.sh
 ``` 
@@ -593,12 +605,12 @@ $ ./scripts/run.sh
 $ ./scripts/livelog.sh
 ``` 
 
-7. Una vez funcionando Congreso Virtual por primera vez, deseará poblar éste con información inicial. Para aquel fin, se recomienda instalar los datos iniciales en la base de datos ejecutando este comando.
+7. Una vez funcionando Congreso Virtual por primera vez, deseará poblar éste con información inicial. Para aquel fin, se recomienda instalar los datos iniciales en la base de datos ejecutando este comando:
 ```
 $ ./scripts/installinitialdata.sh
 ```
 
-* Se creará con ello un **usuario** `admin@congresovirtual.cl` con contraseña `abc123456`
+* Se creará con ello un **usuario** `admin@dominio.com` con contraseña `abc123456`
 
 **NOTA:** Si necesita cargar un set de datos especiales, puede editar el archivo `/dist/volumefiles/initialdata.sql` e ingresarlos allí. Luego correr `./scripts/installinitialdata.sh` para aplicarlo.
 
@@ -614,9 +626,9 @@ $ ./scripts/stop.sh
 $ ./scripts/configure.sh --clean
 ```
 
-* Le pedirá una confirmación adicional para verificar que esté seguro con `--yes`
+* Le pedirá una confirmación adicional para verificar que esté seguro con `--yes`.
 
-* El script de configure tambien permite realizar la **actualización** del código del repositorio a la carpeta `dist`. Para ello, pare Congreso Virtual, sincronice su git con `git pull` y luego inicie la actualización con
+* El script de configure tambien permite realizar la **actualización** del código del repositorio a la carpeta `dist`. Para ello, pare Congreso Virtual, sincronice su git con `git pull` y luego inicie la actualización con:
 ```
 $ ./scripts/configure.sh --update
 ```
@@ -639,4 +651,4 @@ Una vez listo, agregue Congreso Virtual a Jenkins como Pipeline, apuntando el or
 
 Acá, o al momento de ejecución podrá personalizar los parámetros a su gusto, tal como indican las instrucciones del `fast_setup/update`.
 
-Al iniciar la tarea detectará si CongresoVirtual ya se encuentra funcionando o no, y dependiendo de ello instalará o actualizará la plataforma automáticamente, bajo lo indicado en éste manual.
+Al iniciar la tarea detectará si Congreso Virtual ya se encuentra funcionando o no, y dependiendo de ello instalará o actualizará la plataforma automáticamente, bajo lo indicado en éste manual.
