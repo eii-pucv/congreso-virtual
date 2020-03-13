@@ -158,7 +158,9 @@ function congreso_command_applyconfig() {
 			"{{DB_USERNAME}}" => $options["DB_USERNAME"],
 			"{{DB_PASSWORD}}" => $options["DB_PASSWORD"],
 			"{{CONGRESO_APACHE_HTTP_PORT}}" => $options["CONGRESO_APACHE_HTTP_PORT"],
-			"{{CONGRESO_APACHE_HTTPS_PORT}}" => $options["CONGRESO_APACHE_HTTPS_PORT"]
+			"{{CONGRESO_APACHE_HTTPS_PORT}}" => $options["CONGRESO_APACHE_HTTPS_PORT"],
+			"{{APP_CLIENT_URL}}" => explode("/", explode("://", $options["APP_CLIENT_URL"])[1])[0],
+			"{{APP_URL}}" => explode("/", explode("://", $options["APP_URL"])[1])[0]
 		));
 		
 		echo "Writing analytics configuration\n";
