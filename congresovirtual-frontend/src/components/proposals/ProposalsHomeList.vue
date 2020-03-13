@@ -165,7 +165,7 @@
                     .then(res => {
                         let petitions = res.data.results;
                         this.petitionProposals = petitions.filter(petition => petition.state != 0)
-                        this.petitionProposals = this.petitionProposals.concat(petitions.filter(petition => petition.state != 0))
+                        this.petitionProposals = this.petitionProposals.concat(petitions.filter(petition => petition.state == 0))
                     })
                     .finally(() => {
                         this.loadPetitionProposals = false;
