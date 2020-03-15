@@ -87,27 +87,17 @@
                                                     {{ $t('administrador.componentes.analitica.sin_comentarios') }}
                                                 </p>
                                                 <ul v-else-if="!loadComments && comments.length > 0" class="list-unstyled pa-20 col-12 custom-scrollbar-wk custom-scrollbar-mz" style="max-height: 600px; overflow: auto;">
-                                                    <li v-for="comment in filterComments" :key="comment.id" class="media pa-20 mb-5 border border-2 border-light col-12">
+                                                    <li v-for="comment in comments" :key="comment.id" class="media pa-20 mb-5 border border-2 border-light col-12">
                                                         <div class="media-body" v-if="comment.user">
                                                             <div class="row">
-                                                                <div class="col-8 col-sm-10">
-                                                                    <h6 class="mb-2">
-                                                                        {{ comment.user.name }} {{comment.user.surname}}
-                                                                        <small>{{ comment.created_at }}</small>
-                                                                    </h6>
+                                                                <div class="col-9 mb-2">
+                                                                    <h6 v-if="comment.user && comment.user.username">{{ comment.user.username }}</h6>
+                                                                    <h6 v-else-if="comment.user && !comment.user.username">{{ comment.user.name }} {{ comment.user.surname }}</h6>
+                                                                    <h6 v-else>{{ $t('componentes.comentarios.no_identificado') }}</h6>
+                                                                    <small class="text-grey">{{ new Date(toLocalDatetime(comment.created_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}</small>
                                                                 </div>
                                                             </div>
-                                                            <HighlightText :keyword="valor" :sensitive="sensitive">{{ comment.body }} </HighlightText>
-                                                        </div>
-                                                        <div class="media-body" v-if="!comment.user">
-                                                            <div class="row">
-                                                                <div class="col-8 col-sm-10">
-                                                                    <h6 class="mb-2">{{ $t('administrador.componentes.analitica.no_identificado') }}
-                                                                        <small>{{ comment.created_at }}</small>
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                            <HighlightText :keyword="phrase" :sensitive="sensitive">{{ comment.body }} </HighlightText>
+                                                            <p class="comment-body custom-scrollbar-wk custom-scrollbar-mz">{{ comment.body }}</p>
                                                         </div>
                                                     </li>
                                                     <div v-if="totalComments > comments.length" class="mt-10 mb-20">
@@ -158,7 +148,7 @@
                                 </div>
                                 <div class="tab-pane fade show" id="topicmodel" role="tabpanel">
                                     <div class="row px-20" style="overflow: auto;">
-                                        <TopicModeling :project_id="project_id"></TopicModeling>
+                                        <TopicModel :project_id="project_id"></TopicModel>
                                     </div>
                                 </div>
                             </div>
@@ -171,155 +161,146 @@
 </template>
 
 <script>
-import BarChart from '../../../BarChart.js';
-import WordCloud from '../../projects/WordCloud';
-import TreemapUsuariosPorRegion from "../../projects/TreeMapUsuariosPorRegion";
-import HorizontalUserGenderBarChart from "../../projects/AnalitycUsersGenderChart";
-import HorizontalUserAgesBarChart from "../../projects/AnalitycUsersAgesChart";
-import ProjectBarCharts from "../../projects/ProjectBarCharts";
-import TopicModeling from "./TopicModeling";
-import axios from '../../../backend/axios';
-import HighlightText from 'vue-highlight-text';
-import Loading from 'vue-loading-overlay';
+    import BarChart from '../../../BarChart.js';
+    import WordCloud from '../../projects/WordCloud';
+    import TreemapUsuariosPorRegion from '../../projects/TreeMapUsuariosPorRegion';
+    import HorizontalUserGenderBarChart from '../../projects/AnalitycUsersGenderChart';
+    import HorizontalUserAgesBarChart from '../../projects/AnalitycUsersAgesChart';
+    import ProjectBarCharts from '../../projects/ProjectBarCharts';
+    import TopicModel from './TopicModel';
+    import axios from '../../../backend/axios';
+    import HighlightText from 'vue-highlight-text';
+    import Loading from 'vue-loading-overlay';
 
-export default {
-    name: 'ProjectAnalytic',
-    components: {
-        BarChart,
-        WordCloud,
-        TreemapUsuariosPorRegion,
-        HorizontalUserGenderBarChart,
-        HorizontalUserAgesBarChart,
-        ProjectBarCharts,
-        TopicModeling,
-        HighlightText,
-        Loading
-    },
-    props: {
-        project_id: Number
-    },
-    data() {
-        return {
-            mode: String,
-            comments: [],
-            totalComments: 0,
-            limit: 10,
-            offset: 0,
-            loadComments: true,
-            loadBtnLoadMoreComments: false,
-            phrase: '',
-            chartData: {
-                labels: [],
-                datasets: [{
-                    label: this.$t('administrador.componentes.analitica.frecuencia'),
-                    backgroundColor: 'rgba(80, 80, 240, 0.5)',
-                    data: []
-                }],
-            },
-            chartOptions: {
-                elements: {
-                    rectangle : {
-                        borderWidth: 1,
-                        borderColor: 'rgb(0, 0, 250)',
-                        borderskipped: 'bottom'
-                    },
-                    responsive: true
+    export default {
+        name: 'ProjectAnalytic',
+        components: {
+            BarChart,
+            WordCloud,
+            TreemapUsuariosPorRegion,
+            HorizontalUserGenderBarChart,
+            HorizontalUserAgesBarChart,
+            ProjectBarCharts,
+            TopicModel,
+            HighlightText,
+            Loading
+        },
+        props: {
+            project_id: Number
+        },
+        data() {
+            return {
+                mode: String,
+                comments: [],
+                totalComments: 0,
+                limit: 10,
+                offset: 0,
+                loadComments: true,
+                loadBtnLoadMoreComments: false,
+                chartData: {
+                    labels: [],
+                    datasets: [{
+                        label: this.$t('administrador.componentes.analitica.frecuencia'),
+                        backgroundColor: 'rgba(80, 80, 240, 0.5)',
+                        data: []
+                    }],
                 },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            },
-            minWordsNgram: 2,
-            loadNgram: true,
-            ngramError: false,
-            fullPage: false,
-            color: "#000000"
-        };
-    },
-    mounted() {
-        if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
-            this.mode = 'dark';
-        } else {
-            this.mode = 'light';
-        }
+                chartOptions: {
+                    elements: {
+                        rectangle : {
+                            borderWidth: 1,
+                            borderColor: 'rgb(0, 0, 250)',
+                            borderskipped: 'bottom'
+                        },
+                        responsive: true
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                },
+                minWordsNgram: 2,
+                loadNgram: true,
+                ngramError: false,
+                fullPage: false,
+                color: "#000000"
+            };
+        },
+        mounted() {
+            if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
+                this.mode = 'dark';
+            } else {
+                this.mode = 'light';
+            }
 
-        this.getComments();
-        this.getNgram();
-    },
-    computed: {
-        filterComments() {
-            return this.comments.filter(post => {
-                if(post.body !== undefined) {
-                    return post.body.toLowerCase().includes(this.phrase.toLowerCase())
-                } else {
-                    return false;
-                }
-            })
-        },
-    },
-    methods: {
-        getComments() {
-            axios
-                .get('/comments', {
-                    params: {
-                        'project_id': this.project_id,
-                        'state': 0,
-                        'order_by': 'created_at',
-                        'order': 'DESC',
-                        'limit': this.limit,
-                        'offset': this.offset
-                    }
-                })
-                .then(res => {
-                    this.comments = this.comments.concat(res.data.results);
-                    this.totalComments = res.data.total_results;
-                    this.offset += res.data.returned_results;
-                })
-                .finally(() => {
-                    this.loadComments = false;
-                    this.loadBtnLoadMoreComments = false;
-                });
-        },
-        loadMoreComments() {
-            this.loadBtnLoadMoreComments = true;
             this.getComments();
-        },
-        getNgram() {
-            this.loadNgram = true;
-            axios
-                .get('/ngram', {
-                    params: {
-                        'project_id': this.project_id,
-                        'min_words': this.minWordsNgram
-                    }
-                })
-                .then(res => {
-                    let matrixX = res.data.names;
-                    let matrixY = res.data.values;
-                    this.chartData.labels = matrixX.slice(0, 10);
-                    this.chartData.datasets[0].data = matrixY.slice(0, 10);
-                })
-                .catch(() => {
-                    this.ngramError = true;
-                })
-                .finally(() => {
-                    this.loadNgram = false;
-                });
-        },
-        updateNgram(event) {
-            this.minWordsNgram = event.target.value;
             this.getNgram();
         },
-        changeTab(e) {
-            e.preventDefault();
-            $(this).tab("show");
-        },
+        methods: {
+            getComments() {
+                axios
+                    .get('/comments', {
+                        params: {
+                            'project_id': this.project_id,
+                            'include_all_comments': 1,
+                            'order_by': 'created_at',
+                            'order': 'DESC',
+                            'limit': this.limit,
+                            'offset': this.offset
+                        }
+                    })
+                    .then(res => {
+                        this.comments = this.comments.concat(res.data.results);
+                        this.totalComments = res.data.total_results;
+                        this.offset += res.data.returned_results;
+                    })
+                    .finally(() => {
+                        this.loadComments = false;
+                        this.loadBtnLoadMoreComments = false;
+                    });
+            },
+            loadMoreComments() {
+                this.loadBtnLoadMoreComments = true;
+                this.getComments();
+            },
+            getNgram() {
+                this.loadNgram = true;
+                axios
+                    .get('/ngram', {
+                        params: {
+                            'project_id': this.project_id,
+                            'min_words': this.minWordsNgram
+                        }
+                    })
+                    .then(res => {
+                        let matrixX = res.data.names;
+                        let matrixY = res.data.values;
+                        this.chartData.labels = matrixX.slice(0, 10);
+                        this.chartData.datasets[0].data = matrixY.slice(0, 10);
+                    })
+                    .catch(() => {
+                        this.ngramError = true;
+                    })
+                    .finally(() => {
+                        this.loadNgram = false;
+                    });
+            },
+            updateNgram(event) {
+                this.minWordsNgram = event.target.value;
+                this.getNgram();
+            },
+            toLocalDatetime(datetime) {
+                return this.$moment.utc(datetime, 'YYYY-MM-DD HH:mm:ss').local();
+            },
+            changeTab(e) {
+                e.preventDefault();
+                $(this).tab("show");
+            },
+        }
     }
-}
 </script>
 
 <style scoped>

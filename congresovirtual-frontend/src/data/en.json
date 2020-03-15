@@ -146,16 +146,19 @@
                 }
             },
             "video": "Video",
-            "generar_informe": "Generate Report",
             "sin_articulos": "There are no law articles to display.",
             "sin_ideas": "There are no fundamental ideas to show.",
             "analisis_votos": "Voting Analysis of the Project of Law",
             "recomendacion": "We recommend placing the mouse on the bars to know in greater detail the current result of the votes.",
-            "cantidad_comentarios": "Number of comments made",
-            "cantidad_participantes": "Amount of participants",
+            "a_favor": "In favor",
+            "en_contra": "Against",
+            "abstenciones": "Abstentions",
+            "cantidad_comentarios": "Number of Comments",
+            "cantidad_participantes": "Amount of Participants",
             "congreso_virtual": "Virtual Congress",
             "senado": "Senate",
-            "nube": "Word cloud",
+            "no_hay_datos_senado": "There is no data on the vote of the parliamentarians.",
+            "nube": "Word Cloud",
             "comentarios": "Comments of Project of Law",
             "cargar": "Load More"
         },
@@ -922,6 +925,49 @@
             },
             "ideas_proyecto": "List of Fundamental Ideas",
             "articulos_proyecto": "List of Articles",
+            "lista_proyectos": {
+                "titulo": "List of Projects",
+                "acciones": {
+                    "ver_ideas": "View fundamental ideas",
+                    "ver_articulos": "View articles",
+                    "analitica": "Data analytics",
+                    "notificar": "Notify users",
+                    "ver_archivos": "View files",
+                    "ver_reporte": "View report"
+                },
+                "mensajes": {
+                    "exito": {
+                        "ver_reporte": {
+                            "generico": {
+                                "titulo": "Report generated successfully",
+                                "cuerpo": "Report successfully generated"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "carga_proyectos": {
+                            "generico": {
+                                "titulo": "Error loading projects",
+                                "cuerpo": "The projects of law could not be obtained"
+                            }
+                        },
+                        "ver_reporte": {
+                            "generico": {
+                                "titulo": "Error generating report",
+                                "cuerpo": "The report could not be generated"
+                            }
+                        }
+                    },
+                    "informativo": {
+                        "ver_reporte": {
+                            "generico": {
+                                "titulo": "Generating report",
+                                "cuerpo": "Wait a moment while the report is generated, this may take several seconds"
+                            }
+                        }
+                    }
+                }
+            },
             "crear_proyecto": {
                 "titulo1": "Create Project",
                 "titulo2": "Edit Project",
@@ -1178,7 +1224,8 @@
                 "genero_creacion": "Users by gender and creation",
                 "siguiente": "In the following graphic you can visualize the different users and divided according to the year in which they were created and their gender.",
                 "datos": "Data by vote",
-                "seccion": "In the next section you can see a graphical analysis of the different votes made. Either in the general vote, as separated according to general ideas and articles."
+                "seccion": "In the next section you can see a graphical analysis of the different votes made. Either in the general vote, as separated according to general ideas and articles.",
+                "topic_model_no_carga": "We are sorry, an error occurred while loading the topic model."
             },
             "archivos_proyecto": {
                 "titulo": "Upload Files to the Project",

@@ -59,11 +59,9 @@
         },
         data() {
             return {
-                generalVotingChartData: Object,
-                ideasVotingChartData: Object,
-                articlesVotingChartData: Object,
-                ideasLabelChartData: [],
-                articlesChartData: [],
+                generalVotingChartData: null,
+                ideasVotingChartData: null,
+                articlesVotingChartData: null,
                 generalVotingChartOptions: {
                     scales: {
                         xAxes: [
@@ -155,7 +153,7 @@
             },
             generateGeneralVotingChartData() {
                 this.generalVotingChartData = {
-                    labels: ['A favor', 'En contra', 'Abstenciones'],
+                    labels: [this.$t('proyecto.contenido.a_favor'), this.$t('proyecto.contenido.en_contra'), this.$t('proyecto.contenido.abstenciones')],
                     datasets: [
                         {
                             backgroundColor: [this.agreeColor, this.disagreeColor, this.abstentionColor],
@@ -173,24 +171,24 @@
                     ideasLabels.push('Idea fundamental: ' + (index + 1));
                     ideasAgreeVotes.push(idea.votos_a_favor);
                     ideasDisagreeVotes.push(idea.votos_en_contra);
-                    ideasAbstentionVotes.push(idea.abtencion);
+                    ideasAbstentionVotes.push(idea.abstencion);
                 });
 
                 this.ideasVotingChartData = {
                     labels: ideasLabels,
                     datasets: [
                         {
-                            label: 'A favor',
+                            label: this.$t('proyecto.contenido.a_favor'),
                             data: ideasAgreeVotes,
                             backgroundColor: this.agreeColor
                         },
                         {
-                            label: 'En contra',
+                            label: this.$t('proyecto.contenido.en_contra'),
                             data: ideasDisagreeVotes,
                             backgroundColor: this.disagreeColor
                         },
                         {
-                            label: 'Abstenciones',
+                            label: this.$t('proyecto.contenido.abstenciones'),
                             data: ideasAbstentionVotes,
                             backgroundColor: this.abstentionColor
                         },
@@ -206,24 +204,24 @@
                     articlesLabels.push('Artículo: ' + (index + 1));
                     articlesAgreeVotes.push(article.votos_a_favor);
                     articlesDisagreeVotes.push(article.votos_en_contra);
-                    articlesAbstentionVotes.push(article.abtencion);
+                    articlesAbstentionVotes.push(article.abstencion);
                 });
 
                 this.articlesVotingChartData = {
                     labels: articlesLabels,
                     datasets: [
                         {
-                            label: 'A favor',
+                            label: this.$t('proyecto.contenido.a_favor'),
                             data: articlesAgreeVotes,
                             backgroundColor: this.agreeColor
                         },
                         {
-                            label: 'En contra',
+                            label: this.$t('proyecto.contenido.en_contra'),
                             data: articlesDisagreeVotes,
                             backgroundColor: this.disagreeColor
                         },
                         {
-                            label: 'Abstenciones',
+                            label: this.$t('proyecto.contenido.abstenciones'),
                             data: articlesAbstentionVotes,
                             backgroundColor: this.abstentionColor
                         },

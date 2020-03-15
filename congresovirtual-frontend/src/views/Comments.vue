@@ -45,8 +45,8 @@
                         :loader="loaderType"
                     ></loading>
                 </div>
-                <div v-else-if="comments.length === 0 && !loadComments" class="text-center mt-20">{{ $t('componentes.comentarios.no_hay_comentarios') }}</div>
-                <ul v-else class="col-12 list-unstyled mt-20 custom-scrollbar-wk custom-scrollbar-mz" style="max-height: 1000px; overflow: auto;">
+                <div v-else-if="comments.length === 0 && !loadComments" class="text-center my-20">{{ $t('componentes.comentarios.no_hay_comentarios') }}</div>
+                <ul v-else class="col-12 list-unstyled my-20 custom-scrollbar-wk custom-scrollbar-mz" style="max-height: 1000px; overflow: auto;">
                     <li
                             v-for="comment in comments"
                             :key="comment.id"
@@ -134,7 +134,9 @@
                                 :color="color"
                         ></loading>
                     </button>
-                    <li v-if="commentAreEnabled" class="media pa-10 border border-2 border-light col-12">
+                </ul>
+                <div class="col-12">
+                    <div v-if="commentAreEnabled" class="media pa-10 border border-2 border-light col-12">
                         <div class="media-body">
                             <div v-if="parentComment">
                                 <p>{{ $t('componentes.comentarios.respondiendo_comentario') }}:</p>
@@ -208,8 +210,8 @@
                                 </button>
                             </div>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                </div>
                 <b-modal id="modal-denunciar"  
                         footer-bg-variant="primary"
                         header-bg-variant="primary"

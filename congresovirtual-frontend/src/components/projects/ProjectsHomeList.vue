@@ -128,8 +128,8 @@
             .get('/projects', {
                     params: {
                         'is_public': 1,
-                        'order_by': 'etapa',
-                        'order': 'ASC',
+                        'order_by': 'fecha_inicio',
+                        'order': 'DESC',
                         'limit': 10
                     }
                 }

@@ -5,14 +5,14 @@
                 :is-full-page="fullPage"
                 :height="128"
                 :color="color"
-                :background-color="background_color"
+                :background-color="backgroundColor"
         ></loading>
     </div>
     <div v-else-if="!loadWordCloud && !error" id="divWordCloud">
         <wordcloud :data="wordCloudData" nameKey="word" valueKey="freq" :rotate="rotate" :margin="margin" :color="Accent"></wordcloud>
     </div>
     <div v-else-if="error">
-        <h6>{{ $t('proyecto.componentes.nube.no_carga') }}</h6>
+        <h6 class="text-center my-20">{{ $t('proyecto.componentes.nube.no_carga') }}</h6>
     </div>
 </template>
 
@@ -57,8 +57,8 @@
                 error: false,
                 loadWordCloud: true,
                 fullPage: false,
-                color: "#000000",
-                background_color: 'transparent'
+                color: '#000000',
+                backgroundColor: 'transparent'
             };
         },
         mounted() {
@@ -105,7 +105,8 @@
         height: 100%;
         position: absolute;
     }
-    #divWordCloud{
+
+    #divWordCloud {
         object-fit: cover;
         width: 100%;
         height: 100%;

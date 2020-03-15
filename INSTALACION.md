@@ -281,7 +281,7 @@ $ git clone https://github.com/eii-pucv/congreso-virtual.git
 
 ### Instalación y Configuración del Backend/API
 
-1. Desde el repositorio clonado, mover completamente la carpeta `congresovirtual-backend` a la ruta `/var/www/`
+1. Desde el repositorio clonado, mover completamente la carpeta `congresovirtual-backend` a la ruta `/var/www/`.
 
 2. Asignar los permisos indicados a las carpetas del proyecto recién copiado.
 ```
@@ -295,7 +295,7 @@ $ sudo chcon -R -t httpd_sys_rw_content_t /var/www/congresovirtual-backend/stora
 $ cd /var/www/congresovirtual-backend
 ```
 
-4. En esta carpeta crear un archivo llamado `.env`
+4. En esta carpeta crear un archivo llamado `.env`.
 
 _El contenido de este archivo contendrá la configuración de la base de datos, entre otros atributos._
 ```

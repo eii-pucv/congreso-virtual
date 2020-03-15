@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <section class="hk-sec-wrapper">
-                        <h3 class="hk-sec-title text-center" :class="mode==='dark'?'text-primary':''">{{ $t('administrador.navbar.proyectos.lista') }}</h3>
+                        <h3 class="hk-sec-title text-center" :class="mode==='dark'?'text-primary':''">{{ $t('administrador.componentes.lista_proyectos.titulo') }}</h3>
                         <div class="row px-10">
                             <div class="col-sm">
                                 <a role="button" class="btn btn-sm btn-labeled btn-success float-right" href="/admin/project">
@@ -82,16 +82,30 @@
                                             <td v-for="column in data.columns" :key="'project-' + project.id + '-' + column.field">
                                                 <p v-if="!column.customizable">{{ project[column.field] }}</p>
                                                 <div v-else-if="column.field === 'actions'" class="text-center">
-                                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acción</button>
+                                                    <button
+                                                            class="btn btn-primary btn-sm dropdown-toggle vld-parent"
+                                                            type="button"
+                                                            data-toggle="dropdown"
+                                                            aria-haspopup="true"
+                                                            aria-expanded="false"
+                                                    >
+                                                        {{ $t('acciones') }}
+                                                        <loading
+                                                                :active.sync="loadBtnDownloadReports.find(loadBtnDownloadReport => loadBtnDownloadReport.project_id === project.id).value"
+                                                                :is-full-page="fullPage"
+                                                                :height="24"
+                                                                :color="'#ffffff'"
+                                                        ></loading>
+                                                    </button>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" :href="'/admin/project/' + project.id">Editar</a>
-                                                        <a class="dropdown-item" :href="'/admin/project/' + project.id + '/ideas'">Ver ideas fundamentales</a>
-                                                        <a class="dropdown-item" :href="'/admin/project/' + project.id + '/articles'">Ver artículos</a>
-                                                        <a class="dropdown-item" :href="'/admin/project/' + project.id + '/analytic'">Analítica</a>
-                                                        <a class="dropdown-item" style="cursor: pointer;" :href="'/admin/project/' + project.id + '/send'">Enviar correo</a>
-                                                        <a class="dropdown-item" style="cursor: pointer;" :href="'/admin/project/' + project.id + '/delete'">Eliminar</a>
-                                                        <a class="dropdown-item" style="cursor: pointer;" :href="'/admin/project/' + project.id + '/documents'">Ver archivos</a>
-                                                        <a class="dropdown-item" @click="downloadReport(project.id)">Ver reporte</a>
+                                                        <router-link class="dropdown-item" :to="{ path: '/admin/project/' + project.id }">{{ $t('editar') }}</router-link>
+                                                        <router-link class="dropdown-item" :to="{ path: '/admin/project/' + project.id + '/ideas' }">{{ $t('administrador.componentes.lista_proyectos.acciones.ver_ideas') }}</router-link>
+                                                        <router-link class="dropdown-item" :to="{ path: '/admin/project/' + project.id + '/articles' }">{{ $t('administrador.componentes.lista_proyectos.acciones.ver_articulos') }}</router-link>
+                                                        <router-link class="dropdown-item" :to="{ path: '/admin/project/' + project.id + '/analytic' }">{{ $t('administrador.componentes.lista_proyectos.acciones.analitica') }}</router-link>
+                                                        <router-link class="dropdown-item" :to="{ path: '/admin/project/' + project.id + '/send' }">{{ $t('administrador.componentes.lista_proyectos.acciones.notificar') }}</router-link>
+                                                        <router-link class="dropdown-item" :to="{ path: '/admin/project/' + project.id + '/delete' }">{{ $t('eliminar') }}</router-link>
+                                                        <router-link class="dropdown-item" :to="{ path: '/admin/project/' + project.id + '/documents' }">{{ $t('administrador.componentes.lista_proyectos.acciones.ver_archivos') }}</router-link>
+                                                        <button class="dropdown-item" @click="downloadReport(project.id)">{{ $t('administrador.componentes.lista_proyectos.acciones.ver_reporte') }}</button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -176,10 +190,13 @@
 
 <script>
     import axios from '../../../backend/axios';
+    import Loading from 'vue-loading-overlay';
 
     export default {
         name: 'ProjectsList',
-        components: { },
+        components: {
+            Loading
+        },
         data() {
             return {
                 mode: String,
@@ -248,6 +265,7 @@
                     rows: [],
                 },
                 loadProjects: false,
+                loadBtnDownloadReports: [],
                 fullPage: false,
                 color: "#000000"
             }
@@ -294,9 +312,20 @@
                         this.returnedRows = res.data.returned_results;
                         this.projects = res.data.results;
                         this.data.rows = this.projects;
+
+                        this.loadBtnDownloadReports = this.projects.map(project => {
+                            return {
+                                project_id: project.id,
+                                value: false
+                            };
+                        });
                     })
                     .catch(() => {
-                        this.$toastr('error', 'No se han podido cargar los proyectos de ley', 'Error al cargar');
+                        this.$toastr(
+                            'error',
+                            this.$t('administrador.componentes.lista_proyectos.mensajes.fallido.carga_proyectos.generico.cuerpo'),
+                            this.$t('administrador.componentes.lista_proyectos.mensajes.fallido.carga_proyectos.generico.titulo')
+                        );
                     })
                     .finally(() => {
                         this.loadProjects = false;
@@ -342,23 +371,47 @@
                 });
             },
             downloadReport(projectId) {
+                let loadBtnDownloadReport = this.loadBtnDownloadReports.find(loadBtnDownloadReport => loadBtnDownloadReport.project_id === projectId);
+                loadBtnDownloadReport.value = true;
+                this.$toastr(
+                    'info',
+                    this.$t('administrador.componentes.lista_proyectos.mensajes.informativo.ver_reporte.generico.cuerpo'),
+                    this.$t('administrador.componentes.lista_proyectos.mensajes.informativo.ver_reporte.generico.titulo')
+                );
                 axios
                     .get('/projects/' + projectId + '/report', {
                         responseType: 'blob'
                     })
                     .then(res => {
                         let type = res.headers['content-type'];
-                        let blob = new Blob([res.data], { type: type });
+                        let blob = new Blob([res.data], {type: type});
                         let link = document.createElement('a');
                         link.href = window.URL.createObjectURL(blob);
-                        link.download = 'Project report.pdf';
+
+                        let filename = 'Project report.pdf';
+                        if(res.headers['x-suggested-filename']) {
+                            filename = res.headers['x-suggested-filename'];
+                        }
+                        link.download = filename;
                         document.body.appendChild(link);
                         link.click();
+
+                        this.$toastr(
+                            'success',
+                            this.$t('administrador.componentes.lista_proyectos.mensajes.exito.ver_reporte.generico.cuerpo'),
+                            this.$t('administrador.componentes.lista_proyectos.mensajes.exito.ver_reporte.generico.titulo')
+                        );
                         document.body.removeChild(link);
-                        this.$toastr('success', '', 'Se ha descargado correctamente el reporte');
                     })
                     .catch(() => {
-                        this.$toastr('error', '', 'No se pudo descargar el reporte para el proyecto de ley indicado');
+                        this.$toastr(
+                            'error',
+                            this.$t('administrador.componentes.lista_proyectos.mensajes.fallido.ver_reporte.generico.cuerpo'),
+                            this.$t('administrador.componentes.lista_proyectos.mensajes.fallido.ver_reporte.generico.titulo')
+                        );
+                    })
+                    .finally(() => {
+                        loadBtnDownloadReport.value = false;
                     });
             }
         }

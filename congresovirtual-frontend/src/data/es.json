@@ -146,16 +146,19 @@
                 }
             },
             "video": "Video",
-            "generar_informe": "Generar Informe",
             "sin_articulos": "No hay artículos de ley para mostrar.",
             "sin_ideas": "No hay ideas fundamentales para mostrar.",
             "analisis_votos": "Análisis de Votos del Proyecto de Ley",
             "recomendacion": "Recomendamos colocar el mouse sobre las barras para conocer en mayor detalle el resultado actual de las votaciones.",
-            "cantidad_comentarios": "Cantidad de comentarios realizados",
-            "cantidad_participantes": "Cantidad de participantes",
+            "a_favor": "A favor",
+            "en_contra": "En contra",
+            "abstenciones": "Abstenciones",
+            "cantidad_comentarios": "Cantidad de Comentarios",
+            "cantidad_participantes": "Cantidad de Participantes",
             "congreso_virtual": "Congreso Virtual",
             "senado": "Senado",
-            "nube": "Nube de palabras",
+            "no_hay_datos_senado": "No hay datos acerca de la votación de los parlamentarios.",
+            "nube": "Nube de Palabras",
             "comentarios": "Comentarios del Proyecto de Ley",
             "cargar": "Cargar Más"
         },
@@ -922,6 +925,49 @@
             },
             "ideas_proyecto": "Lista de Ideas Fundamentales",
             "articulos_proyecto": "Lista de Artículos",
+            "lista_proyectos": {
+                "titulo": "Lista de Proyectos",
+                "acciones": {
+                    "ver_ideas": "Ver ideas fundamentales",
+                    "ver_articulos": "Ver artículos",
+                    "analitica": "Analítica de datos",
+                    "notificar": "Notificar a usuarios",
+                    "ver_archivos": "Ver archivos",
+                    "ver_reporte": "Ver reporte"
+                },
+                "mensajes": {
+                    "exito": {
+                        "ver_reporte": {
+                            "generico": {
+                                "titulo": "Reporte generado exitosamente",
+                                "cuerpo": "Se ha generado correctamente el reporte"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "carga_proyectos": {
+                            "generico": {
+                                "titulo": "Error al cargar los proyectos",
+                                "cuerpo": "No se han podido obtener los proyectos de ley"
+                            }
+                        },
+                        "ver_reporte": {
+                            "generico": {
+                                "titulo": "Error al generar el reporte",
+                                "cuerpo": "No se ha podido generar el reporte"
+                            }
+                        }
+                    },
+                    "informativo": {
+                        "ver_reporte": {
+                            "generico": {
+                                "titulo": "Generando reporte",
+                                "cuerpo": "Espere un momento mientras se genera el reporte, esto puede tomar varios segundos"
+                            }
+                        }
+                    }
+                }
+            },
             "crear_proyecto": {
                 "titulo1": "Crear Proyecto",
                 "titulo2": "Editar Proyecto",
@@ -1178,7 +1224,8 @@
                 "genero_creacion": "Usuarios por género y creación",
                 "siguiente": "En el siguiente gráfico puede visualizar los distintos usuarios y divididos según el año en que fueron creados y su género.",
                 "datos": "Datos por votación",
-                "seccion": "En la siguiente sección se puede observar un análisis graficado de los distintos votos realizados. Ya sean en al votación general, como separados según ideas generales y por artículos."
+                "seccion": "En la siguiente sección se puede observar un análisis graficado de los distintos votos realizados. Ya sean en al votación general, como separados según ideas generales y por artículos.",
+                "topic_model_no_carga": "Lo lamentamos, ha ocurrido un error al cargar el topic model."
             },
             "archivos_proyecto": {
                 "titulo": "Subir Archivos al Proyecto",
@@ -1325,8 +1372,8 @@
                 "titulo2": "Editar Organización"
             },
             "notificacion": {
-                "seguro": "¿Esta seguro que desea mandar este correo?",
-                "aceptar": "Si acepta, se mandará un correo a todos los usuarios suscritos a las categorías de este proyecto",
+                "seguro": "¿Esta seguro que desea enviar este correo?",
+                "aceptar": "Si acepta, se enivará un correo a todos los usuarios suscritos a las categorías de este proyecto",
                 "usuarios_suscritos": "Usuarios suscritos"
             },
             "eliminar": {
