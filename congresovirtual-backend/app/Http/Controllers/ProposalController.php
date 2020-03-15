@@ -25,28 +25,39 @@ class ProposalController extends Controller
             if($request->has('query')) {
                 $filter['query'] = $request['query'];
             }
+            if($request->has('titulo')) {
+                $filter['titulo'] = $request->titulo;
+            }
+            if($request->has('detalle')) {
+                $filter['detalle'] = $request->detalle;
+            }
+            if($request->has('autoria')) {
+                $filter['autoria'] = $request->autoria;
+            }
+            if($request->has('boletin')) {
+                $filter['boletin'] = $request->boletin;
+            }
+            if($request->has('argument')) {
+                $filter['argument'] = $request->argument;
+            }
+            if($request->has('state')) {
+                $filter['state'] = $request->state;
+            }
+            if($request->has('type')) {
+                $filter['type'] = $request->type;
+            }
+            if($request->has('user_id')) {
+                $filter['user'] = $request->user_id;
+            }
 
             if(Auth::check() && Auth::user()->hasRole('ADMIN')) {
-                $isPublic = $request->query('is_public', null);
+                $filter['isPublic'] = $request->query('is_public', null);
             } else {
-                $isPublic = true;
+                $filter['isPublic'] = true;
             }
 
-            $whereAndFilter = [];
-            if($isPublic !== null) {
-                $whereAndFilter[] = ['is_public', $isPublic];
-            }
-            if(isset($request->state)) {
-                $whereAndFilter[] = ['state', $request->state];
-            }
-            if(isset($request->type)) {
-                $whereAndFilter[] = ['type', $request->type];
-            }
-            if(isset($request->user_id)) {
-                $whereAndFilter[] = ['user_id', $request->user_id];
-            }
-            $proposals = Proposal::filter($filter)->where($whereAndFilter);
-            $totalResults = Proposal::filter($filter)->where($whereAndFilter)->count();
+            $proposals = Proposal::filter($filter);
+            $totalResults = $proposals->count();
 
             if($request->has('order_by')) {
                 $order = $request->query('order', 'ASC');

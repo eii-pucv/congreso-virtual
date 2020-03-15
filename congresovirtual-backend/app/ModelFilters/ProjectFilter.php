@@ -14,53 +14,94 @@ class ProjectFilter extends ModelFilter
     */
     public $relations = [];
 
-    public function titulo($name)
+    public function titulo($value)
     {
-        return $this->where(function($q) use ($name)
-        {
-            return $q->where('titulo', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('projects.titulo', 'LIKE', "%$value%");
         });
     }
 
-    public function postulante($name)
+    public function postulante($value)
     {
-        return $this->where(function($q) use ($name)
-        {
-            return $q->where('postulante', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('projects.postulante', 'LIKE', "%$value%");
         });
     }
 
-    public function detalle($name)
+    public function detalle($value)
     {
-        return $this->where(function($q) use ($name)
-        {
-            return $q->where('detalle', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('projects.detalle', 'LIKE', "%$value%");
         });
     }
 
-    public function resumen($name)
+    public function resumen($value)
     {
-        return $this->where(function($q) use ($name)
-        {
-            return $q->where('resumen', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('projects.resumen', 'LIKE', "%$value%");
         });
     }
 
-    public function query($name)
+    public function boletin($value)
     {
-        return $this
-            ->where('titulo', 'LIKE', "%$name%")
-            ->orWhere('postulante', 'LIKE', "%$name%")
-            ->orWhere('detalle', 'LIKE', "%$name%")
-            ->orWhere('resumen', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('projects.boletin', '=', $value);
+        });
     }
 
-    public function terms($name)
+    public function estado($value)
+    {
+        return $this->where(function($query) use ($value) {
+            return $query->where('projects.estado', '=', $value);
+        });
+    }
+
+    public function etapa($value)
+    {
+        return $this->where(function($query) use ($value) {
+            return $query->where('projects.etapa', '=', $value);
+        });
+    }
+
+    public function isPrincipal($value)
+    {
+        return $this->where(function($query) use ($value) {
+            return $query->where('projects.is_principal', '=', $value);
+        });
+    }
+
+    public function isEnabled($value)
+    {
+        return $this->where(function($query) use ($value) {
+            return $query->where('projects.is_enabled', '=', $value);
+        });
+    }
+
+    public function isPublic($value)
+    {
+        return $this->where(function($query) use ($value) {
+            return $query->where('projects.is_public', '=', $value);
+        });
+    }
+
+    public function query($value)
+    {
+        return $this->where(function($query) use ($value) {
+            return $query->where('projects.titulo', 'LIKE', "%$value%")
+                ->orWhere('projects.postulante', 'LIKE', "%$value%")
+                ->orWhere('projects.detalle', 'LIKE', "%$value%")
+                ->orWhere('projects.resumen', 'LIKE', "%$value%");
+            });
+    }
+
+    public function terms($value)
     {
         return $this
             ->join('project_term', 'projects.id', '=', 'project_term.project_id')
             ->select('projects.*')
-            ->whereIn('project_term.term_id', $name)
+            ->where(function($query) use ($value) {
+                return $query->whereIn('project_term.term_id', $value);
+            })
             ->distinct();
     }
 }

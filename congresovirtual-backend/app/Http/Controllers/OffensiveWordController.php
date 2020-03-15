@@ -20,29 +20,29 @@ class OffensiveWordController extends Controller
             if($request->has('query')) {
                 $filter['query'] = $request['query'];
             }
-            
-            $offensive_words = OffensiveWord::filter($filter);
-            $totalResults = OffensiveWord::filter($filter)->count();
+
+            $offensiveWords = OffensiveWord::filter($filter);
+            $totalResults = $offensiveWords->count();
 
             if($request->has('order_by')) {
                 $order = $request->query('order', 'ASC');
-                $offensive_words = $offensive_words->orderBy($request->order_by, $order);
+                $offensiveWords = $offensiveWords->orderBy($request->order_by, $order);
             }
-            
+
             if(!isset($request->return_all) || !$request->return_all) {
                 $limit = $request->query('limit', 10);
                 $offset = $request->query('offset', 0);
-                $offensive_words = $offensive_words
+                $offensiveWords = $offensiveWords
                     ->offset($offset)
                     ->limit($limit);
             }
 
-            $offensive_words = $offensive_words->get();
+            $offensiveWords = $offensiveWords->get();
 
             return response()->json([
                 'total_results' => $totalResults,
-                'returned_results' => count($offensive_words),
-                'results' => $offensive_words
+                'returned_results' => count($offensiveWords),
+                'results' => $offensiveWords
             ], 200);
         } catch (\Exception $exception) {
             return response()->json([
@@ -70,14 +70,14 @@ class OffensiveWordController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'word' => 'required|string',
+                'word' => 'required|string'
             ]);
             if($validator->fails()) {
                 return response()->json($validator->errors(), 412);
             }
 
             $offensive_word = new OffensiveWord([
-                'word' => $request->word,
+                'word' => $request->word
             ]);
             $offensive_word->save();
             return response()->json([
@@ -132,11 +132,11 @@ class OffensiveWordController extends Controller
                 return response()->json($validator->errors(), 412);
             }
 
-            $offensive_word = OffensiveWord::findOrFail($id);
-            $offensive_word->fill([
+            $offensiveWord = OffensiveWord::findOrFail($id);
+            $offensiveWord->fill([
                 'word' => $request->word
             ]);
-            $offensive_word->save();
+            $offensiveWord->save();
             return response()->json([
                 'message' => 'Successfully updated offensive word!'], 201);
         } catch (\Exception $exception) {

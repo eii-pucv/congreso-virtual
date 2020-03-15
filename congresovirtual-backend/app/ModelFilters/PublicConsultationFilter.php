@@ -14,53 +14,59 @@ class PublicConsultationFilter extends ModelFilter
     */
     public $relations = [];
 
-    public function titulo($name)
+    public function titulo($value)
     {
-        return $this->where(function($q) use ($name)
-        {
-            return $q->where('titulo', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('public_consultations.titulo', 'LIKE', "%$value%");
         });
     }
 
-    public function autor($name)
+    public function autor($value)
     {
-        return $this->where(function($q) use ($name)
-        {
-            return $q->where('autor', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('public_consultations.autor', 'LIKE', "%$value%");
         });
     }
 
-    public function detalle($name)
+    public function detalle($value)
     {
-        return $this->where(function($q) use ($name)
-        {
-            return $q->where('detalle', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('public_consultations.detalle', 'LIKE', "%$value%");
         });
     }
 
-    public function resumen($name)
+    public function resumen($value)
     {
-        return $this->where(function($q) use ($name)
-        {
-            return $q->where('resumen', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('public_consultations.resumen', 'LIKE', "%$value%");
         });
     }
 
-    public function query($name)
+    public function estado($value)
     {
-        return $this
-            ->where('titulo', 'LIKE', "%$name%")
-            ->orWhere('autor', 'LIKE', "%$name%")
-            ->orWhere('detalle', 'LIKE', "%$name%")
-            ->orWhere('resumen', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('public_consultations.estado', '=', $value);
+        });
     }
 
-    public function terms($name)
+    public function query($value)
+    {
+        return $this->where(function($query) use ($value) {
+            return $query->where('public_consultations.titulo', 'LIKE', "%$value%")
+                ->orWhere('public_consultations.autor', 'LIKE', "%$value%")
+                ->orWhere('public_consultations.detalle', 'LIKE', "%$value%")
+                ->orWhere('public_consultations.resumen', 'LIKE', "%$value%");
+        });
+    }
+
+    public function terms($value)
     {
         return $this
             ->join('public_consultation_term', 'public_consultations.id', '=', 'public_consultation_term.public_consultation_id')
             ->select('public_consultations.*')
-            ->whereIn('public_consultation_term.term_id', $name)
+            ->where(function($query) use ($value) {
+                return $query->whereIn('public_consultation_term.term_id', $value);
+            })
             ->distinct();
     }
 }

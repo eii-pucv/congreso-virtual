@@ -24,14 +24,12 @@ class TermController extends Controller
             if($request->has('query')) {
                 $filter['query'] = $request['query'];
             }
-
-            $whereAndFilter = [];
-            if(isset($request->parent_id)) {
-                $whereAndFilter[] = ['parent_id', $request->parent_id];
+            if($request->has('parent_id')) {
+                $filter['parent'] = $request->parent_id;
             }
 
-            $terms = Term::filter($filter)->where($whereAndFilter);
-            $totalResults = Term::filter($filter)->where($whereAndFilter)->count();
+            $terms = Term::filter($filter);
+            $totalResults = $terms->count();
 
             if($request->has('order_by')) {
                 $order = $request->query('order', 'ASC');

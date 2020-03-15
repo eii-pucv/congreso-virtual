@@ -43,7 +43,11 @@
 
             function drawCharts() {
                 function generatePieChart(data, idElementToSelect) {
-                    var pieChart = new google.visualization.PieChart(document.getElementById(idElementToSelect));
+                    var element = document.getElementById(idElementToSelect);
+                    if(!element) {
+                        return;
+                    }
+                    var pieChart = new google.visualization.PieChart(element);
                     pieChart.draw(
                         google.visualization.arrayToDataTable(data),
                         {
@@ -97,33 +101,36 @@
                     ], 'votacion-idea-' + idea.id + '-pie-chart');
                 });
 
-                var participantesEdadGeneroColumnChart = new google.visualization.ColumnChart(document.getElementById('participantes-edad-genero-column-chart'));
-                participantesEdadGeneroColumnChart.draw(
-                    google.visualization.arrayToDataTable([
-                        ['Rango de edad', 'Masculino', 'Femenino', 'Otro', 'No responde'],
-                        ['10-19', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_10_19)) }} ],
-                        ['20-29', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_20_29)) }} ],
-                        ['30-39', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_30_39)) }} ],
-                        ['40-49', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_40_49)) }} ],
-                        ['50-59', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_50_59)) }} ],
-                        ['60-69', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_60_69)) }} ],
-                        ['70-79', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_70_79)) }} ],
-                        ['80-89', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_80_89)) }} ]
-                    ]),
-                    {
-                        vAxis: {
-                            format: 'decimal'
-                        },
-                        backgroundColor: 'transparent',
-                        chartArea: {
-                            width: '70%',
-                            height: '80%',
-                            left: 60
-                        },
-                        width: 650,
-                        height: 250
-                    }
-                );
+                var element = document.getElementById('participantes-edad-genero-column-chart');
+                if(element) {
+                    var participantesEdadGeneroColumnChart = new google.visualization.ColumnChart(element);
+                    participantesEdadGeneroColumnChart.draw(
+                        google.visualization.arrayToDataTable([
+                            ['Rango de edad', 'Masculino', 'Femenino', 'Otro', 'No responde'],
+                            ['10-19', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_10_19)) }} ],
+                            ['20-29', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_20_29)) }} ],
+                            ['30-39', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_30_39)) }} ],
+                            ['40-49', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_40_49)) }} ],
+                            ['50-59', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_50_59)) }} ],
+                            ['60-69', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_60_69)) }} ],
+                            ['70-79', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_70_79)) }} ],
+                            ['80-89', {{ implode(',', array_values((array) $usersParticipantsAgeRangeGenderCount->_80_89)) }} ]
+                        ]),
+                        {
+                            vAxis: {
+                                format: 'decimal'
+                            },
+                            backgroundColor: 'transparent',
+                            chartArea: {
+                                width: '70%',
+                                height: '80%',
+                                left: 60
+                            },
+                            width: 650,
+                            height: 250
+                        }
+                    );
+                }
 
                 var usersParticipantsProvincesCount = @json((array) $usersParticipantsProvincesCount);
 
@@ -136,21 +143,24 @@
                     ]);
                 });
 
-                var participantesRegionBarChart = new google.visualization.BarChart(document.getElementById('participantes-region-bar-chart'));
-                participantesRegionBarChart.draw(
-                    google.visualization.arrayToDataTable(barChartData),
-                    {
-                        backgroundColor: 'transparent',
-                        legend: { position: 'none' },
-                        chartArea: {
-                            width: '40%',
-                            height: '80%',
-                            right: 120
-                        },
-                        width: 650,
-                        height: 400
-                    }
-                );
+                element = document.getElementById('participantes-region-bar-chart');
+                if(element) {
+                    var participantesRegionBarChart = new google.visualization.BarChart(element);
+                    participantesRegionBarChart.draw(
+                        google.visualization.arrayToDataTable(barChartData),
+                        {
+                            backgroundColor: 'transparent',
+                            legend: { position: 'none' },
+                            chartArea: {
+                                width: '40%',
+                                height: '80%',
+                                right: 120
+                            },
+                            width: 650,
+                            height: 400
+                        }
+                    );
+                }
 
                 usersParticipantsProvincesCount.forEach(function (usersParticipantsProvinceCount) {
                     if(usersParticipantsProvinceCount.code === 'CL-NB') {
@@ -173,20 +183,24 @@
                         usersParticipantsProvinceCount.count
                     ]);
                 });
-                var participantesRegionGeoChart = new google.visualization.GeoChart(document.getElementById('participantes-region-geo-chart'));
-                participantesRegionGeoChart.draw(
-                    google.visualization.arrayToDataTable(geoChartData),
-                    {
-                        region: 'CL',
-                        resolution: 'provinces',
-                        colorAxis: {
-                            colors: 'blue'
-                        },
-                        backgroundColor: 'transparent',
-                        width: 550,
-                        height: 400,
-                    }
-                );
+
+                element = document.getElementById('participantes-region-geo-chart');
+                if(element) {
+                    var participantesRegionGeoChart = new google.visualization.GeoChart(element);
+                    participantesRegionGeoChart.draw(
+                        google.visualization.arrayToDataTable(geoChartData),
+                        {
+                            region: 'CL',
+                            resolution: 'provinces',
+                            colorAxis: {
+                                colors: 'blue'
+                            },
+                            backgroundColor: 'transparent',
+                            width: 550,
+                            height: 400,
+                        }
+                    );
+                }
 
                 var wordCloudData = @json($wordCloudData);
                 if(wordCloudData) {
@@ -402,7 +416,7 @@
                                     @if($usersParticipantsGenderCount->male > 0) <li>Hubo {{ $usersParticipantsGenderCount->male }} de género masculino, correspondiente al {{ round($usersParticipantsGenderCount->male/count($usersParticipantsOnProject) * 100, 2) }}% de los participantes.</li> @endif
                                     @if($usersParticipantsGenderCount->female > 0) <li>Hubo {{ $usersParticipantsGenderCount->female }} de género femenino, correspondiente al {{ round($usersParticipantsGenderCount->female/count($usersParticipantsOnProject) * 100, 2) }}% de los participantes.</li> @endif
                                     @if($usersParticipantsGenderCount->other > 0) <li>Hubo {{ $usersParticipantsGenderCount->other }} de otro género, correspondiente al {{ round($usersParticipantsGenderCount->other/count($usersParticipantsOnProject) * 100, 2) }}% de los participantes.</li> @endif
-                                    @if($usersParticipantsGenderCount->not_answer > 0) <li>Hubo {{ $usersParticipantsGenderCount->not_answer }} que no informa su género, correspondiente al {{ round($usersParticipantsGenderCount->not_answer/count($usersParticipantsOnProject) * 100, 2) }}% de los participantes.</li> @endif
+                                    @if($usersParticipantsGenderCount->not_answer > 0) <li>Hubo {{ $usersParticipantsGenderCount->not_answer }} que no han informado su género, correspondiente al {{ round($usersParticipantsGenderCount->not_answer/count($usersParticipantsOnProject) * 100, 2) }}% de los participantes.</li> @endif
                                 </ul>
                             </td>
                         @else
@@ -423,7 +437,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        @if(count($usersParticipantsOnProject) > 0)
+                        @if($usersParticipantsAgeRangeCount->total > 0)
                             <td style="width: 30%; vertical-align: middle;">
                                 <div id="participantes-edad-pie-chart"></div>
                             </td>
@@ -443,10 +457,16 @@
                                     <span><i class="fas fa-info-circle"></i> Es posible que la suma de los participantes por rangos etarios no corresponda al total de participantes debido a que por fines estadísticos no se consideran edades inferiores a los 9 años y superiores a los 90 años (ambas inclusive), o bien participantes que no han informado su fecha de nacimiento.</span>
                                 </div>
                             </td>
-                        @else
+                        @elseif(count($usersParticipantsOnProject) == 0)
                             <td colspan="2">
                                 <div class="alert alert-warning mb-0">
                                     <span><i class="fas fa-exclamation-circle"></i> El proyecto de ley no cuenta con participantes.</span>
+                                </div>
+                            </td>
+                        @else
+                            <td colspan="2">
+                                <div class="alert alert-warning mb-0">
+                                    <span><i class="fas fa-exclamation-circle"></i> Ningún participante ha indicado su fecha de nacimiento por lo que no se puede determinar esta estadística.</span>
                                 </div>
                             </td>
                         @endif
@@ -461,14 +481,20 @@
                 </thead>
                 <tbody>
                     <tr>
-                        @if(count($usersParticipantsOnProject) > 0)
+                        @if($usersParticipantsAgeRangeCount->total > 0)
                             <td class="text-center">
                                 <div id="participantes-edad-genero-column-chart" style="width: 650px; height: 250px; display: inline-block;"></div>
                             </td>
-                        @else
+                        @elseif(count($usersParticipantsOnProject) == 0)
                             <td>
                                 <div class="alert alert-warning mb-0">
                                     <span><i class="fas fa-exclamation-circle"></i> El proyecto de ley no cuenta con participantes.</span>
+                                </div>
+                            </td>
+                        @else
+                            <td colspan="2">
+                                <div class="alert alert-warning mb-0">
+                                    <span><i class="fas fa-exclamation-circle"></i> Ningún participante ha indicado su fecha de nacimiento por lo que no se puede determinar esta estadística.</span>
                                 </div>
                             </td>
                         @endif
@@ -483,7 +509,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        @if(count($usersParticipantsOnProject) > 0)
+                        @if(array_sum(array_map(function($e) { return $e->count; }, $usersParticipantsProvincesCount)) > 0)
                             <td colspan="2" class="text-center">
                                 <div>
                                     <div id="participantes-region-bar-chart" style="width: 650px; display: inline-block;"></div>
@@ -492,10 +518,16 @@
                                     <div id="participantes-region-geo-chart" style="width: 550px; display: inline-block;"></div>
                                 </div>
                             </td>
-                        @else
+                        @elseif(count($usersParticipantsOnProject) == 0)
                             <td>
                                 <div class="alert alert-warning mb-0">
                                     <span><i class="fas fa-exclamation-circle"></i> El proyecto de ley no cuenta con participantes.</span>
+                                </div>
+                            </td>
+                        @else
+                            <td colspan="2">
+                                <div class="alert alert-warning mb-0">
+                                    <span><i class="fas fa-exclamation-circle"></i> Ningún participante ha indicado su región de residencia por lo que no se puede determinar esta estadística.</span>
                                 </div>
                             </td>
                         @endif

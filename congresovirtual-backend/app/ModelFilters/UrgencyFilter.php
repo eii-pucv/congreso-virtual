@@ -14,21 +14,27 @@ class UrgencyFilter extends ModelFilter
     */
     public $relations = [];
 
-    public function proposal($name) {
-        return $this
-            ->where('urgencies.proposal_id', '=', $name);
+    public function proposal($value)
+    {
+        return $this->where(function($query) use ($value) {
+            return $query->where('urgencies.proposal_id', '=', $value);
+        });
     }
 
-    public function user($name) {
-        return $this
-            ->where('urgencies.user_id', '=', $name);
+    public function user($value)
+    {
+        return $this->where(function($query) use ($value) {
+            return $query->where('urgencies.user_id', '=', $value);
+        });
     }
 
-    public function proposalIsPublic($name)
+    public function proposalIsPublic($value)
     {
         return $this
             ->select('urgencies.*')
             ->join('proposals', 'urgencies.proposal_id', '=', 'proposals.id')
-            ->where('proposals.is_public', '=', $name);
+            ->where(function($query) use ($value) {
+                return $query->where('proposals.is_public', '=', $value);
+            });
     }
 }

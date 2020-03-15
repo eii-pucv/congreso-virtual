@@ -14,11 +14,33 @@ class PageFilter extends ModelFilter
     */
     public $relations = [];
 
-    public function query($name)
+    public function title($value)
     {
-        return $this
-            ->where('title', 'LIKE', "%$name%")
-            ->orWhere('slug', 'LIKE', "%$name%")
-            ->orWhere('content', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('pages.title', 'LIKE', "%$value%");
+        });
+    }
+
+    public function slug($value)
+    {
+        return $this->where(function($query) use ($value) {
+            return $query->where('pages.slug', '=', $value);
+        });
+    }
+
+    public function isPublic($value)
+    {
+        return $this->where(function($query) use ($value) {
+            return $query->where('pages.is_public', '=', $value);
+        });
+    }
+
+    public function query($value)
+    {
+        return $this->where(function($query) use ($value) {
+            return $query->where('pages.title', 'LIKE', "%$value%")
+                ->orWhere('pages.slug', 'LIKE', "%$value%")
+                ->orWhere('pages.content', 'LIKE', "%$value%");
+        });
     }
 }

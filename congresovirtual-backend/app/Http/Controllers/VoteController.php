@@ -55,7 +55,7 @@ class VoteController extends Controller
                 $filter['commentIdeaIsPublic'] = true;
             }
             $votes = Vote::filter($filter);
-            $totalResults = Vote::filter($filter)->count();
+            $totalResults = $votes->count();
 
             if($request->has('order_by')) {
                 $order = $request->query('order', 'ASC');

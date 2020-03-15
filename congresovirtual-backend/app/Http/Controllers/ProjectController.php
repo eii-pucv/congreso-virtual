@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Position;
 use App\Project;
-use App\Article;
 use App\Comment;
 use App\Reports\ProjectReport;
 use App\Stopword;
@@ -17,9 +16,7 @@ use App\FileType;
 use App\Notifications\NewProject;
 use App\Notifications\UpdateProject;
 use App\Notifications\CloseProject;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -40,6 +37,33 @@ class ProjectController extends Controller
             if($request->has('query')) {
                 $filter['query'] = $request['query'];
             }
+            if($request->has('titulo')) {
+                $filter['titulo'] = $request->titulo;
+            }
+            if($request->has('postulante')) {
+                $filter['postulante'] = $request->postulante;
+            }
+            if($request->has('detalle')) {
+                $filter['detalle'] = $request->detalle;
+            }
+            if($request->has('resumen')) {
+                $filter['resumen'] = $request->resumen;
+            }
+            if($request->has('boletin')) {
+                $filter['boletin'] = $request->boletin;
+            }
+            if($request->has('estado')) {
+                $filter['estado'] = $request->estado;
+            }
+            if($request->has('etapa')) {
+                $filter['etapa'] = $request->etapa;
+            }
+            if($request->has('is_principal')) {
+                $filter['isPrincipal'] = $request->is_principal;
+            }
+            if($request->has('is_enabled')) {
+                $filter['isEnabled'] = $request->is_enabled;
+            }
             if($request->has('terms')) {
                 if(is_array($request->terms)) {
                     $filter['terms'] = $request->terms;
@@ -49,35 +73,18 @@ class ProjectController extends Controller
             }
 
             if(Auth::check() && Auth::user()->hasRole('ADMIN')) {
-                $isPublic = $request->query('is_public', null);
+                $filter['isPublic'] = $request->query('is_public', null);
             } else {
-                $isPublic = true;
-            }
-
-            $whereAndFilter = [];
-            if($isPublic !== null) {
-                $whereAndFilter[] = ['is_public', $isPublic];
-            }
-            if(isset($request->estado)) {
-                $whereAndFilter[] = ['estado', $request->estado];
-            }
-            if(isset($request->etapa)) {
-                $whereAndFilter[] = ['etapa', $request->etapa];
-            }
-            if(isset($request->is_principal)) {
-                $whereAndFilter[] = ['is_principal', $request->is_principal];
-            }
-            if(isset($request->is_enabled)) {
-                $whereAndFilter[] = ['is_enabled', $request->is_enabled];
+                $filter['isPublic'] = true;
             }
 
             if(Auth::check() && Auth::user()->hasRole('ADMIN') && isset($request->only_trashed) && $request->only_trashed) {
-                $projects = Project::filter($filter)->where($whereAndFilter)->onlyTrashed();
-                $totalResults = Project::filter($filter)->where($whereAndFilter)->onlyTrashed()->count();
+                $projects = Project::filter($filter)->onlyTrashed();
             } else {
-                $projects = Project::filter($filter)->where($whereAndFilter);
-                $totalResults = Project::filter($filter)->where($whereAndFilter)->count();
+                $projects = Project::filter($filter);
             }
+
+            $totalResults = $projects->count();
 
             if($request->has('order_by')) {
                 $order = $request->query('order', 'ASC');
@@ -219,6 +226,13 @@ class ProjectController extends Controller
 
             $data = $project->toArray();
             $data['files'] = $project->files();
+            $participants = $this->usersParticipantsOnProject($project->id);
+            $data['total_participants'] = $participants ? count($participants) : 0;
+            $data['total_comments'] = Comment::where('project_id', $project->id)
+                ->orWhereIn('idea_id', $project->ideas->pluck('id'))
+                ->orWhereIn('article_id', $project->articles->pluck('id'))
+                ->count();
+
             return response()->json($data, 200);
         } catch (\Exception $exception) {
             return response()->json([
@@ -1442,7 +1456,10 @@ class ProjectController extends Controller
                 'load-error-handling' => 'ignore'
             ]);
 
-            return $report->download('Project report ' . date("Y-m-d H:i:s", time()) . '.pdf');
+            $filename = 'Project report ' . date("Y-m-d H_i_s", time()) . '.pdf';
+            return $report->download($filename)
+                ->header('Access-Control-Expose-Headers', 'X-Suggested-Filename')
+                ->header('X-Suggested-Filename', $filename);
         } catch (\Exception $exception) {
             return response()->json([
                 'exception' => $exception->getMessage(),

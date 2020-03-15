@@ -30,6 +30,21 @@ class PublicConsultationController extends Controller
             if($request->has('query')) {
                 $filter['query'] = $request['query'];
             }
+            if($request->has('titulo')) {
+                $filter['titulo'] = $request->titulo;
+            }
+            if($request->has('autor')) {
+                $filter['autor'] = $request->autor;
+            }
+            if($request->has('detalle')) {
+                $filter['detalle'] = $request->detalle;
+            }
+            if($request->has('resumen')) {
+                $filter['resumen'] = $request->resumen;
+            }
+            if($request->has('estado')) {
+                $filter['estado'] = $request->estado;
+            }
             if($request->has('terms')) {
                 if(is_array($request->terms)) {
                     $filter['terms'] = $request->terms;
@@ -38,12 +53,8 @@ class PublicConsultationController extends Controller
                 }
             }
 
-            $whereAndFilter = [];
-            if(isset($request->estado)) {
-                $whereAndFilter[] = ['estado', $request->estado];
-            }
-            $publicConsultations = PublicConsultation::filter($filter)->where($whereAndFilter);
-            $totalResults = PublicConsultation::filter($filter)->where($whereAndFilter)->count();
+            $publicConsultations = PublicConsultation::filter($filter);
+            $totalResults = $publicConsultations->count();
 
             if($request->has('order_by')) {
                 $order = $request->query('order', 'ASC');

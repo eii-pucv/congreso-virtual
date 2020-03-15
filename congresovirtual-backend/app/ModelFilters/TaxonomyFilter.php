@@ -14,17 +14,17 @@ class TaxonomyFilter extends ModelFilter
     */
     public $relations = [];
 
-    public function value($name)
+    public function value($value)
     {
-        return $this->where(function($q) use ($name)
-        {
-            return $q->where('value', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('taxonomies.value', 'LIKE', "%$value%");
         });
     }
 
-    public function query($name)
+    public function query($value)
     {
-        return $this
-            ->where('value', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('taxonomies.value', 'LIKE', "%$value%");
+        });
     }
 }

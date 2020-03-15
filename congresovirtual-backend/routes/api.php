@@ -127,6 +127,7 @@ Route::group(['middleware' => ['auth:api', 'has.roles:ADMIN,USER']], function() 
     });
 
     Route::group(['prefix' => 'users'], function () {
+        Route::get('/', 'UserController@index');
         Route::put('/{user}', 'UserController@update');
         Route::patch('/password', 'UserController@updatePassword');
         Route::post('/{user}/avatar', 'UserController@updateAvatar');
@@ -386,7 +387,6 @@ Route::group(['middleware' => ['is.auth:api']], function() {
     });
 
     Route::group(['prefix' => 'users'], function () {
-        Route::get('/', 'UserController@index');
         Route::get('/{user}', 'UserController@show');
         Route::get('/{user}/avatar', 'UserController@avatar');
         Route::get('/{user}/locations_orgs', 'UserController@locationOrgs');

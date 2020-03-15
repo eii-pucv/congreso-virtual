@@ -24,16 +24,15 @@ class DenounceController extends Controller
             if($request->has('query')) {
                 $filter['query'] = $request['query'];
             }
+            if($request->has('comment_id')) {
+                $filter['comment'] = $request->comment_id;
+            }
+            if($request->has('user_id')) {
+                $filter['user'] = $request->user_id;
+            }
 
-            $query = [];
-            if(isset($request->comment_id)) {
-                $query[] = ['comment_id', $request->comment_id];
-            }
-            if(isset($request->user_id)) {
-                $query[] = ['user_id', $request->user_id];
-            }
-            $denounces = Denounce::filter($filter)->where($query);
-            $totalResults = Denounce::filter($filter)->where($query)->count();
+            $denounces = Denounce::filter($filter);
+            $totalResults = $denounces->count();
 
             if($request->has('order_by')) {
                 $order = $request->query('order', 'ASC');

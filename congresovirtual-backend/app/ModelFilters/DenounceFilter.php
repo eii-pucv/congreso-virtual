@@ -14,10 +14,25 @@ class DenounceFilter extends ModelFilter
     */
     public $relations = [];
 
-    public function query($name)
+    public function comment($value)
     {
-        return $this
-            ->where('reason', 'LIKE', "%$name%")
-            ->orWhere('description', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('denounces.comment_id', '=', $value);
+        });
+    }
+
+    public function user($value)
+    {
+        return $this->where(function($query) use ($value) {
+            return $query->where('denounces.user_id', '=', $value);
+        });
+    }
+
+    public function query($value)
+    {
+        return $this->where(function($query) use ($value) {
+            return $query->where('denounces.reason', 'LIKE', "%$value%")
+                ->orWhere('denounces.description', 'LIKE', "%$value%");
+        });
     }
 }

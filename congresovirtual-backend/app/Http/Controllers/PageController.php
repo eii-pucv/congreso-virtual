@@ -24,31 +24,26 @@ class PageController extends Controller
             if($request->has('query')) {
                 $filter['query'] = $request['query'];
             }
+            if($request->has('title')) {
+                $filter['title'] = $request->title;
+            }
+            if($request->has('slug')) {
+                $filter['slug'] = $request->slug;
+            }
 
             if(Auth::check() && Auth::user()->hasRole('ADMIN')) {
-                $isPublic = $request->query('is_public', null);
+                $filter['isPublic'] = $request->query('is_public', null);
             } else {
-                $isPublic = true;
-            }
-
-            $query = [];
-            if($isPublic !== null) {
-                $query[] = ['is_public', $isPublic];
-            }
-            if(isset($request->title)) {
-                $query[] = ['title', $request->title];
-            }
-            if(isset($request->slug)) {
-                $query[] = ['slug', $request->slug];
+                $filter['isPublic'] = true;
             }
 
             if(Auth::check() && Auth::user()->hasRole('ADMIN') && isset($request->only_trashed) && $request->only_trashed) {
-                $pages = Page::filter($filter)->where($query)->onlyTrashed();
-                $totalResults = Page::filter($filter)->where($query)->onlyTrashed()->count();
+                $pages = Page::filter($filter)->onlyTrashed();
             } else {
-                $pages = Page::filter($filter)->where($query);
-                $totalResults = Page::filter($filter)->where($query)->count();
+                $pages = Page::filter($filter);
             }
+
+            $totalResults = $pages->count();
 
             if($request->has('order_by')) {
                 $order = $request->query('order', 'ASC');

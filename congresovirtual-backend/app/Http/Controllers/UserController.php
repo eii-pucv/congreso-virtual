@@ -24,7 +24,7 @@ class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * About access control: all users can use this method (see routes).
+     * About access control: Only ADMIN type users can use this method (see routes).
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -36,12 +36,11 @@ class UserController extends Controller
             if($request->has('query')) {
                 $filter['query'] = $request['query'];
             }
-            if($request->has('terms')) {
-                if(is_array($request->terms)) {
-                    $filter['terms'] = $request->terms;
-                } else if(!empty($request->terms)) {
-                    $filter['terms'] = preg_split('/[^0-9]+/', $request->terms);
-                }
+            if($request->has('name')) {
+                $filter['name'] = $request->name;
+            }
+            if($request->has('surname')) {
+                $filter['surname'] = $request->surname;
             }
             if($request->has('es_experto')) {
                 $filter['esExperto'] = $request->es_experto;
@@ -49,14 +48,21 @@ class UserController extends Controller
             if($request->has('es_organizacion')) {
                 $filter['esOrganizacion'] = $request->es_organizacion;
             }
+            if($request->has('terms')) {
+                if(is_array($request->terms)) {
+                    $filter['terms'] = $request->terms;
+                } else if(!empty($request->terms)) {
+                    $filter['terms'] = preg_split('/[^0-9]+/', $request->terms);
+                }
+            }
 
             if(Auth::check() && Auth::user()->hasRole('ADMIN') && isset($request->only_trashed) && $request->only_trashed) {
                 $users = User::filter($filter)->onlyTrashed();
-                $totalResults = User::filter($filter)->onlyTrashed()->count();
             } else {
                 $users = User::filter($filter);
-                $totalResults = User::filter($filter)->count();
             }
+
+            $totalResults = $users->count();
 
             if($request->has('order_by')) {
                 $order = $request->query('order', 'ASC');

@@ -14,59 +14,64 @@ class UserFilter extends ModelFilter
     */
     public $relations = [];
 
-    public function name($name)
+    public function name($value)
     {
-        return $this->where(function($q) use ($name)
-        {
-            return $q->where('name', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('users.name', 'LIKE', "%$value%");
         });
     }
 
-    public function surname($name)
+    public function surname($value)
     {
-        return $this->where(function($q) use ($name)
-        {
-            return $q->where('surname', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('users.surname', 'LIKE', "%$value%");
         });
     }
 
-    public function query($name)
+    public function query($value)
     {
-        return $this
-            ->where('name', 'LIKE', "%$name%")
-            ->orWhere('surname', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('users.name', 'LIKE', "%$value%")
+                ->orWhere('users.surname', 'LIKE', "%$value%");
+        });
     }
 
-    public function terms($name)
+    public function terms($value)
     {
         return $this
             ->join('term_user', 'users.id', '=', 'term_user.user_id')
             ->select('users.*')
-            ->whereIn('term_user.term_id', $name)
+            ->where(function($query) use ($value) {
+                return $query->whereIn('term_user.term_id', $value);
+            })
             ->distinct();
     }
 
-    public function esExperto($name)
+    public function esExperto($value)
     {
         return $this
             ->join('user_metas AS user_metas_1', 'users.id', '=', 'user_metas_1.user_id')
             ->select('users.*')
-            ->where([
-                ['user_metas_1.key', 'es_experto'],
-                ['user_metas_1.value', $name]
-            ])
-                ->distinct();
+            ->where(function($query) use ($value) {
+                return $query->where([
+                    ['user_metas_1.key', 'es_experto'],
+                    ['user_metas_1.value', $value]
+                ]);
+            })
+            ->distinct();
     }
 
-    public function esOrganizacion($name)
+    public function esOrganizacion($value)
     {
         return $this
             ->join('user_metas AS user_metas_2', 'users.id', '=', 'user_metas_2.user_id')
             ->select('users.*')
-            ->where([
-                ['user_metas_2.key', 'es_organizacion'],
-                ['user_metas_2.value', $name]
-            ])
+            ->where(function($query) use ($value) {
+                return $query->where([
+                    ['user_metas_2.key', 'es_organizacion'],
+                    ['user_metas_2.value', $value]
+                ]);
+            })
             ->distinct();
     }
 }

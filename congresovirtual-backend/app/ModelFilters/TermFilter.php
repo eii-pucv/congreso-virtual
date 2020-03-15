@@ -14,17 +14,24 @@ class TermFilter extends ModelFilter
     */
     public $relations = [];
 
-    public function value($name)
+    public function value($value)
     {
-        return $this->where(function($q) use ($name)
-        {
-            return $q->where('value', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('terms.value', 'LIKE', "%$value%");
         });
     }
 
-    public function query($name)
+    public function parent($value)
     {
-        return $this
-            ->where('value', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('terms.parent_id', '=', $value);
+        });
+    }
+
+    public function query($value)
+    {
+        return $this->where(function($query) use ($value) {
+            return $query->where('terms.value', 'LIKE', "%$value%");
+        });
     }
 }

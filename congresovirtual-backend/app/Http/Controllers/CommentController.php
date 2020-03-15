@@ -37,7 +37,11 @@ class CommentController extends Controller
                 $filter['parent'] = $request->parent_id;
             }
             if($request->has('project_id')) {
-                $filter['project'] = $request->project_id;
+                if(isset($request->include_all_comments) || $request->include_all_comments) {
+                    $filter['projectAllComments'] = $request->project_id;
+                } else {
+                    $filter['project'] = $request->project_id;
+                }
             }
             if($request->has('article_id')) {
                 $filter['article'] = $request->article_id;
@@ -53,25 +57,18 @@ class CommentController extends Controller
             }
 
             if(Auth::check() && Auth::user()->hasRole('ADMIN')) {
-                $state = $request->query('state', null);
+                $filter['state'] = $request->query('state', null);
             } else {
-                $state = 0;
+                $filter['state'] = 0;
                 $filter['projectIsPublic'] = true;
                 $filter['articleIsPublic'] = true;
                 $filter['ideaIsPublic'] = true;
             }
 
-            $whereAndFilter = [];
-            if($state !== null) {
-                $whereAndFilter[] = ['comments.state', $state];
-            }
-
             if(Auth::check() && Auth::user()->hasRole('ADMIN') && isset($request->only_trashed) && $request->only_trashed) {
-                $comments = Comment::filter($filter)->where($whereAndFilter)->onlyTrashed();
-                $totalResults = Comment::filter($filter)->where($whereAndFilter)->onlyTrashed()->count();
+                $comments = Comment::filter($filter)->onlyTrashed();
             } else {
-                $comments = Comment::filter($filter)->where($whereAndFilter);
-                $totalResults = Comment::filter($filter)->where($whereAndFilter)->count();
+                $comments = Comment::filter($filter);
             }
 
             if(isset($request->has_denounces)) {
@@ -81,6 +78,8 @@ class CommentController extends Controller
                     $comments = $comments->doesntHave('denounces');
                 }
             }
+
+            $totalResults = $comments->count();
 
             if($request->has('order_by')) {
                 $order = $request->query('order', 'ASC');

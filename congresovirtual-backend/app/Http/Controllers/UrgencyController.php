@@ -33,6 +33,7 @@ class UrgencyController extends Controller
                 $filter['proposalIsPublic'] = true;
             }
             $urgencies = Urgency::filter($filter);
+            $totalResults = $urgencies->count();
 
             if($request->has('order_by')) {
                 $order = $request->query('order', 'ASC');
@@ -45,7 +46,11 @@ class UrgencyController extends Controller
                 ->limit($limit);
             $urgencies = $urgencies->get();
 
-            return response()->json($urgencies, 200);
+            return response()->json([
+                'total_results' => $totalResults,
+                'returned_results' => count($urgencies),
+                'results' => $urgencies
+            ], 200);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: urgencies were not found.'], 412);

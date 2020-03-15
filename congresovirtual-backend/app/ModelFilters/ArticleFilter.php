@@ -14,23 +14,28 @@ class ArticleFilter extends ModelFilter
     */
     public $relations = [];
 
-    public function project($name) {
-        return $this
-            ->where('articles.project_id', '=', $name);
-    }
-
-    public function query($name)
+    public function project($value)
     {
-        return $this
-            ->where('articles.titulo', 'LIKE', "%$name%")
-            ->orWhere('articles.detalle', 'LIKE', "%$name%");
+        return $this->where(function($query) use ($value) {
+            return $query->where('articles.project_id', '=', $value);
+        });
     }
 
-    public function projectIsPublic($name)
+    public function query($value)
+    {
+        return $this->where(function($query) use ($value) {
+            return $query->where('articles.titulo', 'LIKE', "%$value%")
+                ->orWhere('articles.detalle', 'LIKE', "%$value%");
+        });
+    }
+
+    public function projectIsPublic($value)
     {
         return $this
             ->select('articles.*')
             ->join('projects', 'articles.project_id', '=', 'projects.id')
-            ->where('projects.is_public', '=', $name);
+            ->where(function($query) use ($value) {
+                return $query->where('projects.is_public', '=', $value);
+            });
     }
 }

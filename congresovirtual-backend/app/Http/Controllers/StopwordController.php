@@ -37,7 +37,7 @@ class StopwordController extends Controller
                 $totalResults = Stopword::select(DB::raw('COUNT(DISTINCT value) AS total_results'))->where($query)->pluck('total_results')->first();
             } else {
                 $stopwords = Stopword::where($query);
-                $totalResults = Stopword::where($query)->count();
+                $totalResults = $stopwords->count();
             }
 
             if($request->has('order_by')) {

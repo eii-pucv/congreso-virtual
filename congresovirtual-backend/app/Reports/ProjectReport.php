@@ -7,7 +7,6 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\WordCloudController;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
-use Knp\Snappy\Pdf;
 
 class ProjectReport
 {
@@ -120,59 +119,59 @@ class ProjectReport
 
     private function usersParticipantsAgeRangeGenderCount($userParticipants)
     {
-        $usersParticipantsAgeRangeGenderCount = (object)[
-            '_10_19' => (object)[
+        $usersParticipantsAgeRangeGenderCount = (object) [
+            '_10_19' => (object) [
                 'male' => 0,
                 'female' => 0,
                 'other' => 0,
                 'not_answer' => 0
             ],
-            '_20_29' => (object)[
+            '_20_29' => (object) [
                 'male' => 0,
                 'female' => 0,
                 'other' => 0,
                 'not_answer' => 0
             ],
-            '_30_39' => (object)[
+            '_30_39' => (object) [
                 'male' => 0,
                 'female' => 0,
                 'other' => 0,
                 'not_answer' => 0
             ],
-            '_40_49' => (object)[
+            '_40_49' => (object) [
                 'male' => 0,
                 'female' => 0,
                 'other' => 0,
                 'not_answer' => 0
             ],
-            '_50_59' => (object)[
+            '_50_59' => (object) [
                 'male' => 0,
                 'female' => 0,
                 'other' => 0,
                 'not_answer' => 0
             ],
-            '_60_69' => (object)[
+            '_60_69' => (object) [
                 'male' => 0,
                 'female' => 0,
                 'other' => 0,
                 'not_answer' => 0
             ],
-            '_70_79' => (object)[
+            '_70_79' => (object) [
                 'male' => 0,
                 'female' => 0,
                 'other' => 0,
                 'not_answer' => 0
             ],
-            '_80_89' => (object)[
+            '_80_89' => (object) [
                 'male' => 0,
                 'female' => 0,
                 'other' => 0,
                 'not_answer' => 0
             ]
         ];
-        foreach ($userParticipants as $userParticipant) {
+        foreach($userParticipants as $userParticipant) {
             $userAgeRange = $this->determineUserAgeRange($userParticipant);
-            if ($userAgeRange) {
+            if($userAgeRange) {
                 $userGender = $this->determineUserGender($userParticipant);
                 $usersParticipantsAgeRangeGenderCount->{$userAgeRange}->{$userGender}++;
             }
@@ -186,21 +185,21 @@ class ProjectReport
         $userBirthday = Carbon::create($user->birthday);
         $userAges = $userBirthday->diffInYears($now);
 
-        if ($userAges >= 10 && $userAges <= 19) {
+        if($userAges >= 10 && $userAges <= 19) {
             return '_10_19';
-        } else if ($userAges >= 20 && $userAges <= 29) {
+        } else if($userAges >= 20 && $userAges <= 29) {
             return '_20_29';
-        } else if ($userAges >= 30 && $userAges <= 39) {
+        } else if($userAges >= 30 && $userAges <= 39) {
             return '_30_39';
-        } else if ($userAges >= 40 && $userAges <= 49) {
+        } else if($userAges >= 40 && $userAges <= 49) {
             return '_40_49';
-        } else if ($userAges >= 50 && $userAges <= 59) {
+        } else if($userAges >= 50 && $userAges <= 59) {
             return '_50_59';
-        } else if ($userAges >= 60 && $userAges <= 69) {
+        } else if($userAges >= 60 && $userAges <= 69) {
             return '_60_69';
-        } else if ($userAges >= 70 && $userAges <= 79) {
+        } else if($userAges >= 70 && $userAges <= 79) {
             return '_70_79';
-        } else if ($userAges >= 80 && $userAges <= 89) {
+        } else if($userAges >= 80 && $userAges <= 89) {
             return '_80_89';
         }
         return null;
@@ -208,11 +207,11 @@ class ProjectReport
 
     private function determineUserGender($user)
     {
-        if ($user->genero == 1) {
+        if($user->genero == 1) {
             return 'male';
-        } else if ($user->genero == 2) {
+        } else if($user->genero == 2) {
             return 'female';
-        } else if ($user->genero == 3) {
+        } else if($user->genero == 3) {
             return 'other';
         }
         return 'not_answer';

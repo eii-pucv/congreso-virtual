@@ -24,7 +24,7 @@ class TaxonomyController extends Controller
             }
 
             $taxonomies = Taxonomy::filter($filter);
-            $totalResults = Taxonomy::filter($filter)->count();
+            $totalResults = $taxonomies->count();
 
             if($request->has('order_by')) {
                 $order = $request->query('order', 'ASC');
