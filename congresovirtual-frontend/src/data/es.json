@@ -35,13 +35,13 @@
                 "titulo": "Proyectos de Ley Propuestos Para ser Incluidos a Congreso Virtual",
                 "descripcion": "¿Hay algún proyecto de ley que sea de su total interés, y que le gustaría que fuera incorporado al Congreso Virtual?. Si alcanza las 100 firmas de apoyo, este será agregado al sitio, para que pueda ser votado y debatido por la comunidad activa.",
                 "boton_apoyo": "Apoyar Inclusión",
-                "ver": "Ver Proyecto"
+                "ver": "Ver Propuestas"
             },
             "urgencias_proyectos" : {
                 "titulo": "Proyectos de Ley Propuestos Para Peticiones de Urgencias",
                 "descripcion": "¿Hay algún proyecto, actualmente en debate en el Congreso, que le gustaría que fuera debatido aquí también?. Si obtiene 100 firmas, este será incorporado en la tabla con una prioridad mayor, de tal modo que pueda ser discutido en el Congreso prontamente.",
                 "boton_apoyo": "Apoyar Urgencia",
-                "ver": "Ver Proyecto"
+                "ver": "Ver Propuestas"
             },
             "propuesta": {
                 "persona": "Propuesta por",
@@ -52,6 +52,7 @@
             },
             "boton_consultas": "Ver Consultas",
             "boton_proyectos": "Ver Proyectos",
+            "boton_propuestas": "Ver Propuestas",
             "sin_datos": "No hay datos para mostrar."
         },
         "componentes": {
@@ -785,6 +786,41 @@
                 "detalle": "Ingrese un detalle para la propuesta",
                 "descripcion": "Descripción",
                 "enviar": "Enviar"
+            },
+            "opciones_ordenar": {
+                "opcion_1": "Fecha de Ingreso (Desc.)",
+                "opcion_2": "Fecha de Ingreso (Asc.)"
+            }
+        }
+    },
+    "propuestas_usuario": {
+        "contenido": {
+            "titulo": "Propuestas",
+            "limpiar":"Limpiar Filtros",
+            "buscar": "Buscar",
+            "buscar_placeholder": "Título, boletín, autoría...",
+            "filtrar":"Filtrar Por",
+            "ordenar": "Ordenar Por",
+            "boton_propuestas_sugeridas": "Ir a propuestas sugeridas",
+            "tipo_1": "Inclusión a Congreso Virtual",
+            "tipo_2": "Urgencia",
+            "ver":"Ver Propuesta",
+            "de": "de",
+            "resultados": "Resultados totales",
+            "cargar": "Cargar Más",
+            "no_hay_resultados": "No se han encontrado resultados",
+            "mensaje_propuestas_sugeridas": "Las Propuestas Sugeridas son todos los proyectos de ley que pueden ser considerados en el Congreso Virtual gracias al apoyo de otros participantes",
+            "opciones_ordenar": {
+                "opcion_1": "Fecha de Ingreso (Desc.)",
+                "opcion_2": "Fecha de Ingreso (Asc.)",
+                "opcion_3": "Cantidad de Apoyo a Petición de Inclusión al Congreso Virtual (Desc.)",
+                "opcion_4": "Cantidad de Apoyo a Petición de Inclusión al Congreso Virtual (Asc.)",
+                "opcion_5": "Cantidad de Apoyo a Petición de Urgencia (Desc.)",
+                "opcion_6": "Cantidad de Apoyo a Petición de Urgencia (Asc.)"
+            },
+            "opciones_filtrar": {
+                "opcion_1": "Inclusión a Congreso Virtual",
+                "opcion_2": "Petición a Urgencia"
             }
         }
     },
@@ -1570,14 +1606,16 @@
                 "titulo2": "Editar Propuesta",
                 "titulo": "Titulo",
                 "boletin": "Boletín",
+                "usuario": "Usuario",
                 "autoria": "Autoría",
                 "fecha_ingreso": "Fecha ingreso",
                 "popover_fecha_ingreso": "Fecha ingreso de la propuesta. NOTA: Ingrese la fecha según su zona horaria, está será convertida automáticamente a UTC.",
                 "estado": {
                     "titulo": "Estado",
-                    "popover": "Inactiva: no se puede agregar ni argumento ni video a la propuesta. Activa: se puede agregar argumento y/o video a la propuesta.",
-                    "opcion1": "Inactiva",
-                    "opcion2": "Activa"
+                    "popover": "- Inactiva, no se puede votar: no se puede realizar votaciones a la propuesta. \n- Activa, se puede votar: se pueden realizar votaciones a la propuesta. \n- Activa, se puede votar y agregar argumento + video: se pueden realizar votaciones y añadir argumento y/o video a la propuesta.",
+                    "opcion1": "Inactiva, no se puede votar",
+                    "opcion2": "Activa, se puede votar",
+                    "opcion3": "Activa, se puede votar y agregar argumento + video"
                 },
                 "tipo": {
                     "titulo": "Tipo",

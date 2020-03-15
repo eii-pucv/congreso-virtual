@@ -54,7 +54,6 @@
                                 <input
                                         id="contact_phone"
                                         v-model="settings.find(setting => setting.key === 'contact_phones').value[index]"
-                                        @input="showPhonesArray"
                                         type="text"
                                         class="form-control"
                                         :placeholder="$t('administrador.componentes.configuracion_general.datos_basicos.fonos_contacto.telefono') + ' ' + (index + 1)"
@@ -360,10 +359,6 @@
             this.getSettings();
         },
         methods: {
-            showPhonesArray(event) {
-                console.log(event.target.value);
-                console.log(this.settings.find(setting => setting.key === 'contact_phones'));
-            },
             getSettings() {
                 axios
                     .get('settings')

@@ -29,12 +29,6 @@
                                     <strong>{{ $t('home.contenido.propuesta.persona') }} </strong> {{ proposal.user.name }} {{ proposal.user.surname }}
                                 </p>
                                 <p>
-                                    <strong>{{ $t('home.contenido.propuesta.boletin') }} </strong>{{ proposal.boletin }}
-                                </p>
-                                <p class="ellipsis">
-                                    <strong>{{ $t('home.contenido.propuesta.autoria') }} </strong>{{ proposal.autoria }}
-                                </p>
-                                <p>
                                     <strong>{{ $t('home.contenido.propuesta.fecha_ingreso') }} </strong>{{ new Date(toLocalDate(proposal.fecha_ingreso)) | moment($t('componentes.moment.formato_sin_hora')) }}
                                 </p>
                             </div>
@@ -49,13 +43,13 @@
                             <div class="btn-group-vertical">
                                 <a class="font-1"> </a>
                                 <div class="btn-group mt-auto">
-                                    <button @click="voteProposal(proposal)" class="btn btn-primary text-white font-12"><font-awesome-icon icon="vote-yea"/> <span class="btn-text"> {{ $t('home.contenido.incorporacion_proyectos.boton_apoyo') }}</span></button>
+                                    <button @click="voteProposal(proposal)" class="btn btn-primary text-white font-12" :style="proposal.state == 0 ? 'cursor:auto;' : 'cursor:pointer;'"  :disabled="proposal.state == 0"><font-awesome-icon icon="vote-yea"/> <span class="btn-text"> {{ $t('home.contenido.incorporacion_proyectos.boton_apoyo') }}</span></button>
                                     <a role="button" class="btn btn-secondary text-white font-12" :href="'/proposal/' + proposal.id"><font-awesome-icon icon="eye"/> <span class="btn-text"> {{ $t('home.contenido.incorporacion_proyectos.ver') }}</span></a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <a :href="'/proposals'" class="btn btn-primary btn-block mb-15" style="text-transform: inherit">{{ $t('home.contenido.boton_proyectos') }}</a>
+                    <a :href="'/user-proposals?type=1'" class="btn btn-primary btn-block mb-15" style="text-transform: inherit"><i class="fas fa-eye"></i> {{ $t('home.contenido.boton_propuestas') }}</a>
                 </div>
             </div>
         </div>
@@ -88,12 +82,6 @@
                                     <strong>{{ $t('home.contenido.propuesta.persona') }} </strong> {{ proposal.user.name }} {{ proposal.user.surname }}
                                 </p>
                                 <p>
-                                    <strong>{{ $t('home.contenido.propuesta.boletin') }} </strong>{{ proposal.boletin }}
-                                </p>
-                                <p class="ellipsis">
-                                    <strong>{{ $t('home.contenido.propuesta.autoria') }} </strong>{{ proposal.autoria }}
-                                </p>
-                                <p>
                                     <strong>{{ $t('home.contenido.propuesta.fecha_ingreso') }} </strong>{{ new Date(toLocalDate(proposal.fecha_ingreso)) | moment($t('componentes.moment.formato_sin_hora')) }}
                                 </p>
                             </div>
@@ -108,7 +96,7 @@
                             <div class="btn-group-vertical">
                                 <a class="font-1"> </a>
                                 <div class="btn-group mt-auto">
-                                    <button @click="voteProposal(proposal)" class="btn btn-warning text-primary font-12">
+                                    <button @click="voteProposal(proposal)" class="btn btn-warning text-primary font-12" :style="proposal.state == 0 ? 'cursor:auto;' : 'cursor:pointer;'" :disabled="proposal.state == 0">
                                         <i class="fa fa-warning"></i> <span class="btn-text"> {{ $t('home.contenido.urgencias_proyectos.boton_apoyo') }}</span>
                                     </button>
                                     <a :href="'/proposal/' + proposal.id" class="btn btn-primary text-white font-12"><i class="fas fa-eye"></i><span class="btn-text"> {{ $t('home.contenido.urgencias_proyectos.ver') }}</span></a>
@@ -116,7 +104,7 @@
                             </div>
                         </div>
                     </div>
-                    <a :href="'/proposals'" class="btn btn-warning btn-block mb-15 text-primary" style="text-transform: inherit">{{ $t('home.contenido.boton_proyectos') }}</a>
+                    <a :href="'/user-proposals?type=2'" class="btn btn-warning btn-block mb-15 text-white" style="text-transform: inherit"><i class="fas fa-eye"></i> {{ $t('home.contenido.boton_propuestas') }}</a>
                 </div>
             </div>
         </div>
@@ -175,7 +163,9 @@
                         }
                     })
                     .then(res => {
-                        this.petitionProposals = res.data.results;
+                        let petitions = res.data.results;
+                        this.petitionProposals = petitions.filter(petition => petition.state != 0)
+                        this.petitionProposals = this.petitionProposals.concat(petitions.filter(petition => petition.state == 0))
                     })
                     .finally(() => {
                         this.loadPetitionProposals = false;
@@ -193,7 +183,9 @@
                         }
                     })
                     .then(res => {
-                        this.urgencyProposals = res.data.results;
+                        let urgencies = res.data.results;
+                        this.urgencyProposals = urgencies.filter(urgency => urgency.state != 0)
+                        this.urgencyProposals = this.urgencyProposals.concat(urgencies.filter(urgency => urgency.state == 0))
                     })
                     .finally(() => {
                         this.loadUrgencyProposals = false;
@@ -205,7 +197,6 @@
                         .post("/urgencies", {
                             urgency: proposal.type,
                             proposal_id: proposal.id,
-                            user_id: this.userData.id
                         })
                         .then(res => {
                             if(proposal.type === 1) {
@@ -218,7 +209,7 @@
                         .catch(() => {
                             // 1: inclusión a Congreso Virtual - 2: petición de Urgencia
                             let type = proposal.type === 1 ? 'inclusión a Congreso Virtual' : 'Urgencia'
-                            this.$toastr("warning", `Ya existe su voto para apoyar la ${type} de esta propuesta`, "Ya votaste esta urgencia");
+                            this.$toastr("warning", `No se puede votar para apoyar la ${type} de esta propuesta`, "No se puede votar");
                         });
                 } else {
                     this.$toastr("warning", "", "Debes iniciar sesión");
@@ -254,7 +245,8 @@
         height: 18em;
     }
     .proposal-card {
-        height: 24em;
+        /* height: 24em; */
+        height: 16em;
     }
 
     @media (max-width: 1199px) {

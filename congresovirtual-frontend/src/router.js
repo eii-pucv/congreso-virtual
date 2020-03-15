@@ -84,6 +84,12 @@ const routes = [
         component: () => import('./views/PublicConsultation.vue')
     },
     {
+        path: '/user-proposals',
+        name: 'UserProposals',
+        props: true,
+        component: () => import('./views/UserProposals.vue')
+    },
+    {
         path: '/proposals',
         name: 'Proposals',
         props: true,

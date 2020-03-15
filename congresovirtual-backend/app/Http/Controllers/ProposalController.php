@@ -63,11 +63,13 @@ class ProposalController extends Controller
                 $order = $request->query('order', 'ASC');
                 $proposals = $proposals->orderBy($request->order_by, $order);
             }
-            $limit = $request->query('limit', 10);
-            $offset = $request->query('offset', 0);
-            $proposals = $proposals
-                ->offset($offset)
-                ->limit($limit);
+            if(!isset($request->return_all) || !$request->return_all) {
+                $limit = $request->query('limit', 10);
+                $offset = $request->query('offset', 0);
+                $proposals = $proposals
+                    ->offset($offset)
+                    ->limit($limit);
+            }
             $proposals = $proposals->with(['user', 'urgenciesRelated'])->get();
 
             return response()->json([
@@ -98,7 +100,7 @@ class ProposalController extends Controller
                 'boletin' => 'required|string|max:191|unique:proposals',
                 'fecha_ingreso' => 'date_format:Y-m-d|nullable',
                 'type' => 'required|integer|in:1,2',
-                'state' => 'integer|in:0,1',
+                'state' => 'integer|in:0,1,2',
                 'is_public' => 'boolean',
                 'argument' => 'string|nullable',
                 'video_code' => 'string|max:191|nullable',
@@ -117,10 +119,10 @@ class ProposalController extends Controller
             $videoSource = null;
             if($user->hasRole('ADMIN') && $request->has('state')) {
                 $userProposals = User::findOrFail($user->id)->proposals;
-                if($request->state == 1 && $userProposals->where('state', '=', 1)->first()) {
+                if(($request->state == 1 || $request->state == 2) && $userProposals->whereIn('state', [1, 2])->first()) {
                     throw new \Exception();
-                } else if($request->state == 1) {
-                    $state = 1;
+                } else if($request->state == 2) {
+                    $state = 2;
                     $isPublic = $request->has('is_public') ? $request->is_public : $isPublic;
                     $argument = $request->argument;
                     $videoCode = $request->video_code;
@@ -190,7 +192,7 @@ class ProposalController extends Controller
             $validator = Validator::make($request->all(), [
                 'detalle' => 'string',
                 'type' => 'integer|in:1,2',
-                'state' => 'integer|in:0,1',
+                'state' => 'integer|in:0,1,2',
                 'is_public' => 'boolean',
                 'argument' => 'string|nullable',
                 'video_code' => 'string|max:191|nullable',
@@ -205,7 +207,7 @@ class ProposalController extends Controller
 
                 $state = $proposal->state;
                 if($request->has('state')) {
-                    if($request->state == 1 && $proposal->user->proposals->whereNotIn('id', $proposal->id)->where('state', '=', 1)->first()) {
+                    if(($request->state == 1 || $request->state == 2) && $proposal->user->proposals->whereNotIn('id', $proposal->id)->whereIn('state', [1, 2])->first()) {
                         throw new \Exception();
                     }
                     $state = $request->state;
@@ -214,7 +216,7 @@ class ProposalController extends Controller
                 $argument = $proposal->argument;
                 $videoCode = $proposal->video_code;
                 $videoSource = $proposal->video_source;
-                if($state == 1) {
+                if($state == 2) {
                     if(isset($request->argument)) {
                         $argument = $request->argument;
                     }
@@ -224,7 +226,7 @@ class ProposalController extends Controller
                     if(isset($request->video_source)) {
                         $videoSource = $request->video_source;
                     }
-                } else if($state == 0 && (isset($request->argument) || isset($request->video_code) || isset($request->video_source))) {
+                } else if(($state == 0 || $state == 1) && (isset($request->argument) || isset($request->video_code) || isset($request->video_source))) {
                     throw new \Exception();
                 }
 
@@ -246,7 +248,7 @@ class ProposalController extends Controller
                 $argument = $proposal->argument;
                 $videoCode = $proposal->video_code;
                 $videoSource = $proposal->video_source;
-                if($proposal->state == 1) {
+                if($proposal->state == 2) {
                     if(isset($request->argument)) {
                         $argument = $request->argument;
                     }
@@ -256,7 +258,7 @@ class ProposalController extends Controller
                     if(isset($request->video_source)) {
                         $videoSource = $request->video_source;
                     }
-                } else if($proposal->state == 0 && (isset($request->argument) || isset($request->video_code) || isset($request->video_source))) {
+                } else if(($proposal->state == 0 || $proposal->state == 1) && (isset($request->argument) || isset($request->video_code) || isset($request->video_source))) {
                     throw new \Exception();
                 }
 

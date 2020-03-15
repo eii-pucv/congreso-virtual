@@ -313,7 +313,8 @@
                                     vote: voteValue
                                 })
                                 .then(res => {
-                                    this.votes.push(res.data.data);
+                                    vote = res.data.data
+                                    this.votes.push(vote);
                                     if(voteValue === 0) {
                                         idea.votos_a_favor += 1;
                                         this.toggleAgree(idea.id);
