@@ -226,26 +226,24 @@
                     this.isAvailableVoting = this.project.is_enabled && this.project.etapa !== 3 && this.currentMoment.isBetween(this.votingStartDate, this.votingEndDate);
                 }
             },
-            async getUserVote() {
+            getUserVote() {
                 let userId = JSON.parse(localStorage.user).id;
-                try {
-                    const res = await axios.get(`/projects/${this.project.id}/vote`, {
+                axios
+                    .get('/project/' + this.project.id + '/vote', {
                         params: {
                             user_id: userId
                         }
+                    })
+                    .then(res => {
+                        this.vote = res.data;
+                        if(this.vote.vote === 0) {
+                            this.toggleAgree();
+                        } else if(this.vote.vote === 1) {
+                            this.toggleDisagree();
+                        } else if(this.vote.vote === 2) {
+                            this.toggleAbstention();
+                        }
                     });
-                    this.vote = res.data;
-
-                    if(this.vote.vote === 0) {
-                        this.toggleAgree();
-                    } else if(this.vote.vote === 1) {
-                        this.toggleDisagree();
-                    } else if(this.vote.vote === 2) {
-                        this.toggleAbstention();
-                    }
-                } catch (err) {
-                    // this.$toastr('warning', '', 'No se ha encontradon votos del usuario relacionados con el proyecto');
-                }
             },
             toggleAgree() {
                 this.userVotedAgree = true;

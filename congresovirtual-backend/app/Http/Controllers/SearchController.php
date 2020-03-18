@@ -23,6 +23,8 @@ class SearchController extends Controller
                 'query' => 'string|nullable',
                 'etapas' => 'array',
                 'terms_id' => 'array',
+                'is_available_voting' => 'boolean',
+                'include_etapas' => 'array',
                 'limit' => 'integer|nullable',
                 'use_scroll' => 'boolean',
                 'timeout' => 'string|nullable',
@@ -39,6 +41,13 @@ class SearchController extends Controller
             $query = $request->query('query', '');
             $etapas = $request->query('etapas', []);
             $termsIds = $request->query('terms_id', []);
+            $isAvailableVoting = null;
+            $includeEtapas = [];
+            if(isset($request->is_available_voting)) {
+                $isAvailableVoting = (bool) $request->is_available_voting;
+                $includeEtapas = $request->include_etapas;
+            }
+
             $objectsTypes = $request->query('objects_types', []);
             $limit = $request->query('limit', 10);
 
@@ -53,13 +62,13 @@ class SearchController extends Controller
                 $timeout = $request->query('timeout', '30s');
                 $scrollId = $request->query('scroll_id', null);
                 if(!$scrollId) {
-                    $response = $client->searchWithScroll($query, $etapas, $termsIds, $objectsTypes, $limit, $orderBy, $order, $timeout);
+                    $response = $client->searchWithScroll($query, $etapas, $termsIds, $isAvailableVoting, $includeEtapas, $objectsTypes, $limit, $orderBy, $order, $timeout);
                 } else {
-                    $response = $client->searchWithScroll(null, null, null, null, null, null, null, $timeout, $scrollId);
+                    $response = $client->searchWithScroll(null, null, null, null, null, null, null, null, null, $timeout, $scrollId);
                 }
             } else {
                 $offset = $request->query('offset', 0);
-                $response = $client->searchWithFromAndSize($query, $etapas, $termsIds, $objectsTypes, $offset, $limit, $orderBy, $order);
+                $response = $client->searchWithFromAndSize($query, $etapas, $termsIds, $isAvailableVoting, $includeEtapas, $objectsTypes, $offset, $limit, $orderBy, $order);
             }
             return response()->json($response, 200);
         } catch (\Exception $exception) {

@@ -49,7 +49,7 @@
                         </template>
                     </v-popover>
                 </div>
-                <div v-else class="bg-red-dark-5">
+                <div v-else class="bg-red-dark-3">
                     {{ $t('consulta.componentes.header.votacion_cerrada') }}
                     <v-popover>
                         <fontAwesomeIcon class="tooltip-target b3 font-18" icon="question-circle"></fontAwesomeIcon>

@@ -17,10 +17,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="font-weight-bold">{{ $t('search.filtrar') }}</label>
+                        <h5 class="mb-2" :style="mode==='dark'?'color: #fff':''">{{ $t('search.filtrar') }}</h5>
                         <div v-for="objectType in objectTypes" class="input-group" :key="objectType.id">
                             <div class="custom-control custom-checkbox">
                                 <input
+                                        @change="refreshOptionsSortActives"
                                         type="checkbox"
                                         class="custom-control-input"
                                         :name="'check-' + objectType.value"
@@ -34,37 +35,41 @@
                                         class="custom-control-label"
                                         :for="'check-'+ objectType.value"
                                         :style="mode==='dark'?'color: #fff':''"
-                                >{{ objectType.label }}</label>
+                                >
+                                    {{ objectType.label }}
+                                </label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="font-weight-bold">{{ $t('search.ordenar') }}</label>
-                        <select
-                                @change="verFiltro"
-                                v-model="orderBy"
-                                class="form-control custom-select d-block"
-                                id="filterCommentBy"
-                        >
-                            <option value="1">{{ $t('search.tipo_objeto.titulo') }}</option>
-                            <option value="2">{{ $t('search.fecha') }}</option>
-                            <option value="3">{{ $t('search.votos') }}</option>
+                        <h5 class="mb-2" :style="mode==='dark'?'color: #fff':''">{{ $t('search.orden.titulo') }}</h5>
+                        <select @change="sort" class="form-control custom-select d-block">
+                            <option
+                                    v-for="activeOptionSort in activeOptionsSort"
+                                    :key="'option-sort-' + activeOptionSort.id"
+                                    :value="activeOptionSort.id"
+                            >
+                                {{ activeOptionSort.label }}
+                            </option>
                         </select>
                     </div>
-                    <div class="form-group" v-for="(taxonomy, index) in taxonomies" :key="taxonomy.id">
-                        <h5 class="mb-2" :style="mode==='dark'?'color: #fff':''">{{ taxonomy.value }}</h5>
-                        <div class="input-group">
-                            <div class="w-100">
-                                <v-select
-                                        v-model="selectedTerms[index]"
-                                        multiple
-                                        label="value"
-                                        :options="taxonomy.terms"
-                                        :reduce="term => term.id"
-                                        :style="mode==='dark'?'background: #080035; color: #fff':''"
-                                />
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <h5 class="mb-2" :style="mode==='dark'?'color: #fff':''">{{ $t('search.tema_asociado.titulo') }}</h5>
+                        <multiselect
+                                v-model="selectedTerms"
+                                group-values="terms"
+                                group-label="value"
+                                track-by="id"
+                                label="value"
+                                :placeholder="$t('search.tema_asociado.seleccionar')"
+                                :options="taxonomyTerms"
+                                :loading="loadTaxonomyTerms"
+                                :multiple="true"
+                                :showLabels="false"
+                                :limit="5"
+                                :limit-text="limitTextTaxonomyTermsMultiselect"
+                                :style="mode==='dark'?' color: #fff':''"
+                        ></multiselect>
                     </div>
                     <span class="mt-10" :style="mode==='dark'?'color: #fff':''">{{ $t('search.resultados') }}: {{ totalResults }}</span>
                     <div class="btn-group btn-group-toggle btn-block mt-10 mb-20">
@@ -74,7 +79,9 @@
                                 type="button"
                                 :class="mode==='dark'?'btn-outline-light':'btn-outline-primary'"
                                 :style="mode==='dark'?'color: #fff':''"
-                        >{{ $t('search.limpiar') }}</button>
+                        >
+                            {{ $t('search.limpiar') }}
+                        </button>
                         <button class="vld-parent btn btn-primary" @click="search">{{ $t('search.buscar') }}
                             <loading
                                     :active.sync="loadBtnSearch"
@@ -86,234 +93,269 @@
                     </div>
                 </div>
                 <div class="col-md-9 col-sm-12">
-                    <div class="row ma-5">
-                        <div class="card-columns">
-                            <div v-for="(object, index) in results" :key="'resultado-' + index">
-                                <div
-                                        v-if="object._object_type === 'projects'"
-                                        class="card border-primary"
-                                        :class="mode==='dark'?'border-white':''"
-                                        :style="mode==='dark'?'background: #080035; color: #fff':''"
-                                >
-                                    <img
-                                            class="card-img-top embed-responsive-item default-project-img"
-                                            :src="getImgUrl(object.id, object.imagen, object._object_type)"
-                                            style="object-fit: cover;"
-                                    />
-                                    <div class="card-header card-header-action">
-                                        {{ $t('search.proyecto') }}
-                                        <div class="d-flex align-items-center card-action-wrap">
-                                            <a href="#" class="inline-block refresh mr-15">
-                                                <i class="fa icon-like"></i>
-                                                {{ object.votos_a_favor }}
-                                            </a>
-                                            <a href="#" class="inline-block refresh">
-                                                <i class="fa icon-dislike"></i>
-                                                {{ object.votos_en_contra }}
-                                            </a>
-                                        </div>
+                    <div class="row row-cols-1 row-cols-md-4">
+                        <div v-for="(object, index) in results" :key="'resultado-' + index" class="col-md-4 pb-4 px-10">
+                            <div
+                                    v-if="object._object_type === 'projects'"
+                                    class="card border-primary h-100"
+                                    :class="mode==='dark'?'border-white':''"
+                                    :style="mode==='dark'?'background: #080035; color: #fff':''"
+                            >
+                                <img
+                                        class="card-img-top embed-responsive-item default-project-img"
+                                        :src="getImgUrl(object.id, object.imagen, object._object_type)"
+                                        style="object-fit: cover;"
+                                />
+                                <div class="card-header card-header-action">
+                                    {{ $t('search.proyecto') }}
+                                    <div class="d-flex align-items-center card-action-wrap">
+                                        <a href="#" class="inline-block refresh mr-15">
+                                            <i class="fa icon-like"></i>
+                                            {{ object.votos_a_favor }}
+                                        </a>
+                                        <a href="#" class="inline-block refresh">
+                                            <i class="fa icon-dislike"></i>
+                                            {{ object.votos_en_contra }}
+                                        </a>
                                     </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title" :style="mode==='dark'?'color: #fff':''">{{ object.titulo }}</h5>
-                                        <p
-                                                v-if="object.resumen"
-                                                class="card-text"
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title" :style="mode==='dark'?'color: #fff':''">{{ object.titulo }}</h5>
+                                    <p
+                                            v-if="object.resumen"
+                                            class="card-text"
+                                            :style="mode==='dark'?'color: #fff':''"
+                                    >
+                                        {{ object.resumen.substring(0, seeMoreLimitText) }}
+                                        <span
+                                                v-if="object.resumen.length > seeMoreLimitText"
+                                                :id="'dots-' + index"
+                                        >... </span>
+                                        <span
+                                                v-if="object.resumen.length > seeMoreLimitText"
+                                                :id="'seemore-' + index"
+                                                class="seemore"
+                                        >{{ object.resumen.substring(seeMoreLimitText) }}</span>
+                                        <span
+                                                v-if="object.resumen.length > seeMoreLimitText"
+                                                class="seemore-trigger"
+                                                href
+                                                @click="seeMoreToggle(index)"
+                                                :id="'myBtn-' + index"
+                                                :class="mode==='dark'?'':'text-primary '"
+                                        >{{ $t('search.ver_mas') }}</span>
+                                    </p>
+                                    <router-link :to="'/project/' + object.id" class="btn btn-primary">{{ $t('participar') }}</router-link>
+                                </div>
+                            </div>
+                            <div
+                                    v-if="object._object_type === 'ideas'"
+                                    class="card h-100"
+                                    :class="mode==='dark'?'border-white':''"
+                                    :style="mode==='dark'?'background: #080035; color: #fff':''"
+                            >
+                                <div class="card-header card-header-action">
+                                    {{ $t('search.idea') }}
+                                    <div class="d-flex align-items-center card-action-wrap">
+                                        <a href="#" class="inline-block refresh mr-15">
+                                            <i class="fa icon-like"></i>
+                                            {{ object.votos_a_favor }}
+                                        </a>
+                                        <a href="#" class="inline-block refresh">
+                                            <i class="fa icon-dislike"></i>
+                                            {{ object.votos_en_contra }}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title" :style="mode==='dark'?'color: #fff':''">
+                                        {{ object.project.titulo }}
+                                        <small
+                                                class="text-muted"
                                                 :style="mode==='dark'?'color: #fff':''"
-                                        >
-                                            {{ object.resumen.substring(0, seeMoreLimitText) }}
-                                            <span
-                                                    v-if="object.resumen.length > seeMoreLimitText"
-                                                    :id="'dots-' + index"
-                                            >... </span>
-                                            <span
-                                                    v-if="object.resumen.length > seeMoreLimitText"
-                                                    :id="'seemore-' + index"
-                                                    class="seemore"
-                                            >{{ object.resumen.substring(seeMoreLimitText) }}</span>
-                                            <span
-                                                    v-if="object.resumen.length > seeMoreLimitText"
-                                                    class="seemore-trigger"
-                                                    href
-                                                    @click="seeMoreToggle(index)"
-                                                    :id="'myBtn-' + index"
-                                                    :class="mode==='dark'?'':'text-primary '"
-                                            >{{ $t('search.ver_mas') }}</span>
-                                        </p>
-                                        <router-link :to="'/project/' + object.id" class="btn btn-primary">{{ $t('participar') }}</router-link>
+                                        >{{ object.titulo }}</small>
+                                    </h5>
+                                    <p v-if="object.detalle" class="card-text" :style="mode==='dark'?'color: #fff':''">
+                                        {{ object.detalle.substring(0, seeMoreLimitText) }}
+                                        <span
+                                                v-if="object.detalle.length > seeMoreLimitText"
+                                                :id="'dots-' + index"
+                                        >... </span>
+                                        <span
+                                                v-if="object.detalle.length > seeMoreLimitText"
+                                                :id="'seemore-' + index"
+                                                class="seemore"
+                                        >{{ object.detalle.substring(seeMoreLimitText) }}</span>
+                                        <span
+                                                v-if="object.detalle.length > seeMoreLimitText"
+                                                class="seemore-trigger"
+                                                href
+                                                @click="seeMoreToggle(index)"
+                                                :id="'myBtn-' + index"
+                                                :class="mode==='dark'?'':'text-primary '"
+                                        >{{ $t('search.ver_mas') }}</span>
+                                    </p>
+                                    <router-link
+                                            :to="'/project/' + object.project_id"
+                                            class="btn btn-primary"
+                                    >{{ $t('participar') }}</router-link>
+                                </div>
+                            </div>
+                            <div
+                                    v-if="object._object_type === 'articles'"
+                                    class="card h-100"
+                                    :class="mode==='dark'?'border-white':''"
+                                    :style="mode==='dark'?'background: #080035; color: #fff':''"
+                            >
+                                <div class="card-header card-header-action" :style="mode==='dark'?'color: #fff':''">
+                                    {{ $t('search.articulo') }}
+                                    <div class="d-flex align-items-center card-action-wrap">
+                                        <a href="#" class="inline-block refresh mr-15">
+                                            <i class="fa icon-like"></i>
+                                            {{ object.votos_a_favor }}
+                                        </a>
+                                        <a href="#" class="inline-block refresh">
+                                            <i class="fa icon-dislike"></i>
+                                            {{ object.votos_en_contra }}
+                                        </a>
                                     </div>
                                 </div>
-                                <div
-                                        v-if="object._object_type === 'ideas'"
-                                        class="card"
-                                        :class="mode==='dark'?'border-white':''"
-                                        :style="mode==='dark'?'background: #080035; color: #fff':''"
-                                >
-                                    <div class="card-header">{{ $t('search.idea') }}</div>
-                                    <div class="card-body">
-                                        <h5 class="card-title" :style="mode==='dark'?'color: #fff':''">
-                                            {{ object.project.titulo }}
-                                            <small
-                                                    class="text-muted"
-                                                    :style="mode==='dark'?'color: #fff':''"
-                                            >{{ object.titulo }}</small>
-                                        </h5>
-                                        <p v-if="object.detalle" class="card-text" :style="mode==='dark'?'color: #fff':''">
-                                            {{ object.detalle.substring(0, seeMoreLimitText) }}
-                                            <span
-                                                    v-if="object.detalle.length > seeMoreLimitText"
-                                                    :id="'dots-' + index"
-                                            >... </span>
-                                            <span
-                                                    v-if="object.detalle.length > seeMoreLimitText"
-                                                    :id="'seemore-' + index"
-                                                    class="seemore"
-                                            >{{ object.detalle.substring(seeMoreLimitText) }}</span>
-                                            <span
-                                                    v-if="object.detalle.length > seeMoreLimitText"
-                                                    class="seemore-trigger"
-                                                    href
-                                                    @click="seeMoreToggle(index)"
-                                                    :id="'myBtn-' + index"
-                                                    :class="mode==='dark'?'':'text-primary '"
-                                            >{{ $t('search.ver_mas') }}</span>
-                                        </p>
-                                        <router-link
-                                                :to="'/project/' + object.project_id"
-                                                class="btn btn-primary"
-                                        >{{ $t('participar') }}</router-link>
+                                <div class="card-body">
+                                    <h5 class="card-title" :style="mode==='dark'?'color: #fff':''">
+                                        {{ object.project.titulo }}
+                                        <small
+                                                class="text-muted"
+                                                :style="mode==='dark'?'color: #fff':''"
+                                        >{{ object.titulo }}</small>
+                                    </h5>
+                                    <p v-if="object.detalle" class="card-text" :style="mode==='dark'?'color: #fff':''">
+                                        {{ object.detalle.substring(0, seeMoreLimitText) }}
+                                        <span
+                                                v-if="object.detalle.length > seeMoreLimitText"
+                                                :id="'dots-' + index"
+                                        >... </span>
+                                        <span
+                                                v-if="object.detalle.length > seeMoreLimitText"
+                                                :id="'seemore-' + index"
+                                                class="seemore"
+                                        >{{ object.detalle.substring( seeMoreLimitText) }}</span>
+                                        <span
+                                                v-if="object.detalle.length > seeMoreLimitText"
+                                                class="seemore-trigger"
+                                                href
+                                                @click="seeMoreToggle(index)"
+                                                :id="'myBtn-' + index"
+                                                :class="mode==='dark'?'':'text-primary '"
+                                        >{{ $t('search.ver_mas') }}</span>
+                                    </p>
+                                    <router-link :to="'/project/' + object.project_id" class="btn btn-primary">{{ $t('participar') }}</router-link>
+                                </div>
+                            </div>
+                            <div
+                                    v-if="object._object_type === 'consultations'"
+                                    class="card h-100"
+                                    :class="mode==='dark'?'border-white':''"
+                                    :style="mode==='dark'?'background: #080035; color: #fff':''"
+                            >
+                                <img
+                                        class="card-img-top embed-responsive-item default-consultation-img"
+                                        :src="getImgUrl(object.id, object.imagen, object._object_type)"
+                                        style="object-fit: cover;"
+                                />
+                                <div class="card-header card-header-action">
+                                    {{ $t('search.consulta') }}
+                                    <div class="d-flex align-items-center card-action-wrap">
+                                        <a href="#" class="inline-block refresh mr-15">
+                                            <i class="fa icon-like"></i>
+                                            {{ object.votos_a_favor }}
+                                        </a>
+                                        <a href="#" class="inline-block refresh">
+                                            <i class="fa icon-dislike"></i>
+                                            {{ object.votos_en_contra }}
+                                        </a>
                                     </div>
                                 </div>
-                                <div
-                                        v-if="object._object_type === 'articles'"
-                                        class="card"
-                                        :class="mode==='dark'?'border-white':''"
-                                        :style="mode==='dark'?'background: #080035; color: #fff':''"
-                                >
-                                    <div class="card-header card-header-action" :style="mode==='dark'?'color: #fff':''">
-                                        {{ $t('search.articulo') }}
-                                        <div class="d-flex align-items-center card-action-wrap">
-                                            <a href="#" class="inline-block refresh mr-15">
-                                                <i class="fa icon-like"></i>
-                                                {{ object.votos_a_favor }}
-                                            </a>
-                                            <a href="#" class="inline-block refresh">
-                                                <i class="fa icon-dislike"></i>
-                                                {{ object.votos_en_contra }}
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title" :style="mode==='dark'?'color: #fff':''">
-                                            {{ object.project.titulo }}
-                                            <small
-                                                    class="text-muted"
-                                                    :style="mode==='dark'?'color: #fff':''"
-                                            >{{ object.titulo }}</small>
-                                        </h5>
-                                        <p v-if="object.detalle" class="card-text" :style="mode==='dark'?'color: #fff':''">
-                                            {{ object.detalle.substring(0, seeMoreLimitText) }}
-                                            <span
-                                                    v-if="object.detalle.length > seeMoreLimitText"
-                                                    :id="'dots-' + index"
-                                            >... </span>
-                                            <span
-                                                    v-if="object.detalle.length > seeMoreLimitText"
-                                                    :id="'seemore-' + index"
-                                                    class="seemore"
-                                            >{{ object.detalle.substring( seeMoreLimitText) }}</span>
-                                            <span
-                                                    v-if="object.detalle.length > seeMoreLimitText"
-                                                    class="seemore-trigger"
-                                                    href
-                                                    @click="seeMoreToggle(index)"
-                                                    :id="'myBtn-' + index"
-                                                    :class="mode==='dark'?'':'text-primary '"
-                                            >{{ $t('search.ver_mas') }}</span>
-                                        </p>
-                                        <router-link :to="'/project/' + object.project_id" class="btn btn-primary">{{ $t('participar') }}</router-link>
+                                <div class="card-body">
+                                    <h5 class="card-title" :style="mode==='dark'?'color: #fff':''">{{ object.titulo }}</h5>
+                                    <p v-if="object.resumen" class="card-text" :style="mode==='dark'?'color: #fff':''">
+                                        {{ object.resumen.substring(0, seeMoreLimitText) }}
+                                        <span
+                                                v-if="object.resumen.length > seeMoreLimitText"
+                                                :id="'dots-' + index"
+                                        >... </span>
+                                        <span
+                                                v-if="object.resumen.length > seeMoreLimitText"
+                                                :id="'seemore-' + index"
+                                                class="seemore"
+                                        >{{ object.resumen.substring(seeMoreLimitText) }}</span>
+                                        <span
+                                                v-if="object.resumen.length > seeMoreLimitText"
+                                                class="seemore-trigger"
+                                                href
+                                                @click="seeMoreToggle(index)"
+                                                :id="'myBtn-' + index"
+                                                :class="mode==='dark'?'':'text-primary '"
+                                        >{{ $t('search.ver_mas') }}</span>
+                                    </p>
+                                    <router-link :to="'/public_consultation/' + object.id " class="btn btn-primary">{{ $t('participar') }}</router-link>
+                                </div>
+                            </div>
+                            <div
+                                    v-if="object._object_type === 'proposals'"
+                                    class="card h-100"
+                                    :class="mode==='dark'?'border-white':''"
+                                    :style="mode==='dark'?'background: #080035; color: #fff':''"
+                            >
+                                <img class="card-img-top embed-responsive-item default-proposal-img" />
+                                <div class="card-header card-header-action">
+                                    {{ $t('search.propuesta') }}
+                                    <div class="d-flex align-items-center card-action-wrap">
+                                        <a v-if="object.type === 1" href="#" class="inline-block refresh">
+                                            <i class="fa icon-like"></i>
+                                            {{ object.petitions }}
+                                        </a>
+                                        <a v-else-if="object.type === 2" href="#" class="inline-block refresh">
+                                            <i class="fa icon-like"></i>
+                                            {{ object.urgencies }}
+                                        </a>
                                     </div>
                                 </div>
-                                <div
-                                        v-if="object._object_type === 'consultations'"
-                                        class="card"
-                                        :class="mode==='dark'?'border-white':''"
-                                        :style="mode==='dark'?'background: #080035; color: #fff':''"
-                                >
-                                    <img
-                                            class="card-img-top embed-responsive-item default-consultation-img"
-                                            :src="getImgUrl(object.id, object.imagen, object._object_type)"
-                                            style="object-fit: cover;"
-                                    />
-                                    <div class="card-header card-header-actions">
-                                        {{ $t('search.consulta') }}
-                                        <div class="d-flex align-items-center card-action-wrap">
-                                            <a href="#" class="inline-block refresh mr-15">
-                                                <i class="fa icon-like"></i>
-                                                {{ object.votos_a_favor }}
-                                            </a>
-                                            <a href="#" class="inline-block refresh">
-                                                <i class="fa icon-dislike"></i>
-                                                {{ object.votos_en_contra }}
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title" :style="mode==='dark'?'color: #fff':''">{{ object.titulo }}</h5>
-                                        <p v-if="object.resumen" class="card-text" :style="mode==='dark'?'color: #fff':''">
-                                            {{ object.resumen.substring(0, seeMoreLimitText) }}
-                                            <span
-                                                    v-if="object.resumen.length > seeMoreLimitText"
-                                                    :id="'dots-' + index"
-                                            >... </span>
-                                            <span
-                                                    v-if="object.resumen.length > seeMoreLimitText"
-                                                    :id="'seemore-' + index"
-                                                    class="seemore"
-                                            >{{ object.resumen.substring(seeMoreLimitText) }}</span>
-                                            <span
-                                                    v-if="object.resumen.length > seeMoreLimitText"
-                                                    class="seemore-trigger"
-                                                    href
-                                                    @click="seeMoreToggle(index)"
-                                                    :id="'myBtn-' + index"
-                                                    :class="mode==='dark'?'':'text-primary '"
-                                            >{{ $t('search.ver_mas') }}</span>
-                                        </p>
-                                        <router-link :to="'/public_consultation/' + object.id " class="btn btn-primary">{{ $t('participar') }}</router-link>
-                                    </div>
+                                <div class="card-body">
+                                    <h5 class="card-title" :style="mode==='dark'?'color: #fff':''">{{ object.titulo }}</h5>
+                                    <p v-if="object.detalle" class="card-text" :style="mode==='dark'?'color: #fff':''">
+                                        {{ object.detalle.substring(0, seeMoreLimitText) }}
+                                        <span
+                                                v-if="object.detalle.length > seeMoreLimitText"
+                                                :id="'dots-' + index"
+                                        >... </span>
+                                        <span
+                                                v-if="object.detalle.length > seeMoreLimitText"
+                                                :id="'seemore-' + index"
+                                                class="seemore"
+                                        >{{ object.detalle.substring(seeMoreLimitText) }}</span>
+                                        <span
+                                                v-if="object.detalle.length > seeMoreLimitText"
+                                                class="seemore-trigger"
+                                                href
+                                                @click="seeMoreToggle(index)"
+                                                :id="'myBtn-' + index"
+                                                :class="mode==='dark'?'':'text-primary '"
+                                        >{{ $t('search.ver_mas') }}</span>
+                                    </p>
+                                    <router-link :to="'/proposal/' + object.id" class="btn btn-primary">{{ $t('participar') }}</router-link>
                                 </div>
-                                <div
-                                        v-if="object._object_type === 'proposals'"
-                                        class="card"
-                                        :class="mode==='dark'?'border-white':''"
-                                        :style="mode==='dark'?'background: #080035; color: #fff':''"
-                                >
-                                    <img class="card-img-top embed-responsive-item default-proposal-img" />
-                                    <div class="card-header">{{ $t('search.propuesta') }}</div>
-                                    <div class="card-body">
-                                        <h5 class="card-title" :style="mode==='dark'?'color: #fff':''">{{ object.titulo }}</h5>
-                                        <p v-if="object.detalle" class="card-text" :style="mode==='dark'?'color: #fff':''">
-                                            {{ object.detalle.substring(0, seeMoreLimitText) }}
-                                            <span
-                                                    v-if="object.detalle.length > seeMoreLimitText"
-                                                    :id="'dots-' + index"
-                                            >... </span>
-                                            <span
-                                                    v-if="object.detalle.length > seeMoreLimitText"
-                                                    :id="'seemore-' + index"
-                                                    class="seemore"
-                                            >{{ object.detalle.substring(seeMoreLimitText) }}</span>
-                                            <span
-                                                    v-if="object.detalle.length > seeMoreLimitText"
-                                                    class="seemore-trigger"
-                                                    href
-                                                    @click="seeMoreToggle(index)"
-                                                    :id="'myBtn-' + index"
-                                                    :class="mode==='dark'?'':'text-primary '"
-                                            >{{ $t('search.ver_mas') }}</span>
-                                        </p>
-                                        <router-link :to="'/proposal/' + object.id" class="btn btn-primary">{{ $t('participar') }}</router-link>
-                                    </div>
+                            </div>
+                            <div
+                                    v-if="object._object_type === 'pages'"
+                                    class="card h-100"
+                                    :class="mode==='dark'?'border-white':''"
+                                    :style="mode==='dark'?'background: #080035; color: #fff':''"
+                            >
+                                <img class="card-img-top embed-responsive-item default-proposal-img" />
+                                <div class="card-header">{{ $t('search.pagina') }}</div>
+                                <div class="card-body">
+                                    <h5 class="card-title" :style="mode==='dark'?'color: #fff':''">{{ object.title }}</h5>
+                                    <router-link :to="'/page/' + object.slug" class="btn btn-primary">{{ $t('ver') }}</router-link>
                                 </div>
                             </div>
                         </div>
@@ -338,37 +380,58 @@
 <script>
     import axios from '../backend/axios';
     import { API_URL } from '../backend/data_server';
+    import Multiselect from 'vue-multiselect';
     import Loading from 'vue-loading-overlay';
 
     export default {
         name: 'Search',
         components: {
+            Multiselect,
             Loading
         },
         data: function() {
             return {
-                mode: String,
-                query: '',
-                selectedObjectTypes: [],
-                selectedTerms: [],
-                orderBy: Number,
                 results: [],
                 totalResults: 0,
-                limit: 10,
+                query: '',
+                selectedObjectTypes: [],
+                currentSort: null,
+                optionsSort: [
+                    { id: 1, field: '_object_type', type: 'ASC', label: null, valid_for: [] },
+                    { id: 2, field: '_object_type', type: 'DESC', label: null, valid_for: [] },
+                    { id: 3, field: 'fecha_inicio', type: 'ASC', label: null, valid_for: ['projects', 'consultations'] },
+                    { id: 4, field: 'fecha_inicio', type: 'DESC', label: null, valid_for: ['projects', 'consultations'] },
+                    { id: 5, field: 'fecha_ingreso', type: 'ASC', label: null, valid_for: ['proposals'] },
+                    { id: 6, field: 'fecha_ingreso', type: 'DESC', label: null, valid_for: ['proposals'] },
+                    { id: 7, field: 'votos_a_favor', type: 'ASC', label: null, valid_for: ['projects', 'ideas', 'articles', 'consultations'] },
+                    { id: 8, field: 'votos_a_favor', type: 'DESC', label: null, valid_for: ['projects', 'ideas', 'articles', 'consultations'] },
+                    { id: 9, field: 'votos_en_contra', type: 'ASC', label: null, valid_for: ['projects', 'ideas', 'articles', 'consultations'] },
+                    { id: 10, field: 'votos_en_contra', type: 'DESC', label: null, valid_for: ['projects', 'ideas', 'articles', 'consultations'] },
+                    { id: 11, field: 'petitions', type: 'ASC', label: null, valid_for: ['proposals'] },
+                    { id: 12, field: 'petitions', type: 'DESC', label: null, valid_for: ['proposals'] },
+                    { id: 13, field: 'urgencies', type: 'ASC', label: null, valid_for: ['proposals'] },
+                    { id: 14, field: 'urgencies', type: 'DESC', label: null, valid_for: ['proposals'] }
+                ],
+                activeOptionsSort: [],
+                selectedTerms: [],
+                taxonomyTerms: [],
+                limit: 12,
                 offset: 0,
-                taxonomies: [],
                 objectTypes: [
                     { id: 1, value: 'projects', label: null },
                     { id: 2, value: 'ideas', label: null },
                     { id: 3, value: 'articles', label: null },
                     { id: 4, value: 'consultations', label: null },
-                    { id: 5, value: 'proposals', label: null }
+                    { id: 5, value: 'proposals', label: null },
+                    { id: 6, value: 'pages', label: null }
                 ],
                 seeMoreLimitText: 150,
+                loadTaxonomyTerms: true,
                 loadBtnSearch: false,
                 loadBtnLoadMore: false,
                 fullPage: false,
-                color: '#ffffff'
+                color: '#ffffff',
+                mode: String
             };
         },
         mounted() {
@@ -379,7 +442,7 @@
             }
 
             this.configComponent();
-            this.getTaxonomies();
+            this.getTaxonomyTerms();
             this.search();
         },
         methods: {
@@ -388,24 +451,72 @@
                     objectType.label = this.$t('search.tipo_objeto.opciones').find(objectTypeTrans => objectTypeTrans.id === objectType.id).label;
                 });
 
+                this.optionsSort.forEach(option => {
+                    option.label = this.$t('search.orden.opciones').find(optionTrans => optionTrans.id === option.id).label;
+                });
+                this.activeOptionsSort = this.optionsSort;
+
                 if(this.$route.query.query) {
                     this.query = this.$route.query.query;
                 }
 
                 if(this.$route.query['terms_id[]']) {
-                    this.selectedTermsList.push(this.$route.query['terms_id[]']);
+                    if(Array.isArray(this.$route.query['terms_id[]'])) {
+                        let preSelectedTermsIds = this.$route.query['terms_id[]'];
+                        preSelectedTermsIds.forEach(preSelectedTermId => {
+                            this.selectedTerms.push({
+                                id: preSelectedTermId
+                            });
+                        });
+                    } else {
+                        this.selectedTerms.push({
+                            id: this.$route.query['terms_id[]']
+                        });
+                    }
                 }
             },
+            getTaxonomyTerms() {
+                axios
+                    .get('/taxonomies', {
+                        params: {
+                            return_all: 1
+                        }
+                    })
+                    .then(res => {
+                        this.taxonomyTerms = res.data.results;
+
+                        if(this.selectedTerms.length > 0) {
+                            let terms = [].concat(...this.taxonomyTerms.map(taxonomy => taxonomy.terms));
+                            let auxSelectedTerms = [];
+                            this.selectedTerms.forEach(selectedTerm => {
+                                let preSelectedTerm = terms.find(term => term.id == selectedTerm.id);
+                                if(preSelectedTerm) {
+                                    auxSelectedTerms.push(preSelectedTerm);
+                                }
+                            });
+                            this.selectedTerms = auxSelectedTerms;
+                        }
+                    })
+                    .finally(() => {
+                        this.loadTaxonomyTerms = false;
+                    })
+            },
             getResults() {
+                let searchParams = {
+                    query: this.query,
+                    objects_types: this.selectedObjectTypes,
+                    terms_id: this.selectedTerms.map(selectedTerm => selectedTerm.id),
+                    limit: this.limit,
+                    offset: this.offset
+                };
+                if(this.currentSort) {
+                    searchParams.order = this.currentSort.type;
+                    searchParams.order_by = this.currentSort.field;
+                }
+
                 axios
                     .get('/search', {
-                        params: {
-                            query: this.query,
-                            objects_types: this.selectedObjectTypes,
-                            terms_id: this.selectedTermsList,
-                            limit: this.limit,
-                            offset: this.offset
-                        }
+                        params: searchParams
                     })
                     .then(res => {
                         this.results = this.results.concat(res.data.results);
@@ -430,6 +541,31 @@
                 this.loadBtnLoadMore = true;
                 this.getResults();
             },
+            refreshOptionsSortActives() {
+                if(this.selectedObjectTypes.length === 0) {
+                    this.activeOptionsSort = this.optionsSort;
+                } else {
+                    this.activeOptionsSort = [];
+                    this.optionsSort.forEach(optionSort => {
+                        if(optionSort.valid_for.length === 0) {
+                            this.activeOptionsSort.push(optionSort);
+                        } else {
+                            if(optionSort.valid_for.some(objectTypeValid => !!this.selectedObjectTypes.find(selectedObjectType => selectedObjectType === objectTypeValid))) {
+                                this.activeOptionsSort.push(optionSort);
+                            }
+                        }
+                    });
+                }
+            },
+            sort(event) {
+                let optionSortId = event.target.value;
+                let selectedOptionSort = this.optionsSort.find(optionSort => optionSort.id == optionSortId);
+                this.currentSort = {
+                    field: selectedOptionSort.field,
+                    type: selectedOptionSort.type
+                };
+                this.search();
+            },
             getImgUrl(objectId, objectImage, objectType) {
                 if(objectImage) {
                     if(objectType === 'projects') {
@@ -440,24 +576,26 @@
                 }
                 return null;
             },
-            getTaxonomies() {
-                axios
-                    .get('/taxonomies')
-                    .then(res => {
-                        for(let i = 0; i < res.data.length; i++) {
-                            let taxo = res.data.results[i];
-                            if(taxo.value !== 'Categorías') {
-                                this.taxonomies.push(taxo);
-                            }
-                        }
-                    });
+            clearFilters: function() {
+                this.query =  '';
+                this.selectedObjectTypes = [];
+                this.selectedTerms = [];
+                this.activeOptionsSort = this.optionsSort;
+                this.currentSort = null;
+                this.limit = 10;
             },
-            addSelectedTerms(terms) {
-                this.selectedTerms.push.apply(this.selectedTerms, terms);
-                this.selectedTerms = this.selectedTerms.filter(this.onlyUnique);
-            },
-            onlyUnique(value, index, self) {
-                return self.indexOf(value) === index;
+            limitTextTaxonomyTermsMultiselect(count) {
+                if(this.$i18n.locale === 'es') {
+                    if(count === 1) {
+                        return `y 1 tema más`;
+                    } else {
+                        return `y ${count} temas más`;
+                    }
+                } else if(count === 1) {
+                    return `and 1 more topic`;
+                } else {
+                    return `and ${count} more topics`;
+                }
             },
             seeMoreToggle: function(elementIndex) {
                 let dots = document.getElementById("dots-" + elementIndex);
@@ -472,80 +610,6 @@
                     dots.style.display = "none";
                     btnText.innerHTML = "Ver menos";
                     moreText.style.display = "inline";
-                }
-            },
-            clearFilters: function() {
-                this.query =  '';
-                this.selectedObjectTypes = [];
-                this.selectedTerms = [];
-                this.limit = 10;
-            },
-            filterByType() {
-                return (this.results = this.results.sort((a, b) => {
-                    let comp = 0;
-                    if(a._object_type > b._object_type) {
-                        comp = 1;
-                    } else if(a._object_type < b._object_type) {
-                        comp = -1;
-                    }
-                    return comp;
-                }));
-            },
-            filterByDate() {
-                return (this.results = this.results.sort((a, b) => {
-                    let fake_date = new Date("January 1, 1970 00:00:00");
-                    let res_a = new Date();
-                    let res_b = new Date();
-                    let comp = 0;
-
-                    if(a.fecha_inicio) {
-                        res_a = new Date(a.fecha_inicio);
-                    } else {
-                        res_a = fake_date;
-                    }
-                    if(b.fecha_inicio) {
-                        res_b = new Date(b.fecha_inicio);
-                    } else {
-                        res_b = fake_date;
-                    }
-
-                    if(res_a > res_b) {
-                        comp = 1;
-                    } else if(res_a < res_b) {
-                        comp = -1;
-                    }
-                    return comp;
-                }));
-            },
-            filterDesc() {
-                return (this.results = this.results.sort((a, b) => {
-                    let res_a = a.abstencion + a.votos_a_favor + a.votos_en_contra || 0;
-                    let res_b = b.abstencion + b.votos_a_favor + b.votos_en_contra || 0;
-                    let comp = 0;
-                    if(res_a < res_b) {
-                        comp = 1;
-                    } else if(res_a > res_b) {
-                        comp = -1;
-                    }
-                    return comp;
-                }));
-            }
-        },
-        computed: {
-            selectedTermsList() {
-                let processedList = [];
-                this.selectedTerms.forEach(item => {
-                    processedList = processedList.concat(item);
-                });
-                return processedList;
-            },
-            verFiltro() {
-                if(this.orderBy === 1) {
-                    this.filterByType();
-                } else if(this.orderBy === 2) {
-                    this.filterByDate();
-                } else if(this.orderBy === 3) {
-                    this.filterDesc();
                 }
             }
         }

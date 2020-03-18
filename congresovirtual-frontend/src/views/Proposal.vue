@@ -14,13 +14,6 @@
                     </ol>
                 </nav>
                 <div class="col-sm-12 hk-sec-wrapper hk-gallery-wrap" :style="mode==='dark'?'background: rgb(12, 1, 80);color: #fff':''">
-                    <ul id="myTab" class="nav nav-light nav-tabs" role="tablist">
-                        <li class="nav-item active">
-                            <a @click="changeTab" id="detalle-tab" data-toggle="tab" href="#detalle" role="tab" aria-controls="detalle" aria-selected="true" class="nav-link active" :style="mode==='dark'?'color: #fff':''">
-                                {{ $t('propuesta.contenido.detalle') }}
-                            </a>
-                        </li>
-                    </ul>
                     <div class="tab-content py-25">
                         <div class="tab-pane fade show active" id="detalle" role="tabpanel" aria-labelledby="detalle-tab">
                             <div class="container">
@@ -80,12 +73,6 @@
                 .finally(() => {
                     this.loadHeader = false;
                 });
-        },
-        methods: {
-            changeTab(e) {
-                e.preventDefault();
-                $(this).tab("show");
-            }
         }
     }
 </script>

@@ -2,7 +2,7 @@
     <div class="col-12 px-0">
         <div class="container px-0">
             <div class="header-img default-page-img"></div>
-            <div class="top-left" style="max-width: 80%;">
+            <div v-if="page" class="top-left" style="max-width: 80%;">
                 <a
                         v-for="term in page.terms"
                         :key="term.id"
@@ -12,10 +12,10 @@
                     {{ term.value }}
                 </a>
             </div>
-            <a class="btn text-white bg-indigo-light-2 top-right mr-10 mt-10 font-20" data-toggle="modal" :data-target="'#myModal'+ page.id">
+            <a v-if="page" class="btn text-white bg-indigo-light-2 top-right mr-10 mt-10 font-20" data-toggle="modal" :data-target="'#myModal'+ page.id">
                 <span class="btn-text"><font-awesome-icon icon="share-square"/></span>
             </a>
-            <h5 class="col-12 hk-sec-title bottom text-white pb-20">
+            <h5 v-if="page" class="col-12 hk-sec-title bottom text-white pb-20">
                 <p class="col-12">
                     {{ page.title }}
                 </p>
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal" :id="'myModal'+ page.id">
+        <div v-if="page" class="modal" :id="'myModal'+ page.id">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -89,31 +89,31 @@
 </template>
 
 <script>
-import { APP_URL } from '../../data/globals';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import SocialSharing from 'vue-social-sharing';
+    import { APP_URL } from '../../data/globals';
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+    import SocialSharing from 'vue-social-sharing';
 
-export default {
-    name: 'PageHeader',
-    props: {
-        page: Object
-    },
-    components: {
-        FontAwesomeIcon,
-        SocialSharing
-    },
-    data() {
-        return {
-            mode: String,
-            APP_URL
-        }
-    },
-    mounted() {
-        if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
-            this.mode = 'dark';
-        } else {
-            this.mode = 'light';
+    export default {
+        name: 'PageHeader',
+        props: {
+            page: Object
+        },
+        components: {
+            FontAwesomeIcon,
+            SocialSharing
+        },
+        data() {
+            return {
+                mode: String,
+                APP_URL
+            }
+        },
+        mounted() {
+            if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
+                this.mode = 'dark';
+            } else {
+                this.mode = 'light';
+            }
         }
     }
-}
 </script>

@@ -10,22 +10,19 @@
                     <ol class="breadcrumb" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
                         <li class="breadcrumb-item"><a href="/#" :style="mode==='dark'?'color: #fff':''">{{ $t('pagina.breadcumb.inicio') }}</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><a href="/pages" :style="mode==='dark'?'color: #fff':''">{{ $t('pagina.breadcumb.paginas') }}</a></li>
-                        <li v-if="page.id" class="breadcrumb-item active" aria-current="page" :style="mode==='dark'?'color: #fff':''">{{ $t('pagina.breadcumb.pagina') }} {{ page.id }}</li>
+                        <li v-if="page" class="breadcrumb-item active" aria-current="page" :style="mode==='dark'?'color: #fff':''">{{ $t('pagina.breadcumb.pagina') }} {{ page.id }}</li>
                     </ol>
                 </nav>
-                <div class="col-sm-12 hk-sec-wrapper hk-gallery-wrap" :style="mode==='dark'?'background: rgb(12, 1, 80);color: #fff':''">
-                    <ul id="myTab" class="nav nav-light nav-tabs" role="tablist">
-                        <li class="nav-item active">
-                            <a @click="changeTab" id="detalle-tab" data-toggle="tab" href="#detalle" role="tab" aria-controls="detalle" aria-selected="true" class="nav-link active" :style="mode==='dark'?'color: #fff':''">
-                                {{ $t('pagina.contenido.detalle') }}
-                            </a>
-                        </li>
-                    </ul>
+                <div v-if="!loadPage" class="col-sm-12 hk-sec-wrapper hk-gallery-wrap" :style="mode==='dark'?'background: rgb(12, 1, 80);color: #fff':''">
                     <div class="tab-content py-25">
                         <div class="tab-pane fade show active" id="detalle" role="tabpanel" aria-labelledby="detalle-tab">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-12 px-5" v-html="page.content">
+                                    <div v-if="page" class="col-12 px-5" v-html="page.content">
+                                    </div>
+                                    <div v-else class="col-12 text-center">
+                                        <h1 class="mb-3">{{ $t('pagina.contenido.no_encontrada.mensaje1') }}</h1>
+                                        <p class="font-weight-light">{{ $t('pagina.contenido.no_encontrada.mensaje2') }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -36,7 +33,6 @@
         </div>
     </div>
 </template>
-
 
 <script>
     import PageHeader from "../components/pages/PageHeader";
@@ -76,19 +72,10 @@
                     })
                     .then(res => {
                         this.page = res.data.results[0];
-                        if(!this.page) {
-                            this.page = {
-                                content: '<div class="text-center"><h1 class="mb-3">¡No se ha encontrado la página!</h1><p class="font-weight-light">Puede que no exista o haya cambiado de nombre</p></div>'
-                            }
-                        }
                     })
                     .finally(() => {
                         this.loadPage = false;
                     });
-            },
-            changeTab(e) {
-                e.preventDefault();
-                $(this).tab("show");
             }
         }
     }
@@ -108,6 +95,7 @@
         user-select: none;
         transition: background-color 0.2s ease;
     }
+
     .arrow-steps .step:after,
     .arrow-steps .step:before {
         content: " ";
@@ -122,22 +110,27 @@
         z-index: 2;
         transition: border-color 0.2s ease;
     }
+
     .arrow-steps .step:before {
         right: auto;
         left: 0;
         border-left: 17px solid #fff;
         z-index: 0;
     }
+
     .arrow-steps .step:first-child:before {
         border: none;
     }
+
     .arrow-steps .step:first-child {
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
     }
+
     .arrow-steps .step span {
         position: relative;
     }
+
     .arrow-steps .step span:before {
         opacity: 0;
         content: "✔";
@@ -145,6 +138,7 @@
         top: -2px;
         left: -20px;
     }
+
     .arrow-steps .step.done span:before {
         opacity: 1;
         -webkit-transition: opacity 0.3s ease 0.5s;
@@ -152,13 +146,16 @@
         -ms-transition: opacity 0.3s ease 0.5s;
         transition: opacity 0.3s ease 0.5s;
     }
+
     .arrow-steps .step.current {
         color: #fff;
         background-color: green !important;
     }
+
     .arrow-steps .step.current:after {
         border-left: 17px solid  green !important;
     }
+
     .tab-content {
         -webkit-box-shadow: inherit !important;
         box-shadow: inherit !important;

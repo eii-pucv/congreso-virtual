@@ -89,8 +89,13 @@
         "contenido": {
             "titulo": "Project Search",
             "buscar_placeholder": "Insert text here",
+            "tema_asociado": {
+                "titulo": "Topics of Interest",
+                "seleccionar": "Select topics"
+            },
             "etapa": {
                 "titulo": "Stage",
+                "seleccionar": "Select stages",
                 "opciones": [
                     { "id": 1, "label": "Voting in general" },
                     { "id": 2, "label": "Voting in particular" },
@@ -244,7 +249,6 @@
             "propuesta": "Proposal"
         },
         "contenido": {
-            "detalle": "Detail",
             "video": "Video"
         },
         "componentes": {
@@ -280,7 +284,10 @@
             "pagina": "Page"
         },
         "contenido": {
-            "detalle": "Detail"
+            "no_encontrada": {
+                "mensaje1": "Page not found!",
+                "mensaje2": "It may not exist or have changed its name."
+            }
         },
         "componentes": {
             "header": {
@@ -836,11 +843,33 @@
                 { "id": 2, "label": "Fundamentals Ideas" },
                 { "id": 3, "label": "Articles" },
                 { "id": 4, "label": "Public Consultations" },
-                { "id": 5, "label": "Proposals" }
+                { "id": 5, "label": "Proposals" },
+                { "id": 6, "label": "Page" }
             ]
         },
-        "fecha": "Date",
-        "votos": "Major to minor in votes",
+        "orden": {
+            "titulo": "Order by",
+            "opciones": [
+                { "id": 1, "label": "Item type (Asc.)" },
+                { "id": 2, "label": "Item type (Desc.)" },
+                { "id": 3, "label": "Start date (Asc.)" },
+                { "id": 4, "label": "Start date (Desc.)" },
+                { "id": 5, "label": "Date of admission (Asc.)" },
+                { "id": 6, "label": "Date of admission (Desc.)" },
+                { "id": 7, "label": "Quantity of votes in favor (Asc.)" },
+                { "id": 8, "label": "Quantity of votes in favor (Desc.)" },
+                { "id": 9, "label": "Quantity of votes against (Asc.)" },
+                { "id": 10, "label": "Quantity of votes against (Desc.)" },
+                { "id": 11, "label": "Quantity of supports for inclusion to C.V. (Asc.)" },
+                { "id": 12, "label": "Quantity of supports for inclusion to C.V. (Desc.)" },
+                { "id": 13, "label": "Quantity of supports for urgency (Asc.)" },
+                { "id": 14, "label": "Quantity of supports for urgency (Desc.)" }
+            ]
+        },
+        "tema_asociado": {
+            "titulo": "Topics of Interest",
+            "seleccionar": "Select topics"
+        },
         "resultados": "Total results",
         "limpiar": "Clean Filters",
         "buscar": "Search",
@@ -851,6 +880,7 @@
         "idea": "FUNDAMENTAL IDEA",
         "consulta": "PUBLIC CONSULTATION",
         "propuesta": "PROPOSAL",
+        "pagina": "PAGE",
         "cargar":"Load More"
     },
     "contacto": {
@@ -1716,7 +1746,7 @@
                     { "id": 3, "label": "Quantity of \"Likes\" (Asc.)" },
                     { "id": 4, "label": "Quantity of \"Likes\" (Desc.)" },
                     { "id": 5, "label": "Quantity of \"I don't like\" (Asc.)" },
-                    { "id": 6, "label": "Cantidad de \"I don't like\" (Desc.)" }
+                    { "id": 6, "label": "Quantity of \"I don't like\" (Desc.)" }
                 ]
             },
             "no_hay_comentarios": "No comments available.",
@@ -1772,6 +1802,7 @@
     "cerrar": "Close",
     "cancelar": "Cancel",
     "participar": "Participate",
+    "ver": "View",
     "compartir": "Share",
     "spanish": "Spanish",
     "english": "English",

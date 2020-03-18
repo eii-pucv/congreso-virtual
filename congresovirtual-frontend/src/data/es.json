@@ -89,8 +89,13 @@
         "contenido": {
             "titulo": "Búsqueda de Proyectos",
             "buscar_placeholder": "Ingrese texto aquí",
+            "tema_asociado": {
+                "titulo": "Temas de Interés",
+                "seleccionar": "Seleccionar temas"
+            },
             "etapa": {
                 "titulo": "Etapa",
+                "seleccionar": "Seleccionar etapas",
                 "opciones": [
                     { "id": 1, "label": "Votación en general" },
                     { "id": 2, "label": "Votación en particular" },
@@ -244,7 +249,6 @@
             "propuesta": "Propuesta"
         },
         "contenido": {
-            "detalle": "Detalle",
             "video": "Video"
         },
         "componentes": {
@@ -280,7 +284,10 @@
             "pagina": "Página"
         },
         "contenido": {
-            "detalle": "Detalle"
+            "no_encontrada": {
+                "mensaje1": "¡No se ha encontrado la página!",
+                "mensaje2": "Puede que no exista o haya cambiado de nombre."
+            }
         },
         "componentes": {
             "header": {
@@ -828,7 +835,6 @@
         "titulo": "Buscador General",
         "buscar_placeholder": "Ingrese texto aquí",
         "filtrar": "Filtrar por",
-        "ordenar": "Ordenar por",
         "tipo_objeto": {
             "titulo": "Tipo de elemento",
             "opciones": [
@@ -836,11 +842,33 @@
                 { "id": 2, "label": "Ideas Fundamentales" },
                 { "id": 3, "label": "Artículos" },
                 { "id": 4, "label": "Consultas Públicas" },
-                { "id": 5, "label": "Propuestas" }
+                { "id": 5, "label": "Propuestas" },
+                { "id": 6, "label": "Página" }
             ]
         },
-        "fecha": "Fecha",
-        "votos": "Mayor a menor en votos",
+        "orden": {
+            "titulo": "Ordenar por",
+            "opciones": [
+                { "id": 1, "label": "Tipo de elemento (Asc.)" },
+                { "id": 2, "label": "Tipo de elemento (Desc.)" },
+                { "id": 3, "label": "Fecha de inicio (Asc.)" },
+                { "id": 4, "label": "Fecha de inicio (Desc.)" },
+                { "id": 5, "label": "Fecha de ingreso (Asc.)" },
+                { "id": 6, "label": "Fecha de ingreso (Desc.)" },
+                { "id": 7, "label": "Cantidad de votos a favor (Asc.)" },
+                { "id": 8, "label": "Cantidad de votos a favor (Desc.)" },
+                { "id": 9, "label": "Cantidad de votos en contra (Asc.)" },
+                { "id": 10, "label": "Cantidad de votos en contra (Desc.)" },
+                { "id": 11, "label": "Cantidad de apoyos a inclusión a C.V. (Asc.)" },
+                { "id": 12, "label": "Cantidad de apoyos a inclusión a C.V. (Desc.)" },
+                { "id": 13, "label": "Cantidad de apoyos a urgencia (Asc.)" },
+                { "id": 14, "label": "Cantidad de apoyos a urgencia (Desc.)" }
+            ]
+        },
+        "tema_asociado": {
+            "titulo": "Temas de Interés",
+            "seleccionar": "Seleccionar temas"
+        },
         "resultados": "Resultados totales",
         "limpiar": "Limpiar Filtros",
         "buscar": "Buscar",
@@ -851,6 +879,7 @@
         "idea": "IDEA FUNDAMENTAL",
         "consulta": "CONSULTA PÚBLICA",
         "propuesta": "PROPUESTA",
+        "pagina": "PÁGINA",
         "cargar":"Cargar Más"
     },
     "contacto": {
@@ -1772,6 +1801,7 @@
     "cerrar": "Cerrar",
     "cancelar": "Cancelar",
     "participar": "Participar",
+    "ver": "Ver",
     "compartir": "Compartir",
     "spanish": "Español",
     "english": "Inglés",

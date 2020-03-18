@@ -199,7 +199,6 @@
         },
         data() {
             return {
-                mode: String,
                 projects: [],
                 totalRows: 0,
                 returnedRows: 0,
@@ -267,7 +266,8 @@
                 loadProjects: false,
                 loadBtnDownloadReports: [],
                 fullPage: false,
-                color: "#000000"
+                color: '#000000',
+                mode: String
             }
         },
         mounted() {

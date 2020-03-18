@@ -26,7 +26,7 @@
             <div class="btn-group-vertical mt-auto" role="group">
                 <a class="font-1"></a>
                 <div class="btn-group">
-                    <router-link :to="{ path: 'public_consultation/' + publicConsultation.id, query: { mode: this.mode }}" class="btn btn-success text-white">
+                    <router-link :to="{ path: 'public_consultation/' + publicConsultation.id }" class="btn btn-success text-white">
                         <i class="fa fa-eye"></i><span class="btn-text"> {{ $t('ver_consulta') }}</span>
                     </router-link>
                 </div>

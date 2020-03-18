@@ -152,7 +152,7 @@
 
                 return project.is_enabled && project.etapa !== 3 && this.currentMoment.isBetween(votingStartDate, votingEndDate);
             },
-            toggle(){
+            toggle() {
                 $('#carouselFade').carousel(this.toggleValue);
                 if(this.toggleValue === 'pause') {
                     this.toggleValue = 'cycle';
