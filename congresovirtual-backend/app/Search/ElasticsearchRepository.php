@@ -21,8 +21,7 @@ class ElasticsearchRepository
                 'bool' => [
                     'must_not' => [
                         ['term' => [ 'is_public' => false ]],
-                        ['term' => [ 'state' => 0 ]],
-                        ['term' => [ 'estado' => 0 ]]
+                        ['term' => [ 'state' => 0 ]]
                     ]
                 ]
             ]
@@ -63,6 +62,7 @@ class ElasticsearchRepository
                 [
                     ['term' => [ 'etapa' => 3 ]],
                     ['term' => [ 'is_enabled' => false ]],
+                    ['term' => [ 'estado' => 0 ]],
                     ['range' => [ 'fecha_inicio' => [ 'gt' => 'now' ] ]],
                     ['range' => [ 'fecha_termino' => [ 'lt' => 'now' ] ]]
                 ]

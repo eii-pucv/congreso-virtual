@@ -336,14 +336,14 @@
                                         :color="'#ffffff'"
                                 ></Loading>
                             </button>
-                            <a v-if="project.id" class="btn btn-outline-primary ml-10" :href="'/admin/project/' + project.id + '/idea'">
+                            <router-link v-if="project.id" class="btn btn-outline-primary ml-10" :to="{ path: '/admin/project/' + project.id + '/idea' }">
                                 <font-awesome-icon icon="pencil-alt" />
                                 <span class="btn-text" :style="mode==='dark'?'color: #fff':''"> {{ $t('administrador.componentes.crear_proyecto.agregar_idea') }}</span>
-                            </a>
-                            <a v-if="project.id" class="btn btn-outline-primary ml-10" :href="'/admin/project/' + project.id + '/article'">
+                            </router-link>
+                            <router-link v-if="project.id" class="btn btn-outline-primary ml-10" :to="{ path: '/admin/project/' + project.id + '/article' }">
                                 <font-awesome-icon icon="book" />
                                 <span class="btn-text" :style="mode==='dark'?'color: #fff':''"> {{ $t('administrador.componentes.crear_proyecto.agregar_articulo') }}</span>
-                            </a>
+                            </router-link>
                             <button @click.prevent="back" class="btn btn-danger text-white ml-10">
                                 <font-awesome-icon icon="window-close" />
                                 <span class="btn-text" :style="mode==='dark'?'color: #fff':''"> {{ $t('cancelar') }}</span>

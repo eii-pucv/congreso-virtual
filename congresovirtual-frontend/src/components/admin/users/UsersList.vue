@@ -8,14 +8,14 @@
                         <h4 v-if="isTrashList" class="text-center" :class="mode==='dark'?'text-primary':''">{{ $t('administrador.componentes.eliminar.eliminados_temporalmente.eliminados') }}</h4>
                         <div v-if="!isTrashList" class="row justify-content-between px-10">
                             <div class="col-sm">
-                                <a role="button" class="btn btn-sm btn-labeled btn-danger float-left" href="/admin/users?only_trashed=1">
+                                <router-link class="btn btn-sm btn-labeled btn-danger float-left" :to="{ path: '/admin/users', query: { 'only_trashed': 1 } }">
                                     <span class="btn-label ml-1"><i class="fa fa-trash"></i></span>{{ $t('papelera') }}
-                                </a>
+                                </router-link>
                             </div>
                             <div class="col-sm">
-                                <a role="button" class="btn btn-sm btn-labeled btn-success float-right" href="/admin/user">
+                                <router-link class="btn btn-sm btn-labeled btn-success float-right" :to="{ path: '/admin/user' }">
                                     <span class="btn-label ml-1"><i class="fa fa-plus"></i></span>{{ $t('anadir') }}
-                                </a>
+                                </router-link>
                             </div>
                         </div>
                         <div class="row justify-content-between mt-20 px-10">
@@ -124,9 +124,17 @@
                                                     </button>
                                                 </div>
                                                 <div v-else-if="column.field === 'actions'" class="text-center">
-                                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ $t('acciones') }}</button>
+                                                    <button
+                                                            class="btn btn-primary btn-sm dropdown-toggle"
+                                                            type="button"
+                                                            data-toggle="dropdown"
+                                                            aria-haspopup="true"
+                                                            aria-expanded="false"
+                                                    >
+                                                        {{ $t('acciones') }}
+                                                    </button>
                                                     <div class="dropdown-menu">
-                                                        <a v-if="!isTrashList" class="dropdown-item" :href="'/admin/user/' + user.id">Editar</a>
+                                                        <router-link v-if="!isTrashList" class="dropdown-item" :to="{ path: '/admin/user/' + user.id }">{{ $t('editar') }}</router-link>
                                                         <button v-if="!isTrashList" @click="showDeleteUserModal(user.id)" class="dropdown-item">{{ $t('eliminar') }}</button>
                                                         <button v-if="isTrashList" @click="showForceDeleteUserModal(user.id)" class="dropdown-item">{{ $t('eliminar_permanente') }}</button>
                                                         <buttom v-if="isTrashList" @click="showUndeleteUserModal(user.id)" class="dropdown-item">{{ $t('restaurar') }}</buttom>
@@ -429,7 +437,7 @@
                 loadUsers: false,
                 loadModalBtn: false,
                 fullPage: false,
-                color: "#000000",
+                color: '#000000',
                 mode: String
             }
         },
@@ -440,7 +448,7 @@
                 this.mode = 'light';
             }
 
-            if(this.$route.query.only_trashed === '1') {
+            if(this.$route.query.only_trashed == '1') {
                 this.isTrashList = true;
             }
 

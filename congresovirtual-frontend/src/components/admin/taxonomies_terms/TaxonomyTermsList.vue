@@ -4,10 +4,10 @@
             <div class="row">
                 <div class="col-xl-12">
                     <section class="hk-sec-wrapper">
-                        <h3 class="hk-sec-title text-center" :class="mode==='dark'?'text-primary':''">{{ $t('administrador.componentes.terminos.titulo') }}</h3>
+                        <h3 class="hk-sec-title text-center" :class="mode==='dark'?'text-primary':''">{{ $t('administrador.componentes.lista_terminos.titulo') }}</h3>
                         <div class="row px-10 mb-20">
                             <div class="col-md-6 offset-md-3">
-                                <input type="text" class="form-control" :placeholder="$t('administrador.componentes.terminos.buscar')" v-model="query">
+                                <input type="text" class="form-control" :placeholder="$t('administrador.componentes.lista_terminos.buscar')" v-model="query">
                             </div>
                         </div>
                         <div class="row px-10 vld-parent">
@@ -29,17 +29,17 @@
                                 </div>
                                 <tree :data="treeData" :options="treeOptions" :filter="query" ref="arbol" v-model="selected">
                                     <div slot-scope="{ node }" class="node-container">
-                            <span class="tree-text">
-                                <template>
-                                    <i :class="node.data.icon"></i>
-                                    {{ node.text }}
-                                    <div class="node-controls">
-                                        <a v-if="node.data.editable" @click.stop="editNode(node)"><span>{{ $t('administrador.componentes.terminos.editar') }} </span></a>
-                                        <a v-if="node.data.eliminable" @click.stop="removeNode(node)"><span> {{ $t('administrador.componentes.terminos.eliminar') }} </span></a>
-                                        <a @click.stop="addChildNode(node)"> {{ $t('administrador.componentes.terminos.anadir') }}</a>
-                                    </div>
-                                </template>
-                            </span>
+                                        <span class="tree-text">
+                                            <template>
+                                                <i :class="node.data.icon"></i>
+                                                {{ node.text }}
+                                                <div class="node-controls">
+                                                    <a v-if="node.data.editable" @click.stop="editNode(node)"><span>{{ $t('administrador.componentes.lista_terminos.editar') }} </span></a>
+                                                    <a v-if="node.data.eliminable" @click.stop="removeNode(node)"><span> {{ $t('administrador.componentes.lista_terminos.eliminar') }} </span></a>
+                                                    <a @click.stop="addChildNode(node)"> {{ $t('administrador.componentes.lista_terminos.anadir') }}</a>
+                                                </div>
+                                            </template>
+                                        </span>
                                     </div>
                                 </tree>
                             </div>
@@ -68,7 +68,6 @@
         },
         data() {
             return {
-                mode: String,
                 taxonomy: null,
                 terms: [],
                 events: [],
@@ -90,7 +89,8 @@
                 loadTaxonomy: false,
                 loadAction: false,
                 fullPage: false,
-                color:"#000000"
+                color: '#000000',
+                mode: String
             }
         },
         mounted() {
@@ -351,15 +351,18 @@
         border-radius: .25rem;
         margin-bottom: 14px;
     }
+
     .btn, .btn-icon{
         margin-top: 0px;
         margin-right: 2px;
     }
+
     .btn.btn-icon {
         height: 30px;
         width: 30px;
         padding: 0;
     }
+
     .btn-label {
         position: relative;
         left: -12px;

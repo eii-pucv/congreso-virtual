@@ -73,7 +73,9 @@ class TaxonomyController extends Controller
             ]);
             $taxonomy->save();
             return response()->json([
-                'message' => 'Successfully created taxonomy!'], 201);
+                'message' => 'Successfully created taxonomy!',
+                'data' => $taxonomy->toArray()
+            ], 201);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the taxonomy was not created.'], 412);
@@ -121,7 +123,9 @@ class TaxonomyController extends Controller
             ]);
             $taxonomy->save();
             return response()->json([
-                'message' => 'Successfully updated taxonomy!'], 201);
+                'message' => 'Successfully updated taxonomy!',
+                'data' => $taxonomy->toArray()
+            ], 201);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the taxonomy was not updated.'], 412);

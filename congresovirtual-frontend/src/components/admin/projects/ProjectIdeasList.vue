@@ -7,9 +7,9 @@
                         <h3 class="hk-sec-title text-center" :class="mode==='dark'?'text-primary':''">{{ $t('administrador.componentes.ideas_proyecto') }}</h3>
                         <div class="row px-10">
                             <div class="col-sm">
-                                <a role="button" class="btn btn-sm btn-labeled btn-success float-right" :href="'/admin/project/' + project_id + '/idea'">
-                                    <span class="btn-label ml-1"><i class="glyphicon glyphicon-plus"></i></span>{{ $t('anadir') }}
-                                </a>
+                                <router-link class="btn btn-sm btn-labeled btn-success float-right" :to="{ path: '/admin/project/' + project_id + '/idea' }">
+                                    <span class="btn-label ml-1"><i class="fa fa-plus"></i></span>{{ $t('anadir') }}
+                                </router-link>
                             </div>
                         </div>
                         <div class="row justify-content-between mt-20 px-10">
@@ -82,10 +82,18 @@
                                             <td v-for="column in data.columns" :key="'idea-' + idea.id + '-' + column.field">
                                                 <p v-if="!column.customizable">{{ idea[column.field] }}</p>
                                                 <div v-else-if="column.field === 'actions'" class="text-center">
-                                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acción</button>
+                                                    <button
+                                                            class="btn btn-primary btn-sm dropdown-toggle"
+                                                            type="button"
+                                                            data-toggle="dropdown"
+                                                            aria-haspopup="true"
+                                                            aria-expanded="false"
+                                                    >
+                                                        {{ $t('acciones') }}
+                                                    </button>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" :href="'/admin/project/' + project_id + '/idea/' + idea.id">Editar</a>
-                                                        <a class="dropdown-item" :href="'/admin/project/' + project_id + '/idea/' + idea.id + '/delete'">Eliminar</a>
+                                                        <router-link class="dropdown-item" :to="{ path: '/admin/project/' + project_id + '/idea/' + idea.id }">{{ $t('editar') }}</router-link>
+                                                        <router-link class="dropdown-item" :to="{ path: '/admin/project/' + project_id + '/idea/' + idea.id + '/delete' }">{{ $t('eliminar') }}</router-link>
                                                     </div>
                                                 </div>
                                             </td>

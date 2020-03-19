@@ -71,28 +71,53 @@
         }
     },
     "consultas_publicas": {
-        "breadcumb": {
-            "inicio": "Inicio",
-            "consultas": "Consultas Públicas"
-        },
         "contenido": {
-            "titulo": "¿Cómo incorporamos una consulta ciudadana?",
-            "descripcion": {
-                "parrafo1": "Las consultas públicas son mecanismos de participación virtual, no vinculante, público y abierto por el cual la Cámara de Diputados o una comisión consulta a la ciudadanía acerca de un proyecto de ley o un asunto de índole legislativa propio de su competencia.",
-                "parrafo2": "Artículo 18. Iniciativa ciudadana. Cualquier persona u organización podrá solicitar la realización de una consulta ciudadana acerca de un proyecto de ley en tramitación. La unidad administrativa a cargo de participación ciudadana pondrá la solicitud en conocimiento de los comités parlamentarios, o de la comisión respectiva si el proyecto estuviere radicado en ella. El pronunciamiento sobre la solicitud deberá emitirse en la primera sesión en que ello sea posible."
+            "titulo": "Búsqueda de Consultas Públicas",
+            "buscar_placeholder": "Ingrese texto aquí",
+            "estado": {
+                "titulo": "Estado",
+                "seleccionar": "Seleccionar estados",
+                "opciones": [
+                    { "id": 1, "label": "Votación abierta" },
+                    { "id": 2, "label": "Votación cerrada" }
+                ]
+            },
+            "orden": {
+                "titulo": "Ordenar por",
+                "opciones": [
+                    { "id": 0, "label": "Seleccionar orden" },
+                    { "id": 1, "label": "Fecha de inicio (Asc.)" },
+                    { "id": 2, "label": "Fecha de inicio (Desc.)" },
+                    { "id": 3, "label": "Cantidad de votos a favor (Asc.)" },
+                    { "id": 4, "label": "Cantidad de votos a favor (Desc.)" },
+                    { "id": 5, "label": "Cantidad de votos en contra (Asc.)" },
+                    { "id": 6, "label": "Cantidad de votos en contra (Desc.)" }
+                ]
+            },
+            "tema_asociado": {
+                "titulo": "Temas de Interés",
+                "seleccionar": "Seleccionar temas"
+            },
+            "resultados": "Resultados totales",
+            "limpiar": "Limpiar Filtros",
+            "buscar": "Buscar",
+            "no_hay_resultados": "No se han encontrado resultados.",
+            "ver_mas": "Ver más",
+            "cargar": "Cargar Más",
+            "tipo_objeto": "CONSULTA PÚBLICA",
+            "mas_info": {
+                "titulo": "¿Cómo incorporamos una consulta ciudadana?",
+                "descripcion": {
+                    "parrafo1": "Las consultas públicas son mecanismos de participación virtual, no vinculante, público y abierto por el cual la Cámara de Diputados o una comisión consulta a la ciudadanía acerca de un proyecto de ley o un asunto de índole legislativa propio de su competencia.",
+                    "parrafo2": "Artículo 18. Iniciativa ciudadana. Cualquier persona u organización podrá solicitar la realización de una consulta ciudadana acerca de un proyecto de ley en tramitación. La unidad administrativa a cargo de participación ciudadana pondrá la solicitud en conocimiento de los comités parlamentarios, o de la comisión respectiva si el proyecto estuviere radicado en ella. El pronunciamiento sobre la solicitud deberá emitirse en la primera sesión en que ello sea posible."
+                }
             }
-        },
-        "inicio": "Inicio",
-        "fin": "Fin"
+        }
     },
     "proyectos": {
         "contenido": {
             "titulo": "Búsqueda de Proyectos",
             "buscar_placeholder": "Ingrese texto aquí",
-            "tema_asociado": {
-                "titulo": "Temas de Interés",
-                "seleccionar": "Seleccionar temas"
-            },
             "etapa": {
                 "titulo": "Etapa",
                 "seleccionar": "Seleccionar etapas",
@@ -101,6 +126,22 @@
                     { "id": 2, "label": "Votación en particular" },
                     { "id": 3, "label": "Votación cerrada" }
                 ]
+            },
+            "orden": {
+                "titulo": "Ordenar por",
+                "opciones": [
+                    { "id": 0, "label": "Seleccionar orden" },
+                    { "id": 1, "label": "Fecha de inicio (Asc.)" },
+                    { "id": 2, "label": "Fecha de inicio (Desc.)" },
+                    { "id": 3, "label": "Cantidad de votos a favor (Asc.)" },
+                    { "id": 4, "label": "Cantidad de votos a favor (Desc.)" },
+                    { "id": 5, "label": "Cantidad de votos en contra (Asc.)" },
+                    { "id": 6, "label": "Cantidad de votos en contra (Desc.)" }
+                ]
+            },
+            "tema_asociado": {
+                "titulo": "Temas de Interés",
+                "seleccionar": "Seleccionar temas"
             },
             "resultados": "Resultados totales",
             "limpiar": "Limpiar Filtros",
@@ -497,8 +538,8 @@
             "header": {
                 "inicio": "Inicio",
                 "fin": "Fin",
-                "titulo": "CONSULTA PUBLICA",
                 "popover": "Esta votación corresponde a una consulta pública.",
+                "votacion_abierta": "VOTACIÓN ABIERTA",
                 "votacion_cerrada": "VOTACIÓN CERRADA"
             }
         }
@@ -849,6 +890,7 @@
         "orden": {
             "titulo": "Ordenar por",
             "opciones": [
+                { "id": 0, "label": "Seleccionar orden" },
                 { "id": 1, "label": "Tipo de elemento (Asc.)" },
                 { "id": 2, "label": "Tipo de elemento (Desc.)" },
                 { "id": 3, "label": "Fecha de inicio (Asc.)" },
@@ -981,13 +1023,6 @@
             }
         },
         "componentes": {
-            "terminos": {
-                "titulo": "Lista de Términos",
-                "editar": "Editar",
-                "eliminar": "Eliminar",
-                "anadir": "Añadir Hijo",
-                "buscar": "Buscar término"
-            },
             "ideas_proyecto": "Lista de Ideas Fundamentales",
             "articulos_proyecto": "Lista de Artículos",
             "lista_proyectos": {
@@ -1159,6 +1194,78 @@
                     }
                 }
             },
+            "crear_articulo": {
+                "titulo1": "Crear Artículo",
+                "titulo2": "Editar Artículo",
+                "titulo": "Título",
+                "detalle": "Detalle",
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Artículo guardado exitosamente",
+                                "cuerpo": "Has registrado correctamente los datos del artículo"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Artículo actualizado exitosamente",
+                                "cuerpo": "Has actualizado correctamente los datos del artículo"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error al guardar el artículo",
+                                "cuerpo": "No se han podido guardar los datos del artículo"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error al actualizar el artículo",
+                                "cuerpo": "No se han podido actualizar los datos del artículo"
+                            }
+                        }
+                    }
+                }
+            },
+            "crear_idea": {
+                "titulo1": "Crear Idea Fundamental",
+                "titulo2": "Editar Idea Fundamental",
+                "titulo": "Título",
+                "detalle": "Detalle",
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Idea fundamental guardada exitosamente",
+                                "cuerpo": "Has registrado correctamente los datos de la idea fundamental"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Idea fundamental actualizada exitosamente",
+                                "cuerpo": "Has actualizado correctamente los datos de la idea fundamental"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error al guardar la idea fundamental",
+                                "cuerpo": "No se han podido guardar los datos de la idea fundamental"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error al actualizar la idea fundamental",
+                                "cuerpo": "No se han podido actualizar los datos de la idea fundamental"
+                            }
+                        }
+                    }
+                }
+            },
             "crear_consulta": {
                 "titulo1": "Crear Consulta Pública",
                 "titulo2": "Editar Consulta Pública",
@@ -1252,10 +1359,53 @@
                     }
                 }
             },
+            "lista_terminos": {
+                "titulo": "Lista de Términos",
+                "editar": "Editar",
+                "eliminar": "Eliminar",
+                "anadir": "Añadir Hijo",
+                "buscar": "Buscar término"
+            },
+            "lista_taxonomias": {
+                "titulo": "Lista de Taxonomías",
+                "acciones": {
+                    "ver_terminos": "Ver términos"
+                }
+            },
             "crear_taxonomia": {
                 "titulo1": "Crear Taxonomía",
                 "titulo2": "Editar Taxonomía",
-                "nombre": "Nombre taxonomía"
+                "nombre": "Nombre",
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Taxonomía guardada exitosamente",
+                                "cuerpo": "Has registrado correctamente los datos de la taxonomía"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Taxonomía actualizada exitosamente",
+                                "cuerpo": "Has actualizado correctamente los datos de la taxonomía"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error al guardar la taxonomía",
+                                "cuerpo": "No se han podido guardar los datos de la taxonommía"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error al actualizar la taxonomía",
+                                "cuerpo": "No se han podido actualizar los datos de la taxonomía"
+                            }
+                        }
+                    }
+                }
             },
             "crear_palabra_ofensiva": {
                 "titulo1": "Crear Palabra Ofensiva",
@@ -1263,11 +1413,6 @@
                 "nombre": "Nombre palabra ofensiva",
                 "palabra_ofensiva_placeholder": "Ingrese la palabra ofensiva"
             },
-            "articulo": {
-                "titulo": "Titulo",
-                "detalle": "Detalle de Artículo"
-            },
-            "idea": "Detalle de Idea Fundamental",
             "analitica": {
                 "n-grama": "grama de palabras claves y comentarios",
                 "nube": "Nube de palabras",
@@ -1354,6 +1499,20 @@
                 "modal_restaurar": {
                     "titulo": "Restauración de un usuario",
                     "pregunta": "¿Está seguro que desea restaurar el usuario?"
+                }
+            },
+            "eliminar_organizacion": {
+                "modal_eliminacion": {
+                    "titulo": "Eliminación de una organización",
+                    "pregunta": "¿Está seguro que desea eliminar la organización?"
+                },
+                "modal_forzar_eliminacion": {
+                    "titulo": "Eliminación permanente de una organización",
+                    "pregunta": "¿Está seguro que desea eliminar la organización permanentemente?"
+                },
+                "modal_restaurar": {
+                    "titulo": "Restauración de una organización",
+                    "pregunta": "¿Está seguro que desea restaurar la organización?"
                 }
             },
             "crear_usuario": {
@@ -1808,6 +1967,7 @@
     "votacion_general": "VOTACIÓN EN GENERAL",
     "votacion_particular": "VOTACIÓN EN PARTICULAR",
     "votacion_cerrada": "VOTACIÓN CERRADA",
+    "votacion_abierta": "VOTACIÓN ABIERTA",
     "ver_consulta": "Ver consulta",
     "mostrar": "Mostrar",
     "guardar": "Guardar",

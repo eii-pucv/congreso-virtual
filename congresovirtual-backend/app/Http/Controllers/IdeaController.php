@@ -96,7 +96,9 @@ class IdeaController extends Controller
             $idea->project()->associate($project);
             $idea->save();
             return response()->json([
-                'message' => 'Successfully created idea!'], 201);
+                'message' => 'Successfully created idea!',
+                'data' => $idea->toArray()
+            ], 201);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the idea was not created.'], 412);
@@ -152,7 +154,9 @@ class IdeaController extends Controller
             ]);
             $idea->save();
             return response()->json([
-                'message' => 'Successfully updated idea!'], 201);
+                'message' => 'Successfully updated idea!',
+                'data' => $idea->toArray()
+            ], 201);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the idea was not updated.'], 412);

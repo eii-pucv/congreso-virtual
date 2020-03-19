@@ -41,7 +41,7 @@
         <div class="card" :style="mode==='dark'?'background: rgb(12, 1, 80); border-color: #fff;':''">
             <div class="d-block font-20 text-center text-white">
                 <div v-if="publicConsultation.estado === 1 && isAvailableVoting" class="bg-indigo-light-1">
-                    {{ $t('consulta.componentes.header.titulo') }}
+                    {{ $t('consulta.componentes.header.votacion_abierta') }}
                     <v-popover>
                         <fontAwesomeIcon class="tooltip-target b3 font-18" icon="question-circle"></fontAwesomeIcon>
                         <template slot="popover">

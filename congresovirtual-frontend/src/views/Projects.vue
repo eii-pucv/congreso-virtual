@@ -17,6 +17,35 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <h5 class="mb-2" :style="mode==='dark'?'color: #fff':''">{{ $t('proyectos.contenido.etapa.titulo') }}</h5>
+                        <div class="input-group">
+                            <div class="w-100">
+                                <multiselect
+                                        v-model="selectedEtapas"
+                                        track-by="id"
+                                        label="label"
+                                        :placeholder="$t('proyectos.contenido.etapa.seleccionar')"
+                                        :options="etapas"
+                                        :multiple="true"
+                                        :showLabels="false"
+                                        :style="mode==='dark'?' color: #fff':''"
+                                ></multiselect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h5 class="mb-2" :style="mode==='dark'?'color: #fff':''">{{ $t('proyectos.contenido.orden.titulo') }}</h5>
+                        <select @change="sort" v-model="selectedSortId" class="form-control custom-select d-block">
+                            <option
+                                    v-for="optionSort in optionsSort"
+                                    :key="'option-sort-' + optionSort.id"
+                                    :value="optionSort.id"
+                            >
+                                {{ optionSort.label }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <h5 class="mb-2" :style="mode==='dark'?'color: #fff':''">{{ $t('proyectos.contenido.tema_asociado.titulo') }}</h5>
                         <multiselect
                                 v-model="selectedTerms"
@@ -33,23 +62,6 @@
                                 :limit-text="limitTextTaxonomyTermsMultiselect"
                                 :style="mode==='dark'?' color: #fff':''"
                         ></multiselect>
-                    </div>
-                    <div class="form-group">
-                        <h5 class="mb-2" :style="mode==='dark'?'color: #fff':''">{{ $t('proyectos.contenido.etapa.titulo') }}</h5>
-                        <div class="input-group">
-                            <div class="w-100">
-                                <multiselect
-                                        v-model="selectedEtapas"
-                                        track-by="id"
-                                        label="label"
-                                        :placeholder="$t('proyectos.contenido.etapa.seleccionar')"
-                                        :options="etapas"
-                                        :multiple="true"
-                                        :showLabels="false"
-                                        :style="mode==='dark'?' color: #fff':''"
-                                ></multiselect>
-                            </div>
-                        </div>
                     </div>
                     <span class="mt-10" :style="mode==='dark'?'color: #fff':''">{{ $t('proyectos.contenido.resultados') }}: {{ totalProjects }}</span>
                     <div class="btn-group btn-group-toggle btn-block mt-10 mb-20">
@@ -73,8 +85,8 @@
                     </div>
                 </div>
                 <div class="col-md-9">
-                    <div class="row row-cols-1 row-cols-md-4">
-                        <div v-for="project in projects" :key="project.id" class="col-md-4 pb-4 px-10">
+                    <div class="row">
+                        <div v-for="project in projects" :key="project.id" class="col-md-6 col-xl-4 pb-4 px-10">
                             <div
                                     v-if="project._object_type === 'projects'"
                                     class="card border-primary h-100"
@@ -113,23 +125,15 @@
                                 </div>
                                 <div class="card-header card-header-action" :style="mode==='dark'?'color: #fff':''">
                                     {{ $t('proyectos.contenido.tipo_objeto') }}
-                                    <div class="d-flex align-items-center card-action-wrap">
-                                        <a
-                                                href="#"
-                                                class="inline-block refresh mr-15"
-                                                :style="mode==='dark'?'color: #fff':''"
-                                        >
+                                    <div class="d-flex">
+                                        <div class="inline-block text-success mr-15">
                                             <i class="fa icon-like"></i>
                                             {{ project.votos_a_favor }}
-                                        </a>
-                                        <a
-                                                href="#"
-                                                class="inline-block refresh"
-                                                :style="mode==='dark'?'color: #fff':''"
-                                        >
+                                        </div>
+                                        <div class="inline-block text-danger">
                                             <i class="fa icon-dislike"></i>
                                             {{ project.votos_en_contra }}
-                                        </a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-body" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
@@ -191,20 +195,30 @@
             Multiselect,
             Loading
         },
-        props: { },
-        data: function() {
+        data() {
             return {
                 projects: [],
                 totalProjects: 0,
                 query: '',
-                selectedTerms: [],
-                taxonomyTerms: [],
                 selectedEtapas: [],
                 etapas: [
                     { id: 1, value: 1, label: null },
                     { id: 2, value: 2, label: null },
                     { id: 3, value: 3, label: null }
                 ],
+                currentSort: null,
+                selectedSortId: 0,
+                optionsSort: [
+                    { id: 0, field: null, type: null, label: null },
+                    { id: 1, field: 'fecha_inicio', type: 'ASC', label: null },
+                    { id: 2, field: 'fecha_inicio', type: 'DESC', label: null },
+                    { id: 3, field: 'votos_a_favor', type: 'ASC', label: null },
+                    { id: 4, field: 'votos_a_favor', type: 'DESC', label: null },
+                    { id: 5, field: 'votos_en_contra', type: 'ASC', label: null },
+                    { id: 6, field: 'votos_en_contra', type: 'DESC', label: null }
+                ],
+                selectedTerms: [],
+                taxonomyTerms: [],
                 limit: 12,
                 offset: 0,
                 currentMoment: this.$moment().local(),
@@ -232,6 +246,10 @@
             configComponent() {
                 this.etapas.forEach(etapa => {
                     etapa.label = this.$t('proyectos.contenido.etapa.opciones').find(etapaTrans => etapaTrans.id === etapa.id).label;
+                });
+
+                this.optionsSort.forEach(option => {
+                    option.label = this.$t('proyectos.contenido.orden.opciones').find(optionTrans => optionTrans.id === option.id).label;
                 });
 
                 if(this.$route.query.query) {
@@ -304,6 +322,10 @@
                     limit: this.limit,
                     offset: this.offset
                 };
+                if(this.currentSort) {
+                    searchParams.order = this.currentSort.type;
+                    searchParams.order_by = this.currentSort.field;
+                }
                 if(this.selectedEtapas.length === 1 && this.selectedEtapas.find(selectedEtapa => selectedEtapa.value === 3)) {
                     searchParams.is_available_voting = 0;
                     searchParams.etapas = [];
@@ -342,6 +364,18 @@
                 this.loadBtnLoadMore = true;
                 this.getResults();
             },
+            sort(event) {
+                let optionSortId = event.target.value;
+                if(optionSortId != 0) {
+                    let selectedOptionSort = this.optionsSort.find(optionSort => optionSort.id == optionSortId);
+                    this.currentSort = {
+                        field: selectedOptionSort.field,
+                        type: selectedOptionSort.type
+                    };
+                } else {
+                    this.currentSort = null;
+                }
+            },
             getProjectImgUrl(projectId, projectImage) {
                 if(projectImage) {
                     return (API_URL + '/api/storage/projects/' + projectId + '/' + projectImage);
@@ -350,8 +384,10 @@
             },
             clearFilters() {
                 this.query = '';
-                this.selectedTerms = [];
                 this.selectedEtapas = [];
+                this.currentSort = null;
+                this.selectedSortId = 0;
+                this.selectedTerms = [];
                 this.limit = 10;
             },
             limitTextTaxonomyTermsMultiselect(count) {

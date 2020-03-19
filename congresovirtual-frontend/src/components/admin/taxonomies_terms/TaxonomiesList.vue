@@ -4,12 +4,12 @@
             <div class="row">
                 <div class="col-xl-12">
                     <section class="hk-sec-wrapper">
-                        <h3 class="hk-sec-title text-center" :class="mode==='dark'?'text-primary':''">{{ $t('administrador.navbar.taxonomias.lista') }}</h3>
+                        <h3 class="hk-sec-title text-center" :class="mode==='dark'?'text-primary':''">{{ $t('administrador.componentes.lista_taxonomias.titulo') }}</h3>
                         <div class="row px-10">
                             <div class="col-sm">
-                                <a role="button" class="btn btn-sm btn-labeled btn-success float-right" href="/admin/taxonomy">
-                                    <span class="btn-label ml-1"><i class="glyphicon glyphicon-plus"></i></span>{{ $t('anadir') }}
-                                </a>
+                                <router-link class="btn btn-sm btn-labeled btn-success float-right" :to="{ path: '/admin/taxonomy' }">
+                                    <span class="btn-label ml-1"><i class="fa fa-plus"></i></span>{{ $t('anadir') }}
+                                </router-link>
                             </div>
                         </div>
                         <div class="row justify-content-between mt-20 px-10">
@@ -82,11 +82,19 @@
                                             <td v-for="column in data.columns" :key="'taxonomy-' + taxonomy.id + '-' + column.field">
                                                 <p v-if="!column.customizable">{{ taxonomy[column.field] }}</p>
                                                 <div v-else-if="column.field === 'actions'" class="text-center">
-                                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acción</button>
+                                                    <button
+                                                            class="btn btn-primary btn-sm dropdown-toggle"
+                                                            type="button"
+                                                            data-toggle="dropdown"
+                                                            aria-haspopup="true"
+                                                            aria-expanded="false"
+                                                    >
+                                                        {{ $t('acciones') }}
+                                                    </button>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" :href="'/admin/taxonomy/' + taxonomy.id + '/terms'">Ver términos</a>
-                                                        <a class="dropdown-item" :href="'/admin/taxonomy/' + taxonomy.id">Editar</a>
-                                                        <a class="dropdown-item" :href="'/admin/taxonomy/' + taxonomy.id + '/delete'">Eliminar</a>
+                                                        <router-link class="dropdown-item" :to="{ path: '/admin/taxonomy/' + taxonomy.id + '/terms' }">{{ $t('administrador.componentes.lista_taxonomias.acciones.ver_terminos') }}</router-link>
+                                                        <router-link class="dropdown-item" :to="{ path: '/admin/taxonomy/' + taxonomy.id }">{{ $t('editar') }}</router-link>
+                                                        <router-link class="dropdown-item" :to="{ path: '/admin/taxonomy/' + taxonomy.id + '/delete' }">{{ $t('eliminar') }}</router-link>
                                                     </div>
                                                 </div>
                                             </td>

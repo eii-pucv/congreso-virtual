@@ -5,11 +5,17 @@
                 <div class="col-xl-12">
                     <section class="hk-sec-wrapper">
                         <h3 class="hk-sec-title text-center" :class="mode==='dark'?'text-primary':''">{{ $t('administrador.navbar.usuarios.lista_organizaciones') }}</h3>
-                        <div class="row px-10">
+                        <h4 v-if="isTrashList" class="text-center" :class="mode==='dark'?'text-primary':''">{{ $t('administrador.componentes.eliminar.eliminados_temporalmente.eliminadas') }}</h4>
+                        <div v-if="!isTrashList" class="row justify-content-between px-10">
                             <div class="col-sm">
-                                <a role="button" class="btn btn-sm btn-labeled btn-success float-right" href="/admin/user?es_organizacion=1">
-                                    <span class="btn-label ml-1"><i class="glyphicon glyphicon-plus"></i></span>{{ $t('anadir') }}
-                                </a>
+                                <router-link class="btn btn-sm btn-labeled btn-danger float-left" :to="{ path: '/admin/organizations', query: { 'only_trashed': 1 } }">
+                                    <span class="btn-label ml-1"><i class="fa fa-trash"></i></span>{{ $t('papelera') }}
+                                </router-link>
+                            </div>
+                            <div class="col-sm">
+                                <router-link class="btn btn-sm btn-labeled btn-success float-right" :to="{ path: '/admin/user', query: { 'es_organizacion': 1 } }">
+                                    <span class="btn-label ml-1"><i class="fa fa-plus"></i></span>{{ $t('anadir') }}
+                                </router-link>
                             </div>
                         </div>
                         <div class="row justify-content-between mt-20 px-10">
@@ -90,10 +96,20 @@
                                                     <div v-else class="badge badge-grey">NO</div>
                                                 </div>
                                                 <div v-else-if="column.field === 'actions'" class="text-center">
-                                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acción</button>
+                                                    <button
+                                                            class="btn btn-primary btn-sm dropdown-toggle"
+                                                            type="button"
+                                                            data-toggle="dropdown"
+                                                            aria-haspopup="true"
+                                                            aria-expanded="false"
+                                                    >
+                                                        {{ $t('acciones') }}
+                                                    </button>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" :href="'/admin/user/' + organization.id">Editar</a>
-                                                        <a class="dropdown-item" :href="'/admin/organization/' + organization.id + '/delete'">Eliminar</a>
+                                                        <router-link v-if="!isTrashList" class="dropdown-item" :to="{ path: '/admin/user/' + organization.id }">{{ $t('editar') }}</router-link>
+                                                        <button v-if="!isTrashList" @click="showDeleteOrganizationModal(organization.id)" class="dropdown-item">{{ $t('eliminar') }}</button>
+                                                        <button v-if="isTrashList" @click="showForceDeleteOrganizationModal(organization.id)" class="dropdown-item">{{ $t('eliminar_permanente') }}</button>
+                                                        <buttom v-if="isTrashList" @click="showUndeleteOrganizationModal(organization.id)" class="dropdown-item">{{ $t('restaurar') }}</buttom>
                                                     </div>
                                                 </div>
                                             </td>
@@ -169,6 +185,146 @@
                                 </div>
                             </div>
                         </div>
+                        <b-modal
+                                id="delete-organization-modal"
+                                header-bg-variant="primary"
+                                body-bg-variant="light"
+                                footer-bg-variant="light"
+                                header-class="justify-content-center"
+                                hide-header-close
+                                no-close-on-backdrop
+                                centered
+                        >
+                            <template v-slot:modal-header>
+                                <h5 class="hk-sec-title text-white my-3">{{ $t('administrador.componentes.eliminar_organizacion.modal_eliminacion.titulo') }}</h5>
+                            </template>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-10">
+                                    <p>{{ $t('administrador.componentes.eliminar_organizacion.modal_eliminacion.pregunta') }}</p>
+                                </div>
+                            </div>
+                            <template v-slot:modal-footer>
+                                <div class="btn-group w-100">
+                                    <b-button
+                                            class="vld-parent"
+                                            variant="danger"
+                                            size="sm"
+                                            @click="deleteOrganization(false)"
+                                    >
+                                        <font-awesome-icon icon="trash" />
+                                        <span class="btn-text"> {{ $t('si') }}</span>
+                                        <loading
+                                                :active.sync="loadModalBtn"
+                                                :is-full-page="fullPage"
+                                                :height="24"
+                                                :color="'#ffffff'"
+                                        ></loading>
+                                    </b-button>
+                                    <b-button
+                                            variant="secondary"
+                                            size="sm"
+                                            @click="$bvModal.hide('delete-organization-modal')"
+                                    >
+                                        <font-awesome-icon icon="window-close" />
+                                        <span class="btn-text"> {{ $t('no') }}</span>
+                                    </b-button>
+                                </div>
+                            </template>
+                        </b-modal>
+                        <b-modal
+                                id="force-delete-organization-modal"
+                                header-bg-variant="primary"
+                                body-bg-variant="light"
+                                footer-bg-variant="light"
+                                header-class="justify-content-center"
+                                hide-header-close
+                                no-close-on-backdrop
+                                centered
+                        >
+                            <template v-slot:modal-header>
+                                <h6 class="text-white">{{ $t('administrador.componentes.eliminar_organizacion.modal_forzar_eliminacion.titulo') }}</h6>
+                            </template>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-10">
+                                    <p>{{ $t('administrador.componentes.eliminar_organizacion.modal_forzar_eliminacion.pregunta') }}</p>
+                                    <br>
+                                    <small>{{ $t('administrador.componentes.eliminar.precaucion') }}</small>
+                                </div>
+                            </div>
+                            <template v-slot:modal-footer>
+                                <div class="btn-group w-100">
+                                    <b-button
+                                            class="vld-parent"
+                                            variant="danger"
+                                            size="sm"
+                                            @click="deleteOrganization(true)"
+                                    >
+                                        <font-awesome-icon icon="trash" />
+                                        <span class="btn-text"> {{ $t('si') }}</span>
+                                        <loading
+                                                :active.sync="loadModalBtn"
+                                                :is-full-page="fullPage"
+                                                :height="24"
+                                                :color="'#ffffff'"
+                                        ></loading>
+                                    </b-button>
+                                    <b-button
+                                            variant="secondary"
+                                            size="sm"
+                                            @click="$bvModal.hide('force-delete-organization-modal')"
+                                    >
+                                        <font-awesome-icon icon="window-close" />
+                                        <span class="btn-text"> {{ $t('no') }}</span>
+                                    </b-button>
+                                </div>
+                            </template>
+                        </b-modal>
+                        <b-modal
+                                id="undelete-organization-modal"
+                                header-bg-variant="primary"
+                                body-bg-variant="light"
+                                footer-bg-variant="light"
+                                header-class="justify-content-center"
+                                hide-header-close
+                                no-close-on-backdrop
+                                centered
+                        >
+                            <template v-slot:modal-header>
+                                <h6 class="text-white">{{ $t('administrador.componentes.eliminar_organizacion.modal_restaurar.titulo') }}</h6>
+                            </template>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-10">
+                                    <p>{{ $t('administrador.componentes.eliminar_organizacion.modal_restaurar.pregunta') }}</p>
+                                </div>
+                            </div>
+                            <template v-slot:modal-footer>
+                                <div class="btn-group w-100">
+                                    <b-button
+                                            class="vld-parent"
+                                            variant="primary"
+                                            size="sm"
+                                            @click="undeleteOrganization"
+                                    >
+                                        <font-awesome-icon icon="trash-restore" />
+                                        <span class="btn-text"> {{ $t('si') }}</span>
+                                        <loading
+                                                :active.sync="loadModalBtn"
+                                                :is-full-page="fullPage"
+                                                :height="24"
+                                                :color="'#ffffff'"
+                                        ></loading>
+                                    </b-button>
+                                    <b-button
+                                            variant="secondary"
+                                            size="sm"
+                                            @click="$bvModal.hide('undelete-organization-modal')"
+                                    >
+                                        <font-awesome-icon icon="window-close" />
+                                        <span class="btn-text"> {{ $t('no') }}</span>
+                                    </b-button>
+                                </div>
+                            </template>
+                        </b-modal>
                     </section>
                 </div>
             </div>
@@ -177,142 +333,227 @@
 </template>
 
 <script>
+    import { BModal } from 'bootstrap-vue';
     import axios from '../../../backend/axios';
+    import Loading from 'vue-loading-overlay';
 
     export default {
-    name: 'OrganizationsList',
-    components: { },
-    data() {
-        return {
-            mode: String,
-            organizations: [],
-            totalRows: 0,
-            returnedRows: 0,
-            currentPage: 1,
-            currentSort: {
-                field: 'id',
-                type: 'ASC',
-            },
-            limit: 10,
-            offset: 0,
-            query: '',
-            data: {
-                columns: [  
-                    {
-                        label: "ID",
-                        field: "id",
-                        isSortable: true,
-                        customizable: false
-                    },
-                    {
-                        label: "Nombre",
-                        field: "nombre_org",
-                        isSortable: true,
-                        customizable: false
-                    },
-                    {
-                        label: "Correo Electrónico",
-                        field: "email_org",
-                        isSortable: true,
-                        customizable: false
-                    },
-                    {
-                        label: "Con Pers. Jurídica",
-                        field: "tiene_per_jur",
-                        isSortable: true,
-                        customizable: true
-                    },
-                    {
-                        label: "Con Fines de Lucro",
-                        field: "tipo_org",
-                        isSortable: true,
-                        customizable: true
-                    },
-                    {
-                        label: "Acciones",
-                        field: "actions",
-                        isSortable: true,
-                        customizable: true
-                    }
-                ],
-                rows: [],
-            },
-            loadOrganizations: false,
-            fullPage: false,
-            color: "#000000"
-        }
-    },
-    mounted() {
-        if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
-            this.mode = 'dark';
-        } else {
-            this.mode = 'light';
-        }
-
-        this.getOrganizations();
-    },
-    methods: {
-        getOrganizations(page) {
-            if(page) {
-                this.currentPage = page;
-            }
-
-            this.offset = 0;
-            if(this.currentPage > 1) {
-                this.offset = this.limit * (this.currentPage - 1);
-            }
-
-            this.loadOrganizations = true;
-            let loader = this.$loading.show({
-                container: this.fullPage ? null : this.$refs.tableContainer,
-                color: this.color,
-                height: 128
-            });
-
-            axios
-                .get('/users', {
-                    params: {
-                        'query': this.query,
-                        'es_organizacion': 1,
-                        'order': this.currentSort.type,
-                        'order_by': this.currentSort.field,
-                        'limit': this.limit,
-                        'offset': this.offset
-                    }
-                })
-                .then(res => {
-                    this.totalRows = res.data.total_results;
-                    this.returnedRows = res.data.returned_results;
-                    this.organizations = res.data.results;
-                    this.data.rows = this.organizations;
-                })
-                .catch(() => {
-                    this.$toastr('error', 'No se han podido cargar las organizaciones', 'Error al cargar');
-                })
-                .finally(() => {
-                    this.loadOrganizations = false;
-                    loader.hide();
-                });
+        name: 'OrganizationsList',
+        components: {
+            BModal,
+            Loading
         },
-        sort(field) {
-            if(field === this.currentSort.field) {
-                if(this.currentSort.type === 'ASC') {
-                    this.currentSort.type = 'DESC';
+        data() {
+            return {
+                isTrashList: false,
+                organizations: [],
+                totalRows: 0,
+                returnedRows: 0,
+                currentPage: 1,
+                currentSort: {
+                    field: 'id',
+                    type: 'ASC',
+                },
+                limit: 10,
+                offset: 0,
+                query: '',
+                data: {
+                    columns: [
+                        {
+                            label: "ID",
+                            field: "id",
+                            isSortable: true,
+                            customizable: false
+                        },
+                        {
+                            label: "Nombre",
+                            field: "nombre_org",
+                            isSortable: true,
+                            customizable: false
+                        },
+                        {
+                            label: "Correo Electrónico",
+                            field: "email_org",
+                            isSortable: true,
+                            customizable: false
+                        },
+                        {
+                            label: "Con Pers. Jurídica",
+                            field: "tiene_per_jur",
+                            isSortable: true,
+                            customizable: true
+                        },
+                        {
+                            label: "Con Fines de Lucro",
+                            field: "tipo_org",
+                            isSortable: true,
+                            customizable: true
+                        },
+                        {
+                            label: "Acciones",
+                            field: "actions",
+                            isSortable: true,
+                            customizable: true
+                        }
+                    ],
+                    rows: [],
+                },
+                organizationIdDelete: null,
+                organizationIdUndelete: null,
+                loadOrganizations: false,
+                loadModalBtn: false,
+                fullPage: false,
+                color: '#000000',
+                mode: String
+            }
+        },
+        mounted() {
+            if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
+                this.mode = 'dark';
+            } else {
+                this.mode = 'light';
+            }
+
+            if(this.$route.query.only_trashed == '1') {
+                this.isTrashList = true;
+            }
+
+            this.getOrganizations();
+        },
+        methods: {
+            getOrganizations(page) {
+                if(page) {
+                    this.currentPage = page;
+                }
+
+                this.offset = 0;
+                if(this.currentPage > 1) {
+                    this.offset = this.limit * (this.currentPage - 1);
+                }
+
+                this.loadOrganizations = true;
+                let loader = this.$loading.show({
+                    container: this.fullPage ? null : this.$refs.tableContainer,
+                    color: this.color,
+                    height: 128
+                });
+
+                axios
+                    .get('/users', {
+                        params: {
+                            'query': this.query,
+                            'es_organizacion': 1,
+                            'only_trashed': this.isTrashList ? 1 : 0,
+                            'order': this.currentSort.type,
+                            'order_by': this.currentSort.field,
+                            'limit': this.limit,
+                            'offset': this.offset
+                        }
+                    })
+                    .then(res => {
+                        this.totalRows = res.data.total_results;
+                        this.returnedRows = res.data.returned_results;
+                        this.organizations = res.data.results;
+                        this.data.rows = this.organizations;
+                    })
+                    .catch(() => {
+                        this.$toastr('error', 'No se han podido cargar las organizaciones', 'Error al cargar');
+                    })
+                    .finally(() => {
+                        this.loadOrganizations = false;
+                        loader.hide();
+                    });
+            },
+            sort(field) {
+                if(field === this.currentSort.field) {
+                    if(this.currentSort.type === 'ASC') {
+                        this.currentSort.type = 'DESC';
+                    } else {
+                        this.currentSort.type = 'ASC';
+                    }
                 } else {
+                    this.currentSort.field = field;
                     this.currentSort.type = 'ASC';
                 }
-            } else {
-                this.currentSort.field = field;
-                this.currentSort.type = 'ASC';
+                this.getOrganizations(1);
+            },
+            updateLimit(event) {
+                this.limit = event.target.value;
+                this.getOrganizations(1);
+            },
+            showDeleteOrganizationModal(organizationId) {
+                this.organizationIdDelete = organizationId;
+                this.$bvModal.show('delete-organization-modal');
+            },
+            showForceDeleteOrganizationModal(organizationId) {
+                this.organizationIdDelete = organizationId;
+                this.$bvModal.show('force-delete-organization-modal');
+            },
+            showUndeleteOrganizationModal(organizationId) {
+                this.organizationIdUndelete = organizationId;
+                this.$bvModal.show('undelete-organization-modal');
+            },
+            deleteOrganization(force) {
+                this.loadModalBtn = true;
+                if(!force) {
+                    axios
+                        .delete('/users/' + this.organizationIdDelete, {
+                            params: {
+                                force_delete: 0
+                            }
+                        })
+                        .then(() => {
+                            this.getOrganizations();
+                            this.$toastr('success', 'Se ha eliminado temporalmente la organización', 'Eliminación exitosa');
+                        })
+                        .catch(() => {
+                            this.$toastr('error', 'No se ha podido eliminar la organización', 'Eliminación fallida');
+                        })
+                        .finally(() => {
+                            this.organizationIdDelete = null;
+                            this.loadModalBtn = false;
+                            this.$bvModal.hide('delete-organization-modal');
+                        });
+                } else {
+                    axios
+                        .delete('/users/' + this.organizationIdDelete, {
+                            params: {
+                                force_delete: 1
+                            }
+                        })
+                        .then(() => {
+                            this.getOrganizations();
+                            this.$toastr('success', 'Se ha eliminado permanentemente la organización', 'Eliminación exitosa');
+                        })
+                        .catch(() => {
+                            this.$toastr('error', 'No se ha podido eliminar la organización', 'Eliminación fallida');
+                        })
+                        .finally(() => {
+                            this.organizationIdDelete = null;
+                            this.loadModalBtn = false;
+                            this.$bvModal.hide('force-delete-organization-modal');
+                        });
+                }
+            },
+            undeleteOrganization() {
+                this.loadModalBtn = true;
+                axios
+                    .patch('/users/' + this.organizationIdUndelete + '/undelete')
+                    .then(() => {
+                        this.getOrganizations();
+                        this.$toastr('success', 'Se ha restaurado la organización', 'Restauración exitosa');
+                    })
+                    .catch(() => {
+                        this.$toastr('error', 'No se ha podido restaurar la organización', 'Restauración fallida');
+                    })
+                    .finally(() => {
+                        this.organizationIdUndelete = null;
+                        this.loadModalBtn = false;
+                        this.$bvModal.hide('undelete-organization-modal');
+                    });
             }
-            this.getOrganizations(1);
-        },
-        updateLimit(event) {
-            this.limit = event.target.value;
-            this.getOrganizations(1);
         }
     }
-}
 </script>
 
 <style scoped>

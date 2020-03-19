@@ -7,9 +7,9 @@
                         <h3 class="hk-sec-title text-center" :class="mode==='dark'?'text-primary':''">{{ $t('administrador.componentes.lista_proyectos.titulo') }}</h3>
                         <div class="row px-10">
                             <div class="col-sm">
-                                <a role="button" class="btn btn-sm btn-labeled btn-success float-right" href="/admin/project">
-                                    <span class="btn-label ml-1"><i class="glyphicon glyphicon-plus"></i></span>{{ $t('anadir') }}
-                                </a>
+                                <router-link class="btn btn-sm btn-labeled btn-success float-right" :to="{ path: '/admin/project' }">
+                                    <span class="btn-label ml-1"><i class="fa fa-plus"></i></span>{{ $t('anadir') }}
+                                </router-link>
                             </div>
                         </div>
                         <div class="row justify-content-between mt-20 px-10">

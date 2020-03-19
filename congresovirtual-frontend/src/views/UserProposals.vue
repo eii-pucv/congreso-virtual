@@ -269,12 +269,12 @@
                     label: '',
                     name: '',
                     type: ''
-                },
+                };
                 this.sortBy = {
                     label: this.$t('propuestas_usuario.contenido.opciones_ordenar.opcion_1'),
                     name: 'fecha_ingreso',
                     value: 'DESC'
-                },
+                };
                 this.limit = 10;
                 this.search();
             },

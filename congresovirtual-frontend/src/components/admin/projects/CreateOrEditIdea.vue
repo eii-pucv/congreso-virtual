@@ -1,101 +1,169 @@
 <template>
-    <div style="min-height: 720px;">
-        <div class="container mt-20" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
-            <section class="hk-sec-wrapper" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <form @submit.prevent="saveData">
-                            <div class="form-group">
-                                <label for="titulo" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.articulo.titulo') }}</label>
-                                <input type="text" class="form-control" v-model="idea.titulo" id="titulo" placeholder="Ingrese título" :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''">
-                            </div>
-                            <div class="form-group">
-                                <label for="idea_fundamental" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.idea') }}</label>
-                                <textarea type="text" class="form-control" rows="3" v-model="idea.detalle" id="detalle" placeholder="Ingrese descripción" :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"></textarea>
-                            </div>
-                            <div class="button-list">
-                                <button type="submit" class="btn btn-primary">{{ $t('guardar') }}</button>
-                                <button class="btn btn-danger" @click="volver()">{{ $t('volver') }}</button>
-                            </div>
-                        </form>
-                    </div>
+    <div class="container mt-20" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
+        <section class="hk-sec-wrapper" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
+            <h4 v-if="!idea_id" class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_idea.titulo1') }}</h4>
+            <h4 v-else class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_idea.titulo2') }}</h4>
+            <div class="mt-20 vld-parent">
+                <div v-if="loadIdea" style="height: 300px;">
+                    <Loading
+                            :active.sync="loadIdea"
+                            :is-full-page="fullPage"
+                            :height="128"
+                            :color="color"
+                    ></Loading>
                 </div>
-            </section>
-        </div>
+                <div v-if="!loadIdea">
+                    <form @submit.prevent="saveIdea">
+                        <div class="form-row align-items-center justify-content-center">
+                            <div class="col-md-10 mb-10">
+                                <label for="titulo" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_idea.titulo') }}</label>
+                                <input
+                                        id="titulo"
+                                        v-model="idea.titulo"
+                                        type="text"
+                                        class="form-control"
+                                        required
+                                        :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-row align-items-center justify-content-center">
+                            <div class="col-md-10 mb-10">
+                                <label for="detalle" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_idea.detalle') }}</label>
+                                <textarea
+                                        id="detalle"
+                                        v-model="idea.detalle"
+                                        type="text"
+                                        class="form-control"
+                                        rows="3"
+                                        required
+                                        :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <div class="text-center mt-20">
+                            <button class="btn btn-primary vld-parent" type="submit">
+                                <font-awesome-icon icon="save" />
+                                <span class="btn-text"> {{ $t('guardar') }}</span>
+                                <Loading
+                                        :active.sync="loadBtnSave"
+                                        :is-full-page="fullPage"
+                                        :height="24"
+                                        :color="'#ffffff'"
+                                ></Loading>
+                            </button>
+                            <button @click.prevent="back" class="btn btn-danger text-white ml-10">
+                                <font-awesome-icon icon="window-close" />
+                                <span class="btn-text" :style="mode==='dark'?'color: #fff':''"> {{ $t('cancelar') }}</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
     </div>
 </template>
 
 <script>
-    import axios from "../../../backend/axios";
+    import Loading from 'vue-loading-overlay';
+    import axios from '../../../backend/axios';
+
     export default {
         name: 'CreateOrEditIdea',
+        components: {
+            Loading
+        },
         props: {
-            project_id: Number,
             idea_id: Number,
+            project_id: Number
         },
         data() {
             return {
-                idea:{},
-                ideas: [],
+                idea: {
+                    titulo: null,
+                    detalle: null,
+                    project_id: null
+                },
+                loadIdea: true,
+                loadBtnSave: false,
+                fullPage: false,
+                color: '#000000',
                 mode: String
             }
         },
-        async mounted() {
-
-            if ((this.$store.getters.modo_oscuro == "dark") || (window.location.href.includes("dark"))) {
-                this.mode = "dark"
+        mounted() {
+            if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
+                this.mode = 'dark';
             } else {
-                this.mode = "light"
+                this.mode = 'light';
             }
 
             if(this.idea_id) {
-                axios
-                    .get("/ideas/" + this.idea_id)
-                    .then(res => {
-                        this.idea = res.data;
-
-                    })
-                    .catch(() => console.log("FALLO"));
+                this.getIdea();
+            } else {
+                this.idea.project_id = this.project_id;
+                this.loadIdea = false;
             }
-            
         },
         methods: {
-            saveData(){
-
-                if(!this.idea_id){
+            getIdea() {
+                axios
+                    .get('/ideas/' + this.idea_id)
+                    .then(res => {
+                        this.idea = res.data;
+                    })
+                    .finally(() => {
+                        this.loadIdea = false;
+                    });
+            },
+            saveIdea() {
+                this.loadBtnSave = true;
+                if(this.idea.id) {
                     axios
-                        .post("/ideas",{
-                            project_id: this.project_id,
-                            titulo: this.idea.titulo,
-                            detalle: this.idea.detalle
+                        .put('/ideas/' + this.idea.id, this.idea)
+                        .then(() => {
+                            this.$toastr(
+                                'success',
+                                this.$t('administrador.componentes.crear_idea.mensajes.exito.modificado.generico.cuerpo'),
+                                this.$t('administrador.componentes.crear_idea.mensajes.exito.modificado.generico.titulo')
+                            );
                         })
-                        .then(res => {
-                            this.idea = res.data;
-                            this.$toastr('success', '', 'Idea fundamental creado')
+                        .catch(() => {
+                            this.$toastr(
+                                'error',
+                                this.$t('administrador.componentes.crear_idea.mensajes.fallido.modificado.generico.cuerpo'),
+                                this.$t('administrador.componentes.crear_idea.mensajes.fallido.modificado.generico.titulo')
+                            );
                         })
-                        .catch(() => console.log("FALLO"));
+                        .finally(() => {
+                            this.loadBtnSave = false;
+                        });
                 } else {
                     axios
-                        .put("/ideas/" +this.idea_id ,{
-                            project_id: this.project_id,
-                            titulo: this.idea.titulo,
-                            detalle: this.idea.detalle
-                        })
+                        .post('/ideas', this.idea)
                         .then(res => {
-                            this.idea = res.data;
-                            this.$toastr('success', '', 'Idea fundamental actualizado')
+                            this.idea = res.data.data;
+                            this.$toastr(
+                                'success',
+                                this.$t('administrador.componentes.crear_idea.mensajes.exito.guardado.generico.cuerpo'),
+                                this.$t('administrador.componentes.crear_idea.mensajes.exito.guardado.generico.titulo')
+                            );
                         })
-                        .catch(() => console.log("FALLO"));
+                        .catch(() => {
+                            this.$toastr(
+                                'error',
+                                this.$t('administrador.componentes.crear_idea.mensajes.fallido.guardado.generico.cuerpo'),
+                                this.$t('administrador.componentes.crear_idea.mensajes.fallido.guardado.generico.titulo')
+                            );
+                        })
+                        .finally(() => {
+                            this.loadBtnSave = false;
+                        });
                 }
             },
-
-            volver () {
-                window.history.back();
-            },
+            back() {
+                this.$router.go(-1);
+            }
         }
     }
 </script>
-
-<style scoped>
-
-</style>

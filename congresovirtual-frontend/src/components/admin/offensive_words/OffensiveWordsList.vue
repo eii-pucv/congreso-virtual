@@ -7,12 +7,12 @@
                         <h3 class="hk-sec-title text-center" :class="mode==='dark'?'text-primary':''">{{ $t('administrador.componentes.palabras_ofensivas') }}</h3>
                         <div class="row px-10">
                             <div class="col-sm">
-                                <a role="button" class="btn btn-sm btn-labeled btn-success float-right" href="/admin/offensive-word">
-                                    <span class="btn-label ml-1"><i class="glyphicon glyphicon-plus"></i></span>{{ $t('anadir') }}
-                                </a>
+                                <router-link class="btn btn-sm btn-labeled btn-success float-right" :to="{ path: '/admin/offensive-word' }">
+                                    <span class="btn-label ml-1"><i class="fa fa-plus"></i></span>{{ $t('anadir') }}
+                                </router-link>
                             </div>
                         </div>   
-                         <div class="row justify-content-between mt-20 px-10">
+                        <div class="row justify-content-between mt-20 px-10">
                             <div class="input-group col-md-6 col-xl-4 my-5">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">{{ $t('administrador.table_list.entries_select.show') }}</span>
@@ -82,10 +82,18 @@
                                             <td v-for="column in data.columns" :key="'offensive_word-' + word.id + '-' + column.field">
                                                 <p v-if="!column.customizable">{{ word[column.field] }}</p>
                                                 <div v-else-if="column.field === 'actions'" class="text-center">
-                                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acción</button>
+                                                    <button
+                                                            class="btn btn-primary btn-sm dropdown-toggle"
+                                                            type="button"
+                                                            data-toggle="dropdown"
+                                                            aria-haspopup="true"
+                                                            aria-expanded="false"
+                                                    >
+                                                        {{ $t('acciones') }}
+                                                    </button>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" :href="'/admin/offensive-word/' + word.id">Editar</a>
-                                                        <a class="dropdown-item" :href="'/admin/offensive_word/' + word.id + '/delete'">Eliminar</a>
+                                                        <router-link class="dropdown-item" :to="{ path: '/admin/offensive-word/' + word.id }">{{ $t('editar') }}</router-link>
+                                                        <router-link class="dropdown-item" :to="{ path: '/admin/offensive_word/' + word.id + '/delete' }">{{ $t('eliminar') }}</router-link>
                                                     </div>
                                                 </div>
                                             </td>

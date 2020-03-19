@@ -43,7 +43,7 @@
                     </div>
                     <div class="form-group">
                         <h5 class="mb-2" :style="mode==='dark'?'color: #fff':''">{{ $t('search.orden.titulo') }}</h5>
-                        <select @change="sort" class="form-control custom-select d-block">
+                        <select @change="sort" v-model="selectedSortId" class="form-control custom-select d-block">
                             <option
                                     v-for="activeOptionSort in activeOptionsSort"
                                     :key="'option-sort-' + activeOptionSort.id"
@@ -93,8 +93,8 @@
                     </div>
                 </div>
                 <div class="col-md-9 col-sm-12">
-                    <div class="row row-cols-1 row-cols-md-4">
-                        <div v-for="(object, index) in results" :key="'resultado-' + index" class="col-md-4 pb-4 px-10">
+                    <div class="row">
+                        <div v-for="(object, index) in results" :key="'resultado-' + index" class="col-md-6 col-xl-4 pb-4 px-10">
                             <div
                                     v-if="object._object_type === 'projects'"
                                     class="card border-primary h-100"
@@ -106,17 +106,43 @@
                                         :src="getImgUrl(object.id, object.imagen, object._object_type)"
                                         style="object-fit: cover;"
                                 />
+                                <div>
+                                    <router-link
+                                            v-if="object.etapa === 1 && getIsAvailableVoting(object)"
+                                            :to="{ path: 'projects', query: { 'etapas[]': 1 } }"
+                                            class="top-right badge badge-primary font-12 m-1"
+                                            style="opacity: 0.7;"
+                                    >
+                                        {{ $t('votacion_general') }}
+                                    </router-link>
+                                    <router-link
+                                            v-else-if="object.etapa === 2 && getIsAvailableVoting(object)"
+                                            :to="{ path: 'projects', query: { 'etapas[]': 2 } }"
+                                            class="top-right badge badge-success font-12 m-1"
+                                            style="opacity: 0.7;"
+                                    >
+                                        {{ $t('votacion_particular') }}
+                                    </router-link>
+                                    <router-link
+                                            v-else
+                                            :to="{ path: 'projects', query: { 'etapas[]': 3 } }"
+                                            class="top-right badge badge-danger font-12 m-1"
+                                            style="opacity: 0.7;"
+                                    >
+                                        {{ $t('votacion_cerrada') }}
+                                    </router-link>
+                                </div>
                                 <div class="card-header card-header-action">
                                     {{ $t('search.proyecto') }}
-                                    <div class="d-flex align-items-center card-action-wrap">
-                                        <a href="#" class="inline-block refresh mr-15">
+                                    <div class="d-flex">
+                                        <div class="inline-block text-success mr-15">
                                             <i class="fa icon-like"></i>
                                             {{ object.votos_a_favor }}
-                                        </a>
-                                        <a href="#" class="inline-block refresh">
+                                        </div>
+                                        <div class="inline-block text-danger">
                                             <i class="fa icon-dislike"></i>
                                             {{ object.votos_en_contra }}
-                                        </a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -156,15 +182,15 @@
                             >
                                 <div class="card-header card-header-action">
                                     {{ $t('search.idea') }}
-                                    <div class="d-flex align-items-center card-action-wrap">
-                                        <a href="#" class="inline-block refresh mr-15">
+                                    <div class="d-flex">
+                                        <div class="inline-block text-success mr-15">
                                             <i class="fa icon-like"></i>
                                             {{ object.votos_a_favor }}
-                                        </a>
-                                        <a href="#" class="inline-block refresh">
+                                        </div>
+                                        <div class="inline-block text-danger">
                                             <i class="fa icon-dislike"></i>
                                             {{ object.votos_en_contra }}
-                                        </a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -209,15 +235,15 @@
                             >
                                 <div class="card-header card-header-action" :style="mode==='dark'?'color: #fff':''">
                                     {{ $t('search.articulo') }}
-                                    <div class="d-flex align-items-center card-action-wrap">
-                                        <a href="#" class="inline-block refresh mr-15">
+                                    <div class="d-flex">
+                                        <div class="inline-block text-success mr-15">
                                             <i class="fa icon-like"></i>
                                             {{ object.votos_a_favor }}
-                                        </a>
-                                        <a href="#" class="inline-block refresh">
+                                        </div>
+                                        <div class="inline-block text-danger">
                                             <i class="fa icon-dislike"></i>
                                             {{ object.votos_en_contra }}
-                                        </a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -238,7 +264,7 @@
                                                 v-if="object.detalle.length > seeMoreLimitText"
                                                 :id="'seemore-' + index"
                                                 class="seemore"
-                                        >{{ object.detalle.substring( seeMoreLimitText) }}</span>
+                                        >{{ object.detalle.substring(seeMoreLimitText) }}</span>
                                         <span
                                                 v-if="object.detalle.length > seeMoreLimitText"
                                                 class="seemore-trigger"
@@ -262,17 +288,35 @@
                                         :src="getImgUrl(object.id, object.imagen, object._object_type)"
                                         style="object-fit: cover;"
                                 />
+                                <div>
+                                    <router-link
+                                            v-if="getIsAvailableVoting(object)"
+                                            :to="{ path: 'consultations', query: { 'estado': 1 } }"
+                                            class="top-right badge badge-primary font-12 m-1"
+                                            style="opacity: 0.7;"
+                                    >
+                                        {{ $t('votacion_abierta') }}
+                                    </router-link>
+                                    <router-link
+                                            v-else
+                                            :to="{ path: 'consultations', query: { 'estado': 0 } }"
+                                            class="top-right badge badge-danger font-12 m-1"
+                                            style="opacity: 0.7;"
+                                    >
+                                        {{ $t('votacion_cerrada') }}
+                                    </router-link>
+                                </div>
                                 <div class="card-header card-header-action">
                                     {{ $t('search.consulta') }}
-                                    <div class="d-flex align-items-center card-action-wrap">
-                                        <a href="#" class="inline-block refresh mr-15">
+                                    <div class="d-flex">
+                                        <div class="inline-block text-success mr-15">
                                             <i class="fa icon-like"></i>
                                             {{ object.votos_a_favor }}
-                                        </a>
-                                        <a href="#" class="inline-block refresh">
+                                        </div>
+                                        <div class="inline-block text-danger">
                                             <i class="fa icon-dislike"></i>
                                             {{ object.votos_en_contra }}
-                                        </a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -307,17 +351,35 @@
                                     :style="mode==='dark'?'background: #080035; color: #fff':''"
                             >
                                 <img class="card-img-top embed-responsive-item default-proposal-img" />
+                                <div>
+                                    <router-link
+                                            v-if="object.type === 1"
+                                            :to="{ path: 'user-proposals', query: { 'type': 1 } }"
+                                            class="top-right badge badge-primary font-12 m-1"
+                                            style="opacity: 0.7;"
+                                    >
+                                        {{ $t('propuesta.componentes.header.proyecto_ley.titulo') }}
+                                    </router-link>
+                                    <router-link
+                                            v-else-if="object.type === 2"
+                                            :to="{ path: 'user-proposals', query: { 'type': 2 } }"
+                                            class="top-right badge badge-warning font-12 m-1"
+                                            style="opacity: 0.7;"
+                                    >
+                                        {{ $t('propuesta.componentes.header.urgencia.titulo') }}
+                                    </router-link>
+                                </div>
                                 <div class="card-header card-header-action">
                                     {{ $t('search.propuesta') }}
-                                    <div class="d-flex align-items-center card-action-wrap">
-                                        <a v-if="object.type === 1" href="#" class="inline-block refresh">
+                                    <div class="d-flex">
+                                        <div v-if="object.type === 1" class="inline-block text-primary">
                                             <i class="fa icon-like"></i>
                                             {{ object.petitions }}
-                                        </a>
-                                        <a v-else-if="object.type === 2" href="#" class="inline-block refresh">
+                                        </div>
+                                        <div v-else-if="object.type === 2" class="inline-block text-warning">
                                             <i class="fa icon-like"></i>
                                             {{ object.urgencies }}
-                                        </a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -396,7 +458,9 @@
                 query: '',
                 selectedObjectTypes: [],
                 currentSort: null,
+                selectedSortId: 0,
                 optionsSort: [
+                    { id: 0, field: null, type: null, label: null, valid_for: [] },
                     { id: 1, field: '_object_type', type: 'ASC', label: null, valid_for: [] },
                     { id: 2, field: '_object_type', type: 'DESC', label: null, valid_for: [] },
                     { id: 3, field: 'fecha_inicio', type: 'ASC', label: null, valid_for: ['projects', 'consultations'] },
@@ -425,6 +489,7 @@
                     { id: 5, value: 'proposals', label: null },
                     { id: 6, value: 'pages', label: null }
                 ],
+                currentMoment: this.$moment().local(),
                 seeMoreLimitText: 150,
                 loadTaxonomyTerms: true,
                 loadBtnSearch: false,
@@ -559,12 +624,15 @@
             },
             sort(event) {
                 let optionSortId = event.target.value;
-                let selectedOptionSort = this.optionsSort.find(optionSort => optionSort.id == optionSortId);
-                this.currentSort = {
-                    field: selectedOptionSort.field,
-                    type: selectedOptionSort.type
-                };
-                this.search();
+                if(optionSortId != 0) {
+                    let selectedOptionSort = this.optionsSort.find(optionSort => optionSort.id == optionSortId);
+                    this.currentSort = {
+                        field: selectedOptionSort.field,
+                        type: selectedOptionSort.type
+                    };
+                } else {
+                    this.currentSort = null;
+                }
             },
             getImgUrl(objectId, objectImage, objectType) {
                 if(objectImage) {
@@ -579,9 +647,10 @@
             clearFilters: function() {
                 this.query =  '';
                 this.selectedObjectTypes = [];
-                this.selectedTerms = [];
                 this.activeOptionsSort = this.optionsSort;
                 this.currentSort = null;
+                this.selectedSortId = 0;
+                this.selectedTerms = [];
                 this.limit = 10;
             },
             limitTextTaxonomyTermsMultiselect(count) {
@@ -597,7 +666,17 @@
                     return `and ${count} more topics`;
                 }
             },
-            seeMoreToggle: function(elementIndex) {
+            getIsAvailableVoting(object) {
+                let votingStartDate = this.$moment.utc(object.fecha_inicio, 'YYYY-MM-DD HH:mm:ss').local();
+                let votingEndDate = this.$moment.utc(object.fecha_termino, 'YYYY-MM-DD HH:mm:ss').local();
+
+                if(object._object_type === 'projects') {
+                    return object.is_enabled && object.etapa !== 3 && this.currentMoment.isBetween(votingStartDate, votingEndDate);
+                } else if(object._object_type === 'consultations') {
+                    return object.estado === 1 && this.currentMoment.isBetween(votingStartDate, votingEndDate);
+                }
+            },
+            seeMoreToggle(elementIndex) {
                 let dots = document.getElementById("dots-" + elementIndex);
                 let moreText = document.getElementById("seemore-" + elementIndex);
                 let btnText = document.getElementById("myBtn-" + elementIndex);
@@ -624,6 +703,12 @@
     .seemore-trigger {
         text-decoration: underline;
         cursor: pointer;
+    }
+
+    .top-right {
+        position: absolute;
+        top: 6px;
+        right: 8px;
     }
 
     .dark {

@@ -96,7 +96,9 @@ class ArticleController extends Controller
             $article->project()->associate($project);
             $article->save();
             return response()->json([
-                'message' => 'Successfully created article!'], 201);
+                'message' => 'Successfully created article!',
+                'data' => $article->toArray()
+            ], 201);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the article was not created.'], 412);
@@ -152,7 +154,9 @@ class ArticleController extends Controller
             ]);
             $article->save();
             return response()->json([
-                'message' => 'Successfully updated article!'], 201);
+                'message' => 'Successfully updated article!',
+                'data' => $article->toArray()
+            ], 201);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the article was not updated.'], 412);

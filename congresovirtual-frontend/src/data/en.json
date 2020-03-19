@@ -65,34 +65,59 @@
                 }
             },
             "consulta_card": {
-                "votacion_abierta": "OPEN VOTE",
+                "votacion_abierta": "OPEN VOTING",
                 "votacion_cerrada": "CLOSED VOTE"
             }
         }
     },
     "consultas_publicas": {
-        "breadcumb": {
-            "inicio": "Home",
-            "consultas": "Public Consultations"
-        },
         "contenido": {
-            "titulo": "How do we incorporate a citizen consultation?",
-            "descripcion": {
-                "parrafo1": "Public consultations are virtual, non-binding, public and open participation mechanisms whereby the Chamber of Deputies or a commission consults the citizens about a bill or a matter of a legislative nature within their competence.",
-                "parrafo2": "Article 18. Citizen initiative. Any person or organization may request the conduct of a citizen consultation about a bill in process. The administrative unit in charge of citizen participation will inform the parliamentary committees or the respective commission if the project is based on it. The pronouncement on the request must be issued in the first session in which this is possible."
+            "titulo": "Public Consultation Search",
+            "buscar_placeholder": "Insert text here",
+            "estado": {
+                "titulo": "State",
+                "seleccionar": "Select states",
+                "opciones": [
+                    { "id": 1, "label": "Open voting" },
+                    { "id": 2, "label": "Closed vote" }
+                ]
+            },
+            "orden": {
+                "titulo": "Order by",
+                "opciones": [
+                    { "id": 0, "label": "Select order" },
+                    { "id": 1, "label": "Start date (Asc.)" },
+                    { "id": 2, "label": "Start date (Desc.)" },
+                    { "id": 3, "label": "Quantity of votes in favor (Asc.)" },
+                    { "id": 4, "label": "Quantity of votes in favor (Desc.)" },
+                    { "id": 5, "label": "Quantity of votes against (Asc.)" },
+                    { "id": 6, "label": "Quantity of votes against (Desc.)" }
+                ]
+            },
+            "tema_asociado": {
+                "titulo": "Topics of Interest",
+                "seleccionar": "Select topics"
+            },
+            "resultados": "Total results",
+            "limpiar": "Clean Filters",
+            "buscar": "Search",
+            "no_hay_resultados": "No results found.",
+            "ver_mas": "See more",
+            "cargar": "Load More",
+            "tipo_objeto": "PUBLIC CONSULTATION",
+            "mas_info": {
+                "titulo": "How do we incorporate a citizen consultation?",
+                "descripcion": {
+                    "parrafo1": "Public consultations are virtual, non-binding, public and open participation mechanisms whereby the Chamber of Deputies or a commission consults the citizens about a bill or a matter of a legislative nature within their competence.",
+                    "parrafo2": "Article 18. Citizen initiative. Any person or organization may request the conduct of a citizen consultation about a bill in process. The administrative unit in charge of citizen participation will inform the parliamentary committees or the respective commission if the project is based on it. The pronouncement on the request must be issued in the first session in which this is possible."
+                }
             }
-        },
-        "inicio": "Start",
-        "fin": "End"
+        }
     },
     "proyectos": {
         "contenido": {
             "titulo": "Project Search",
             "buscar_placeholder": "Insert text here",
-            "tema_asociado": {
-                "titulo": "Topics of Interest",
-                "seleccionar": "Select topics"
-            },
             "etapa": {
                 "titulo": "Stage",
                 "seleccionar": "Select stages",
@@ -101,6 +126,22 @@
                     { "id": 2, "label": "Voting in particular" },
                     { "id": 3, "label": "Closed vote" }
                 ]
+            },
+            "orden": {
+                "titulo": "Order by",
+                "opciones": [
+                    { "id": 0, "label": "Select order" },
+                    { "id": 1, "label": "Start date (Asc.)" },
+                    { "id": 2, "label": "Start date (Desc.)" },
+                    { "id": 3, "label": "Quantity of votes in favor (Asc.)" },
+                    { "id": 4, "label": "Quantity of votes in favor (Desc.)" },
+                    { "id": 5, "label": "Quantity of votes against (Asc.)" },
+                    { "id": 6, "label": "Quantity of votes against (Desc.)" }
+                ]
+            },
+            "tema_asociado": {
+                "titulo": "Topics of Interest",
+                "seleccionar": "Select topics"
             },
             "resultados": "Total results",
             "limpiar": "Clean Filters",
@@ -497,8 +538,8 @@
             "header": {
                 "inicio": "Start",
                 "fin": "End",
-                "titulo": "PUBLIC CONSULTATION",
                 "popover": "This vote corresponds to a public consultation.",
+                "votacion_abierta": "OPEN VOTING",
                 "votacion_cerrada": "CLOSED VOTE"
             }
         }
@@ -835,7 +876,6 @@
         "titulo": "General Search Engine",
         "buscar_placeholder": "Insert text here",
         "filtrar": "Filter by",
-        "ordenar": "Order by",
         "tipo_objeto": {
             "titulo": "Item type",
             "opciones": [
@@ -850,6 +890,7 @@
         "orden": {
             "titulo": "Order by",
             "opciones": [
+                { "id": 0, "label": "Select order" },
                 { "id": 1, "label": "Item type (Asc.)" },
                 { "id": 2, "label": "Item type (Desc.)" },
                 { "id": 3, "label": "Start date (Asc.)" },
@@ -982,13 +1023,6 @@
             }
         },
         "componentes": {
-            "terminos": {
-                "titulo": "Terms List",
-                "editar": "Edit",
-                "eliminar": "Delete",
-                "anadir": "Add Son",
-                "buscar": "Search term"
-            },
             "ideas_proyecto": "List of Fundamental Ideas",
             "articulos_proyecto": "List of Articles",
             "lista_proyectos": {
@@ -1160,6 +1194,78 @@
                     }
                 }
             },
+            "crear_articulo": {
+                "titulo1": "Create Article",
+                "titulo2": "Edit Article",
+                "titulo": "Title",
+                "detalle": "Detail",
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Article saved successfully",
+                                "cuerpo": "You have successfully registered the article data"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Article updated successfully",
+                                "cuerpo": "You have successfully updated the article data"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error saving article",
+                                "cuerpo": "Could not save article data"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error updating article",
+                                "cuerpo": "Failed to update article data"
+                            }
+                        }
+                    }
+                }
+            },
+            "crear_idea": {
+                "titulo1": "Create Fundamental Idea",
+                "titulo2": "Edit Fundamental Idea",
+                "titulo": "Title",
+                "detalle": "Detail",
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Fundamental idea saved successfully",
+                                "cuerpo": "You have successfully registered the fundamental idea data"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Fundamental idea updated successfully",
+                                "cuerpo": "You have successfully updated the fundamental idea data"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error saving fundamental idea",
+                                "cuerpo": "Could not save fundamental idea data"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error updating fundamental idea",
+                                "cuerpo": "Failed to update fundamental idea data"
+                            }
+                        }
+                    }
+                }
+            },
             "crear_consulta": {
                 "titulo1": "Create Public Consultation",
                 "titulo2": "Edit Public Consultation",
@@ -1253,10 +1359,53 @@
                     }
                 }
             },
+            "lista_terminos": {
+                "titulo": "Terms List",
+                "editar": "Edit",
+                "eliminar": "Delete",
+                "anadir": "Add Son",
+                "buscar": "Search term"
+            },
+            "lista_taxonomias": {
+                "titulo": "Taxonomies List",
+                "acciones": {
+                    "ver_terminos": "View terms"
+                }
+            },
             "crear_taxonomia": {
                 "titulo1": "Create Taxonomy",
                 "titulo2": "Edit Taxonomy",
-                "nombre": "Taxonomy Name"
+                "nombre": "Name",
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Taxonomy saved successfully",
+                                "cuerpo": "You have successfully registered the taxonomy data"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Taxonomy updated successfully",
+                                "cuerpo": "You have successfully updated the taxonomy data"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error saving taxonomy",
+                                "cuerpo": "Could not save taxonomy data"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error updating taxonomy",
+                                "cuerpo": "Failed to update taxonomy data"
+                            }
+                        }
+                    }
+                }
             },
             "crear_palabra_ofensiva": {
                 "titulo1": "Create Offensive Word",
@@ -1264,11 +1413,6 @@
                 "nombre": "Offensive word name",
                 "palabra_ofensiva_placeholder": "Insert offensive word"
             },
-            "articulo": {
-                "titulo": "Title",
-                "detalle": "Item Detail"
-            },
-            "idea": "Fundamental Idea Detail",
             "analitica": {
                 "n-grama": "keyword grammar and comments",
                 "nube": "Word cloud",
@@ -1349,12 +1493,26 @@
                     "pregunta": "Are you sure you want to delete the user?"
                 },
                 "modal_forzar_eliminacion": {
-                    "titulo": "Are you sure you want to delete the user?",
+                    "titulo": "Permanent deletion of a user",
                     "pregunta": "Are you sure you want to delete the user permanently?"
                 },
                 "modal_restaurar": {
                     "titulo": "User restore",
                     "pregunta": "Are you sure you want to restore the user?"
+                }
+            },
+            "eliminar_organizacion": {
+                "modal_eliminacion": {
+                    "titulo": "Deleting a organization",
+                    "pregunta": "Are you sure you want to delete the organization?"
+                },
+                "modal_forzar_eliminacion": {
+                    "titulo": "Permanent deletion of a organization",
+                    "pregunta": "Are you sure you want to delete the organization permanently?"
+                },
+                "modal_restaurar": {
+                    "titulo": "Organization restore",
+                    "pregunta": "Are you sure you want to restore the organization?"
                 }
             },
             "crear_usuario": {
@@ -1809,6 +1967,7 @@
     "votacion_general": "VOTING IN GENERAL",
     "votacion_particular": "VOTING IN PARTICULAR",
     "votacion_cerrada": "CLOSED VOTE",
+    "votacion_abierta": "OPEN VOTING",
     "ver_consulta": "View consultation",
     "mostrar": "Show",
     "guardar": "Save",
