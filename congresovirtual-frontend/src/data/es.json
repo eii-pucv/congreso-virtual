@@ -35,13 +35,13 @@
                 "titulo": "Proyectos de Ley Propuestos Para ser Incluidos a Congreso Virtual",
                 "descripcion": "¿Hay algún proyecto de ley que sea de su total interés, y que le gustaría que fuera incorporado al Congreso Virtual?. Si alcanza las 100 firmas de apoyo, este será agregado al sitio, para que pueda ser votado y debatido por la comunidad activa.",
                 "boton_apoyo": "Apoyar Inclusión",
-                "ver": "Ver Propuestas"
+                "ver": "Ver Propuesta"
             },
             "urgencias_proyectos" : {
                 "titulo": "Proyectos de Ley Propuestos Para Peticiones de Urgencias",
                 "descripcion": "¿Hay algún proyecto, actualmente en debate en el Congreso, que le gustaría que fuera debatido aquí también?. Si obtiene 100 firmas, este será incorporado en la tabla con una prioridad mayor, de tal modo que pueda ser discutido en el Congreso prontamente.",
                 "boton_apoyo": "Apoyar Urgencia",
-                "ver": "Ver Propuestas"
+                "ver": "Ver Propuesta"
             },
             "propuesta": {
                 "persona": "Propuesta por",
@@ -51,7 +51,6 @@
                 "apoyos": "Apoyos logrados"
             },
             "boton_consultas": "Ver Consultas",
-            "boton_proyectos": "Ver Proyectos",
             "boton_propuestas": "Ver Propuestas",
             "sin_datos": "No hay datos para mostrar."
         },
@@ -362,7 +361,7 @@
             "politicas": "políticas de privacidad",
             "registrar": "Registrar",
             "cuenta": "¿Ya tienes una cuenta?",
-            "identificar": "Identificate aquí",
+            "identificar": "Identifícate aquí",
             "clave": "Clave Única",
             "mensajes": {
                 "exito": {
@@ -927,7 +926,7 @@
     "contacto": {
         "breadcumb": {
             "inicio": "Inicio",
-            "contacto": "Contáctanos"
+            "contacto": "Contacto"
         },
         "contenido": {
             "titulo": "Contacto del Congreso Virtual",
@@ -988,8 +987,8 @@
                 "denuncias": "Lista de Denuncias a Aportes",
                 "palabras_ofensivas": "Lista de Palabras Ofensivas"
             },
-            "contenido": {
-                "titulo": "Contenido",
+            "pagina": {
+                "titulo": "Páginas",
                 "lista": "Lista de Páginas",
                 "crear": "Crear una Página"
             },
@@ -997,7 +996,7 @@
                 "titulo": "Configuración del Sitio Web",
                 "config": "Configuración General",
                 "menu": "Conf. Menú Principal",
-                "footer": "Conf. Footer (Pié de Página)"
+                "footer": "Conf. de Pié de Página"
             }
         },
         "table_list": {
@@ -1359,13 +1358,6 @@
                     }
                 }
             },
-            "lista_terminos": {
-                "titulo": "Lista de Términos",
-                "editar": "Editar",
-                "eliminar": "Eliminar",
-                "anadir": "Añadir Hijo",
-                "buscar": "Buscar término"
-            },
             "lista_taxonomias": {
                 "titulo": "Lista de Taxonomías",
                 "acciones": {
@@ -1407,6 +1399,61 @@
                     }
                 }
             },
+            "lista_terminos_taxonomia": {
+                "titulo": "Lista de Términos de la Taxonomía",
+                "buscar": "Buscar término",
+                "editar": "Editar",
+                "eliminar": "Eliminar",
+                "anadir_hijo": "Añadir Hijo",
+                "nuevo_termino": "Nuevo término",
+                "modal_eliminacion": {
+                    "titulo": "Eliminación de un término de la taxonomía",
+                    "pregunta": "¿Está seguro que desea eliminar el término de la taxonomía?",
+                    "precaucion": "Precaución: Esta acción implica que los términos hijos también sean eliminados."
+                },
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Término guardado exitosamente",
+                                "cuerpo": "Has registrado correctamente el término de la taxonomía"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Término actualizado exitosamente",
+                                "cuerpo": "Has actualizado correctamente el término de la taxonomía"
+                            }
+                        },
+                        "eliminado": {
+                            "generico": {
+                                "titulo": "Término eliminado exitosamente",
+                                "cuerpo": "Se ha eliminado correctamente el término de la taxonomía"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error al guardar el término",
+                                "cuerpo": "No se ha podido guardar el término de la taxonomía"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error al actualizar el término",
+                                "cuerpo": "No se ha podido actualizar el término de la taxonomía"
+                            }
+                        },
+                        "eliminado": {
+                            "generico": {
+                                "titulo": "Error al eliminar el término",
+                                "cuerpo": "No se ha podido eliminar el término de la taxonomía"
+                            }
+                        }
+                    }
+                }
+            },
             "crear_palabra_ofensiva": {
                 "titulo1": "Crear Palabra Ofensiva",
                 "titulo2": "Editar Palabra Ofensiva",
@@ -1435,7 +1482,23 @@
                 "siguiente": "En el siguiente gráfico puede visualizar los distintos usuarios y divididos según el año en que fueron creados y su género.",
                 "datos": "Datos por votación",
                 "seccion": "En la siguiente sección se puede observar un análisis graficado de los distintos votos realizados. Ya sean en al votación general, como separados según ideas generales y por artículos.",
-                "topic_model_no_carga": "Lo lamentamos, ha ocurrido un error al cargar el topic model."
+                "topic_model": {
+                    "titulo": "Topic Model",
+                    "parrafos": {
+                        "parrafo1": "Es posible que la generación de un topic model tarde varios minutos por lo que puede optar por visualizar uno almacenado en caché.",
+                        "parrafo2": "Tenga en cuenta que éste puede llevar un tiempo sin ser actualizado y por ende mostrar información antigua.",
+                        "parrafo3": "Puede actualizar y visualizar un topic model con los datos actuales presionando el botón \"Actualizar Topic Model\".",
+                        "parrafo4": "El topic model generado sobrescribirá el que está almacenado en caché hasta ahora.",
+                        "parrafo5": "O bien, puede visualizar el topic model almacenado en caché presionando el botón \"Ver Topic Model en Caché\". Esta es la opción más rápida."
+                    },
+                    "boton_actualizar": "Actualizar Topic Model",
+                    "boton_ver_cache": "Ver Topic Model en Caché",
+                    "generado_el": "Topic model generado el",
+                    "errores": {
+                        "no_carga": "Lo lamentamos, ha ocurrido un error al cargar el topic model.",
+                        "no_cache": "Lo lamentamos, no hay topic model en caché para este proyecto, debe generar uno presionando el botón \"Actualizar Topic Model\"."
+                    }
+                }
             },
             "archivos_proyecto": {
                 "titulo": "Subir Archivos al Proyecto",
@@ -1658,20 +1721,6 @@
             "palabras_ofensivas": "Lista de Palabras Ofensivas",
             "editar_percepcion": "Percepción",
             "paginas": "Lista de Páginas",
-            "footer": {
-                "titulo": "Configuración de Footer (Pié de Página)",
-                "click": "Haga click en el botón de añadir páginas en la categoría donde quiere agregar las páginas seleccionadas",
-                "editar": "Editar",
-                "eliminar": "Eliminar",
-                "anadir_hijo": "Añadir Hijo",
-                "anadir_paginas": "Añadir Páginas",
-                "guardar": "Guardar Cambios",
-                "editar_categoria": "Editar Categoría",
-                "nombre": "Nombre",
-                "seleccione": "Seleccione las Páginas",
-                "paginas": "Páginas"
-            },
-            "menu": "Configuración Menú Principal",
             "crear_pagina": {
                 "titulo1": "Crear Página",
                 "titulo2": "Editar Página",
@@ -1788,6 +1837,78 @@
                     }
                 }
             },
+            "configuracion_menu": {
+                "titulo": "Configuración del Menú Principal",
+                "buscar": "Buscar categoría o subcategoría",
+                "editar": "Editar",
+                "eliminar": "Eliminar",
+                "anadir_hijo": "Añadir Hijo",
+                "nueva_categoria": "Nueva categoría",
+                "modal_edicion": {
+                    "titulo": "Editar categoría",
+                    "nombre": "Nombre",
+                    "enlace": "Enlace",
+                    "popover_enlace": "El enlace puede ser absoluto (por ej.: \"http://www.dominio.com\") o relativo (por ej.: \"/page/slug\"), en este segundo caso se completará con la URL base del sitio web."
+                },
+                "modal_eliminacion": {
+                    "titulo": "Eliminación de una categoría",
+                    "pregunta": "¿Está seguro que desea eliminar la categoría?"
+                },
+                "mensajes": {
+                    "exito": {
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Configuración actualizada exitosamente",
+                                "cuerpo": "Has actualizado correctamente la configuración del menú principal"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error al actualizar la configuración",
+                                "cuerpo": "No se ha podido actualizar la configuración del menú principal"
+                            }
+                        }
+                    }
+                }
+            },
+            "configuracion_footer": {
+                "titulo": "Configuración de Pié de Página",
+                "buscar": "Buscar categoría o subcategoría",
+                "editar": "Editar",
+                "eliminar": "Eliminar",
+                "anadir_hijo": "Añadir Hijo",
+                "nueva_categoria": "Nueva categoría",
+                "modal_edicion": {
+                    "titulo": "Editar categoría",
+                    "nombre": "Nombre",
+                    "enlace": "Enlace",
+                    "popover_enlace": "El enlace puede ser absoluto (por ej.: \"http://www.dominio.com\") o relativo (por ej.: \"/page/slug\"), en este segundo caso se completará con la URL base del sitio web."
+                },
+                "modal_eliminacion": {
+                    "titulo": "Eliminación de una categoría",
+                    "pregunta": "¿Está seguro que desea eliminar la categoría?"
+                },
+                "mensajes": {
+                    "exito": {
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Configuración actualizada exitosamente",
+                                "cuerpo": "Has actualizado correctamente la configuración del pié de página"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error al actualizar la configuración",
+                                "cuerpo": "No se ha podido actualizar la configuración del pié de página"
+                            }
+                        }
+                    }
+                }
+            },
             "propuestas": "Lista de Propuestas",
             "crear_propuesta": {
                 "titulo1": "Crear Propuesta",
@@ -1888,7 +2009,7 @@
             "dictResponseError": "El servidor respondió con el código {{statusCode}}.",
             "dictCancelUpload": "Cancelar subida",
             "dictUploadCanceled": "La subida de archivos se ha cancelado.",
-            "dictCancelUploadConfirmation": "¿Está seguro de que desea cancelar la subida?",
+            "dictCancelUploadConfirmation": "¿Está seguro que desea cancelar la subida?",
             "dictRemoveFile": "Eliminar archivo",
             "dictRemoveFileConfirmation": "¿Está seguro que desea eliminar el archivo?",
             "dictMaxFilesExceeded": "No se pueden subir más archivos."

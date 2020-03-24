@@ -224,7 +224,7 @@
                                 centered
                         >
                             <template v-slot:modal-header>
-                                <h5 class="hk-sec-title text-white my-3">{{ $t('administrador.componentes.eliminar_usuario.modal_eliminacion.titulo') }}</h5>
+                                <h6 class="text-white">{{ $t('administrador.componentes.eliminar_usuario.modal_eliminacion.titulo') }}</h6>
                             </template>
                             <div class="form-row">
                                 <div class="col-md-12 mb-10">
@@ -237,21 +237,21 @@
                                             class="vld-parent"
                                             variant="danger"
                                             size="sm"
-                                            @click="deleteUser(false)"
+                                            @click.prevent="deleteUser(false)"
                                     >
                                         <font-awesome-icon icon="trash" />
                                         <span class="btn-text"> {{ $t('si') }}</span>
-                                        <loading
+                                        <Loading
                                                 :active.sync="loadModalBtn"
                                                 :is-full-page="fullPage"
                                                 :height="24"
                                                 :color="'#ffffff'"
-                                        ></loading>
+                                        ></Loading>
                                     </b-button>
                                     <b-button
                                             variant="secondary"
                                             size="sm"
-                                            @click="$bvModal.hide('delete-user-modal')"
+                                            @click.prevent="$bvModal.hide('delete-user-modal')"
                                     >
                                         <font-awesome-icon icon="window-close" />
                                         <span class="btn-text"> {{ $t('no') }}</span>
@@ -275,8 +275,14 @@
                             <div class="form-row">
                                 <div class="col-md-12 mb-10">
                                     <p>{{ $t('administrador.componentes.eliminar_usuario.modal_forzar_eliminacion.pregunta') }}</p>
-                                    <br>
-                                    <small>{{ $t('administrador.componentes.eliminar.precaucion') }}</small>
+                                    <div class="alert alert-warning row ma-0 mt-10 pa-0">
+                                        <div class="col-sm-2 text-center align-self-center pa-10">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </div>
+                                        <div class="col-sm-10 pa-10">
+                                            {{ $t('administrador.componentes.eliminar.precaucion') }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <template v-slot:modal-footer>
@@ -285,21 +291,21 @@
                                             class="vld-parent"
                                             variant="danger"
                                             size="sm"
-                                            @click="deleteUser(true)"
+                                            @click.prevent="deleteUser(true)"
                                     >
                                         <font-awesome-icon icon="trash" />
                                         <span class="btn-text"> {{ $t('si') }}</span>
-                                        <loading
+                                        <Loading
                                                 :active.sync="loadModalBtn"
                                                 :is-full-page="fullPage"
                                                 :height="24"
                                                 :color="'#ffffff'"
-                                        ></loading>
+                                        ></Loading>
                                     </b-button>
                                     <b-button
                                             variant="secondary"
                                             size="sm"
-                                            @click="$bvModal.hide('force-delete-user-modal')"
+                                            @click.prevent="$bvModal.hide('force-delete-user-modal')"
                                     >
                                         <font-awesome-icon icon="window-close" />
                                         <span class="btn-text"> {{ $t('no') }}</span>
@@ -331,21 +337,21 @@
                                             class="vld-parent"
                                             variant="primary"
                                             size="sm"
-                                            @click="undeleteUser"
+                                            @click.prevent="undeleteUser"
                                     >
                                         <font-awesome-icon icon="trash-restore" />
                                         <span class="btn-text"> {{ $t('si') }}</span>
-                                        <loading
+                                        <Loading
                                                 :active.sync="loadModalBtn"
                                                 :is-full-page="fullPage"
                                                 :height="24"
                                                 :color="'#ffffff'"
-                                        ></loading>
+                                        ></Loading>
                                     </b-button>
                                     <b-button
                                             variant="secondary"
                                             size="sm"
-                                            @click="$bvModal.hide('undelete-user-modal')"
+                                            @click.prevent="$bvModal.hide('undelete-user-modal')"
                                     >
                                         <font-awesome-icon icon="window-close" />
                                         <span class="btn-text"> {{ $t('no') }}</span>

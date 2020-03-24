@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div>
         <div v-if="loadIdeas" class="vld-parent" style="height: 500px;">
             <Loading
                     :active.sync="loadIdeas"
@@ -47,7 +47,7 @@
                                         style="display: inline-block;"
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); border-color: #fff;':''"
                                 >
-                                    <span class="d-block font-24"><i class="fa fa-thumbs-up"></i></span>
+                                    <span class="d-block font-24"><i class="fas fa-thumbs-up"></i></span>
                                     <span class="d-block font-14">{{ $t('votos.a_favor') }}</span>
                                     <span class="d-block display-6">{{ idea.votos_a_favor }}</span>
                                 </div>
@@ -58,7 +58,7 @@
                                         style="display: inline-block;"
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); border-color: #fff;':''"
                                 >
-                                    <span class="d-block font-24"><i class="fa fa-thumbs-down"></i></span>
+                                    <span class="d-block font-24"><i class="fas fa-thumbs-down"></i></span>
                                     <span class="d-block font-14">{{ $t('votos.en_contra') }}</span>
                                     <span class="d-block display-6">{{ idea.votos_en_contra }}</span>
                                 </div>
@@ -69,7 +69,7 @@
                                         style="display: inline-block;"
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); border-color: #fff;':''"
                                 >
-                                    <span class="d-block font-24"><font-awesome-icon icon="minus-circle"/></span>
+                                    <span class="d-block font-24"><i class="fas fa-minus-circle"></i></span>
                                     <span class="d-block font-14">{{ $t('votos.abstencion') }}</span>
                                     <span class="d-block display-6">{{ idea.abstencion }}</span>
                                 </div>
@@ -104,7 +104,6 @@
 <script>
     import IdeaComments from '../../views/Comments';
     import PieChart from '../../PieChart.js';
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import axios from '../../backend/axios';
     import Loading from 'vue-loading-overlay';
 
@@ -113,7 +112,6 @@
         components: {
             IdeaComments,
             PieChart,
-            FontAwesomeIcon,
             Loading
         },
         props: {

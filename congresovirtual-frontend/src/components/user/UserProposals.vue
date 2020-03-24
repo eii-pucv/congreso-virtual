@@ -111,92 +111,89 @@
 </template>
 
 <script>
-import axios from "../../backend/axios";
-import {bus} from "../../main";
-import { log } from 'util';
+    import axios from "../../backend/axios";
 
-export default {
-    name: "userProposals",
-    props: {
-        maxPetitions: Number
-    },
-    data() {
-        return {
-            totalResults: 0,
-            proposals: [],
-            limit: 10,
-            offset: 0,
-            loadBtnLoadMore: false,
-            loaded: false,
-            failed: false,
-            mode: String,
-        };
-    },
-    methods: {
-        loadMore() {
-            this.loadBtnLoadMore = true;
-            this.getProposals();
+    export default {
+        name: "userProposals",
+        props: {
+            maxPetitions: Number
         },
-        getProposals() {
-            axios
-                .get("/users/"+ JSON.parse(localStorage.user).id+"/proposals", {
-                    params: {
-                        limit: this.limit,
-                        offset: this.offset
+        data() {
+            return {
+                totalResults: 0,
+                proposals: [],
+                limit: 10,
+                offset: 0,
+                loadBtnLoadMore: false,
+                loaded: false,
+                failed: false,
+                mode: String,
+            };
+        },
+        methods: {
+            loadMore() {
+                this.loadBtnLoadMore = true;
+                this.getProposals();
+            },
+            getProposals() {
+                axios
+                    .get("/users/"+ JSON.parse(localStorage.user).id+"/proposals", {
+                        params: {
+                            limit: this.limit,
+                            offset: this.offset
+                        }
+                    })
+                    .then(res => {
+                        this.totalResults = res.data.total_results
+                        this.proposals = this.proposals.concat(res.data.results)
+                        this.offset += res.data.returned_results
+                    })
+                    .catch(() => {
+                        console.log("FALLO");
+                        this.failed = true
+                    })
+                    .finally(() => {
+                        this.loaded = true
+                    })
+            },
+            async saveChanges(proposal) {
+                if (proposal.state) {
+                    let embedURL = proposal.video_url.split('watch?v=').join('embed/')
+                    try {
+                        const res = await axios.put('/proposals/' + proposal.id, {
+                            detalle: proposal.detalle,
+                            argument: proposal.argument,
+                            video_url: embedURL,
+                            video_source: proposal.video_source
+                        })
+                        this.$toastr('success','','Datos guardados')
+                    } catch (error) {
+                        console.log(error)
+                        this.$toastr('error','No se ha podido guardar los datos','ERROR')
                     }
-                })
-                .then(res => {
-                    this.totalResults = res.data.total_results
-                    this.proposals = this.proposals.concat(res.data.results)
-                    this.offset += res.data.returned_results
-                })
-                .catch(() => {
-                    console.log("FALLO");
-                    this.failed = true
-                })
-                .finally(() => {
-                    this.loaded = true
-                })
-        },
-        async saveChanges(proposal) {
-            if (proposal.state) {
-                let embedURL = proposal.video_url.split('watch?v=').join('embed/')
-                try {
-                    const res = await axios.put('/proposals/' + proposal.id, {
-                        detalle: proposal.detalle,
-                        argument: proposal.argument,
-                        video_url: embedURL,
-                        video_source: proposal.video_source
-                    })
-                    this.$toastr('success','','Datos guardados')
-                } catch (error) {
-                    console.log(error)
-                    this.$toastr('error','No se ha podido guardar los datos','ERROR')
-                }
-            } else {
-                try {
-                    const res = await axios.put('/proposals/' + proposal.id, {
-                        detalle: proposal.detalle
-                    })
-                    this.$toastr('success','','Datos guardados')
-                } catch (error) {
-                    console.log(error)
-                    this.$toastr('error','No se ha podido guardar los datos','ERROR')
+                } else {
+                    try {
+                        const res = await axios.put('/proposals/' + proposal.id, {
+                            detalle: proposal.detalle
+                        })
+                        this.$toastr('success','','Datos guardados')
+                    } catch (error) {
+                        console.log(error)
+                        this.$toastr('error','No se ha podido guardar los datos','ERROR')
+                    }
                 }
             }
-        }
-    },
+        },
+        mounted() {
+            if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
+                this.mode = 'dark';
+            } else {
+                this.mode = 'light';
+            }
 
-    mounted(){
-        if ((this.$store.getters.modo_oscuro == "dark") || (window.location.href.includes("dark"))) {
-            this.mode = "dark"
-        } else {
-            this.mode = "light"
+            this.getProposals();
         }
-
-        this.getProposals()
-    },    
-}
+    }
 </script>
 
 <style>

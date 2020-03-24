@@ -51,7 +51,6 @@
                 "apoyos": "Support achieved"
             },
             "boton_consultas": "View Consultations",
-            "boton_proyectos": "View Projects",
             "boton_propuestas": "View Proposals",
             "sin_datos": "No data to display."
         },
@@ -346,7 +345,7 @@
         "contenido": {
             "titulo": "Register",
             "subtitulo1": "Create your account to interact with our site",
-            "subtitulo2": "Or create your account with social networks or Unique Key.",
+            "subtitulo2": "Or create your account with social networks or Clave Única.",
             "placeholders": {
                 "nombre": "Name",
                 "apellido": "Surname",
@@ -363,7 +362,7 @@
             "politicas": "privacy policies",
             "cuenta": "Do you already have an account?",
             "identificar": "Identify here",
-            "clave": "Unique key",
+            "clave": "Clave Única",
             "mensajes": {
                 "exito": {
                     "generico": {
@@ -500,7 +499,7 @@
             "recuperar": "Recover password",
             "sin_cuenta": "You do not have an account?",
             "registrar": "Register me",
-            "clave": "Unique key",
+            "clave": "Clave Única",
             "mensajes": {
                 "exito": {
                     "generico": {
@@ -927,7 +926,7 @@
     "contacto": {
         "breadcumb": {
             "inicio": "Home",
-            "contacto": "Contact us"
+            "contacto": "Contact"
         },
         "contenido": {
             "titulo": "Virtual Congress Contact",
@@ -988,8 +987,8 @@
                 "denuncias": "List of Denounces to Contributions",
                 "palabras_ofensivas": "List of Offensive Words"
             },
-            "contenido": {
-                "titulo": "Content",
+            "pagina": {
+                "titulo": "Pages",
                 "lista": "Pages List",
                 "crear": "Create a Page"
             },
@@ -1359,13 +1358,6 @@
                     }
                 }
             },
-            "lista_terminos": {
-                "titulo": "Terms List",
-                "editar": "Edit",
-                "eliminar": "Delete",
-                "anadir": "Add Son",
-                "buscar": "Search term"
-            },
             "lista_taxonomias": {
                 "titulo": "Taxonomies List",
                 "acciones": {
@@ -1407,6 +1399,61 @@
                     }
                 }
             },
+            "lista_terminos_taxonomia": {
+                "titulo": "List of Taxonomy Terms",
+                "buscar": "Search term",
+                "editar": "Edit",
+                "eliminar": "Delete",
+                "anadir_hijo": "Add Son",
+                "nuevo_termino": "New term",
+                "modal_eliminacion": {
+                    "titulo": "Deleting a term from the taxonomy",
+                    "pregunta": "Are you sure you want to delete the term from the taxonomy?",
+                    "precaucion": "Caution: This action implies that the child terms are also deleted."
+                },
+                "mensajes": {
+                    "exito": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Term saved successfully",
+                                "cuerpo": "You have successfully registered the taxonomy term"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Term updated successfully",
+                                "cuerpo": "You have successfully updated the taxonomy term"
+                            }
+                        },
+                        "eliminado": {
+                            "generico": {
+                                "titulo": "Term deleted successfully",
+                                "cuerpo": "Taxonomy term deleted successfully"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "guardado": {
+                            "generico": {
+                                "titulo": "Error saving term",
+                                "cuerpo": "Could not save taxonomy term"
+                            }
+                        },
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error updating term",
+                                "cuerpo": "Could not update taxonomy term"
+                            }
+                        },
+                        "eliminado": {
+                            "generico": {
+                                "titulo": "Error deleting term",
+                                "cuerpo": "Could not delete taxonomy term"
+                            }
+                        }
+                    }
+                }
+            },
             "crear_palabra_ofensiva": {
                 "titulo1": "Create Offensive Word",
                 "titulo2": "Edit Offensive Word",
@@ -1435,7 +1482,23 @@
                 "siguiente": "In the following graphic you can visualize the different users and divided according to the year in which they were created and their gender.",
                 "datos": "Data by vote",
                 "seccion": "In the next section you can see a graphical analysis of the different votes made. Either in the general vote, as separated according to general ideas and articles.",
-                "topic_model_no_carga": "We are sorry, an error occurred while loading the topic model."
+                "topic_model": {
+                    "titulo": "Topic Model",
+                    "parrafos": {
+                        "parrafo1": "It may take several minutes to generate a topic model, so you can choose to view a cached one.",
+                        "parrafo2": "Keep in mind that this can take a while without being updated and therefore show old information.",
+                        "parrafo3": "You can update and view a topic model with the current data by pressing the \"Update Topic Model\" button.",
+                        "parrafo4": "The generated topic model will overwrite the one that has been cached so far.",
+                        "parrafo5": "Or, you can view the cached topic model by pressing the \"View Topic Model in Cache\" button. This is the fastest option."
+                    },
+                    "boton_actualizar": "Update Topic Model",
+                    "boton_ver_cache": "View Topic Model in Cache",
+                    "generado_el": "Topic model generated on",
+                    "errores": {
+                        "no_carga": "We are sorry, an error occurred while loading the topic model.",
+                        "no_cache": "We are sorry, there is no cached topic model for this project, you must generate one by pressing the \"Update Topic Model\" button."
+                    }
+                }
             },
             "archivos_proyecto": {
                 "titulo": "Upload Files to the Project",
@@ -1658,20 +1721,6 @@
             "palabras_ofensivas": "List of Offensive Words",
             "editar_percepcion": "Perception",
             "paginas": "Page List",
-            "footer": {
-                "titulo": "Footer Configuration",
-                "click": "Click on the add pages button in the category where you want to add the selected pages",
-                "editar": "Edit",
-                "eliminar": "Delete",
-                "anadir_hijo": "Add Son",
-                "anadir_paginas": "Add Pages",
-                "guardar": "Save Changes",
-                "editar_categoria": "Add Category",
-                "nombre": "Name",
-                "seleccione": "Select the Pages",
-                "paginas": "Pages"
-            },
-            "menu": "Main Menu Settings",
             "crear_pagina": {
                 "titulo1": "Create Page",
                 "titulo2": "Edit Page",
@@ -1783,6 +1832,79 @@
                             "generico": {
                                 "titulo": "Error updating settings",
                                 "cuerpo": "Failed to update settings"
+                            }
+                        }
+                    }
+                }
+            },
+            "menu": "Main Menu Settings",
+            "configuracion_menu": {
+                "titulo": "Main Menu Settings",
+                "buscar": "Search category or subcategory",
+                "editar": "Edit",
+                "eliminar": "Delete",
+                "anadir_hijo": "Add Son",
+                "nueva_categoria": "New category",
+                "modal_edicion": {
+                    "titulo": "Edit category",
+                    "nombre": "Name",
+                    "enlace": "Link",
+                    "popover_enlace": "The link can be absolute (eg: \"http://www.domain.com\") or relative (eg: \"/ page / slug\"), in this second case it will be completed with the base URL of the website ."
+                },
+                "modal_eliminacion": {
+                    "titulo": "Deleting a category",
+                    "pregunta": "Are you sure you want to delete the category?"
+                },
+                "mensajes": {
+                    "exito": {
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Setting updated successfully",
+                                "cuerpo": "You have successfully updated the main menu settings"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error updating setting",
+                                "cuerpo": "Failed to update main menu settings"
+                            }
+                        }
+                    }
+                }
+            },
+            "configuracion_footer": {
+                "titulo": "Footer Settings",
+                "buscar": "Search category or subcategory",
+                "editar": "Edit",
+                "eliminar": "Delete",
+                "anadir_hijo": "Add Son",
+                "nueva_categoria": "New category",
+                "modal_edicion": {
+                    "titulo": "Edit category",
+                    "nombre": "Name",
+                    "enlace": "Link",
+                    "popover_enlace": "The link can be absolute (eg: \"http://www.domain.com\") or relative (eg: \"/ page / slug\"), in this second case it will be completed with the base URL of the website ."
+                },
+                "modal_eliminacion": {
+                    "titulo": "Deleting a category",
+                    "pregunta": "Are you sure you want to delete the category?"
+                },
+                "mensajes": {
+                    "exito": {
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Setting updated successfully",
+                                "cuerpo": "You have successfully updated the footer settings"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error updating setting",
+                                "cuerpo": "Failed to update footer settings"
                             }
                         }
                     }

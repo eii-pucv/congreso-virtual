@@ -24,6 +24,6 @@ class Taxonomy extends Model
      */
     public function terms()
     {
-        return $this->belongsToMany('App\Term');
+        return $this->belongsToMany('App\Term')->withPivot('id');
     }
 }

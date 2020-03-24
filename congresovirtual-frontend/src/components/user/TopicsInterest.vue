@@ -27,7 +27,9 @@
                                                         class="custom-control-label"
                                                         :for="'check-' + category.id"
                                                         :style="mode==='dark'?'color: #fff':''"
-                                                >{{ category.value }}</label>
+                                                >
+                                                    {{ category.value }}
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
@@ -43,12 +45,12 @@
 </template>
 
 <script>
-    import axios from "../../backend/axios";
-    import { bus } from "../../main";
+    import axios from '../../backend/axios';
+    import { bus } from '../../main';
 
     export default {
         name: 'TopicsInterest',
-        props: {},
+        props: { },
         data() {
             return {
                 categories: [],

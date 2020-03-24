@@ -196,7 +196,7 @@
                                 centered
                         >
                             <template v-slot:modal-header>
-                                <h5 class="hk-sec-title text-white my-3">{{ $t('administrador.componentes.eliminar_organizacion.modal_eliminacion.titulo') }}</h5>
+                                <h6 class="text-white">{{ $t('administrador.componentes.eliminar_organizacion.modal_eliminacion.titulo') }}</h6>
                             </template>
                             <div class="form-row">
                                 <div class="col-md-12 mb-10">
@@ -209,7 +209,7 @@
                                             class="vld-parent"
                                             variant="danger"
                                             size="sm"
-                                            @click="deleteOrganization(false)"
+                                            @click.prevent="deleteOrganization(false)"
                                     >
                                         <font-awesome-icon icon="trash" />
                                         <span class="btn-text"> {{ $t('si') }}</span>
@@ -223,7 +223,7 @@
                                     <b-button
                                             variant="secondary"
                                             size="sm"
-                                            @click="$bvModal.hide('delete-organization-modal')"
+                                            @click.prevent="$bvModal.hide('delete-organization-modal')"
                                     >
                                         <font-awesome-icon icon="window-close" />
                                         <span class="btn-text"> {{ $t('no') }}</span>
@@ -247,8 +247,14 @@
                             <div class="form-row">
                                 <div class="col-md-12 mb-10">
                                     <p>{{ $t('administrador.componentes.eliminar_organizacion.modal_forzar_eliminacion.pregunta') }}</p>
-                                    <br>
-                                    <small>{{ $t('administrador.componentes.eliminar.precaucion') }}</small>
+                                    <div class="alert alert-warning row ma-0 mt-10 pa-0">
+                                        <div class="col-sm-2 text-center align-self-center pa-10">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </div>
+                                        <div class="col-sm-10 pa-10">
+                                            {{ $t('administrador.componentes.eliminar.precaucion') }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <template v-slot:modal-footer>
@@ -257,7 +263,7 @@
                                             class="vld-parent"
                                             variant="danger"
                                             size="sm"
-                                            @click="deleteOrganization(true)"
+                                            @click.prevent="deleteOrganization(true)"
                                     >
                                         <font-awesome-icon icon="trash" />
                                         <span class="btn-text"> {{ $t('si') }}</span>
@@ -271,7 +277,7 @@
                                     <b-button
                                             variant="secondary"
                                             size="sm"
-                                            @click="$bvModal.hide('force-delete-organization-modal')"
+                                            @click.prevent="$bvModal.hide('force-delete-organization-modal')"
                                     >
                                         <font-awesome-icon icon="window-close" />
                                         <span class="btn-text"> {{ $t('no') }}</span>
@@ -303,7 +309,7 @@
                                             class="vld-parent"
                                             variant="primary"
                                             size="sm"
-                                            @click="undeleteOrganization"
+                                            @click.prevent="undeleteOrganization"
                                     >
                                         <font-awesome-icon icon="trash-restore" />
                                         <span class="btn-text"> {{ $t('si') }}</span>
@@ -317,7 +323,7 @@
                                     <b-button
                                             variant="secondary"
                                             size="sm"
-                                            @click="$bvModal.hide('undelete-organization-modal')"
+                                            @click.prevent="$bvModal.hide('undelete-organization-modal')"
                                     >
                                         <font-awesome-icon icon="window-close" />
                                         <span class="btn-text"> {{ $t('no') }}</span>

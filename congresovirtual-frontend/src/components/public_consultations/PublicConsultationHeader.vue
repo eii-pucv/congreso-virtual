@@ -6,21 +6,21 @@
                     :src="getImgUrl()"
             />
             <div class="top-left" style="max-width: 80%;">
-                <a
+                <router-link
                         v-for="term in publicConsultation.terms"
                         :key="term.id"
-                        :href="'/search?terms_id[]=' + term.id"
+                        :to="{ path: '/public_consultations', query: { 'terms_id[]': term.id } }"
                         class="badge badge-dark font-12 p-1 m-1"
                 >
                     {{ term.value }}
-                </a>
+                </router-link>
             </div>
             <a
                     class="btn text-white bg-indigo-light-2 top-right mr-10 mt-10 font-20"
                     data-toggle="modal"
                     :data-target="'#myModal' + publicConsultation.id"
             >
-                <span class="btn-text"><font-awesome-icon icon="share-square" /></span>
+                <i class="fas fa-share-square"></i>
             </a>
             <h5 class="col-12 hk-sec-title col-12 bottom text-white pb-20">
                 <p class="col-12">
@@ -43,7 +43,7 @@
                 <div v-if="publicConsultation.estado === 1 && isAvailableVoting" class="bg-indigo-light-1">
                     {{ $t('consulta.componentes.header.votacion_abierta') }}
                     <v-popover>
-                        <fontAwesomeIcon class="tooltip-target b3 font-18" icon="question-circle"></fontAwesomeIcon>
+                        <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
                         <template slot="popover">
                             <p>{{ $t('consulta.componentes.header.popover') }}</p>
                         </template>
@@ -52,7 +52,7 @@
                 <div v-else class="bg-red-dark-3">
                     {{ $t('consulta.componentes.header.votacion_cerrada') }}
                     <v-popover>
-                        <fontAwesomeIcon class="tooltip-target b3 font-18" icon="question-circle"></fontAwesomeIcon>
+                        <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
                         <template slot="popover">
                             <p>{{ $t('consulta.componentes.header.popover') }}</p>
                         </template>
@@ -68,7 +68,7 @@
                         :style="mode==='dark'?'background: rgb(12, 1, 80); border-color: #fff;':''"
                 >
                     <span class="d-block">{{ $t('votos.a_favor') }}</span>
-                    <span class="col-6 font-30"><i class="fa fa-thumbs-up"></i></span>
+                    <span class="col-6 font-30"><i class="fas fa-thumbs-up"></i></span>
                     <span class="col-6 display-6">{{ publicConsultation.votos_a_favor }}</span>
                 </div>
                 <div
@@ -79,7 +79,7 @@
                         :style="mode==='dark'?'background: rgb(12, 1, 80); border-color: #fff;':''"
                 >
                     <span class="d-block">{{ $t('votos.en_contra') }}</span>
-                    <span class="col-6 font-30"><i class="fa fa-thumbs-down"></i></span>
+                    <span class="col-6 font-30"><i class="fas fa-thumbs-down"></i></span>
                     <span class="col-6 display-6">{{ publicConsultation.votos_en_contra }}</span>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                     <div class="modal-header">
                         <h4 class="modal-title">{{ $t('compartir') }}</h4>
                         <button type="button" class="close" data-dismiss="modal">
-                            <span><i class="fa fa-times"></i></span>
+                            <i class="fas fa-times"></i>
                         </button>
                     </div>
                     <div class="modal-body text-center">
@@ -103,35 +103,20 @@
                                 inline-template
                         >
                             <div>
-                                <network
-                                        class="btn btn-block btn-social btn-email bg-red-light-2 text-white"
-                                        network="email"
-                                >
-                                    <i class="fa fa-envelope"></i> Email
+                                <network class="btn btn-block btn-social btn-email bg-red-light-2 text-white" network="email">
+                                    <i class="fas fa-envelope"></i> Email
                                 </network>
-                                <network
-                                        class="btn btn-block btn-social btn-fb bg-indigo-dark-1 text-white"
-                                        network="facebook"
-                                >
-                                    <span class="fa fa-facebook"></span> Facebook
+                                <network class="btn btn-block btn-social btn-fb bg-indigo-dark-1 text-white" network="facebook">
+                                    <i class="fab fa-facebook-square"></i> Facebook
                                 </network>
-                                <network
-                                        class="btn btn-block btn-social bg-blue-dark-2 text text-white"
-                                        network="linkedin"
-                                >
-                                    <i class="fa fa-linkedin"></i> LinkedIn
+                                <network class="btn btn-block btn-social bg-blue-dark-2 text text-white" network="linkedin">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
                                 </network>
-                                <network
-                                        class="btn btn-block btn-social btn-twitter bg-blue-light-1 text text-white"
-                                        network="twitter"
-                                >
-                                    <i class="fa fa-twitter"></i> Twitter
+                                <network class="btn btn-block btn-social btn-twitter bg-blue-light-1 text text-white" network="twitter">
+                                    <i class="fab fa-twitter"></i> Twitter
                                 </network>
-                                <network
-                                        class="btn btn-block btn-social bg-green-light-1 text text-white"
-                                        network="whatsapp"
-                                >
-                                    <i class="fa fa-whatsapp"></i> WhatsApp
+                                <network class="btn btn-block btn-social bg-green-light-1 text text-white" network="whatsapp">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
                                 </network>
                             </div>
                         </social-sharing>
@@ -146,7 +131,6 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import SocialSharing from 'vue-social-sharing';
     import { API_URL } from '../../backend/data_server';
     import { APP_URL } from '../../data/globals';
@@ -154,8 +138,7 @@
 
     export default {
         components: {
-            SocialSharing,
-            FontAwesomeIcon
+            SocialSharing
         },
         name: 'PublicConsultationHeader',
         props: {

@@ -17,7 +17,6 @@ class ProjectReport
      *
      * @param object $project
      * @param object $projectControllerInstance
-     * @param object $commentControllerInstance
      * @return void
      */
     public function __construct($project, $projectControllerInstance = null)

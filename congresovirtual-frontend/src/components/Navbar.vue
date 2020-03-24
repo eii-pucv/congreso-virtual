@@ -3,16 +3,28 @@
         <nav class="navbar navbar-expand-lg bg-primary container">
             <div class="accordion" id="accordion_1">
                 <Slide ref="Slide" disableOutsideClick>
-                    <a v-if="!isLoggedIn" class="nav-item pa-0 d-lg-none">
-                        <router-link class="nav-link btn btn-outline-light mx-1 d-lg-none" :to="{ path: '/signup' }">
-                            <font-awesome-icon icon="user-plus"></font-awesome-icon>{{ $t('navbar.registrar') }}
-                        </router-link>
-                        <router-link class="nav-link btn btn-light mx-1 d-lg-none" :to="{ path: '/login' }">
-                            <font-awesome-icon class="text-primary" icon="sign-in-alt"></font-awesome-icon>
-                            <a class="text-primary">{{ $t('navbar.iniciar_sesion') }}</a>
-                        </router-link>
-                    </a>
-                    <form @submit.prevent="search" class="input-group md-form mt-0 ml-0 pl-2">
+                    <div class="d-md-none">
+                        <div v-if="!isLoggedIn" class="btn-group btn-block">
+                            <router-link :to="{ path: '/signup' }" class="btn btn-outline-light btn-sm text-white">
+                                <i class="fas fa-user-plus"></i> {{ $t('navbar.registrar') }}
+                            </router-link>
+                            <router-link :to="{ path: '/login' }" class="btn btn-light btn-sm">
+                                <i class="fas fa-sign-in-alt"></i> {{ $t('navbar.iniciar_sesion') }}
+                            </router-link>
+                        </div>
+                        <div v-else-if="isLoggedIn" class="btn-group btn-block">
+                            <router-link v-if="userData.rol === 'ADMIN'" :to="{ path: '/admin' }" class="btn btn-outline-light btn-sm text-white">
+                                <i class="fas fa-user-circle"></i> {{ $t('navbar.admin') }}
+                            </router-link>
+                            <router-link v-else-if="userData.rol === 'USER'" :to="{ path: '/user' }" class="btn btn-outline-light btn-sm text-white">
+                                <i class="fas fa-user-circle"></i> {{ $t('navbar.perfil') }}
+                            </router-link>
+                            <button @click.prevent="logout" class="btn btn-light btn-sm">
+                                <i class="fas fa-sign-out-alt"></i> {{ $t('navbar.cerrar_sesion.titulo') }}
+                            </button>
+                        </div>
+                    </div>
+                    <form @submit.prevent="search" class="input-group md-form">
                         <input
                                 class="form-control"
                                 type="text"
@@ -20,19 +32,16 @@
                                 v-model="searchText"
                         />
                         <div class="input-group-append">
-                            <button class="btn btn-secondary" type="submit">
-                                <font-awesome-icon class="text-white" icon="search"></font-awesome-icon>
+                            <button class="btn btn-secondary text-white" type="submit">
+                                <i class="fas fa-search"></i>
                             </button>
                         </div>
                     </form>
-                    <div>
-                        <p class="text-white">{{ $t('navbar.modo_oscuro') }}</p>
-                        <Toggle/>
-                    </div>
                     <div
-                            v-for="category in categories"
+                            v-for="(category, index) in categories"
                             :key="category.id"
-                            class="d-block border-top border-bottom border-light mr-5"
+                            class="d-block"
+                            :class="index !== 0 ? 'border-light border-top' : ''"
                     >
                         <div class="d-flex justify-content-between">
                             <a
@@ -41,7 +50,9 @@
                                     :href="'#collapse_' + category.id"
                                     aria-expanded="false"
                                     class="collapsed text-white"
-                            >{{ category.text }}</a>
+                            >
+                                {{ category.text }}
+                            </a>
                         </div>
                         <div
                                 v-if="category.subcategorias"
@@ -53,103 +64,65 @@
                             <router-link
                                     v-for="subcategory in category.subcategorias"
                                     :key="subcategory.id"
-                                    class="card-body pa-0 my-10 ml-10 text-white d-block"
                                     :to="{ path: subcategory.url }"
+                                    class="card-body pa-0 my-10 ml-10 text-white d-block"
                             >
                                 {{ subcategory.text }}
                             </router-link>
                         </div>
                     </div>
-                    <div class="d-block" v-if="isMobileDevice">
-                        <ul class="navbar-nav">
-                            <li v-if="!isLoggedIn" class="nav-item mb-10">
-                                <router-link class="nav-link btn btn-outline-light mx-1 d-none d-lg-block" :to="{ path: '/signup' }">
-                                    <font-awesome-icon icon="user-plus" size="lg"></font-awesome-icon> {{ $t('navbar.registrar') }}
-                                </router-link>
-                            </li>
-                            <li v-if="!isLoggedIn" class="nav-item mb-10">
-                                <router-link class="nav-link btn btn-light mx-1 d-none d-lg-block" :to="{ path: '/login' }">
-                                    <font-awesome-icon class="text-primary" icon="sign-in-alt" size="lg"></font-awesome-icon>
-                                    <a class="text-primary"> {{ $t('navbar.iniciar_sesion') }}</a>
-                                </router-link>
-                            </li>
-                            <li v-if="isLoggedIn && userData.rol === 'ADMIN'" class="nav-item mb-10">
-                                <router-link class="nav-link" :to="{ path: '/admin' }">
-                                    <font-awesome-icon icon="user-circle" size="lg"></font-awesome-icon> {{ $t('navbar.admin') }}
-                                </router-link>
-                            </li>
-                            <li v-if="isLoggedIn && userData.rol === 'USER'" class="nav-item mb-10">
-                                <router-link class="nav-link" :to="{ path: '/user' }">
-                                    <font-awesome-icon icon="user-circle" size="lg"></font-awesome-icon> {{ $t('navbar.perfil') }}
-                                </router-link>
-                            </li>
-                            <li v-if="isLoggedIn" class="nav-item mb-10">
-                                <a class="nav-link" @click="logout" style="cursor: pointer;">
-                                    <font-awesome-icon icon="sign-out-alt" size="lg"></font-awesome-icon> {{ $t('navbar.cerrar_sesion.titulo') }}
-                                </a>
-                            </li>
-                        </ul>
+                    <Language></Language>
+                    <div>
+                        <p class="text-white">{{ $t('navbar.modo_oscuro') }}</p>
+                        <Toggle/>
                     </div>
-                    <language></language>
                 </Slide>
             </div>
             <a class="text-white navbar-brand h3 ml-80 my-2" href="/">
                 <p>{{ siteName }}</p>
             </a>
-            <ul class="navbar-nav top-right">
-                <li v-if="!isLoggedIn" class="nav-item">
-                    <router-link class="nav-link btn btn-outline-light mx-1 d-none d-lg-block" :to="{ path: '/signup' }">
-                        <font-awesome-icon icon="user-plus" size="lg"></font-awesome-icon> {{ $t('navbar.registrar') }}
+            <div class="navbar-nav top-right d-none d-md-block">
+                <div v-if="!isLoggedIn" class="btn-group btn-block">
+                    <router-link :to="{ path: '/signup' }" class="btn btn-outline-light text-white">
+                        <i class="fas fa-user-plus"></i> {{ $t('navbar.registrar') }}
                     </router-link>
-                </li>
-                <li v-if="!isLoggedIn && !isMobileDevice" class="nav-item">
-                    <router-link class="nav-link btn btn-light mx-1 d-none d-lg-block" :to="{ path: '/login' }">
-                        <font-awesome-icon class="text-primary" icon="sign-in-alt" size="lg"></font-awesome-icon>
-                        <a class="text-primary"> {{ $t('navbar.iniciar_sesion') }}</a>
+                    <router-link :to="{ path: '/login' }" class="btn btn-light">
+                        <i class="fas fa-sign-in-alt"></i> {{ $t('navbar.iniciar_sesion') }}
                     </router-link>
-                </li>
-                <li v-if="isLoggedIn && userData.rol === 'ADMIN' && !isMobileDevice" class="nav-item">
-                    <router-link class="nav-link" :to="{ path: '/admin' }">
-                        <font-awesome-icon icon="user-circle" size="lg"></font-awesome-icon> {{ $t('navbar.admin') }}
+                </div>
+                <div v-else-if="isLoggedIn">
+                    <router-link v-if="userData.rol === 'ADMIN'" :to="{ path: '/admin' }" class="btn text-white">
+                        <i class="fas fa-user-circle"></i> {{ $t('navbar.admin') }}
                     </router-link>
-                </li>
-                <li v-if="isLoggedIn && userData.rol === 'USER' && !isMobileDevice" class="nav-item">
-                    <router-link class="nav-link" :to="{ path: '/user' }">
-                        <font-awesome-icon icon="user-circle" size="lg"></font-awesome-icon> {{ $t('navbar.perfil') }}
+                    <router-link v-else-if="userData.rol === 'USER'" :to="{ path: '/user' }" class="btn text-white">
+                        <i class="fas fa-user-circle"></i> {{ $t('navbar.perfil') }}
                     </router-link>
-                </li>
-                <li v-if="isLoggedIn && !isMobileDevice" class="nav-item">
-                    <a class="nav-link" @click="logout" style="cursor: pointer;">
-                        <font-awesome-icon icon="sign-out-alt" size="lg"></font-awesome-icon> {{ $t('navbar.cerrar_sesion.titulo') }}
-                    </a>
-                </li>
-            </ul>
+                    <button @click.prevent="logout" class="btn text-white">
+                        <i class="fas fa-sign-out-alt"></i> {{ $t('navbar.cerrar_sesion.titulo') }}
+                    </button>
+                </div>
+            </div>
         </nav>
     </div>
 </template>
 
 <script>
-    import { Slide } from "vue-burger-menu";
-    import jQuery from "jquery";
+    import { Slide } from 'vue-burger-menu';
+    import jQuery from 'jquery';
     window.jQuery = jQuery;
     window.$ = jQuery;
 
-    require("../../src/assets/js/dropdown-bootstrap-extended");
-    import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-    import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
-    import { library } from "@fortawesome/fontawesome-svg-core";
-    import axios from "../backend/axios";
-    import Toggle from "../views/Toggle";
-    import language from "./Language";
+    require('../../src/assets/js/dropdown-bootstrap-extended');
+    import axios from '../backend/axios';
+    import Toggle from '../views/Toggle';
+    import Language from './Language';
 
-    library.add(faBars);
     export default {
         name: 'Navbar',
         components: {
-            FontAwesomeIcon,
             Slide,
             Toggle,
-            language
+            Language
         },
         data: function() {
             return {
@@ -223,15 +196,9 @@
             },
             userData() {
                 return this.$store.getters.userData;
-            },
-            isMobileDevice() {
-                return (
-                    typeof window.orientation !== 'undefined' ||
-                    navigator.userAgent.indexOf('IEMobile') !== -1
-                );
-            },
-        },
-    };
+            }
+        }
+    }
 </script>
 
 <style scoped>

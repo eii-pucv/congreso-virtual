@@ -2,7 +2,8 @@
 
 namespace App;
 
-use App\Search\Observers\TermObserver;
+use App\Observers\TermObserver;
+use App\Search\Observers\TermObserver as TermSearchObserver;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,8 +24,9 @@ class Term extends Model
     protected static function boot()
     {
         parent::boot();
+        static::observe(TermObserver::class);
         if(config('services.search.enabled')) {
-            static::observe(TermObserver::class);
+            static::observe(TermSearchObserver::class);
         }
     }
 
@@ -33,7 +35,7 @@ class Term extends Model
      */
     public function children()
     {
-        return $this->hasMany('App\Term', 'parent_id');
+        return $this->hasMany('App\Term', 'parent_id')->with(['children']);
     }
 
     /**
@@ -41,7 +43,7 @@ class Term extends Model
      */
     public function taxonomies()
     {
-        return $this->belongsToMany('App\Taxonomy');
+        return $this->belongsToMany('App\Taxonomy')->withPivot('id');
     }
 
     /**

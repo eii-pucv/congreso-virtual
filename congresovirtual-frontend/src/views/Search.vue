@@ -136,11 +136,11 @@
                                     {{ $t('search.proyecto') }}
                                     <div class="d-flex">
                                         <div class="inline-block text-success mr-15">
-                                            <i class="fa icon-like"></i>
+                                            <i class="fas icon-like"></i>
                                             {{ object.votos_a_favor }}
                                         </div>
                                         <div class="inline-block text-danger">
-                                            <i class="fa icon-dislike"></i>
+                                            <i class="fas icon-dislike"></i>
                                             {{ object.votos_en_contra }}
                                         </div>
                                     </div>
@@ -171,7 +171,7 @@
                                                 :class="mode==='dark'?'':'text-primary '"
                                         >{{ $t('search.ver_mas') }}</span>
                                     </p>
-                                    <router-link :to="'/project/' + object.id" class="btn btn-primary">{{ $t('participar') }}</router-link>
+                                    <router-link :to="{ path: '/project/' + object.id }" class="btn btn-primary">{{ $t('participar') }}</router-link>
                                 </div>
                             </div>
                             <div
@@ -184,11 +184,11 @@
                                     {{ $t('search.idea') }}
                                     <div class="d-flex">
                                         <div class="inline-block text-success mr-15">
-                                            <i class="fa icon-like"></i>
+                                            <i class="fas icon-like"></i>
                                             {{ object.votos_a_favor }}
                                         </div>
                                         <div class="inline-block text-danger">
-                                            <i class="fa icon-dislike"></i>
+                                            <i class="fas icon-dislike"></i>
                                             {{ object.votos_en_contra }}
                                         </div>
                                     </div>
@@ -221,10 +221,7 @@
                                                 :class="mode==='dark'?'':'text-primary '"
                                         >{{ $t('search.ver_mas') }}</span>
                                     </p>
-                                    <router-link
-                                            :to="'/project/' + object.project_id"
-                                            class="btn btn-primary"
-                                    >{{ $t('participar') }}</router-link>
+                                    <router-link :to="{ path: '/project/' + object.project_id }" class="btn btn-primary">{{ $t('participar') }}</router-link>
                                 </div>
                             </div>
                             <div
@@ -237,11 +234,11 @@
                                     {{ $t('search.articulo') }}
                                     <div class="d-flex">
                                         <div class="inline-block text-success mr-15">
-                                            <i class="fa icon-like"></i>
+                                            <i class="fas icon-like"></i>
                                             {{ object.votos_a_favor }}
                                         </div>
                                         <div class="inline-block text-danger">
-                                            <i class="fa icon-dislike"></i>
+                                            <i class="fas icon-dislike"></i>
                                             {{ object.votos_en_contra }}
                                         </div>
                                     </div>
@@ -274,7 +271,7 @@
                                                 :class="mode==='dark'?'':'text-primary '"
                                         >{{ $t('search.ver_mas') }}</span>
                                     </p>
-                                    <router-link :to="'/project/' + object.project_id" class="btn btn-primary">{{ $t('participar') }}</router-link>
+                                    <router-link :to="{ path: '/project/' + object.project_id }" class="btn btn-primary">{{ $t('participar') }}</router-link>
                                 </div>
                             </div>
                             <div
@@ -310,11 +307,11 @@
                                     {{ $t('search.consulta') }}
                                     <div class="d-flex">
                                         <div class="inline-block text-success mr-15">
-                                            <i class="fa icon-like"></i>
+                                            <i class="fas icon-like"></i>
                                             {{ object.votos_a_favor }}
                                         </div>
                                         <div class="inline-block text-danger">
-                                            <i class="fa icon-dislike"></i>
+                                            <i class="fas icon-dislike"></i>
                                             {{ object.votos_en_contra }}
                                         </div>
                                     </div>
@@ -341,7 +338,7 @@
                                                 :class="mode==='dark'?'':'text-primary '"
                                         >{{ $t('search.ver_mas') }}</span>
                                     </p>
-                                    <router-link :to="'/public_consultation/' + object.id " class="btn btn-primary">{{ $t('participar') }}</router-link>
+                                    <router-link :to="{ path: '/public_consultation/' + object.id }" class="btn btn-primary">{{ $t('participar') }}</router-link>
                                 </div>
                             </div>
                             <div
@@ -373,11 +370,11 @@
                                     {{ $t('search.propuesta') }}
                                     <div class="d-flex">
                                         <div v-if="object.type === 1" class="inline-block text-primary">
-                                            <i class="fa icon-like"></i>
+                                            <i class="fas icon-like"></i>
                                             {{ object.petitions }}
                                         </div>
                                         <div v-else-if="object.type === 2" class="inline-block text-warning">
-                                            <i class="fa icon-like"></i>
+                                            <i class="fas icon-like"></i>
                                             {{ object.urgencies }}
                                         </div>
                                     </div>
@@ -404,7 +401,7 @@
                                                 :class="mode==='dark'?'':'text-primary '"
                                         >{{ $t('search.ver_mas') }}</span>
                                     </p>
-                                    <router-link :to="'/proposal/' + object.id" class="btn btn-primary">{{ $t('participar') }}</router-link>
+                                    <router-link :to="{ path: '/proposal/' + object.id }" class="btn btn-primary">{{ $t('participar') }}</router-link>
                                 </div>
                             </div>
                             <div
@@ -417,7 +414,7 @@
                                 <div class="card-header">{{ $t('search.pagina') }}</div>
                                 <div class="card-body">
                                     <h5 class="card-title" :style="mode==='dark'?'color: #fff':''">{{ object.title }}</h5>
-                                    <router-link :to="'/page/' + object.slug" class="btn btn-primary">{{ $t('ver') }}</router-link>
+                                    <router-link :to="{ path: '/page/' + object.slug }" class="btn btn-primary">{{ $t('ver') }}</router-link>
                                 </div>
                             </div>
                         </div>

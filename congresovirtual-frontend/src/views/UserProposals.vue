@@ -60,7 +60,7 @@
                         </button>
                     </div>
                     <div class="btn-group btn-block">
-                        <a href="/proposals" class="btn btn-primary">{{ $t('propuestas_usuario.contenido.boton_propuestas_sugeridas') }}</a>
+                        <router-link :to="{ path: '/proposals' }" class="btn btn-primary">{{ $t('propuestas_usuario.contenido.boton_propuestas_sugeridas') }}</router-link>
                     </div>
                     <div class="alert alert-info mt-1 text-center">
                         <p>{{ $t('propuestas_usuario.contenido.mensaje_propuestas_sugeridas') }}</p>
@@ -110,7 +110,12 @@
                                 <div class="btn-group-vertical">
                                     <a class="font-1"> </a>
                                     <div class="btn-group mt-auto">
-                                        <a :href="'/proposal/' + proposal.id" class="btn btn-primary text-white font-12"><i class="fas fa-eye"></i><span class="btn-text">{{ $t('propuestas_usuario.contenido.ver') }}</span></a>
+                                        <router-link
+                                                :to="{ path: '/proposal/' + proposal.id }"
+                                                class="btn btn-primary text-white font-12"
+                                        >
+                                            <i class="fas fa-eye"></i> {{ $t('propuestas_usuario.contenido.ver') }}
+                                        </router-link>
                                     </div>
                                 </div>
                             </div>

@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="col-sm-4 justify-content-center my-auto">
-                            <div class="card card-profile-feed" style="background-color: inherit; border:inherit;">
+                            <div class="card card-profile-feed" style="background-color: inherit; border: inherit;">
                                 <div
                                         v-if="project.etapa === 1 && getIsAvailableVoting(project.id)"
                                         class="bg-white text-primary text-center font-20"
@@ -44,23 +44,23 @@
                                 </div>
                                 <div class="row mx-0 text-center text-white my-3">
                                     <div class="col-4 px-0">
-                                        <span class="d-block font-24"><i class="fa fa-thumbs-up"></i></span>
+                                        <span class="d-block font-24"><i class="fas fa-thumbs-up"></i></span>
                                         <span class="d-block font-14">{{ $t('votos.a_favor') }}</span>
                                         <span class="d-block display-6">{{ project.votos_a_favor }}</span>
                                     </div>
                                     <div class="col-4 px-0">
-                                        <span class="d-block font-24"><i class="fa fa-thumbs-down"></i></span>
+                                        <span class="d-block font-24"><i class="fas fa-thumbs-down"></i></span>
                                         <span class="d-block font-14">{{ $t('votos.en_contra') }}</span>
                                         <span class="d-block display-6">{{ project.votos_en_contra }}</span>
                                     </div>
                                     <div class="col-4 px-0">
-                                        <span class="d-block font-24"><i class="fa fa-minus-circle"></i></span>
+                                        <span class="d-block font-24"><i class="fas fa-minus-circle"></i></span>
                                         <span class="d-block font-14">{{ $t('votos.abstencion') }}</span>
                                         <span class="d-block display-6">{{ project.abstencion }}</span>
                                     </div>
                                 </div>
-                                <router-link :to="{ path: 'project/' + project.id }" class="btn btn-success text-white">
-                                    <i class="fa fa-users"></i> <span class="btn-text"> {{ $t('home.componentes.carrusel_proyectos.participar') }}</span>
+                                <router-link class="btn btn-success text-white" :to="{ path: 'project/' + project.id }">
+                                    <i class="fas fa-users"></i> {{ $t('home.componentes.carrusel_proyectos.participar') }}
                                 </router-link>
                             </div>
                         </div>
@@ -70,8 +70,8 @@
         </div>
         <div class="container-autoplay position-relative text-center">
             <button class="btn-autoplay-projects btn btn-outline-secondary btn-rounded position-absolute" @click="toggle()">
-                <span class="text-white" v-if="toggleValue === 'cycle'">▶</span>
-                <span class="text-white" v-else>❚❚</span>
+                <span class="text-white" v-if="toggleValue === 'cycle'"><i class="fas fa-play"></i></span>
+                <span class="text-white" v-else><i class="fas fa-pause"></i></span>
             </button>
         </div>
         <a class="carousel-control-prev" href="#carouselFade" role="button" data-slide="prev">
@@ -92,7 +92,6 @@
     import { faPause } from '@fortawesome/free-solid-svg-icons/faPause';
     import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
     import Loading from 'vue-loading-overlay';
-    import 'vue-loading-overlay/dist/vue-loading.css';
 
     library.add(faPause, faPlay);
     export default {

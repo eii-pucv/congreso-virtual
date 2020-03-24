@@ -14,9 +14,9 @@ import 'vue-glide-js/dist/vue-glide.css';
 import 'tiny-slider/src/tiny-slider.scss';
 import VueCarousel from 'vue-carousel';
 import BootstrapVue from 'bootstrap-vue';
-import vSelect from 'vue-select';
 import VueAnalytics from 'vue-analytics';
 import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -88,7 +88,6 @@ Vue.use(VTooltip);
 
 Vue.use(Loading);
 
-Vue.component('v-select', vSelect);
 new Vue({
     router,
     store,

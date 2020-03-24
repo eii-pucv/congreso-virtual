@@ -6,21 +6,21 @@
                     :src="getImgUrl()"
             />
             <div class="top-left" style="max-width: 80%;">
-                <a
+                <router-link
                         v-for="term in project.terms"
                         :key="term.id"
-                        :href="'/projects?terms_id[]=' + term.id"
+                        :to="{ path: '/projects', query: { 'terms_id[]': term.id } }"
                         class="badge badge-dark font-12 p-1 m-1"
                 >
                     {{ term.value }}
-                </a>
+                </router-link>
             </div>
             <a
                     class="btn text-white bg-indigo-light-2 top-right mr-10 mt-10 font-20"
                     data-toggle="modal"
                     :data-target="'#myModal' + project.id"
             >
-                <span class="btn-text"><font-awesome-icon icon="share-square"/></span>
+                <i class="fas fa-share-square"></i>
             </a>
             <h5 class="col-12 hk-sec-title bottom text-white pb-20">
                 <p class="col-12">
@@ -30,7 +30,7 @@
                     <small class="col-md-6 my-10">
                         {{ $t('proyecto.componentes.header.boletin') }}: {{ project.boletin }}
                         <v-popover>
-                            <fontAwesomeIcon class="tooltip-target" icon="info-circle"></fontAwesomeIcon>
+                            <span class="tooltip-target"><i class="fas fa-info-circle"></i></span>
                             <template slot="popover">
                                 <p>{{ $t('proyecto.componentes.header.popover_boletin') }}</p>
                             </template>
@@ -48,30 +48,36 @@
             <div class="d-block font-20 text-center text-white">
                 <div v-if="project.etapa === 1 && isAvailableVoting" class="bg-indigo-light-1">
                     {{ $t('votacion_general') }}
-                    <v-popover>
-                        <fontAwesomeIcon class="tooltip-target font-18" icon="question-circle"></fontAwesomeIcon>
-                        <template slot="popover">
-                            <p>{{ $t('proyecto.componentes.header.popover_general') }}</p>
-                        </template>
-                    </v-popover>
+                    <span>
+                        <v-popover>
+                            <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
+                            <template slot="popover">
+                                <p>{{ $t('proyecto.componentes.header.popover_general') }}</p>
+                            </template>
+                        </v-popover>
+                    </span>
                 </div>
                 <div v-else-if="project.etapa === 2 && isAvailableVoting" class="bg-green">
                     {{ $t('votacion_particular') }}
-                    <v-popover>
-                        <fontAwesomeIcon class="tooltip-target font-18" icon="question-circle"></fontAwesomeIcon>
-                        <template slot="popover">
-                            <p>{{ $t('proyecto.componentes.header.popover_particular') }}</p>
-                        </template>
-                    </v-popover>
+                    <span>
+                        <v-popover>
+                            <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
+                            <template slot="popover">
+                                <p>{{ $t('proyecto.componentes.header.popover_particular') }}</p>
+                            </template>
+                        </v-popover>
+                    </span>
                 </div>
                 <div v-else class="bg-red-dark-3">
                     {{ $t('votacion_cerrada') }}
-                    <v-popover>
-                        <fontAwesomeIcon class="tooltip-target font-18" icon="question-circle"></fontAwesomeIcon>
-                        <template slot="popover">
-                            <p>{{ $t('proyecto.componentes.header.popover_cerrada') }}</p>
-                        </template>
-                    </v-popover>
+                    <span>
+                        <v-popover>
+                            <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
+                            <template slot="popover">
+                                <p>{{ $t('proyecto.componentes.header.popover_cerrada') }}</p>
+                            </template>
+                        </v-popover>
+                    </span>
                 </div>
             </div>
             <div class="text-center ma-5">
@@ -83,7 +89,7 @@
                         :style="mode==='dark'?'background: rgb(12, 1, 80); border-color: #fff;':''"
                 >
                     <span class="d-block">{{ $t('votos.a_favor') }}</span>
-                    <span class="col-6 font-30"><i class="fa fa-thumbs-up"></i></span>
+                    <span class="col-6 font-30"><i class="fas fa-thumbs-up"></i></span>
                     <span class="col-6 display-6">{{ project.votos_a_favor }}</span>
                 </div>
                 <div
@@ -94,7 +100,7 @@
                         :style="mode==='dark'?'background: rgb(12, 1, 80); border-color: #fff;':''"
                 >
                     <span class="d-block">{{ $t('votos.en_contra') }}</span>
-                    <span class="col-6 font-30"><i class="fa fa-thumbs-down"></i></span>
+                    <span class="col-6 font-30"><i class="fas fa-thumbs-down"></i></span>
                     <span class="col-6 display-6">{{ project.votos_en_contra }}</span>
                 </div>
                 <div
@@ -105,7 +111,7 @@
                         :style="mode==='dark'?'background: rgb(12, 1, 80); border-color: #fff;':''"
                 >
                     <span class="d-block">{{ $t('votos.abstencion') }}</span>
-                    <span class="col-6 font-30"><fontAwesomeIcon icon="minus-circle"/></span>
+                    <span class="col-6 font-30"><i class="fas fa-minus-circle"></i></span>
                     <span class="col-6 display-6">{{ project.abstencion }}</span>
                 </div>
             </div>
@@ -116,32 +122,32 @@
                     <div class="modal-header">
                         <h4 class="modal-title">{{ $t('compartir') }}</h4>
                         <button type="button" class="close" data-dismiss="modal">
-                            <span><i class="fa fa-times"></i></span>
+                            <i class="fas fa-times"></i>
                         </button>
                     </div>
                     <div class="modal-body text-center">
                         <social-sharing :url="APP_URL + '/project/' + project.id"
-                            :title="'Congreso Virtual: '+ project.titulo"
-                            :description="project.titulo"
-                            :quote="project.titulo"
-                            hashtags="congresovirtual"
-                            inline-template
+                                :title="'Congreso Virtual: '+ project.titulo"
+                                :description="project.titulo"
+                                :quote="project.titulo"
+                                hashtags="congresovirtual"
+                                inline-template
                         >
                             <div>
                                 <network class="btn btn-block btn-social btn-email bg-red-light-2 text-white" network="email">
-                                    <i class="fa fa-envelope"></i> Email
+                                    <i class="fas fa-envelope"></i> Email
                                 </network>
                                 <network class="btn btn-block btn-social btn-fb bg-indigo-dark-1 text-white" network="facebook">
-                                    <span class="fa fa-facebook"></span> Facebook
+                                    <span class="fab fa-facebook-square"></span> Facebook
                                 </network>
                                 <network class="btn btn-block btn-social bg-blue-dark-2 text text-white" network="linkedin">
-                                    <i class="fa fa-linkedin"></i> LinkedIn
+                                    <i class="fab fa-linkedin"></i> LinkedIn
                                 </network>
                                 <network class="btn btn-block btn-social btn-twitter bg-blue-light-1 text text-white" network="twitter">
-                                    <i class="fa fa-twitter"></i> Twitter
+                                    <i class="fab fa-twitter"></i> Twitter
                                 </network>
                                 <network class="btn btn-block btn-social bg-green-light-1 text text-white" network="whatsapp">
-                                    <i class="fa fa-whatsapp"></i> WhatsApp
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
                                 </network>
                             </div>
                         </social-sharing>
@@ -156,24 +162,17 @@
 </template>
 
 <script>
-    import Countdown from "./Countdown"
-    import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-    import { library } from "@fortawesome/fontawesome-svg-core";
+    import Countdown from './Countdown';
     import SocialSharing from 'vue-social-sharing';
-    import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
-    import { faShareSquare } from "@fortawesome/free-solid-svg-icons/faShareSquare";
-    import { API_URL } from "../../backend/data_server";
+    import { API_URL } from '../../backend/data_server';
     import { APP_URL } from '../../data/globals';
-    import { faMinusCircle } from "@fortawesome/free-solid-svg-icons/faMinusCircle";
     import { bus } from '../../main';
-    import axios from "../../backend/axios";
+    import axios from '../../backend/axios';
 
-    library.add(faInfoCircle, faShareSquare, faMinusCircle);
     export default {
         components: {
-            SocialSharing,
-            FontAwesomeIcon,
-            Countdown
+            Countdown,
+            SocialSharing
         },
         name: 'ProjectHeader',
         props: {

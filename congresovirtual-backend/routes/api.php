@@ -37,41 +37,9 @@ Route::group(['prefix' => 'storage'], function () {
     Route::get('/comments/{comment}/{storedBasename}', 'StorageController@showFileOfComment');
 });
 
-Route::get('/ngram', function(Request $request) {
-    $client = new \GuzzleHttp\Client();
-    $request = $client->request(
-        'GET',
-        env('APP_ANALYTIC_URL') . '/ngram',
-        [
-            'query' => [
-                'words' => $request->get('min_words'),
-                'project_id' => $request->get('project_id')
-            ]
-        ]
-    );
-    $response = $request->getBody();
-    return $response;
-});
-
-Route::get('/topicmodel', function(Request $request) {
-    set_time_limit(1800);
-
-    $client = new \GuzzleHttp\Client();
-    $request = $client->request(
-        'GET',
-        env('APP_ANALYTIC_URL') . '/topicmodel',
-        [
-            'query' => [
-                'project_id' => $request->get('project_id')
-            ]
-        ]
-    );
-    $response = $request->getBody();
-    return $response;
-});
-
 Route::get('/wordcloud', 'WordCloudController@show');
-
+Route::get('/ngram', 'NgramController@show');
+Route::get('/topicmodel', 'TopicModelController@show');
 
 Route::group(['middleware' => ['auth:api', 'has.roles:ADMIN,USER']], function() {
 

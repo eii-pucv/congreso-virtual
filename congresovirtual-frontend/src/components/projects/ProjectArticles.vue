@@ -1,5 +1,5 @@
 <template>
-    <div id="project-articles-container">
+    <div>
         <div v-if="loadArticles" class="vld-parent" style="height: 500px;">
             <Loading
                     :active.sync="loadArticles"
@@ -41,7 +41,7 @@
                                         style="display: inline-block;"
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); border-color: #fff;':''"
                                 >
-                                    <span class="d-block font-24"><i class="fa fa-thumbs-up"></i></span>
+                                    <span class="d-block font-24"><i class="fas fa-thumbs-up"></i></span>
                                     <span class="d-block font-14">{{ $t('votos.a_favor') }}</span>
                                     <span class="d-block display-6">{{ article.votos_a_favor }}</span>
                                 </div>
@@ -52,7 +52,7 @@
                                         style="display: inline-block;"
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); border-color: #fff;':''"
                                 >
-                                    <span class="d-block font-24"><i class="fa fa-thumbs-down"></i></span>
+                                    <span class="d-block font-24"><i class="fas fa-thumbs-down"></i></span>
                                     <span class="d-block font-14">{{ $t('votos.en_contra') }}</span>
                                     <span class="d-block display-6">{{ article.votos_en_contra }}</span>
                                 </div>
@@ -63,7 +63,7 @@
                                         style="display: inline-block;"
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); border-color: #fff;':''"
                                 >
-                                    <span class="d-block font-24"><font-awesome-icon icon="minus-circle"/></span>
+                                    <span class="d-block font-24"><i class="fas fa-minus-circle"></i></span>
                                     <span class="d-block font-14">{{ $t('votos.abstencion') }}</span>
                                     <span class="d-block display-6">{{ article.abstencion }}</span>
                                 </div>
@@ -100,7 +100,6 @@
     import PieChart from '../../PieChart.js';
     import axios from '../../backend/axios';
     import Loading from 'vue-loading-overlay';
-    import htmlToImage from 'html-to-image';
 
     export default {
         name: 'ProjectArticles',
@@ -371,18 +370,6 @@
                     return chartData;
                 }
                 return null;
-            },
-            retornarId(i) {
-                htmlToImage.toPng(document.getElementById('canvas'+i))
-                    .then(function (dataUrl) {
-                        var img = new Image();
-                        img.src = dataUrl;
-                        document.body.appendChild(img);
-                        return img.src;
-                    })
-                    .catch(function (error) {
-                        console.error('oops, something went wrong!', error);
-                    });
             },
             forceRerender() {
                 this.keyChartComponent += 1

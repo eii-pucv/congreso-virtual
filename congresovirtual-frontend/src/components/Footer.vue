@@ -4,11 +4,11 @@
             <div class="row">
                 <div class="col mx-auto" v-for="category in categories" :key="category.id">
                     <h5 class="font-weight-bold text-uppercase text-white mt-3 mb-4">
-                        <a class="text-white" :href="category.url">{{ category.text }}</a>
+                        <router-link :to="{ path: category.url }" class="text-white">{{ category.text }}</router-link>
                     </h5>
                     <ul v-if="category.subcategorias" class="list-unstyled">
                         <li v-for="subcategory in category.subcategorias" :key="subcategory.id">
-                            <a class="text-white" :href="subcategory.url">{{ subcategory.text }}</a>
+                            <router-link :to="{ path: subcategory.url }" class="text-white">{{ subcategory.text }}</router-link>
                         </li>
                     </ul>
                 </div>
@@ -17,9 +17,9 @@
         <div class="container text-center text-white mb-30">
             <div class="row">
                 <div class="col-md-4 my-auto">
-                    <a class="h5 text-md-left text-uppercase text-white" href="/">
+                    <router-link :to="{ path: '/' }" class="h5 text-md-left text-uppercase text-white">
                         <p>{{ siteName }}</p>
-                    </a>
+                    </router-link>
                 </div>
                 <div class="col-md-4 my-auto">
                     <p v-if="address">{{ $t('componentes.footer.direccion') }}: {{ address }}</p>
@@ -27,16 +27,16 @@
                 </div>
                 <div class="col-md-4 text-md-right" v-bind:class="{ 'text-right': !isMobileDevice }">
                     <a v-if="socialNetworks.facebook" :href="socialNetworks.facebook" class="mr-1" style="font-size: 3rem; color: white;">
-                        <span><i class="fa fa-facebook-square"></i></span>
+                        <i class="fab fa-facebook-square"></i>
                     </a>
                     <a v-if="socialNetworks.twitter" :href="socialNetworks.twitter" class="mr-1" style="font-size: 3rem; color: white;">
-                        <span><i class="fa fa-twitter-square"></i></span>
+                        <i class="fab fa-twitter-square"></i>
                     </a>
                     <a v-if="socialNetworks.youtube" :href="socialNetworks.youtube" class="mr-1" style="font-size: 3rem; color: white;">
-                        <span><i class="fa fa-youtube-square"></i></span>
+                        <i class="fab fa-youtube"></i>
                     </a>
                     <a v-if="socialNetworks.instagram" :href="socialNetworks.instagram" class="mr-1" style="font-size: 3rem; color: white;">
-                        <span><i class="fa fa-instagram"></i></span>
+                        <i class="fab fa-instagram"></i>
                     </a>
                 </div>
             </div>

@@ -10,10 +10,10 @@
             <div class="slider-container">
                 <ul class="controls d-flex" id="customize-controls" tabindex="0">
                     <li class="prev btn bg-indigo-dark-2 text-white font-18 left-control" data-controls="prev" aria-controls="customize" tabindex="-1">
-                        <span><i class="fa fa-angle-left"></i></span>
+                        <i class="fas fa-angle-left"></i>
                     </li>
                     <li class="next btn bg-indigo-dark-2 text-white font-18 right-control" data-controls="next" aria-controls="customize" tabindex="-1">
-                        <span><i class="fa fa-angle-right"></i></span>
+                        <i class="fas fa-angle-right"></i>
                     </li>
                     <li id="btn-autoplay" class="btn btn-autoplay bg-indigo-dark-2 text-white font-18 mx-auto mb-2 d-none" data-controls="stop" tabindex="-1" style="width:43px;height:43px;"></li>
                 </ul>
@@ -29,7 +29,7 @@
                         <div class="modal-header">
                             <h4 class="modal-title">{{ $t('compartir') }}</h4>
                             <button type="button" class="close" data-dismiss="modal">
-                                <span><i class="fa fa-times"></i></span>
+                                <i class="fas fa-times"></i>
                             </button>
                         </div>
                         <div class="modal-body text-center">
@@ -42,19 +42,19 @@
                             >
                                 <div>
                                     <network class="btn btn-block btn-social btn-email bg-red-light-2 text-white" network="email">
-                                        <i class="fa fa-envelope"></i> Email
+                                        <i class="fas fa-envelope"></i> Email
                                     </network>
                                     <network class="btn btn-block btn-social btn-fb bg-indigo-dark-1 text-white" network="facebook">
-                                        <span class="fa fa-facebook"></span> Facebook
+                                        <i class="fab fa-facebook-square"></i> Facebook
                                     </network>
                                     <network class="btn btn-block btn-social bg-blue-dark-2 text text-white" network="linkedin">
-                                        <i class="fa fa-linkedin"></i> LinkedIn
+                                        <i class="fab fa-linkedin"></i> LinkedIn
                                     </network>
                                     <network class="btn btn-block btn-social btn-twitter bg-blue-light-1 text text-white" network="twitter">
-                                        <i class="fa fa-twitter"></i> Twitter
+                                        <i class="fab fa-twitter"></i> Twitter
                                     </network>
                                     <network class="btn btn-block btn-social bg-green-light-1 text text-white" network="whatsapp">
-                                        <i class="fa fa-whatsapp"></i> WhatsApp
+                                        <i class="fab fa-whatsapp"></i> WhatsApp
                                     </network>
                                 </div>
                             </social-sharing>
@@ -158,11 +158,12 @@
         position: absolute;
         z-index: 3;
         margin-top: 240px;
-        /* margin-top: 290px; */
     }
+
     .left-control {
         left: -3%;
     }
+
     .right-control {
         right: -3%;
     }

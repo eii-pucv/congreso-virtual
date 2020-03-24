@@ -9,7 +9,7 @@
                     <p class="px-4 mb-2" :style="mode === 'dark' ? 'color: #fff' : ''">{{ $t('perfil_usuario.componentes.votos.cantidad') }}: {{ totalResults }}</p> 
                     <br/>
                     <ul class="list-group list-group-flush px-10" v-if="votes.length > 0">
-                        <a v-for="(vote, index) in votes" v-if="vote.project" :href="'/project/' + vote.project_id" :key="'votos_proyecto_' + index" class="mb-2 list-group-item list-group-item-action border border-success rounded" :class="mode === 'dark' ? 'dark' : 'light'">
+                        <router-link v-for="(vote, index) in votes" v-if="vote.project" :to="{ path: '/project/' + vote.project_id }" :key="'votos_proyecto_' + index" class="mb-2 list-group-item list-group-item-action border border-success rounded" :class="mode === 'dark' ? 'dark' : 'light'">
                             <div class="media align-items-center">
                                 <div class="media-body">
                                     <span class="d-block  text-capitalize" :style="mode === 'dark' ? 'color: #fff' : ''">
@@ -18,13 +18,13 @@
                                     <span class="d-block font-26">{{ new Date(vote.project.updated_at) | moment("D MMM YYYY")}}</span>
                                 </div>
                                 <a href="#" class="text-light-40 ml-auto">
-                                    <span v-if="vote.vote === 0" class="font-30 col-6 text-green"><i class="fa fa-thumbs-up"></i></span>
-                                    <span v-if="vote.vote === 1" class="font-30 col-6 text-red"><i class="fa fa-thumbs-down"></i></span>
-                                    <span v-if="vote.vote === 2" class="font-30 col-6 text-grey"><i class="fa fa-minus-circle"></i></span>
+                                    <span v-if="vote.vote === 0" class="font-30 col-6 text-green"><i class="fas fa-thumbs-up"></i></span>
+                                    <span v-if="vote.vote === 1" class="font-30 col-6 text-red"><i class="fas fa-thumbs-down"></i></span>
+                                    <span v-if="vote.vote === 2" class="font-30 col-6 text-grey"><i class="fas fa-minus-circle"></i></span>
                                 </a>
                             </div>
-                        </a>
-                        <a v-for="(vote, index) in votes" v-if="vote.article" :href="'/project/' + vote.article.project_id" :key="'votos_articulo_' + index" class="mb-2 list-group-item list-group-item-action border border-success rounded" :class="mode === 'dark' ? 'dark' : 'light'">
+                        </router-link>
+                        <router-link v-for="(vote, index) in votes" v-if="vote.article" :to="{ path: '/project/' + vote.article.project_id }" :key="'votos_articulo_' + index" class="mb-2 list-group-item list-group-item-action border border-success rounded" :class="mode === 'dark' ? 'dark' : 'light'">
                             <div class="media align-items-center">
                                 <div class="media-body">
                                     <span class="d-block  text-capitalize" :style="mode === 'dark' ? 'color: #fff' : ''">
@@ -33,13 +33,13 @@
                                     <span class="d-block font-26">{{ new Date(vote.article.updated_at) | moment("D MMM YYYY")}}</span>
                                 </div>
                                 <a href="#" class="text-light-40 ml-auto">
-                                    <span v-if="vote.vote === 0" class="font-30 col-6 text-green"><i class="fa fa-thumbs-up"></i></span>
-                                    <span v-if="vote.vote === 1" class="font-30 col-6 text-red"><i class="fa fa-thumbs-down"></i></span>
-                                    <span v-if="vote.vote === 2" class="font-30 col-6 text-grey"><i class="fa fa-minus-circle"></i></span>
+                                    <span v-if="vote.vote === 0" class="font-30 col-6 text-green"><i class="fas fa-thumbs-up"></i></span>
+                                    <span v-if="vote.vote === 1" class="font-30 col-6 text-red"><i class="fas fa-thumbs-down"></i></span>
+                                    <span v-if="vote.vote === 2" class="font-30 col-6 text-grey"><i class="fas fa-minus-circle"></i></span>
                                 </a>
                             </div>
-                        </a>
-                        <a v-for="(vote, index) in votes" v-if="vote.idea" :href="'/project/' + vote.idea.project_id" :key="'votos_idea_' + index" class="mb-2 list-group-item list-group-item-action border border-success rounded" :class="mode === 'dark' ? 'dark' : 'light'">
+                        </router-link>
+                        <router-link v-for="(vote, index) in votes" v-if="vote.idea" :to="{ path: '/project/' + vote.idea.project_id }" :key="'votos_idea_' + index" class="mb-2 list-group-item list-group-item-action border border-success rounded" :class="mode === 'dark' ? 'dark' : 'light'">
                             <div class="media align-items-center" >
                                 <div class="media-body">
                                     <span class="d-block  text-capitalize" :style="mode === 'dark' ? 'color: #fff' : ''">
@@ -48,13 +48,13 @@
                                     <span class="d-block font-26">{{ new Date(vote.idea.updated_at) | moment("D MMM YYYY")}}</span>
                                 </div>
                                 <a href="#" class="text-light-40 ml-auto">
-                                    <span v-if="vote.vote === 0" class="font-30 col-6 text-green"><i class="fa fa-thumbs-up"></i></span>
-                                    <span v-if="vote.vote === 1" class="font-30 col-6 text-red"><i class="fa fa-thumbs-down"></i></span>
-                                    <span v-if="vote.vote === 2" class="font-30 col-6 text-grey"><i class="fa fa-minus-circle"></i></span>
+                                    <span v-if="vote.vote === 0" class="font-30 col-6 text-green"><i class="fas fa-thumbs-up"></i></span>
+                                    <span v-if="vote.vote === 1" class="font-30 col-6 text-red"><i class="fas fa-thumbs-down"></i></span>
+                                    <span v-if="vote.vote === 2" class="font-30 col-6 text-grey"><i class="fas fa-minus-circle"></i></span>
                                 </a>
                             </div>
-                        </a>
-                        <a v-for="(vote, index) in votes" v-if="vote.public_consultation" :href="'/project/' + vote.public_consultation" :key="'votos_idea_' + index" class="mb-2 list-group-item list-group-item-action border border-success rounded" :class="mode === 'dark' ? 'dark' : 'light'">
+                        </router-link>
+                        <router-link v-for="(vote, index) in votes" v-if="vote.public_consultation" :to="{ path: '/project/' + vote.public_consultation }" :key="'votos_idea_' + index" class="mb-2 list-group-item list-group-item-action border border-success rounded" :class="mode === 'dark' ? 'dark' : 'light'">
                             <div class="media align-items-center" >
                                 <div class="media-body">
                                     <span class="d-block  text-capitalize" :style="mode === 'dark' ? 'color: #fff' : ''">
@@ -63,12 +63,12 @@
                                     <span class="d-block font-26">{{ new Date(vote.public_consultation.updated_at) | moment("D MMM YYYY")}}</span>
                                 </div>
                                 <a href="#" class="text-light-40 ml-auto">
-                                    <span v-if="vote.vote === 0" class="font-30 col-6 text-green"><i class="fa fa-thumbs-up"></i></span>
-                                    <span v-if="vote.vote === 1" class="font-30 col-6 text-red"><i class="fa fa-thumbs-down"></i></span>
-                                    <span v-if="vote.vote === 2" class="font-30 col-6 text-grey"><i class="fa fa-minus-circle"></i></span>
+                                    <span v-if="vote.vote === 0" class="font-30 col-6 text-green"><i class="fas fa-thumbs-up"></i></span>
+                                    <span v-if="vote.vote === 1" class="font-30 col-6 text-red"><i class="fas fa-thumbs-down"></i></span>
+                                    <span v-if="vote.vote === 2" class="font-30 col-6 text-grey"><i class="fas fa-minus-circle"></i></span>
                                 </a>
                             </div>
-                        </a>
+                        </router-link>
                     </ul>
                     <div class="mb-20" v-if="totalResults > votes.length">
                         <button class="vld-parent btn btn-secondary btn-block" @click="loadMore">{{ $t('perfil_usuario.componentes.votos.cargar') }}
@@ -96,59 +96,59 @@
 </template>
 
 <script>
-import axios from "../../backend/axios";
-import {bus} from "../../main";
+    import axios from "../../backend/axios";
 
-export default {
-    name: "userVotes",
-    data() {
-        return {
-            votes: [],
-            totalResults: 0,
-            limit: 10,
-            offset: 0,
-            loadBtnLoadMore: false,
-            loaded: false,
-            failed: false,
-            mode: String,
-        };
-    },
-    methods: {
-        loadMore() {
-            this.loadBtnLoadMore = true;
-            this.getVotes();
+    export default {
+        name: 'UserVotes',
+        data() {
+            return {
+                votes: [],
+                totalResults: 0,
+                limit: 10,
+                offset: 0,
+                loadBtnLoadMore: false,
+                loaded: false,
+                failed: false,
+                mode: String,
+            };
         },
-        getVotes() {
-            axios
-                .get("/users/"+  JSON.parse(localStorage.user).id+"/votes", {
-                    params: {
-                        limit: this.limit,
-                        offset: this.offset
-                    }
-                })
-                .then(res => {
-                    this.totalResults = res.data.total_results
-                    this.votes = this.votes.concat(res.data.results)
-                    this.offset += res.data.returned_results
-                })
-                .catch(() => {
-                    // console.log("FALLO");
-                    this.failed = true;
-                })
-                .finally(() => {
-                    this.loaded = true;
-                })
+        methods: {
+            loadMore() {
+                this.loadBtnLoadMore = true;
+                this.getVotes();
+            },
+            getVotes() {
+                axios
+                    .get("/users/"+  JSON.parse(localStorage.user).id+"/votes", {
+                        params: {
+                            limit: this.limit,
+                            offset: this.offset
+                        }
+                    })
+                    .then(res => {
+                        this.totalResults = res.data.total_results
+                        this.votes = this.votes.concat(res.data.results)
+                        this.offset += res.data.returned_results
+                    })
+                    .catch(() => {
+                        // console.log("FALLO");
+                        this.failed = true;
+                    })
+                    .finally(() => {
+                        this.loaded = true;
+                    })
+            },
         },
-    },
-    mounted(){
-        if ((this.$store.getters.modo_oscuro == "dark") || (window.location.href.includes("dark"))) {
-            this.mode = "dark"
-        } else {
-            this.mode = "light"
+        mounted(){
+            if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
+                this.mode = 'dark';
+            } else {
+                this.mode = 'light';
+            }
+
+            this.getVotes()
         }
-        this.getVotes()
     }
-}
 </script>
 
 <style scoped>

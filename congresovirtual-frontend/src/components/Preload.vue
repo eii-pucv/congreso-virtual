@@ -9,7 +9,3 @@
         name: 'Preload'
     }
 </script>
-
-<style scoped>
-
-</style>

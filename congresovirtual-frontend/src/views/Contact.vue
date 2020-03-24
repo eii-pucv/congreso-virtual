@@ -25,8 +25,7 @@
             <div class="row">
                 <div class="col">
                     <div class="card" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
-                        <div class="card-header bg-primary text-white"><i class="fa fa-envelope"></i> {{ $t('contacto.breadcumb.contacto') }}
-                        </div>
+                        <div class="card-header bg-primary text-white"><i class="fas fa-envelope"></i> {{ $t('contacto.breadcumb.contacto') }}</div>
                         <div class="card-body">
                             <form>
                                 <div class="form-group">
@@ -67,9 +66,9 @@
                                     ></textarea>
                                 </div>
                                 <div class="mx-auto text-center">
-                                    <a role="button" class="btn btn-success text-white">
-                                        <font-awesome-icon icon="envelope"/><span class="btn-text" @click="createMail"> {{ $t('enviar') }}</span>
-                                    </a>
+                                    <button @click.prevent="createMail" class="btn btn-success text-white">
+                                        <i class="fas fa-envelope"></i> {{ $t('enviar') }}
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -77,19 +76,19 @@
                 </div>
                 <div class="col-12 col-sm-4">
                     <div class="card text-center bg-light mb-3">
-                        <div class="card-header bg-success text-white text-uppercase"><i class="fa fa-home"></i> {{ $t('contacto.contenido.info') }}</div>
+                        <div class="card-header bg-success text-white text-uppercase"><i class="fas fa-home"></i> {{ $t('contacto.contenido.info') }}</div>
                         <div class="card-body" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
                             <ul class="list-group list-group-flush w-100 align-items-stretch">
                                 <li>
-                                    <i class="fa fa-map-marker fa-2x"></i>
+                                    <i class="fas fa-map-marker-alt fa-2x"></i>
                                     <p v-if="address">{{ address }}</p>
                                 </li>
                                 <li>
-                                    <i class="fa fa-phone mt-4 fa-2x"></i>
+                                    <i class="fas fa-phone-alt mt-4 fa-2x"></i>
                                     <p v-if="contactPhones.length > 0">{{ contactPhonesToString }}</p>
                                 </li>
                                 <li>
-                                    <i class="fa fa-envelope mt-4 fa-2x"></i>
+                                    <i class="fas fa-envelope mt-4 fa-2x"></i>
                                     <p v-if="contactEmails.length > 0">{{ contactEmailsToString }}</p>
                                 </li>
                             </ul>

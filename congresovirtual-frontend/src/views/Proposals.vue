@@ -200,7 +200,6 @@
 </template>
 
 <script>
-import "vue-loading-overlay/dist/vue-loading.css";
 import { BModal } from "bootstrap-vue";
 import datePicker from 'vue-bootstrap-datetimepicker';
 import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';

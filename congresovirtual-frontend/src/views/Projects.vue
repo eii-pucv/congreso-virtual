@@ -127,11 +127,11 @@
                                     {{ $t('proyectos.contenido.tipo_objeto') }}
                                     <div class="d-flex">
                                         <div class="inline-block text-success mr-15">
-                                            <i class="fa icon-like"></i>
+                                            <i class="fas icon-like"></i>
                                             {{ project.votos_a_favor }}
                                         </div>
                                         <div class="inline-block text-danger">
-                                            <i class="fa icon-dislike"></i>
+                                            <i class="fas icon-dislike"></i>
                                             {{ project.votos_en_contra }}
                                         </div>
                                     </div>
@@ -161,7 +161,7 @@
                                                 :id="'myBtn-' + project.id"
                                         >{{ $t('proyectos.contenido.ver_mas') }}</span>
                                     </p>
-                                    <router-link :to="'/project/' + project.id" class="btn btn-primary">{{ $t('participar') }}</router-link>
+                                    <router-link :to="{ path: '/project/' + project.id }" class="btn btn-primary">{{ $t('participar') }}</router-link>
                                 </div>
                             </div>
                         </div>

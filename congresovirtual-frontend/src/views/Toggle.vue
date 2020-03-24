@@ -1,14 +1,12 @@
 <template>
-    <div>
-        <label class="toggle ml-10">
-            <input
-                    type="checkbox"
-                    :checked="mode ? 'checked' : false"
-                    @change="changeMode"
-            >
-            <span class="toggler round"></span>
-        </label>
-    </div>
+    <label class="toggle ml-10 my-0">
+        <input
+                type="checkbox"
+                :checked="mode ? 'checked' : false"
+                @change="changeMode"
+        >
+        <span class="toggler round"></span>
+    </label>
 </template>
 
 <script>
@@ -42,13 +40,13 @@
             }
         },
         mounted() {
-            if(window.location.href.includes("dark")) {
+            if(window.location.href.includes('dark')) {
                 this.mode = true
             }
 
-            if(this.$store.getters.modo_oscuro == "dark") {
-                this.mode = true
-                dark_mode.estado = "dark";
+            if(this.$store.getters.modo_oscuro == 'dark') {
+                this.mode = true;
+                dark_mode.estado = 'dark';
             }
             this.$store.commit('setDarkMode');
         }

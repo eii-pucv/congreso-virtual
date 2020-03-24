@@ -43,12 +43,12 @@ import CreateOrEditOffensiveWord from "./components/admin/offensive_words/Create
 import PagesList from "./components/admin/pages/PagesList";
 import CreateOrEditPage from "./components/admin/pages/CreateOrEditPage";
 
-import deleteElement from "./components/admin/deleteElement";
+import DeleteElement from "./components/admin/DeleteElement";
 
 import ProfileEdit from "./components/user/ProfileEdit";
-import GeneralSettings from "./components/admin/GeneralSettings";
-import menuConfig from "./components/admin/menuConfig";
-import footerConfig from "./components/admin/footerConfig";
+import GeneralSettings from "./components/admin/settings/GeneralSettings";
+import MenuSettings from "./components/admin/settings/MenuSettings";
+import FooterSettings from "./components/admin/settings/FooterSettings";
 
 Vue.use(Router);
 
@@ -426,26 +426,26 @@ const routes = [
                 component: GeneralSettings
             },
             {
-                path: 'menu',
+                path: 'menu_settings',
                 props: true,
-                component: menuConfig
+                component: MenuSettings
             },
             {
-                path: 'footer',
+                path: 'footer_settings',
                 props: true,
-                component: footerConfig
+                component: FooterSettings
             },
             // Para borrar proyectos, usuarios, consultas y taxonomias
             {
                 path: ':list_name/:item_id/delete',
                 props: true,
-                component: deleteElement
+                component: DeleteElement
             },
             // Para borrar elementos que contienen los proyectos, usuarios, consultas y taxonomias
             {
                 path: 'project/:item_id/:list_name/:subItem_id/delete',
                 props: true,
-                component: deleteElement
+                component: DeleteElement
             },
         ]
     }

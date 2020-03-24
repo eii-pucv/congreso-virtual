@@ -260,8 +260,7 @@
                         </div>
                         <div class="text-center mt-5">
                             <button class="btn btn-primary vld-parent" type="submit">
-                                <font-awesome-icon icon="save" />
-                                <span class="btn-text ml-1">{{ $t('guardar') }}</span>
+                                <i class="fas fa-save"></i> {{ $t('guardar') }}
                                 <Loading
                                         :active.sync="loadBtnSave"
                                         :is-full-page="fullPage"
@@ -270,8 +269,7 @@
                                 ></Loading>
                             </button>
                             <button @click.prevent="back" class="btn btn-danger text-white ml-10">
-                                <font-awesome-icon icon="window-close" />
-                                <span class="btn-text ml-1">{{ $t('cancelar') }}</span>
+                                <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
                             </button>
                         </div>
                     </form>
@@ -367,8 +365,7 @@
                     </div>
                     <div class="text-center mt-5">
                         <button class="btn btn-primary vld-parent" type="submit">
-                            <font-awesome-icon icon="save" />
-                            <span class="btn-text ml-1">{{ $t('guardar') }}</span>
+                            <i class="fas fa-save"></i> {{ $t('guardar') }}
                             <Loading
                                     :active.sync="loadBtnSave"
                                     :is-full-page="fullPage"
@@ -377,8 +374,7 @@
                             ></Loading>
                         </button>
                         <button @click.prevent="back" class="btn btn-danger text-white ml-10">
-                            <font-awesome-icon icon="window-close" />
-                            <span class="btn-text ml-1">{{ $t('cancelar') }}</span>
+                            <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
                         </button>
                     </div>
                 </form>
@@ -497,10 +493,10 @@
                                     v-bind:class="{ 'btn-group': index || (!index && user.member_orgs.length > 1) }"
                             >
                                 <a @click="removeMember(index)" v-show="index || (!index && user.member_orgs.length > 1)" class="btn btn-sm btn-danger text-white">
-                                    <span class="btn-text"><font-awesome-icon icon="minus"/></span>
+                                    <i class="fas fa-minus"></i>
                                 </a>
                                 <a @click="addMember()" class="btn btn-sm btn-primary text-white">
-                                    <span class="btn-text"><font-awesome-icon icon="plus"/></span>
+                                    <i class="fas fa-plus"></i>
                                 </a>
                             </div>
                         </div>
@@ -551,10 +547,10 @@
                                     v-bind:class="{ 'btn-group': index || (!index && user.location_orgs.length > 1) }"
                             >
                                 <a @click="removeLoaction(index)" v-show="index || (!index && user.location_orgs.length > 1)" class="btn btn-sm btn-danger text-white">
-                                    <span class="btn-text"><font-awesome-icon icon="minus"/></span>
+                                    <i class="fas fa-minus"></i>
                                 </a>
                                 <a @click="addLocation()" class="btn btn-sm btn-primary text-white">
-                                    <span class="btn-text"><font-awesome-icon icon="plus"/></span>
+                                    <i class="fas fa-plus"></i>
                                 </a>
                             </div>
                         </div>
@@ -667,8 +663,7 @@
                     </div>
                     <div class="text-center mt-5">
                         <button class="btn btn-primary vld-parent" type="submit">
-                            <font-awesome-icon icon="save" />
-                            <span class="btn-text ml-1">{{ $t('guardar') }}</span>
+                            <i class="fas fa-save"></i> {{ $t('guardar') }}
                             <Loading
                                     :active.sync="loadBtnSave"
                                     :is-full-page="fullPage"
@@ -677,8 +672,7 @@
                             ></Loading>
                         </button>
                         <button @click.prevent="back" class="btn btn-danger text-white ml-10">
-                            <font-awesome-icon icon="window-close" />
-                            <span class="btn-text ml-1">{{ $t('cancelar') }}</span>
+                            <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
                         </button>
                     </div>
                 </form>
@@ -747,8 +741,7 @@
                     </div>
                     <div class="text-center mt-5">
                         <button class="btn btn-primary vld-parent" type="submit">
-                            <font-awesome-icon icon="save" />
-                            <span class="btn-text ml-1">{{ $t('guardar') }}</span>
+                            <i class="fas fa-save"></i> {{ $t('guardar') }}
                             <Loading
                                     :active.sync="loadBtnChangePassword"
                                     :is-full-page="fullPage"
@@ -757,8 +750,7 @@
                             ></Loading>
                         </button>
                         <button @click.prevent="back" class="btn btn-danger text-white ml-10">
-                            <font-awesome-icon icon="window-close" />
-                            <span class="btn-text ml-1">{{ $t('cancelar') }}</span>
+                            <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
                         </button>
                     </div>
                 </div>

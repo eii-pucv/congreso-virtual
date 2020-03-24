@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 
 class WordCloudController extends Controller
@@ -17,37 +19,40 @@ class WordCloudController extends Controller
     public function show(Request $request)
     {
         try {
-            $words = $request->query('words', 10000);
+            $maxWords = $request->query('max_words', 100);
             $project = Project::findOrFail($request->project_id);
-            $wordCloudData = $this->getWordCloudData($project, $words);
+            $wordCloudData = $this->getWordCloudData($project, $maxWords);
 
-            return response()->json($wordCloudData);
+            return response()->json($wordCloudData, 200);
         } catch (\Exception $exception) {
             return response()->json([
-                'message' => 'Error: the word cloud was not generated.'], 412);
+                'message' => 'Error: the word cloud was not generated.'
+            ], 412);
         }
     }
 
-    public function getWordCloudData($project, $words = 100)
+    public function getWordCloudData($project, $maxWords = 100)
     {
-        $client = new \GuzzleHttp\Client();
-        $analyticRequest = $client->request(
-            'GET',
-            env('APP_ANALYTIC_URL') . '/wordcloud',
-            [
-                'query' => [
-                    'words' => $words,
-                    'project_id' => $project->id
+        try {
+            $client = new Client();
+            $analyticRequest = $client->request(
+                'GET',
+                env('APP_ANALYTIC_URL') . '/wordcloud',
+                [
+                    'query' => [
+                        'max_words' => $maxWords,
+                        'project_id' => $project->id
+                    ]
                 ]
-            ]
-        );
-        $analyticResponse = json_decode(($analyticRequest->getBody()));
-        if(!is_array($analyticResponse) || !isset($analyticResponse[0])) {
+            );
+            $analyticResponse = json_decode($analyticRequest->getBody());
+            $strWordCloud = $analyticResponse->value;
+
+            return $this->loadWordCloud($strWordCloud, $project);
+        } catch (RequestException $exception) {
             $strWordCloud = $project->resumen;
-        } else {
-            $strWordCloud = $analyticResponse[0];
+            return $this->loadWordCloud($strWordCloud, $project);
         }
-        return $this->loadWordCloud($strWordCloud, $project);
     }
 
     private function loadWordCloud($strWordCloud, $project)

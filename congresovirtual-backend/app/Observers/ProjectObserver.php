@@ -22,6 +22,7 @@ class ProjectObserver
             }
 
             $project->votes()->delete();
+            $project->topicModel()->delete();
             File::whereIn('id', $projectFiles)->delete();
         } else {
             $projectArticles = $project->articles()->withTrashed()->get();
@@ -57,8 +58,9 @@ class ProjectObserver
         foreach($projectComments as $comment) {
             $comment->restore();
         }
-        
+
         $project->votes()->restore();
+        $project->topicModel()->restore();
         $projectFiles = $project->files(true)->pluck('id');
         File::withTrashed()->whereIn('id', $projectFiles)->restore();
     }

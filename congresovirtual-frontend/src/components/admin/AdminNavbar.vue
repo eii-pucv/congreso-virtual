@@ -3,17 +3,17 @@
         <div class="row mb-30">
             <div class="col-sm">
                 <nav class="navbar navbar-expand-xl navbar-dark" style="background-color: #454545">
-                    <a class="navbar-brand d-flex align-items-center" href="/admin">
+                    <a class="navbar-brand d-xl-none" href="/admin">
                         <h4>{{ $t('administrador.navbar.titulo') }}</h4>
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedExample" aria-controls="navbarSupportedExample" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedExample">
-                        <ul class="navbar-nav mr-auto">
+                        <ul class="nav navbar-nav">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="btn-text"><i class="fas fa-wrench"></i> {{ $t('administrador.navbar.mi_configuracion.titulo') }}</span>
+                                    <i class="fas fa-wrench"></i> {{ $t('administrador.navbar.mi_configuracion.titulo') }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navDropdown">
                                     <router-link class="dropdown-item" :to="{ path: '/admin/profile' }">{{ $t('administrador.navbar.mi_configuracion.perfil') }}</router-link>
@@ -21,7 +21,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="btn-text"><i class="fas fa-users"></i> {{ $t('administrador.navbar.usuarios.titulo') }}</span>
+                                    <i class="fas fa-users"></i> {{ $t('administrador.navbar.usuarios.titulo') }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navDropdown">
                                     <router-link class="dropdown-item" :to="{ path:'/admin/users' }">{{ $t('administrador.navbar.usuarios.lista_usuarios') }}</router-link>
@@ -31,7 +31,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="btn-text"><i class="fas fa-clipboard-list"></i> {{ $t('administrador.navbar.proyectos.titulo') }}</span>
+                                    <i class="fas fa-clipboard-list"></i> {{ $t('administrador.navbar.proyectos.titulo') }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navDropdown">
                                     <router-link class="dropdown-item" :to="{ path:'/admin/projects' }">{{ $t('administrador.navbar.proyectos.lista') }}</router-link>
@@ -40,7 +40,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="btn-text"><i class="fas fa-file-signature"></i> {{ $t('administrador.navbar.consultas.titulo') }}</span>
+                                    <i class="fas fa-file-signature"></i> {{ $t('administrador.navbar.consultas.titulo') }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navDropdown">
                                     <router-link class="dropdown-item" :to="{ path:'/admin/public_consultations' }">{{ $t('administrador.navbar.consultas.lista') }}</router-link>
@@ -49,7 +49,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="btn-text"><i class="fas fa-bullhorn"></i> {{ $t('administrador.navbar.propuestas.titulo') }}</span>
+                                    <i class="fas fa-bullhorn"></i> {{ $t('administrador.navbar.propuestas.titulo') }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navDropdown">
                                     <router-link class="dropdown-item" :to="{ path:'/admin/proposals' }">{{ $t('administrador.navbar.propuestas.lista') }}</router-link>
@@ -58,7 +58,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="btn-text"><i class="fas fa-book"></i> {{ $t('administrador.navbar.taxonomias.titulo') }}</span>
+                                    <i class="fas fa-book"></i> {{ $t('administrador.navbar.taxonomias.titulo') }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navDropdown">
                                     <router-link class="dropdown-item" :to="{ path:'/admin/taxonomies' }">{{ $t('administrador.navbar.taxonomias.lista') }}</router-link>
@@ -67,7 +67,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="btn-text"><i class="fas fa-balance-scale-left"></i> {{ $t('administrador.navbar.moderaciones.titulo') }}</span>
+                                    <i class="fas fa-balance-scale-left"></i> {{ $t('administrador.navbar.moderaciones.titulo') }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navDropdown">
                                     <router-link class="dropdown-item" :to="{ path:'/admin/waiting' }">{{ $t('administrador.navbar.moderaciones.espera') }}</router-link>
@@ -79,21 +79,21 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="btn-text"><i class="fas fa-clipboard-list"></i> {{ $t('administrador.navbar.contenido.titulo') }}</span>
+                                    <i class="fas fa-clipboard-list"></i> {{ $t('administrador.navbar.pagina.titulo') }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navDropdown">
-                                    <router-link class="dropdown-item" :to="{ path:'/admin/pages' }">{{ $t('administrador.navbar.contenido.lista') }}</router-link>
-                                    <router-link class="dropdown-item" :to="{ path:'/admin/page' }">{{ $t('administrador.navbar.contenido.crear') }}</router-link>
+                                    <router-link class="dropdown-item" :to="{ path:'/admin/pages' }">{{ $t('administrador.navbar.pagina.lista') }}</router-link>
+                                    <router-link class="dropdown-item" :to="{ path:'/admin/page' }">{{ $t('administrador.navbar.pagina.crear') }}</router-link>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="btn-text"><i class="fas fa-tools"></i> {{ $t('administrador.navbar.configuracion.titulo') }}</span>
+                                    <i class="fas fa-tools"></i> {{ $t('administrador.navbar.configuracion.titulo') }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navDropdown">
                                     <router-link class="dropdown-item" :to="{ path:'/admin/general_settings' }">{{ $t('administrador.navbar.configuracion.config') }}</router-link>
-                                    <router-link class="dropdown-item" :to="{ path:'/admin/menu' }">{{ $t('administrador.navbar.configuracion.menu') }}</router-link>
-                                    <router-link class="dropdown-item" :to="{ path:'/admin/footer' }">{{ $t('administrador.navbar.configuracion.footer') }}</router-link>
+                                    <router-link class="dropdown-item" :to="{ path:'/admin/menu_settings' }">{{ $t('administrador.navbar.configuracion.menu') }}</router-link>
+                                    <router-link class="dropdown-item" :to="{ path:'/admin/footer_settings' }">{{ $t('administrador.navbar.configuracion.footer') }}</router-link>
                                 </div>
                             </li>
                         </ul>

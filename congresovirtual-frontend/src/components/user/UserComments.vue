@@ -25,8 +25,8 @@
                             </div>
                             <div class="col-12">
                                 <div class="float-right">
-                                    <span class="mr-1 votable" ><i class="fa fa-thumbs-up"></i> {{ comment.votos_a_favor }} </span>
-                                    <span class="px-1 votable" > <i class="fa fa-thumbs-down"></i> {{ comment.votos_en_contra }}</span>
+                                    <span class="mr-1" ><i class="fas fa-thumbs-up"></i> {{ comment.votos_a_favor }} </span>
+                                    <span class="px-1" > <i class="fas fa-thumbs-down"></i> {{ comment.votos_en_contra }}</span>
                                 </div>
                             </div>
                         </li>
@@ -35,7 +35,7 @@
                         <button class="vld-parent btn btn-secondary btn-block" @click="loadMore">{{ $t('perfil_usuario.componentes.comentarios.cargar') }}
                             <loading
                                     :active.sync="loadBtnLoadMore"
-                                    :is-full-page="fullPage"
+                                    :is-full-page="false"
                                     :height="24"
                                     :color="color"
                             ></loading>
@@ -58,7 +58,6 @@
 
 <script>
     import axios from "../../backend/axios";
-    import {bus} from '../../main';
 
     export default {
         name: "userComments",
@@ -103,10 +102,10 @@
             },
         },
         mounted(){
-            if ((this.$store.getters.modo_oscuro == "dark") || (window.location.href.includes("dark"))) {
-                this.mode = "dark"
+            if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
+                this.mode = 'dark';
             } else {
-                this.mode = "light"
+                this.mode = 'light';
             }
 
             this.getComments();

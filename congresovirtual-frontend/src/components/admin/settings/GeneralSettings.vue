@@ -271,7 +271,7 @@
 </template>
 
 <script>
-    import axios from "../../backend/axios";
+    import axios from "../../../backend/axios";
     import Loading from 'vue-loading-overlay';
 
     export default {

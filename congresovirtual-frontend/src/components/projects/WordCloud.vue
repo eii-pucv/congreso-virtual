@@ -63,16 +63,16 @@
         },
         mounted() {
             if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
-                this.color = "#FFFFFF";
+                this.color = '#FFFFFF';
             } else {
-                this.color = "#000000";
+                this.color = '#000000';
             }
 
             axios
                 .get('/wordcloud', {
                     params: {
                         'project_id': this.project_id,
-                        'words': 100
+                        'max_words': 100
                     }
                 })
                 .then(res => {

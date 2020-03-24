@@ -41,15 +41,32 @@
                                 </div>
                             </div>
                             <div class="btn-group-vertical">
-                                <a class="font-1"> </a>
+                                <a class="font-1"></a>
                                 <div class="btn-group mt-auto">
-                                    <button @click="voteProposal(proposal)" class="btn btn-primary text-white font-12" :style="proposal.state == 0 ? 'cursor:auto;' : 'cursor:pointer;'"  :disabled="proposal.state == 0"><font-awesome-icon icon="vote-yea"/> <span class="btn-text"> {{ $t('home.contenido.incorporacion_proyectos.boton_apoyo') }}</span></button>
-                                    <a role="button" class="btn btn-secondary text-white font-12" :href="'/proposal/' + proposal.id"><font-awesome-icon icon="eye"/> <span class="btn-text"> {{ $t('home.contenido.incorporacion_proyectos.ver') }}</span></a>
+                                    <button
+                                            @click="voteProposal(proposal)"
+                                            class="btn btn-primary font-12"
+                                            :disabled="proposal.state == 0"
+                                            :style="proposal.state == 0 ? 'cursor: auto;' : 'cursor: pointer;'"
+                                    >
+                                        <i class="fas fa-vote-yea"></i> {{ $t('home.contenido.incorporacion_proyectos.boton_apoyo') }}
+                                    </button>
+                                    <router-link
+                                            class="btn btn-secondary font-12"
+                                            :to="{ path: '/proposal/' + proposal.id }"
+                                    >
+                                        <i class="fas fa-eye"></i> {{ $t('home.contenido.incorporacion_proyectos.ver') }}
+                                    </router-link>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <a :href="'/user-proposals?type=1'" class="btn btn-primary btn-block mb-15" style="text-transform: inherit"><i class="fas fa-eye"></i> {{ $t('home.contenido.boton_propuestas') }}</a>
+                    <router-link
+                            class="btn btn-primary btn-block mb-15"
+                            :to="{ path: '/user-proposals', query: { 'type': 1 } }"
+                    >
+                        <i class="fas fa-eye"></i> {{ $t('home.contenido.boton_propuestas') }}
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -94,17 +111,32 @@
                                 </div>
                             </div>
                             <div class="btn-group-vertical">
-                                <a class="font-1"> </a>
+                                <a class="font-1"></a>
                                 <div class="btn-group mt-auto">
-                                    <button @click="voteProposal(proposal)" class="btn btn-warning text-primary font-12" :style="proposal.state == 0 ? 'cursor:auto;' : 'cursor:pointer;'" :disabled="proposal.state == 0">
-                                        <i class="fa fa-warning"></i> <span class="btn-text"> {{ $t('home.contenido.urgencias_proyectos.boton_apoyo') }}</span>
+                                    <button
+                                            @click="voteProposal(proposal)"
+                                            class="btn btn-warning font-12"
+                                            :disabled="proposal.state == 0"
+                                            :style="proposal.state == 0 ? 'cursor: auto;' : 'cursor: pointer;'"
+                                    >
+                                        <i class="fas fa-warning"></i> {{ $t('home.contenido.urgencias_proyectos.boton_apoyo') }}
                                     </button>
-                                    <a :href="'/proposal/' + proposal.id" class="btn btn-primary text-white font-12"><i class="fas fa-eye"></i><span class="btn-text"> {{ $t('home.contenido.urgencias_proyectos.ver') }}</span></a>
+                                    <router-link
+                                            class="btn btn-primary font-12"
+                                            :to="{ path: '/proposal/' + proposal.id }"
+                                    >
+                                        <i class="fas fa-eye"></i> {{ $t('home.contenido.urgencias_proyectos.ver') }}
+                                    </router-link>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <a :href="'/user-proposals?type=2'" class="btn btn-warning btn-block mb-15 text-white" style="text-transform: inherit"><i class="fas fa-eye"></i> {{ $t('home.contenido.boton_propuestas') }}</a>
+                    <router-link
+                            class="btn btn-warning btn-block mb-15"
+                            :to="{ path: '/user-proposals', query: { 'type': 2 } }"
+                    >
+                        <i class="fas fa-eye"></i> {{ $t('home.contenido.boton_propuestas') }}
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -164,8 +196,8 @@
                     })
                     .then(res => {
                         let petitions = res.data.results;
-                        this.petitionProposals = petitions.filter(petition => petition.state != 0)
-                        this.petitionProposals = this.petitionProposals.concat(petitions.filter(petition => petition.state == 0))
+                        this.petitionProposals = petitions.filter(petition => petition.state != 0);
+                        this.petitionProposals = this.petitionProposals.concat(petitions.filter(petition => petition.state == 0));
                     })
                     .finally(() => {
                         this.loadPetitionProposals = false;
@@ -184,8 +216,8 @@
                     })
                     .then(res => {
                         let urgencies = res.data.results;
-                        this.urgencyProposals = urgencies.filter(urgency => urgency.state != 0)
-                        this.urgencyProposals = this.urgencyProposals.concat(urgencies.filter(urgency => urgency.state == 0))
+                        this.urgencyProposals = urgencies.filter(urgency => urgency.state != 0);
+                        this.urgencyProposals = this.urgencyProposals.concat(urgencies.filter(urgency => urgency.state == 0));
                     })
                     .finally(() => {
                         this.loadUrgencyProposals = false;
@@ -208,7 +240,7 @@
                         })
                         .catch(() => {
                             // 1: inclusión a Congreso Virtual - 2: petición de Urgencia
-                            let type = proposal.type === 1 ? 'inclusión a Congreso Virtual' : 'Urgencia'
+                            let type = proposal.type === 1 ? 'inclusión a Congreso Virtual' : 'Urgencia';
                             this.$toastr("warning", `No se puede votar para apoyar la ${type} de esta propuesta`, "No se puede votar");
                         });
                 } else {

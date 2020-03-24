@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div v-if="loadHeader" class="vld-parent">
-                    <img src="../assets/img/loader2.gif" style="height:600px; width:1200px;" class="pl-0 ma-10 img-fluid col-12">
+                    <img src="../assets/img/loader2.gif" style="height: 600px; width: 1200px;" class="pl-0 ma-10 img-fluid col-12">
                 </div>
                 <ProposalHeader v-if="!loadHeader" :proposal="proposal"></ProposalHeader>
                 <nav aria-label="breadcrumb" class="container px-0">
@@ -14,22 +14,18 @@
                     </ol>
                 </nav>
                 <div class="col-sm-12 hk-sec-wrapper hk-gallery-wrap" :style="mode==='dark'?'background: rgb(12, 1, 80);color: #fff':''">
-                    <div class="tab-content py-25">
-                        <div class="tab-pane fade show active" id="detalle" role="tabpanel" aria-labelledby="detalle-tab">
-                            <div class="container">
-                                <div class="row align-items-center justify-content-center">
-                                    <div class="col-12 px-5">
-                                        <p class="text-justify">{{ proposal.detalle }}</p>
-                                    </div>
-                                    <div v-if="proposal.state" class="col-12 px-5">
-                                        <br>
-                                        <p class="text-justify">{{ proposal.argument }}</p>
-                                    </div>
-                                    <div v-if="proposal.state && proposal.video" class="col-12 px-5 mt-30">
-                                        <h5>{{ $t('propuesta.contenido.video') }}</h5>
-                                        <div class="embed-responsive embed-responsive-16by9 mt-20" v-html="proposal.video"></div>
-                                    </div>
-                                </div>
+                    <div class="container py-25">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-12 px-5">
+                                <p class="text-justify">{{ proposal.detalle }}</p>
+                            </div>
+                            <div v-if="proposal.state" class="col-12 px-5">
+                                <br>
+                                <p class="text-justify">{{ proposal.argument }}</p>
+                            </div>
+                            <div v-if="proposal.state && proposal.video" class="col-12 px-5 mt-30">
+                                <h5>{{ $t('propuesta.contenido.video') }}</h5>
+                                <div class="embed-responsive embed-responsive-16by9 mt-20" v-html="proposal.video"></div>
                             </div>
                         </div>
                     </div>

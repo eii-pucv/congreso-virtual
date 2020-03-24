@@ -14,17 +14,13 @@
                     </ol>
                 </nav>
                 <div v-if="!loadPage" class="col-sm-12 hk-sec-wrapper hk-gallery-wrap" :style="mode==='dark'?'background: rgb(12, 1, 80);color: #fff':''">
-                    <div class="tab-content py-25">
-                        <div class="tab-pane fade show active" id="detalle" role="tabpanel" aria-labelledby="detalle-tab">
-                            <div class="container">
-                                <div class="row">
-                                    <div v-if="page" class="col-12 px-5" v-html="page.content">
-                                    </div>
-                                    <div v-else class="col-12 text-center">
-                                        <h1 class="mb-3">{{ $t('pagina.contenido.no_encontrada.mensaje1') }}</h1>
-                                        <p class="font-weight-light">{{ $t('pagina.contenido.no_encontrada.mensaje2') }}</p>
-                                    </div>
-                                </div>
+                    <div class="container py-25">
+                        <div class="row">
+                            <div v-if="page" class="col-12 px-5" v-html="page.content">
+                            </div>
+                            <div v-else class="col-12 text-center">
+                                <h1 class="mb-3">{{ $t('pagina.contenido.no_encontrada.mensaje1') }}</h1>
+                                <p class="font-weight-light">{{ $t('pagina.contenido.no_encontrada.mensaje2') }}</p>
                             </div>
                         </div>
                     </div>

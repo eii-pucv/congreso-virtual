@@ -38,8 +38,8 @@
                                 />
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="button" @click="switchPasswordVisibility" style="width: 55px;">
-                                        <font-awesome-icon v-if="passwordFieldType === 'password'" icon="eye-slash" size="lg"></font-awesome-icon>
-                                        <font-awesome-icon v-else icon="eye" size="lg"></font-awesome-icon>
+                                        <i v-if="passwordFieldType === 'password'" class="fas fa-eye-slash fa-lg"></i>
+                                        <i v-else class="fas fa-eye fa-lg"></i>
                                     </button>
                                 </div>
                             </div>
@@ -68,37 +68,37 @@
                         </button>
                         <p class="text-center mt-15" :style="mode==='dark'?'text-white':'text-primary '">
                             {{ $t('login.contenido.olvidar') }}
-                            <a href="/request" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
+                            <router-link :to="{ path: '/request' }" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
                                 <u>{{ $t('login.contenido.recuperar') }}</u>
-                            </a>
+                            </router-link>
                         </p>
                         <p class="text-center mt-15" :style="mode==='dark'?'text-white':'text-primary'">
                             {{ $t('login.contenido.sin_cuenta') }}
-                            <a href="/signup" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
+                            <router-link :to="{ path: '/signup' }" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
                                 <u>{{ $t('login.contenido.registrar') }}</u>
-                            </a>
+                            </router-link>
                         </p>
                     </form>
                 </div>
                 <div class="col-sm-6 col-12">
                     <a class="btn btn-indigo btn-block btn-wth-icon" :href="API_URL + '/api/auth/facebook'">
-                        <span class="icon-label"><i class="fa fa-facebook"></i></span>
+                        <span class="icon-label"><i class="fab fa-facebook-square"></i></span>
                         <span class="btn-text">Facebook</span>
                     </a>
                     <a class="btn btn-danger btn-block btn-wth-icon mt-15" :href="API_URL + '/api/auth/google'">
-                        <span class="icon-label"><i class="fa fa-google"></i></span>
+                        <span class="icon-label"><i class="fab fa-google"></i></span>
                         <span class="btn-text">Google</span>
                     </a>
                     <a class="btn btn-blue btn-block btn-wth-icon mt-15" :href="API_URL + '/api/auth/twitter'">
-                        <span class="icon-label"><i class="fa fa-twitter"></i></span>
+                        <span class="icon-label"><i class="fab fa-twitter"></i></span>
                         <span class="btn-text">Twitter</span>
                     </a>
                     <a class="btn btn-grey btn-block btn-wth-icon mt-15" :href="API_URL + '/api/auth/github'">
-                        <span class="icon-label"><i class="fa fa-github"></i></span>
+                        <span class="icon-label"><i class="fab fa-github"></i></span>
                         <span class="btn-text">GitHub</span>
                     </a>
                     <a class="btn btn-green btn-block btn-wth-icon my-15" :href="API_URL + '/api/auth/clave_unica'">
-                        <span class="icon-label"><i class="fa fa-key"></i></span>
+                        <span class="icon-label"><i class="fas fa-key"></i></span>
                         <span class="btn-text">{{ $t('login.contenido.clave') }}</span>
                     </a>
                 </div>

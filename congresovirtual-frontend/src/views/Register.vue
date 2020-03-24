@@ -67,8 +67,8 @@
                                 />
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="button" @click="switchPasswordVisibility" style="width: 55px;">
-                                        <font-awesome-icon v-if="passwordFieldType === 'password'" icon="eye-slash" size="lg"></font-awesome-icon>
-                                        <font-awesome-icon v-else icon="eye" size="lg"></font-awesome-icon>
+                                        <i v-if="passwordFieldType === 'password'" class="fas fa-eye-slash fa-lg"></i>
+                                        <i v-else class="fas fa-eye fa-lg"></i>
                                     </button>
                                 </div>
                             </div>
@@ -93,13 +93,13 @@
                             />
                             <label for="checked_terms_conditions" class="custom-control-label font-14" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
                                 {{ $t('registro.contenido.leido') }}
-                                <a href="/page/terms-and-conditions" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
+                                <router-link :to="{ path: '/page/terms-and-conditions' }" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
                                     <u>{{ $t('registro.contenido.terminos') }}</u>
-                                </a>
+                                </router-link>
                                 {{ $t('registro.contenido.y') }}
-                                <a href="/page/privacy-policies" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
+                                <router-link :to="{ path: '/page/privacy-policies' }" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
                                     <u>{{ $t('registro.contenido.politicas') }}</u>
-                                </a>
+                                </router-link>
                             </label>
                         </div>
                         <div v-if="loadBtnRegister" class="btn btn-primary d-block vld-parent pa-20">
@@ -119,31 +119,31 @@
                         </button>
                         <p class="text-center pt-10" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
                             {{ $t('registro.contenido.cuenta') }}
-                            <a href="/login" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
+                            <router-link :to="{ path: '/login' }" :class="mode === 'dark' ? 'text-white' : 'text-primary'">
                                 <u>{{ $t('registro.contenido.identificar') }}</u>
-                            </a>
+                            </router-link>
                         </p>
                     </div>
                     <div class="col-sm-6 col-12">
                         <p class="mb-30 text-center pt-30 pt-sm-0">{{ $t('registro.contenido.subtitulo2') }}</p>
                         <a class="btn btn-indigo btn-block btn-wth-icon mt-30" :href="API_URL + '/api/auth/facebook'">
-                            <span class="icon-label"><i class="fa fa-facebook"></i></span>
+                            <span class="icon-label"><i class="fab fa-facebook-square"></i></span>
                             <span class="btn-text">Facebook</span>
                         </a>
                         <a class="btn btn-danger btn-block btn-wth-icon mt-15" :href="API_URL + '/api/auth/google'">
-                            <span class="icon-label"><i class="fa fa-google"></i></span>
+                            <span class="icon-label"><i class="fab fa-google"></i></span>
                             <span class="btn-text">Google</span>
                         </a>
                         <a class="btn btn-blue btn-block btn-wth-icon mt-15" :href="API_URL + '/api/auth/twitter'">
-                            <span class="icon-label"><i class="fa fa-twitter"></i></span>
+                            <span class="icon-label"><i class="fab fa-twitter"></i></span>
                             <span class="btn-text">Twitter</span>
                         </a>
                         <a class="btn btn-grey btn-block btn-wth-icon mt-15" :href="API_URL + '/api/auth/github'">
-                            <span class="icon-label"><i class="fa fa-github"></i></span>
+                            <span class="icon-label"><i class="fab fa-github"></i></span>
                             <span class="btn-text">GitHub</span>
                         </a>
                         <a class="btn btn-green btn-block btn-wth-icon my-15" :href="API_URL + '/api/auth/clave_unica'">
-                            <span class="icon-label"><i class="fa fa-key"></i></span>
+                            <span class="icon-label"><i class="fas fa-key"></i></span>
                             <span class="btn-text">{{ $t('registro.contenido.clave') }}</span>
                         </a>
                     </div>

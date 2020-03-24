@@ -3,21 +3,37 @@
         <div class="container px-0">
             <div class="header-img default-proposal-img"></div>
             <div v-if="proposal.type === 1" class="top-left ml-10 mt-10" style="max-width: 80%;">
-                <a @click="voteProjectProposal(proposal)" class="btn btn-success text-white font-20"><span class="btn-text"><font-awesome-icon icon="thumbs-up"/></span></a>
+                <button
+                        @click.prevent="voteProjectProposal(proposal)"
+                        class="btn btn-success text-white font-20"
+                >
+                    <i class="fas fa-thumbs-up"></i>
+                </button>
                 <label class="text-white align-text-middle ml-15 my-0">{{ $t('propuesta.componentes.header.apoyar1') }}</label>
             </div>
             <div v-if="proposal.type === 2" class="top-left ml-10 mt-10" style="max-width: 80%;">
-                <a @click="voteProjectProposal(proposal)" class="btn text-white btn-warning font-20"><span class="btn-text"><font-awesome-icon icon="thumbs-up"/></span></a>
+                <button
+                        @click.prevent="voteProjectProposal(proposal)"
+                        class="btn text-white btn-warning font-20"
+                >
+                    <i class="fas fa-thumbs-up"></i>
+                </button>
                 <label class="text-white align-text-middle ml-15 my-0">{{ $t('propuesta.componentes.header.apoyar2') }}</label>
             </div>
-            <a class="btn text-white bg-indigo-light-2 top-right mr-10 mt-10 font-20" data-toggle="modal" :data-target="'#myModal'+ proposal.id"><span class="btn-text"><font-awesome-icon icon="share-square"/></span></a>
+            <a
+                    class="btn text-white bg-indigo-light-2 top-right mr-10 mt-10 font-20"
+                    data-toggle="modal"
+                    :data-target="'#myModal' + proposal.id"
+            >
+                <i class="fas fa-share-square"></i>
+            </a>
             <h5 class="col-12 hk-sec-title bottom text-white pb-20">
                 <div class="row mx-0">
                     <div class="col-12">
                         <small>
                             {{ $t('propuesta.componentes.header.datos.boletin') }}: {{ proposal.boletin }}
                             <v-popover>
-                                <fontAwesomeIcon class="tooltip-target" icon="info-circle"></fontAwesomeIcon>
+                                <span class="tooltip-target"><i class="fas fa-info-circle"></i></span>
                                 <template slot="popover">
                                     <p>{{ $t('propuesta.componentes.header.datos.popover_boletin') }}</p>
                                 </template>
@@ -58,11 +74,9 @@
                     {{ $t('propuesta.componentes.header.proyecto_ley.titulo') }}
                     <span>
                         <v-popover>
-                            <fontAwesomeIcon class="tooltip-target b3 font-18" icon="question-circle"></fontAwesomeIcon>
+                            <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
                             <template slot="popover">
-                                <p>
-                                    {{ $t('propuesta.componentes.header.proyecto_ley.popover') }}
-                                </p>
+                                <p>{{ $t('propuesta.componentes.header.proyecto_ley.popover') }}</p>
                             </template>
                         </v-popover>
                     </span>
@@ -73,7 +87,7 @@
                             <strong>{{ $t('propuesta.componentes.header.proyecto_ley.strong') }} </strong>{{ proposal.petitions }} {{ $t('propuesta.componentes.header.proyecto_ley.de') }} 100
                         </p>
                         <div class="progress mb-10">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="{width: (proposal.petitions/100*100) + '%' }"></div>
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="{ width: (proposal.petitions/100*100) + '%' }"></div>
                         </div>
                     </div>
                 </div>
@@ -83,11 +97,9 @@
                     {{ $t('propuesta.componentes.header.urgencia.titulo') }}
                     <span>
                         <v-popover>
-                            <fontAwesomeIcon class="tooltip-target b3 font-18" icon="question-circle"></fontAwesomeIcon>
+                            <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
                             <template slot="popover">
-                                <p>
-                                    {{ $t('propuesta.componentes.header.urgencia.popover') }}
-                                </p>
+                                <p>{{ $t('propuesta.componentes.header.urgencia.popover') }}</p>
                             </template>
                         </v-popover>
                     </span>
@@ -98,7 +110,7 @@
                             <strong>{{ $t('propuesta.componentes.header.urgencia.strong') }} </strong>{{ proposal.urgencies }} {{ $t('propuesta.componentes.header.urgencia.de') }} {{ maxPetitions }}
                         </p>
                         <div class="progress mb-10">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="{width: (proposal.urgencies/maxPetitions * 100) + '%' }"></div>
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="{ width: (proposal.urgencies/maxPetitions * 100) + '%' }"></div>
                         </div>
                     </div>
                 </div>
@@ -110,7 +122,7 @@
                     <div class="modal-header">
                         <h4 class="modal-title">{{ $t('compartir') }}</h4>
                         <button type="button" class="close" data-dismiss="modal">
-                            <span><i class="fa fa-times"></i></span>
+                            <i class="fas fa-times"></i>
                         </button>
                     </div>
                     <div class="modal-body text-center">
@@ -124,19 +136,19 @@
                         >
                             <div>
                                 <network class="btn btn-block btn-social btn-email bg-red-light-2 text-white" network="email">
-                                    <i class="fa fa-envelope"></i> Email
+                                    <i class="fas fa-envelope"></i> Email
                                 </network>
                                 <network class="btn btn-block btn-social btn-fb bg-indigo-dark-1 text-white" network="facebook">
-                                    <span class="fa fa-facebook"></span> Facebook
+                                    <i class="fab fa-facebook-square"></i> Facebook
                                 </network>
                                 <network class="btn btn-block btn-social bg-blue-dark-2 text text-white" network="linkedin">
-                                    <i class="fa fa-linkedin"></i> LinkedIn
+                                    <i class="fab fa-linkedin"></i> LinkedIn
                                 </network>
                                 <network class="btn btn-block btn-social btn-twitter bg-blue-light-1 text text-white" network="twitter">
-                                    <i class="fa fa-twitter"></i> Twitter
+                                    <i class="fab fa-twitter"></i> Twitter
                                 </network>
                                 <network class="btn btn-block btn-social bg-green-light-1 text text-white" network="whatsapp">
-                                    <i class="fa fa-whatsapp"></i> WhatsApp
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
                                 </network>
                             </div>
                         </social-sharing>
@@ -151,79 +163,76 @@
 </template>
 
 <script>
+    import SocialSharing from 'vue-social-sharing';
+    import { APP_URL } from '../../data/globals';
+    import axios from "../../backend/axios";
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import SocialSharing from 'vue-social-sharing';
-import { APP_URL } from '../../data/globals';
-import axios from "../../backend/axios";
-
-export default {
-    name: 'ProposalHeader',
-    props: {
-        proposal: Object
-    },
-    components: {
-        FontAwesomeIcon,
-        SocialSharing
-    },
-    data() {
-        return {
-            maxPetitions: 100,
-            mode: String,
-            APP_URL
-        }
-    },
-    async mounted() {
-        if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
-            this.mode = 'dark';
-        } else {
-            this.mode = 'light';
-        }
-
-        axios
-            .get('/settings?key=max_necessary_petitions')
-            .then(res => {
-                if(res.data[0] !== undefined) {
-                    this.maxPetitions = JSON.parse(res.data[0].value).number_petitions;
-                }
-            });
-    },
-    methods: {
-        voteProjectProposal(proposal) {
-            if(this.isLoggedIn){
-            axios
-                .post('/urgencies', {
-                    urgency: proposal.type,
-                    proposal_id: proposal.id,
-                    user_id: this.userData.id
-                })
-                .then(res => {
-                    if (proposal.type == 1) {
-                        proposal.petitions++;
-                    }
-                    else {
-                        proposal.urgencies++;
-                    }
-                    this.$toastr("success", "Su solicitud fue considerada", "Apoyo enviado");
-                })
-                .catch(() => {
-                    this.$toastr("warning", "Existe guardado un voto de urgencia tuyo para esta propuesta", "Ya votaste esta urgencia");
-                });
-            } else {
-                this.$toastr("warning", "", "Debes iniciar sesión");
+    export default {
+        name: 'ProposalHeader',
+        props: {
+            proposal: Object
+        },
+        components: {
+            SocialSharing
+        },
+        data() {
+            return {
+                maxPetitions: 100,
+                mode: String,
+                APP_URL
             }
         },
-        toLocalDate(date) {
-            return this.$moment.utc(date, 'YYYY-MM-DD').local();
-        }
-    },
-    computed: {
-        isLoggedIn: function () {
-            return this.$store.getters.isLoggedIn;
+        async mounted() {
+            if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
+                this.mode = 'dark';
+            } else {
+                this.mode = 'light';
+            }
+
+            axios
+                .get('/settings?key=max_necessary_petitions')
+                .then(res => {
+                    if(res.data[0] !== undefined) {
+                        this.maxPetitions = JSON.parse(res.data[0].value).number_petitions;
+                    }
+                });
         },
-        userData: function () {
-            return this.$store.getters.userData;
+        methods: {
+            voteProjectProposal(proposal) {
+                if(this.isLoggedIn){
+                axios
+                    .post('/urgencies', {
+                        urgency: proposal.type,
+                        proposal_id: proposal.id,
+                        user_id: this.userData.id
+                    })
+                    .then(res => {
+                        if (proposal.type == 1) {
+                            proposal.petitions++;
+                        }
+                        else {
+                            proposal.urgencies++;
+                        }
+                        this.$toastr("success", "Su solicitud fue considerada", "Apoyo enviado");
+                    })
+                    .catch(() => {
+                        this.$toastr("warning", "Existe guardado un voto de urgencia tuyo para esta propuesta", "Ya votaste esta urgencia");
+                    });
+                } else {
+                    this.$toastr("warning", "", "Debes iniciar sesión");
+                }
+            },
+            toLocalDate(date) {
+                return this.$moment.utc(date, 'YYYY-MM-DD').local();
+            }
+        },
+        computed: {
+            isLoggedIn: function () {
+                return this.$store.getters.isLoggedIn;
+            },
+            userData: function () {
+                return this.$store.getters.userData;
+            }
         }
     }
-}
 </script>

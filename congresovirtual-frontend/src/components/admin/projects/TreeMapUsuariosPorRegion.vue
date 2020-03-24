@@ -8,7 +8,7 @@
 import '@progress/kendo-ui';
 import '@progress/kendo-theme-default/dist/all.css';
 import { TreeMap} from '@progress/kendo-treemap-vue-wrapper'
-import axios from '../../backend/axios';
+import axios from '../../../backend/axios';
 
 export default {
   name: "TreemapUsuariosPorRegion",

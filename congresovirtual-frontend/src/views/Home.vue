@@ -32,7 +32,6 @@
     import PublicConsultationsHomeList from '../components/public_consultations/PublicConsultationsHomeList';
     import ProposalsHomeList from '../components/proposals/ProposalsHomeList';
     import Loading from 'vue-loading-overlay';
-    import 'vue-loading-overlay/dist/vue-loading.css';
 
     export default {
         name: 'Home',

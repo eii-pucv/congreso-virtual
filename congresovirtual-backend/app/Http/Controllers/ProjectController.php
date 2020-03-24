@@ -346,6 +346,7 @@ class ProjectController extends Controller
                 'message' => 'Successfully deleted project!'], 201);
         } catch (\Exception $exception) {
             return response()->json([
+                'exception' => $exception->getMessage(),
                 'message' => 'Error: the project was not deleted.'], 412);
         }
     }

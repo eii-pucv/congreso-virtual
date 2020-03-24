@@ -1,7 +1,7 @@
 <template>
     <div class="">
-        <label class="text-white" for="language">{{ $t('navbar.idioma') }}</label>
-        <select id="language" @change="changeLanguage" v-model="selection" class="form-control custom-select ml-10">
+        <label for="language" class="text-white my-0">{{ $t('navbar.idioma') }}</label>
+        <select id="language" @change="changeLanguage" v-model="selection" class="form-control form-control-sm custom-select ml-10">
             <option v-for="language in languages" :key="language.locale" :value="language.locale">{{ language.title }}</option>
         </select>
     </div>

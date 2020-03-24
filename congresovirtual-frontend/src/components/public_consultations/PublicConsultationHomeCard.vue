@@ -30,19 +30,19 @@
                                 </div>
                                 <div class="row text-center my-20">
                                     <div class="offset-1 col-5 px-0">
-                                        <span class="d-block font-30 text-green"><i class="fa fa-thumbs-up"></i></span>
+                                        <span class="d-block font-30 text-green"><i class="fas fa-thumbs-up"></i></span>
                                         <span class="d-block font-20">{{ $t('votos.a_favor') }}</span>
                                         <span class="d-block display-6 font-30 text-green">{{ publicConsultation.votos_a_favor }}</span>
                                     </div>
                                     <div class="col-5 px-0">
-                                        <span class="d-block font-30 text-red"><i class="fa fa-thumbs-down"></i></span>
+                                        <span class="d-block font-30 text-red"><i class="fas fa-thumbs-down"></i></span>
                                         <span class="d-block font-20">{{ $t('votos.en_contra') }}</span>
                                         <span class="d-block display-6 font-30 text-red">{{ publicConsultation.votos_en_contra }}</span>
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <router-link :to="{ path: 'public_consultation/' + publicConsultation.id }" class="btn btn-success text-white">
-                                        <i class="fa fa-eye"></i> <span class="btn-text"> {{ $t('ver_consulta') }}</span>
+                                    <router-link class="btn btn-success text-white" :to="{ path: 'public_consultation/' + publicConsultation.id }">
+                                        <i class="fas fa-eye"></i> {{ $t('ver_consulta') }}
                                     </router-link>
                                 </div>
                             </div>

@@ -412,6 +412,8 @@ $ cd /var/www/congresovirtual-frontend
 $ npm install
 ```
 
+**Importante:** Cada vez que se haga un cambio, habrá que correr los siguientes pasos en adelante en cuanto a frontend de Congreso Virtual. 
+
 3. Configurar el acceso al backend/API, editando para ello el archivo `/src/backend/data_server.js`. Allí, buscar `API_URL` y reemplazarla por la URL configurada en la instalación del backend. Por ejemplo:
 ```
 const API_URL = 'http://url_api’;
@@ -419,8 +421,6 @@ export {
     API_URL
 };
 ```
-
-**Importante:** Cada vez que se haga un cambio, habrá que correr los siguientes pasos en adelante en cuanto a frontend de Congreso Virtual. 
 
 4. Correr el compilador de VueJS ejecutando el siguiente comando en la carpeta raíz del proyecto.
 ```

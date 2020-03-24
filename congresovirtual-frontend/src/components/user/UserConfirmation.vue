@@ -15,7 +15,7 @@
                 <p class="lead mt-20" :class="mode==='dark'?'text-white':'text-primary '">
                     {{ $t('confirmacion.contenido.ahora') }} <a href="/login"><strong>{{ $t('confirmacion.contenido.enlace') }}</strong></a>
                 </p>
-                <a class="btn btn-primary btn-sm text-uppercase mt-30" href="/" role="button">{{ $t('confirmacion.contenido.inicio') }}</a>
+                <router-link :to="{ path: '/' }" class="btn btn-primary btn-sm text-uppercase mt-30">{{ $t('confirmacion.contenido.inicio') }}</router-link>
             </div>
             <div v-else class="ma-80 text-center">
                 <img src="../../assets/img/fail-icon.png" height="200" width="200">
@@ -23,7 +23,7 @@
                 <p class="lead mt-20" :class="mode==='dark'?'text-white':'text-primary '">
                     <strong>{{ $t('confirmacion.contenido.pasos') }}</strong> {{ $t('confirmacion.contenido.intentar') }}
                 </p>
-                <a class="btn btn-primary btn-sm text-uppercase mt-30" href="/" role="button">{{ $t('confirmacion.contenido.inicio') }}</a>
+                <router-link :to="{ path: '/' }" class="btn btn-primary btn-sm text-uppercase mt-30">{{ $t('confirmacion.contenido.inicio') }}</router-link>
             </div>
         </section>
     </div>

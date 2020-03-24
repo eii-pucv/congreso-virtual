@@ -14,10 +14,10 @@
                                     :placeholder="$t('componentes.comentarios.buscar_placeholder')"
                             >
                             <div v-if="query !== ''" class="input-group-append">
-                                <button @click="query = ''" class="btn text-white bg-grey"><font-awesome-icon icon="times-circle"/></button>
+                                <button @click="query = ''" class="btn text-white bg-grey"><i class="fas fa-times-circle"></i></button>
                             </div>
                             <div class="input-group-append"> 
-                                <button @click="search" class="btn text-white bg-primary"><font-awesome-icon icon="search"/></button>
+                                <button @click="search" class="btn text-white bg-primary"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
                     </div>
@@ -64,10 +64,10 @@
                                 <div v-if="comment.user && comment.user.id === userId" class="col-3">
                                     <div class="btn-group float-right">
                                         <button @click="edit(comment)" class="btn btn-sm btn-primary text-white">
-                                            <span class="btn-text"><font-awesome-icon icon="edit"/></span>
+                                            <i class="fas fa-edit"></i>
                                         </button>
                                         <button @click="dlt(comment.id)" class="btn btn-sm btn-danger text-white">
-                                            <span class="btn-text"><font-awesome-icon icon="trash-alt"/></span>
+                                            <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -88,7 +88,7 @@
                                             </div>
                                             <div class="col-sm-2 px-0 text-right">
                                                 <button @click.prevent="downloadFile(file, comment.id)" class="btn btn-sm btn-outline-secondary">
-                                                    <i class="fa fa-download"></i>
+                                                    <i class="fas fa-download"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -103,7 +103,7 @@
                                             @click="addOrEditVote(0, comment.id)"
                                             style="border-radius: 3px;"
                                     >
-                                        <i class="fa fa-thumbs-up"></i> {{ comment.votos_a_favor }}
+                                        <i class="fas fa-thumbs-up"></i> {{ comment.votos_a_favor }}
                                     </span>
                                     <span
                                             class="px-1 comment-btn comment-disagree"
@@ -112,14 +112,14 @@
                                             style="border-radius: 3px;"
 
                                     >
-                                        <i class="fa fa-thumbs-down"></i> {{ comment.votos_en_contra }}
+                                        <i class="fas fa-thumbs-down"></i> {{ comment.votos_en_contra }}
                                     </span>
                                     <span v-if="commentAreEnabled" class="px-1 comment-btn comment-btn-primary" @click="answerComment(comment.id)">
-                                        <i class="fa fa-comment"></i> {{ $t('componentes.comentarios.responder') }}
+                                        <i class="fas fa-comment"></i> {{ $t('componentes.comentarios.responder') }}
                                     </span>
 
-                                    <span v-if="comment.user && comment.user.id !== userId" class="px-1 comment-btn comment-btn-primary" @click="denounced_comment = comment, verificarLogin()"><i class="fa fa-ban"></i></span>
-                                    <span class="px-1 comment-btn comment-btn-primary" @click="shareComment = comment" data-toggle="modal" :data-target="'#ShareModal' + shareComment.id"><i class="fa fa-share-square"></i></span>
+                                    <span v-if="comment.user && comment.user.id !== userId" class="px-1 comment-btn comment-btn-primary" @click="denounced_comment = comment, verificarLogin()"><i class="fas fa-ban"></i></span>
+                                    <span class="px-1 comment-btn comment-btn-primary" @click="shareComment = comment" data-toggle="modal" :data-target="'#ShareModal' + shareComment.id"><i class="fas fa-share-square"></i></span>
                                 </div>
                             </div>
                             <Children v-if="comment.children" :comments="comment.children" :parent_id="comment.id" :usuario="userId" :route="route" :title="title" @editSonComment="edit" @dltSonComment="dlt" @addVoteSon="addOrEditVote"></Children>
@@ -153,8 +153,8 @@
                                         <p class="comment-body custom-scrollbar-wk custom-scrollbar-mz">{{ parentComment.body }}</p>
                                         <div class="mt-2">
                                             <div class="float-right">
-                                                <span class="px-1"><i class="fa fa-thumbs-up"></i> {{ parentComment.votos_a_favor }}</span>
-                                                <span class="px-1"><i class="fa fa-thumbs-down"></i> {{ parentComment.votos_en_contra }}</span>
+                                                <span class="px-1"><i class="fas fa-thumbs-up"></i> {{ parentComment.votos_a_favor }}</span>
+                                                <span class="px-1"><i class="fas fa-thumbs-down"></i> {{ parentComment.votos_en_contra }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -185,7 +185,7 @@
                                         :disabled="!isCommenting"
                                         @click="addComment"
                                 >
-                                    <span class="btn-text">{{ $t('componentes.comentarios.comentar') }}</span>
+                                    {{ $t('componentes.comentarios.comentar') }}
                                     <loading
                                             :active.sync="loadBtnComment"
                                             :is-full-page="fullPage"
@@ -199,14 +199,14 @@
                                         v-on:click="flag_edit = !flag_edit"
                                         @click="sendEdit()"
                                 >
-                                    <span class="btn-text">{{ $t('componentes.comentarios.editar') }}</span>
+                                    {{ $t('componentes.comentarios.editar') }}
                                 </button>
                                 <button
                                         class="btn btn-sm btn-danger"
                                         :disabled="!isCommenting || loadBtnComment"
                                         @click="clearComment"
                                 >
-                                    <span class="btn-text">{{ $t('cancelar') }}</span>
+                                    {{ $t('cancelar') }}
                                 </button>
                             </div>
                         </div>
@@ -256,7 +256,7 @@
                             <div class="modal-header">
                                 <h4 class="modal-title">{{ $t('compartir') }}</h4>
                                 <button type="button" class="close" data-dismiss="modal">
-                                    <span><i class="fa fa-times"></i></span>
+                                    <i class="fas fa-times"></i>
                                 </button>
                             </div>
                             <div class="modal-body text-center">
@@ -269,19 +269,19 @@
                                 >
                                     <div>
                                         <network class="btn btn-block btn-social btn-email bg-red-light-2 text-white" network="email">
-                                            <i class="fa fa-envelope"></i> Email
+                                            <i class="fas fa-envelope"></i> Email
                                         </network>
                                         <network class="btn btn-block btn-social btn-fb bg-indigo-dark-1 text-white" network="facebook">
-                                            <span class="fa fa-facebook"></span> Facebook
+                                            <span class="fab fa-facebook-square"></span> Facebook
                                         </network>
                                         <network class="btn btn-block btn-social bg-blue-dark-2 text text-white" network="linkedin">
-                                            <i class="fa fa-linkedin"></i> LinkedIn
+                                            <i class="fab fa-linkedin"></i> LinkedIn
                                         </network>
                                         <network class="btn btn-block btn-social btn-twitter bg-blue-light-1 text text-white" network="twitter">
-                                            <i class="fa fa-twitter"></i> Twitter
+                                            <i class="fab fa-twitter"></i> Twitter
                                         </network>
                                         <network class="btn btn-block btn-social bg-green-light-1 text text-white" network="whatsapp">
-                                            <i class="fa fa-whatsapp"></i> WhatsApp
+                                            <i class="fab fa-whatsapp"></i> WhatsApp
                                         </network>
                                     </div>
                                 </social-sharing>

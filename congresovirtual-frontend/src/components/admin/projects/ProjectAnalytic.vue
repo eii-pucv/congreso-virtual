@@ -1,6 +1,6 @@
 <template>
     <div style="min-height: 820px;" :style="mode==='dark'?'background: #080035; color: #fff':''">
-        <div class="container mt-25 mb-10">
+        <div class="container-fluid mt-25 mb-10">
             <div class="row px-10">
                 <section class="hk-sec-wrapper col-12" :class="mode==='dark'?'dark':'light'">
                     <div class="row">
@@ -115,14 +115,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="nubePalabras" class="tab-pane fade show" role="tabpanel" aria-labelledby="coments-tab">
+                                <div id="nubePalabras" class="tab-pane fade show" role="tabpanel">
                                     <div class="row px-20">
                                         <h2>{{ $t('administrador.componentes.analitica.nube') }}:</h2>
                                         <p class="text-justify">{{ $t('administrador.componentes.analitica.descripcion_nube') }}</p>
                                         <WordCloud v-if="project_id" :project_id="project_id"></WordCloud>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade show" id="usuarioPorRangoDeEdadBarChart" role="tabpanel">
+                                <div id="usuarioPorRangoDeEdadBarChart" class="tab-pane fade show" role="tabpanel">
                                     <div class="row px-20">
                                         <div class="row">
                                             <h2>{{ $t('administrador.componentes.analitica.usuarios') }}:</h2>
@@ -146,7 +146,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade show" id="topicmodel" role="tabpanel">
+                                <div id="topicmodel" class="tab-pane fade show" role="tabpanel">
                                     <div class="row px-20" style="overflow: auto;">
                                         <TopicModel :project_id="project_id"></TopicModel>
                                     </div>
@@ -163,7 +163,7 @@
 <script>
     import BarChart from '../../../BarChart.js';
     import WordCloud from '../../projects/WordCloud';
-    import TreemapUsuariosPorRegion from '../../projects/TreeMapUsuariosPorRegion';
+    import TreemapUsuariosPorRegion from './TreeMapUsuariosPorRegion';
     import HorizontalUserGenderBarChart from '../../projects/AnalitycUsersGenderChart';
     import HorizontalUserAgesBarChart from '../../projects/AnalitycUsersAgesChart';
     import ProjectBarCharts from '../../projects/ProjectBarCharts';

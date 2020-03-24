@@ -2,8 +2,8 @@
 
 namespace App;
 
-use EloquentFilter\Filterable;
 use App\Observers\CommentObserver;
+use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

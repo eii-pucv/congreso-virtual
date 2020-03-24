@@ -190,8 +190,8 @@
                                                             <p class="text-white my-5">
                                                                 {{ $t('proyecto.contenido.votacion_general.descripcion1') }}
                                                                 <v-popover>
-                                                                    <strong>{{ $t('proyecto.contenido.votacion_general.strong') }}</strong>
-                                                                    <fontAwesomeIcon class="tooltip-target b3 font-16" icon="question-circle"></fontAwesomeIcon>
+                                                                    <strong>{{ $t('proyecto.contenido.votacion_general.strong') }} </strong>
+                                                                    <span class="tooltip-target b3 font-16"><i class="fas fa-question-circle"></i></span>
                                                                     <template slot="popover" style="background-color: #1c7430 !important;">
                                                                         <span class="font-11">
                                                                             {{ $t('proyecto.contenido.votacion_general.popover.primero') }}
@@ -205,15 +205,15 @@
                                                                 {{ $t('mostrar') }}
                                                             </button>
                                                         </div>
-                                                        <div class="step col-sm" v-bind:class="{'current bg-primary': (project.etapa === 2) }" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
-                                                            <h6 class="font-weight-lighter" v-bind:class="{'text-white': (project.etapa === 2) }" :style="mode==='dark'?'color: #fff':''">
+                                                        <div class="step col-sm" v-bind:class="{ 'current bg-primary': (project.etapa === 2) }" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
+                                                            <h6 class="font-weight-lighter" v-bind:class="{ 'text-white': (project.etapa === 2) }" :style="mode==='dark'?'color: #fff':''">
                                                                 {{ $t('proyecto.contenido.votacion_particular.titulo') }}
                                                             </h6>
-                                                            <p class="font-weight-lighter my-5" v-bind:class="{'text-white': (project.etapa === 2) }">
+                                                            <p class="font-weight-lighter my-5" v-bind:class="{ 'text-white': (project.etapa === 2) }">
                                                                 {{ $t('proyecto.contenido.votacion_particular.descripcion1') }}
                                                                 <v-popover>
-                                                                    <strong>{{ $t('proyecto.contenido.votacion_particular.strong') }}</strong>
-                                                                    <fontAwesomeIcon class="tooltip-target b3 font-16" icon="question-circle"></fontAwesomeIcon>
+                                                                    <strong>{{ $t('proyecto.contenido.votacion_particular.strong') }} </strong>
+                                                                    <span class="tooltip-target b3 font-16"><i class="fas fa-question-circle"></i></span>
                                                                     <template slot="popover">
                                                                         <span class="font-11">
                                                                             {{ $t('proyecto.contenido.votacion_particular.popover.primero') }}
@@ -354,7 +354,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title">Votación Realizada</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -381,7 +381,6 @@
     import ProjectFiles from '../components/projects/ProjectFiles';
     import WordCloud from '../components/projects/WordCloud';
     import axios from '../backend/axios';
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import axioma from 'axios';
     import 'intro.js/minified/introjs.min.css';
     import { bus } from '../main';
@@ -397,8 +396,7 @@
             ProjectBarCharts,
             ProjectPieCharts,
             ProjectFiles,
-            WordCloud,
-            FontAwesomeIcon
+            WordCloud
         },
         props: {
             project_id: Number,

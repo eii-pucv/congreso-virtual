@@ -137,7 +137,8 @@ class UserController extends Controller
         } catch (\Exception $exception) {
             return response()->json([
                 'error' => $exception->getMessage(),
-                'message' => 'Error: the user was not created.'], 412);
+                'message' => 'Error: the user was not created.'
+            ], 412);
         }
     }
 
@@ -209,7 +210,8 @@ class UserController extends Controller
             DB::rollBack();
             return response()->json([
                 'error' => $exception->getMessage(),
-                'message' => 'Error: the user was not updated.'], 412);
+                'message' => 'Error: the user was not updated.'
+            ], 412);
         }
     }
 
