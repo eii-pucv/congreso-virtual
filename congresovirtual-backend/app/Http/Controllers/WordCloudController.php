@@ -26,8 +26,7 @@ class WordCloudController extends Controller
             return response()->json($wordCloudData, 200);
         } catch (\Exception $exception) {
             return response()->json([
-                'message' => 'Error: the word cloud was not generated.'
-            ], 412);
+                'message' => 'Error: the word cloud was not generated.'], 412);
         }
     }
 

@@ -52,7 +52,7 @@
                 ></Loading>
             </div>
             <div v-if="!loadTopicModel && !error">
-                <p class="text-right text-grey mb-10">
+                <p v-if="fromCache" class="text-right text-grey mb-10">
                     {{ $t('administrador.componentes.analitica.topic_model.generado_el') }}: {{ new Date(toLocalDatetime(topicModel.created_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}
                 </p>
                 <div v-html="topicModel.value" id="topic_model">
