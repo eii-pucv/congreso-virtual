@@ -498,9 +498,112 @@ _Para ver el estado del servidor de analítica, se deberá usar una terminal par
 
 ---
 
-## Instalación con Docker
+## Configuración de API Externa
+
+Congreso Virtual requiere de una fuente de datos externa que le provea de cierta información acerca de los proyectos de ley que se publican en la plataforma. Dicha fuente de datos corresponde a una API que mediante endpoints facilite la información que se indica a continuación.
+
+* Información general del proyecto de ley: recurso que provea la autoría (`AUTORES`), inicitiva (`INICIATIVA`), origen (`ORIGEN`) y descripción general de la tramitación (`TRAMDESCRIPCION`). El formato en que debe encontrarse esta información es un JSON con un arreglo de única posición en el cual se encuentre el objeto con los atributos descritos. Por ejemplo:
+ 
+  ```
+  [
+      {
+          "AUTORES": "Ministerio de ... | Soto L./Carmona J./...",
+          "INICIATIVA": "Moción | Mensaje",
+          "ORIGEN": "C. Diputados | Senado",
+          "TRAMDESCRIPCION": "Cuenta del Mensaje 4-368 ...",
+      }
+  ]
+  ```
+  
+  La URL que permite el acceso a este endpoint debe indicarse en "Configuración del Sitio Web" > "Configuracíon General", sección "Configuración de API externa", campo "URL de información general del proyecto de ley".
+  
+  Congreso Virtual cada vez que consulte este enpoint lo hará mediante una petición GET en la cual colocará al final de la URL el N° de Boletín del proyecto, por lo que este dato servirá de identificador para la API externa; quedando así la URL de la solicitud:
+  ```
+  https://www.dominioapi.com/foo/bar/[N° de Boletín]
+  ```
+
+* Información de seguimiento del proyecto de ley: recurso que provea los hitos de la tramitación del proyecto de ley. El formato en que debe encontrarse esta información es un JSON con un arreglo de una o más posiciones, en cada una de las cuales debe encontrarse un objeto con la información del hito, la que corresponde a descripción del trámite (`TRAMITE`), cámara en la que ocurre (`CAMDELTRAMITE`) y fecha (`FECHA_SORT` formato `AAAA/MM/DD`). Por ejemplo:
+
+  ```
+  [
+      {
+          "TRAMITE": "Primer trámite constitucional.  Cuenta del Mensaje 281-3 ...",
+          "CAMDELTRAMITE": "Cámara de Diputados",
+          "FECHA_SORT": "2018/08/01"
+      },
+      {
+          "TRAMITE": "Segundo trámite constitucional. Nuevo plazo para indicaciones Se amplía plazo ...",
+          "CAMDELTRAMITE": "Senado",
+          "FECHA_SORT": "2019/10/02"
+      },
+      ...
+  ]
+  ```
+  
+  La URL que permite el acceso a este endpoint debe indicarse en "Configuración del Sitio Web" > "Configuracíon General", sección "Configuración de API externa", campo "URL de seguimiento del proyecto de ley".
+    
+  Congreso Virtual cada vez que consulte este enpoint lo hará mediante una petición GET en la cual colocará al final de la URL el N° de Boletín del proyecto, por lo que este dato servirá de identificador para la API externa; quedando así la URL de la solicitud:
+  ```
+  https://www.dominioapi.com/foo/bar/[N° de Boletín]
+  ```
+
+* Información de la votación en la Cámara del Senado: recurso que provea información de la votación en el parlamento. El formato en que debe encontrarse esta información es un JSON con un arreglo de una o más posiciones, en cada una de las cuales debe encontrarse un objeto con la información del voto, la que corresponde al autor del voto (`NOMBRE`) y la opción elegida (`VOTO`), el voto debe ser un número, donde `1` es a favor, `2` en contra y `3` en abstención. Por ejemplo:
+
+  ```
+  [
+      {
+          "NOMBRE": "Allamand Perez, Jorge",
+          "VOTO": 1
+      },
+      {
+          "NOMBRE": "García Huidobro Cifuentes, Alex",
+          "VOTO": 2
+      },
+      {
+          "NOMBRE": "Latorre Rivarola, José Ignacio",
+          "VOTO": 3
+      },
+      ...
+  ]
+  ```
+  
+  La URL que permite el acceso a este endpoint debe indicarse en "Configuración del Sitio Web" > "Configuracíon General", sección "Configuración de API externa", campo "URL de votación en el parlamento del proyecto de ley".
+      
+  Congreso Virtual cada vez que consulte este enpoint lo hará mediante una petición GET en la cual colocará al final de la URL el N° de Boletín del proyecto, por lo que este dato servirá de identificador para la API externa; quedando así la URL de la solicitud:
+  ```
+  https://www.dominioapi.com/foo/bar/[N° de Boletín]
+  ```
+
+* Listado de propuestas: los usuarios tienen la opción de elegir alguna de estas propuestas que ellos consideran necesaria de solicitar su inclusión como proyecto de ley a Congreso Virtual de forma urgente o no. Es por ello que debe existir un recurso que provea una lista de propuestas que puedan elegir los usuarios. El formato en que debe encontrarse esta información es un JSON con un arreglo de una o más posiciones, en cada una de las cuales debe encontrarse un objeto con la información de la propuesta, la que corresponde a breve descripción de la misma (`PROYSUMA`), N° de boletín (`PROYNUMEROBOLETIN`), origen (`ORIGEN`), autores (`AUTORES`) y fecha de ingreso (`FECHAINGRESO`). Por ejemplo:
+  
+  ```
+  [
+      {
+          "PROYSUMA": "Establece un régimen jurídico ...",
+          "PROYNUMEROBOLETIN": "1334X-XX",
+          "ORIGEN": "C. Diputados",
+          "AUTORES": ""Ministerio de ... | Soto L./Carmona J./...",
+          "FECHAINGRESO": "24/03/2020"
+      },
+      {
+          "PROYSUMA": "Establece un régimen jurídico ...",
+          "PROYNUMEROBOLETIN": "1234X-XX",
+          "ORIGEN": "Senado",
+          "AUTORES": ""Ministerio de ... | Jeréz M./Arriagada P./...",
+          "FECHAINGRESO": "10/01/2020"
+      },
+      ...
+  ]
+  ```
+
+  La URL que permite el acceso a este endpoint debe indicarse en "Configuración del Sitio Web" > "Configuracíon General", sección "Configuración de API externa", campo "URL de propuestas".
+      
+  Congreso Virtual cada vez que consulte este enpoint lo hará mediante una petición GET.
 
 ---
+
+## Instalación con Docker
+
 Congreso Virtual ofrece la opción de Instalación rápida, el cual luego de configurar algunos parámetros permite construir y correr Congreso Virtual en su servidor mediante contenedores Docker. Es una alternativa más ágil que montar la plataforma de forma tradicional, según describe la documentación.
 
 1. Para efectuar la instalación rápida de Congreso Virtual se necesitará tener instalado en su sistema operativo los siguientes componentes:
