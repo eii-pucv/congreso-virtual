@@ -79,20 +79,6 @@
                                 </li>
                                 <li class="nav-item">
                                     <a
-                                            id="topics-interest-tab"
-                                            data-toggle="tab"
-                                            href="#topics-interest"
-                                            role="tab"
-                                            aria-controls="topics-interest"
-                                            aria-selected="true"
-                                            class="nav-link"
-                                            :style="mode==='dark'?'color: #fff':''"
-                                    >
-                                        {{ $t('perfil_usuario.contenido.tab.temas_interes') }}
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a
                                             id="user-votes-tab"
                                             data-toggle="tab"
                                             href="#user-votes"
@@ -145,7 +131,7 @@
                         >
                             <div class="container">
                                 <div v-if="loaded && user" class="hk-row">
-                                    <ProjectsInterest v-bind:mode="mode"></ProjectsInterest>
+                                    <ProjectsInterest></ProjectsInterest>
                                 </div>
                             </div>
                         </div>
@@ -157,16 +143,6 @@
                         >
                             <div v-if="loaded && !loadUser" class="container">
                                 <ProfileEdit></ProfileEdit>
-                            </div>
-                        </div>
-                        <div
-                                class="tab-pane fade show"
-                                id="topics-interest"
-                                role="tabpanel"
-                                aria-labelledby="topics-interest-tab"
-                        >
-                            <div v-if="loaded && user" class="container">
-                                <TopicsInterest></TopicsInterest>
                             </div>
                         </div>
                         <div
@@ -209,7 +185,6 @@
 <script>
     import axios from "../backend/axios";
     import ProfileEdit from "../components/user/ProfileEdit";
-    import TopicsInterest from "../components/user/TopicsInterest";
     import { API_URL } from "../backend/data_server";
     import ProjectsInterest from "../components/user/ProjectsInterest";
     import StarRating from "vue-star-rating";
@@ -222,7 +197,6 @@
         components: {
             ProjectsInterest,
             ProfileEdit,
-            TopicsInterest,
             StarRating,
             userComments,
             userVotes,
@@ -312,15 +286,3 @@
         }
     };
 </script>
-
-<style>
-    .dark {
-        color: #fff;
-        background: rgb(8, 0, 53);
-    }
-
-    .light {
-        color: #000;
-        background: #fff;
-    }
-</style>

@@ -203,14 +203,16 @@
                         }
                     })
                     .then(res => {
-                        this.footerSettings = res.data[0];
-                        this.settingValue = JSON.parse(this.footerSettings.value);
-                        this.treeData.push({
-                            text: res.data[0].label,
-                            data: { icon: 'fas fa-bars', editable: false, removable: false, heritable: true, is_root: true },
-                            state: { expanded: true },
-                            categories: this.getParsedCategories()
-                        });
+                        if(res.data.length > 0) {
+                            this.footerSettings = res.data[0];
+                            this.settingValue = JSON.parse(this.footerSettings.value);
+                            this.treeData.push({
+                                text: res.data[0].label,
+                                data: { icon: 'fas fa-bars', editable: false, removable: false, heritable: true, is_root: true },
+                                state: { expanded: true },
+                                categories: this.getParsedCategories()
+                            });
+                        }
                     })
                     .finally(() => {
                         this.loadFooterSettings = false;

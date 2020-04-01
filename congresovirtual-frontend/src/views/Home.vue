@@ -73,19 +73,13 @@
         margin-bottom: 1.5rem;
         text-align: center;
     }
+
     .marketing h2 {
         font-weight: normal;
     }
+
     .marketing .col-lg-4 p {
         margin-right: .75rem;
         margin-left: .75rem;
-    }
-    .dark {
-        color: #fff;
-        background: rgb(8, 0, 53);
-    }
-    .light {
-        color: #000;
-        background: #fff;
     }
 </style>

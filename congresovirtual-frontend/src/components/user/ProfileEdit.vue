@@ -224,6 +224,7 @@
                                         :placeholder="$t('perfil_usuario.componentes.edicion_perfil.buscar_tema_interes')"
                                         :options="terms"
                                         :multiple="true"
+                                        :showLabels="false"
                                         :style="mode==='dark'?' color: #fff':''"
                                 ></multiselect>
                             </div>
@@ -345,6 +346,7 @@
                                     :placeholder="$t('perfil_usuario.componentes.edicion_perfil.usuario_experto.area_desempenio.buscar')"
                                     :options="areasDesempenio"
                                     :multiple="true"
+                                    :showLabels="false"
                                     :style="mode==='dark'?' color: #fff':''"
                             ></multiselect>
                         </div>
@@ -697,8 +699,8 @@
                                 />
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="button" @click="switchOldPasswordVisibility" style="width: 55px;">
-                                        <font-awesome-icon v-if="oldPasswordFieldType === 'password'" icon="eye-slash" size="lg"></font-awesome-icon>
-                                        <font-awesome-icon v-else icon="eye" size="lg"></font-awesome-icon>
+                                        <i v-if="oldPasswordFieldType === 'password'" class="fas fa-eye-slash fa-lg"></i>
+                                        <i v-else class="fas fa-eye fa-lg"></i>
                                     </button>
                                 </div>
                             </div>
@@ -718,8 +720,8 @@
                                 />
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="button" @click="switchNewPasswordVisibility" style="width: 55px;">
-                                        <font-awesome-icon v-if="newPasswordFieldType === 'password'" icon="eye-slash" size="lg"></font-awesome-icon>
-                                        <font-awesome-icon v-else icon="eye" size="lg"></font-awesome-icon>
+                                        <i v-if="newPasswordFieldType === 'password'" class="fas fa-eye-slash fa-lg"></i>
+                                        <i v-else class="fas fa-eye fa-lg"></i>
                                     </button>
                                 </div>
                             </div>
@@ -917,6 +919,7 @@
                                             terms_id: termsId
                                         })
                                         .then(() => {
+                                            this.oldUserTerms = this.currentUserTerms;
                                             this.loadBtnSave = false;
                                             this.$toastr('success', this.$t('perfil_usuario.componentes.edicion_perfil.mensajes.exito.generico.cuerpo'), this.$t('perfil_usuario.componentes.edicion_perfil.mensajes.exito.generico.titulo'));
                                         });
@@ -944,9 +947,6 @@
                                 this.$toastr('error', this.$t('perfil_usuario.componentes.edicion_perfil.mensajes.fallido.generico.cuerpo'), this.$t('perfil_usuario.componentes.edicion_perfil.mensajes.fallido.generico.titulo'));
                                 break;
                         }
-                    })
-                    .finally(() => {
-                        this.loadBtnSave = false;
                     });
             },
             refreshUser(userData) {
@@ -962,10 +962,9 @@
                     this.getCities(this.user);
                 }
 
-                // Pasando a false si es que son NULL, ya que sino no se podrían guardar los datos
-                if(this.user.tiene_per_jur === null) this.user.tiene_per_jur = false;
                 if(this.user.es_experto === null) this.user.es_experto = false;
                 if(this.user.es_organizacion === null) this.user.es_organizacion = false;
+                if(this.user.tiene_per_jur === null) this.user.tiene_per_jur = false;
 
                 if(this.user.member_orgs.length === 0) {
                     this.user.member_orgs.push({
@@ -1126,28 +1125,3 @@
         }
     };
 </script>
-
-<style scoped>
-    .hk-sec-wrapper {
-        background: #fff;
-        padding: 1.5rem;
-        border: 1px solid rgba(0, 0, 0, 0.125);
-        border-radius: 0.25rem;
-        margin-bottom: 14px;
-    }
-    .dark {
-        color: #fff;
-        background: rgb(8, 0, 53);
-    }
-    .light {
-        color: #000;
-        background: #fff;
-    }
-
-    @media (max-width: 1400px) {
-        .hk-sec-wrapper {
-            padding-left: 1.25rem;
-            padding-right: 1.25rem;
-        }
-    }
-</style>

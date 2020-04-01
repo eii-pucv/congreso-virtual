@@ -1,27 +1,7 @@
 <template>
     <div class="ma-5 col-lg-13">
         <div class="card" :class="mode==='dark'?'dark':'light'">
-            <div class="d-sm-none">
-                <div
-                        v-if="project.etapa === 1 && isAvailableVoting"
-                        class="bg-indigo-light-1 card-header d-block font-12 text-center text-white"
-                >
-                    {{ $t('votacion_general') }}
-                </div>
-                <div
-                        v-else-if="project.etapa === 2 && isAvailableVoting"
-                        class="bg-green card-header d-block font-12 text-center text-white"
-                >
-                    {{ $t('votacion_particular') }}
-                </div>
-                <div
-                        v-else
-                        class="bg-red-dark-3 card-header d-block font-12 text-center text-white"
-                >
-                    {{ $t('votacion_general') }}
-                </div>
-            </div>
-            <div class="btn-group-vertical mt-auto">
+            <div class="">
                 <div class="embed-responsive card-body">
                     <div class="row d-flex embed-responsive " style="margin-left: 0%">
                         <div class="col-sm-4 col-12 px-0 embed-responsive embed-responsive-4by3">
@@ -32,18 +12,25 @@
                             />
                         </div>
                         <div class="col-12 col-sm-8 ma-0 pa-0">
-                            <div class="d-none d-sm-block">
-                                <div class=" btn-group btn-group-toggle d-block">
-                                    <div class="font-1"></div>
-                                    <div v-if="project.etapa === 2 && project.fecha_termino > this.today" class="bg-green card-header d-block font-12 text-center text-white">{{ $t('votacion_particular') }}</div>
+                            <div class="d-block">
+                                <div class="font-1"></div>
+                                <div
+                                        v-if="project.etapa === 1 && isAvailableVoting"
+                                        class="bg-indigo-light-1 card-header d-block font-12 text-center text-white"
+                                >
+                                    {{ $t('votacion_general') }}
                                 </div>
-                                <div class=" btn-group btn-group-toggle d-block">
-                                    <div class="font-1"></div>
-                                    <div v-if="project.etapa === 3 || project.fecha_termino <= this.today" class="bg-red-dark-3 card-header d-block font-12 text-center text-white">{{ $t('votacion_general') }}</div>
+                                <div
+                                        v-else-if="project.etapa === 2 && isAvailableVoting"
+                                        class="bg-green card-header d-block font-12 text-center text-white"
+                                >
+                                    {{ $t('votacion_particular') }}
                                 </div>
-                                <div class=" btn-group btn-group-toggle d-block">
-                                    <div class="font-1"></div>
-                                    <div v-if="project.etapa === 1 && project.fecha_termino > this.today" class="bg-indigo-light-1 card-header d-block font-12 text-center text-white">{{ $t('votacion_general') }}</div>
+                                <div
+                                        v-else
+                                        class="bg-red-dark-3 card-header d-block font-12 text-center text-white"
+                                >
+                                    {{ $t('votacion_cerrada') }}
                                 </div>
                             </div>
                             <div class="row mt-2 mx-0">
@@ -67,7 +54,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-12 pt-15">
+                            <div class="col-12 py-15">
                                 <p class="card-title text-center font-weight-bold font-15">
                                     {{ project.titulo }}
                                 </p>
@@ -89,7 +76,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="btn-group btn-group-toggle d-block btn-group-vertical">
+                            <div class="btn-group d-block btn-group-vertical">
                                 <a class="font-1"></a>
                                 <router-link
                                         class="btn btn-success text-white d-block ma-0"
@@ -195,16 +182,3 @@
         }
     };
 </script>
-
-<style>
-    .dark {
-        color: #fff;
-        background: rgb(8, 0, 53);
-        border-color: #fff;
-    }
-
-    .light {
-        color: #000;
-        background: #fff;
-    }
-</style>

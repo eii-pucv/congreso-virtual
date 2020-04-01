@@ -152,16 +152,6 @@
 </script>
 
 <style scoped>
-    .dark {
-        color: #fff;
-        background: rgb(8, 0, 53);
-    }
-
-    .light {
-        color: #000;
-        background: #fff;
-    }
-
     a:hover{
         color: black; 
         text-decoration: none; 
@@ -171,5 +161,4 @@
         color: black; 
         text-decoration: none; 
     }
-
 </style>

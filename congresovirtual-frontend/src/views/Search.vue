@@ -72,7 +72,7 @@
                         ></multiselect>
                     </div>
                     <span class="mt-10" :style="mode==='dark'?'color: #fff':''">{{ $t('search.resultados') }}: {{ totalResults }}</span>
-                    <div class="btn-group btn-group-toggle btn-block mt-10 mb-20">
+                    <div class="btn-group btn-block mt-10 mb-20">
                         <button
                                 @click="clearFilters"
                                 class="btn"
@@ -706,15 +706,5 @@
         position: absolute;
         top: 6px;
         right: 8px;
-    }
-
-    .dark {
-        color: #fff;
-        background: rgb(8, 0, 53);
-    }
-
-    .light {
-        color: #000;
-        background: #fff;
     }
 </style>

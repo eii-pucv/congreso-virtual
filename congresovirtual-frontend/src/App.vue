@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-indigo-light-5 d-flex flex-column min-vh-100">
+    <div class="d-flex flex-column min-vh-100" :class="mode">
         <Preload></Preload>
         <Navbar :userRol="userRol" :isLoggedIn="isLoggedIn"></Navbar>
         <router-view :key="$route.fullPath"></router-view>
@@ -64,6 +64,50 @@
         position: absolute;
         top: 8px;
         left: 16px;
+    }
+
+    .btn-label {
+        position: relative;
+        left: -12px;
+        display: inline-block;
+        padding: 6px 12px;
+        background: rgba(0,0,0,0.15);
+        border-radius: 3px 0 0 3px;
+    }
+
+    .btn-labeled {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .multiselect__option--highlight {
+        background: #3650ab;
+    }
+
+    .multiselect__tag {
+        background: #2a335d;
+    }
+
+    .multiselect__tag-icon:hover {
+        background: #3650ab;
+    }
+
+    .multiselect__tag-icon::after {
+        color: #ffffff;
+    }
+
+    .multiselect__tags {
+        border-radius: .25rem;
+        border: 2px solid #e0e3e4;
+    }
+
+    .multiselect__spinner {
+        right: 3px;
+        top: 2px;
+    }
+
+    .multiselect__spinner::after, .multiselect__spinner::before {
+        border-top-color: #3650ab;
     }
 
     .default-project-img {
@@ -209,7 +253,7 @@
         border-style: solid;
         position: absolute;
         margin: 5px;
-        border-color: black;
+        border-color: #ffffff;
     }
 
     .tooltip[x-placement^="top"] {
@@ -291,6 +335,7 @@
     .bm-burger-bars {
         background-color: #ffffff  !important;
     }
+
     .bm-burger-button {
         position: fixed;
         width: 36px;
@@ -347,7 +392,6 @@
     require("jquery.counterup/jquery.counterup.min");
     require("echarts/dist/echarts-en.common.min");
 
-    require("jquery-toast-plugin/dist/jquery.toast.min");
     require("owl.carousel/dist/owl.carousel.min");
     require("../src/assets/js/owl-data");
     require("../src/assets/js/init");
@@ -359,6 +403,21 @@
             Navbar,
             Footer,
         },
+        data() {
+            return {
+                user: Object,
+                mode: String
+            }
+        },
+        mounted() {
+            if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
+                this.mode = 'dark';
+            } else {
+                this.mode = 'light';
+            }
+
+            this.user = JSON.parse(localStorage.getItem('user'));
+        },
         computed: {
             isLoggedIn() {
                 return this.$store.getters.isLoggedIn;
@@ -366,14 +425,6 @@
             userRol() {
                 return this.$store.getters.user ? this.$store.getters.user.rol : null;
             }
-        },
-        data() {
-            return {
-                user: Object
-            }
-        },
-        mounted() {
-            this.user = JSON.parse(localStorage.getItem('user'));
         }
     }
 </script>

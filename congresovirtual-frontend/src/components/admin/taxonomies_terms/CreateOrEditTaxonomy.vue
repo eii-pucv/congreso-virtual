@@ -29,8 +29,7 @@
                         </div>
                         <div class="text-center mt-20">
                             <button class="btn btn-primary vld-parent" type="submit">
-                                <font-awesome-icon icon="save" />
-                                <span class="btn-text"> {{ $t('guardar') }}</span>
+                                <i class="fas fa-save"></i> {{ $t('guardar') }}
                                 <Loading
                                         :active.sync="loadBtnSave"
                                         :is-full-page="fullPage"
@@ -38,9 +37,8 @@
                                         :color="'#ffffff'"
                                 ></Loading>
                             </button>
-                            <button @click.prevent="back" class="btn btn-danger text-white ml-10">
-                                <font-awesome-icon icon="window-close" />
-                                <span class="btn-text" :style="mode==='dark'?'color: #fff':''"> {{ $t('cancelar') }}</span>
+                            <button @click.prevent="back" class="btn btn-danger ml-10">
+                                <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
                             </button>
                         </div>
                     </form>

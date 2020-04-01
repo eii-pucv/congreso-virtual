@@ -551,7 +551,6 @@
             "tab": {
                 "proyectos_interes": "Projects of Interest",
                 "editar_perfil": "Edit my Profile",
-                "temas_interes": "My Topics of Interest",
                 "votaciones": "My Votes",
                 "comentarios": "My Comments",
                 "propuestas": "My Proposals"
@@ -759,9 +758,6 @@
                     }
                 }
             },
-            "temas_interes": {
-                "titulo": "Topics of interest"
-            },
             "votos": {
                 "titulo": "Your votes",
                 "cantidad": "Number of votes made",
@@ -817,7 +813,7 @@
             "parrafo2": "Or if there is any project that you would like to have priority to be studied by the National Congress, look for it, select it and disseminate it to obtain support from other participants and that Congress ask the President of the Republic to put it urgently.",
             "buscar": "Search",
             "busqueda": "Title, detail, summary...",
-            "resultados": "Results",
+            "resultados": "Total results",
             "boletin": "Bulletin",
             "autoria": "Authorship",
             "fecha": "Admission date",
@@ -825,10 +821,11 @@
             "autores_placeholder": "Insert the author(s).",
             "origen": "Source",
             "ordenar": "Order by",
+            "limpiar": "Clean Filters",
             "incluir": "Include Virtual Congress",
             "pedir": "Ask for urgency",
             "cargar": "Load More",
-            "no_hay_resultados": "No results found",
+            "no_hay_resultados": "No results found.",
             "modal": {
                 "detalle": "Enter a detail for the proposal",
                 "descripcion": "Description",
@@ -842,12 +839,12 @@
     },
     "propuestas_usuario": {
         "contenido": {
-            "titulo": "Proposals",
+            "titulo": "Proposals Search",
             "limpiar":"Clean Filters",
             "buscar": "Search",
             "buscar_placeholder": "Title, Bulletin, Authorship...",
-            "filtrar":"Filter By",
-            "ordenar": "Sort By",
+            "filtrar":"Filter by",
+            "ordenar": "Sort by",
             "boton_propuestas_sugeridas": "Go to Suggested Proposals",
             "tipo_1": "Inclusion in Virtual Congress",
             "tipo_2": "Urgency",
@@ -990,7 +987,15 @@
             "pagina": {
                 "titulo": "Pages",
                 "lista": "Pages List",
-                "crear": "Create a Page"
+                "crear": "Create Page"
+            },
+            "gamificacion": {
+                "titulo": "Gamification",
+                "lista_jugadores": "Players List",
+                "lista_acciones": "Actions List",
+                "crear_accion": "Create Action",
+                "lista_recompensas": "Rewards List",
+                "crear_recompensa": "Create Reward"
             },
             "configuracion": {
                 "titulo": "Website Settings",
@@ -1591,6 +1596,7 @@
                     "confirme": "Confirm password"
                 },
                 "activo": "Do you want the user to be active?",
+                "gamificacion_activada": "Do you want the user to have gamification enabled?",
                 "mensajes": {
                     "exito": {
                         "guardado": {
@@ -1776,6 +1782,145 @@
                     }
                 }
             },
+            "gamificacion": {
+                "lista_jugadores": {
+                    "titulo": "Players List"
+                },
+                "lista_acciones": {
+                    "titulo": "Actions List"
+                },
+                "crear_accion": {
+                    "titulo1": "Create Action",
+                    "titulo2": "Edit Action",
+                    "tipo": {
+                        "titulo": "Type",
+                        "popover": "It describes the nature of the player's interaction with the platform that involves gamification and by which the points will be obtained.",
+                        "opciones": [
+                            { "id": 1, "label": "Comment" },
+                            { "id": 2, "label": "Vote" },
+                            { "id": 3, "label": "Reading" }
+                        ]
+                    },
+                    "subtipo": {
+                        "titulo": "Subtype",
+                        "popover": "It describes the scope of the player's interaction with the platform that involves gamification and through which the points will be obtained.",
+                        "opciones": [
+                            { "id": 1, "label": "None" },
+                            { "id": 2, "label": "Project of Law" },
+                            { "id": 3, "label": "Page" },
+                            { "id": 4, "label": "Term" }
+                        ]
+                    },
+                    "puntos": "Points",
+                    "mensajes": {
+                        "exito": {
+                            "guardado": {
+                                "generico": {
+                                    "titulo": "Action saved successfully",
+                                    "cuerpo": "You have successfully registered the action data"
+                                }
+                            },
+                            "modificado": {
+                                "generico": {
+                                    "titulo": "Action updated successfully",
+                                    "cuerpo": "You have successfully updated the action data"
+                                }
+                            }
+                        },
+                        "fallido": {
+                            "guardado": {
+                                "generico": {
+                                    "titulo": "Error saving action",
+                                    "cuerpo": "Could not save action data"
+                                }
+                            },
+                            "modificado": {
+                                "generico": {
+                                    "titulo": "Error updating action",
+                                    "cuerpo": "Failed to update action data"
+                                }
+                            }
+                        }
+                    }
+                },
+                "eliminar_accion": {
+                    "modal_eliminacion": {
+                        "titulo": "Deleting a action",
+                        "pregunta": "Are you sure you want to delete the action?"
+                    },
+                    "modal_forzar_eliminacion": {
+                        "titulo": "Permanent deletion of a action",
+                        "pregunta": "Are you sure you want to delete the action permanently?"
+                    },
+                    "modal_restaurar": {
+                        "titulo": "Action restore",
+                        "pregunta": "Are you sure you want to restore the action?"
+                    }
+                },
+                "lista_recompensas": {
+                    "titulo": "Rewards List"
+                },
+                "crear_recompensa": {
+                    "titulo1": "Create Reward",
+                    "titulo2": "Edit Reward",
+                    "nombre": "Name",
+                    "puntos": "Points",
+                    "acciones_necesarias": {
+                        "titulo": "Actions needed",
+                        "popover": "It corresponds to the number of actions (of the type and subtype that must be indicated below) that the player must complete before obtaining the reward."
+                    },
+                    "accion": {
+                        "titulo": "Action",
+                        "popover": "It describes some specific interaction of the player with the platform that involves gamification and for which the reward will be obtained.",
+                        "seleccionar": "Select action"
+                    },
+                    "icono": "Icon",
+                    "mensajes": {
+                        "exito": {
+                            "guardado": {
+                                "generico": {
+                                    "titulo": "Reward saved successfully",
+                                    "cuerpo": "You have successfully registered the reward data"
+                                }
+                            },
+                            "modificado": {
+                                "generico": {
+                                    "titulo": "Reward updated successfully",
+                                    "cuerpo": "You have successfully updated the reward data"
+                                }
+                            }
+                        },
+                        "fallido": {
+                            "guardado": {
+                                "generico": {
+                                    "titulo": "Error saving reward",
+                                    "cuerpo": "Could not save reward data"
+                                }
+                            },
+                            "modificado": {
+                                "generico": {
+                                    "titulo": "Error updating reward",
+                                    "cuerpo": "Failed to update reward data"
+                                }
+                            }
+                        }
+                    }
+                },
+                "eliminar_recompensa": {
+                    "modal_eliminacion": {
+                        "titulo": "Deleting a reward",
+                        "pregunta": "Are you sure you want to delete the reward?"
+                    },
+                    "modal_forzar_eliminacion": {
+                        "titulo": "Permanent deletion of a reward",
+                        "pregunta": "Are you sure you want to delete the reward permanently?"
+                    },
+                    "modal_restaurar": {
+                        "titulo": "Reward restore",
+                        "pregunta": "Are you sure you want to restore the reward?"
+                    }
+                }
+            },
             "configuracion_general": {
                 "titulo": "General Settings",
                 "datos_basicos": {
@@ -1817,6 +1962,30 @@
                     "youtube": "YouTube",
                     "vimeo": "Vimeo",
                     "dailymotion": "Dailymotion"
+                },
+                "api_externa": {
+                    "titulo": "External API setting",
+                    "popover": "The platform requires an external data source that provides you with certain information about the bills and proposals that are published on the platform. Said data source corresponds to an API that through endpoints provides the information requested below.",
+                    "info_general_proyecto": {
+                        "titulo": "General information URL of the project of law",
+                        "popover": "Resource that provides the authorship, initiative, origin and general description of the procedure."
+                    },
+                    "info_seguimiento_proyecto": {
+                        "titulo": "Trace URL of the project of law",
+                        "popover": "Resource that provides the milestones of the processing of the project of law."
+                    },
+                    "votacion_parlamento_proyecto": {
+                        "titulo": "URL of the voting in parliament of the project of law",
+                        "popover": "Resource that provides information on voting in parliament."
+                    },
+                    "propuestas": {
+                        "titulo": "Proposals URL",
+                        "popover": "Resource that provides a list of proposals that users can choose."
+                    }
+                },
+                "gamificacion": {
+                    "titulo": "Gamification",
+                    "gamificacion_activada": "Activate gamification?"
                 },
                 "mensajes": {
                     "exito": {

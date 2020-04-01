@@ -35,7 +35,7 @@
                                                                             <span v-if="file.original_filename.length > seeMoreLimitText" class="text-primary seemore-trigger" href="" @click="seeMoreToggle(index)" :id="'myBtn-' + index">{{ $t('componentes.comentarios.ver_mas') }}</span>
                                                                         </div>
                                                                     </div>
-                                                                    <span class="votable float-right ml-1" @click="downloadFile(file,comment.id)"><i class="fa fa-download"></i></span>
+                                                                    <span class=" float-right ml-1" @click="downloadFile(file,comment.id)"><i class="fa fa-download"></i></span>
                                                                 </div>
                                                             </div>
                                                         </div>

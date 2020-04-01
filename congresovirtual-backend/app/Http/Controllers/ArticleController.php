@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Comment;
+use App\OffensiveWord;
 use App\Position;
 use App\Project;
 use App\Vote;
+use App\Events\Gamification\RegisterCommentEvent;
+use App\Events\Gamification\RegisterVoteEvent;
 use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -340,6 +344,10 @@ class ArticleController extends Controller
             DB::beginTransaction();
             $comment->save();
 
+            if(OffensiveWord::hasOffensiveWord($comment->body)) {
+                $comment->fill(['state' => 1])->save();
+            }
+
             if(isset($request->position_latitude) && isset($request->position_longitude)) {
                 $position = new Position([
                     'latitude' => $request->position_latitude,
@@ -349,9 +357,34 @@ class ArticleController extends Controller
                 $position->save();
             }
 
+            $data = $comment->refresh()->toArray();
+            unset($data['user']);
+            $data['user'] = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'surname' => $user->surname,
+                'username' => $user->username,
+                'email' => $user->email,
+                'avatar' => $user->avatar
+            ];
+
+            $pipes = [
+                RegisterCommentEvent::class
+            ];
+            $gamificationResult = app(Pipeline::class)
+                ->send($comment)
+                ->through($pipes)
+                ->then(function($result) {
+                    return $result;
+                });
+
+            $data['gamification_result'] = $gamificationResult;
+
             DB::commit();
             return response()->json([
-                'message' => 'Successfully created comment of article!'], 201);
+                'message' => 'Successfully created comment of article!',
+                'data' => $data
+            ], 201);
         } catch (\Exception $exception) {
             DB::rollBack();
             return response()->json([
@@ -403,6 +436,18 @@ class ArticleController extends Controller
 
             $data = $vote->refresh()->toArray();
             unset($data['user']);
+
+            $pipes = [
+                RegisterVoteEvent::class
+            ];
+            $gamificationResult = app(Pipeline::class)
+                ->send($vote)
+                ->through($pipes)
+                ->then(function($result) {
+                    return $result;
+                });
+
+            $data['gamification_result'] = $gamificationResult;
 
             return response()->json([
                 'message' => 'Successfully created vote of article!',

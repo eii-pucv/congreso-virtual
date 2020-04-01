@@ -108,4 +108,4 @@ export default new Vuex.Store({
         language: state => state.language,
         modo_oscuro: state => state.modo_oscuro
     }
-})
+});

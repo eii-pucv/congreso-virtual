@@ -44,8 +44,8 @@
                             >
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button" @click="switchPasswordVisibility" style="width: 55px;">
-                                    <font-awesome-icon v-if="passwordFieldType === 'password'" icon="eye-slash" size="lg"></font-awesome-icon>
-                                    <font-awesome-icon v-else icon="eye" size="lg"></font-awesome-icon>
+                                    <i v-if="passwordFieldType === 'password'" class="fas fa-eye-slash fa-lg"></i>
+                                    <i v-else class="fas fa-eye fa-lg"></i>
                                 </button>
                             </div>
                         </div>

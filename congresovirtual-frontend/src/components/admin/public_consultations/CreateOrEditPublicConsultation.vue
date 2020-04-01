@@ -41,7 +41,7 @@
                             <div class="col-md-3 mb-10">
                                 <label for="fecha_inicio" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_consulta.fecha_inicio') }}</label>
                                 <v-popover>
-                                    <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                    <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                     <template slot="popover">
                                         <p>{{ $t('administrador.componentes.crear_consulta.popover_fecha_inicio') }}</p>
                                     </template>
@@ -57,7 +57,7 @@
                             <div class="col-md-3 mb-10">
                                 <label for="fecha_termino" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_consulta.fecha_termino') }}</label>
                                 <v-popover>
-                                    <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                    <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                     <template slot="popover">
                                         <p>{{ $t('administrador.componentes.crear_consulta.popover_fecha_termino') }}</p>
                                     </template>
@@ -75,7 +75,7 @@
                             <div class="col-md-4 mb-10">
                                 <label for="estado" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_consulta.estado.titulo') }}</label>
                                 <v-popover>
-                                    <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                    <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                     <template slot="popover">
                                         <p>{{ $t('administrador.componentes.crear_consulta.estado.popover') }}</p>
                                     </template>
@@ -103,6 +103,7 @@
                                         :placeholder="$t('administrador.componentes.crear_consulta.tema_asociado.buscar')"
                                         :options="taxonomyTerms"
                                         :multiple="true"
+                                        :showLabels="false"
                                         :limit="10"
                                         :limit-text="limitTextTaxonomyTermsMultiselect"
                                         :style="mode==='dark'?' color: #fff':''"
@@ -113,7 +114,7 @@
                             <div class="col-md-4 mb-10">
                                 <label for="video_source" :style="mode==='dark'?'color: #fff':''">{{  $t('administrador.componentes.crear_consulta.fuente_video.titulo') }}</label>
                                 <v-popover>
-                                    <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                    <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                     <template slot="popover">
                                         <p>{{ $t('administrador.componentes.crear_consulta.fuente_video.popover') }}</p>
                                     </template>
@@ -136,7 +137,7 @@
                             <div class="col-md-6 mb-10">
                                 <label for="video_code" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_consulta.codigo_video.titulo') }}</label>
                                 <v-popover>
-                                    <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                    <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                     <template slot="popover">
                                         <p>{{ $t('administrador.componentes.crear_consulta.codigo_video.popover') }}</p>
                                     </template>
@@ -203,8 +204,7 @@
                         </div>
                         <div class="text-center mt-20">
                             <button class="btn btn-primary vld-parent" type="submit">
-                                <font-awesome-icon icon="save" />
-                                <span class="btn-text"> {{ $t('guardar') }}</span>
+                                <i class="fas fa-save"></i> {{ $t('guardar') }}
                                 <Loading
                                         :active.sync="loadBtnSave"
                                         :is-full-page="fullPage"
@@ -212,9 +212,8 @@
                                         :color="'#ffffff'"
                                 ></Loading>
                             </button>
-                            <button @click.prevent="back" class="btn btn-danger text-white ml-10">
-                                <font-awesome-icon icon="window-close" />
-                                <span class="btn-text" :style="mode==='dark'?'color: #fff':''"> {{ $t('cancelar') }}</span>
+                            <button @click.prevent="back" class="btn btn-danger ml-10">
+                                <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
                             </button>
                         </div>
                     </form>

@@ -17,7 +17,7 @@
                                     <span class="d-block font-26 mb-2">{{ comment.body }}</span>
                                     <small>{{ comment.created_at }}</small>
                                 </div>
-                                <a :href="'/project/' + comment.project.id" class="btn ma-5 text-white bg-indigo-light-2  votable">
+                                <a :href="'/project/' + comment.project.id" class="btn ma-5 text-white bg-indigo-light-2  ">
                                     <span class="btn-text">
                                         <font-awesome-icon icon="share-square"/>
                                     </span>
@@ -112,24 +112,3 @@
         },    
     }
 </script>
-
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-.dark {
-    color: #fff;
-    background: rgb(8, 0, 53);
-}
-
-.light {
-    color: #000;
-    background: #fff;
-}
-</style>

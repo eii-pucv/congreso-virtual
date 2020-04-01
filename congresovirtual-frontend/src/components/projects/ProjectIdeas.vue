@@ -391,37 +391,3 @@
         }
     }
 </script>
-
-<style>
-.dark {
-    color: #fff;
-    background: rgb(16, 0, 107);
-}
-
-.light {
-    color: #000;
-    background: #fff;
-}
-
-.Button {
-    font-size:13px;
-    font-weight: bold;
-    color: black
-}
-.greenC {
-    color: white;
-    background:green;
-}
-.redC {
-    color: white;
-    background:red;
-}
-.greyC {
-    color: white;
-    background:grey;
-}
-.novotable {
-    pointer-events:none;
-    cursor: none;
-}
-</style>

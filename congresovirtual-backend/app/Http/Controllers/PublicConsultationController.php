@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\OffensiveWord;
 use App\Position;
 use App\PublicConsultation;
 use App\Comment;
@@ -526,6 +527,10 @@ class PublicConsultationController extends Controller
 
             DB::beginTransaction();
             $comment->save();
+
+            if(OffensiveWord::hasOffensiveWord($comment->body)) {
+                $comment->fill(['state' => 1])->save();
+            }
 
             if(isset($request->position_latitude) && isset($request->position_longitude)) {
                 $position = new Position([

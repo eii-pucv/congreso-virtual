@@ -9,7 +9,14 @@
         ></loading>
     </div>
     <div v-else-if="!loadWordCloud && !error" id="divWordCloud">
-        <wordcloud :data="wordCloudData" nameKey="word" valueKey="freq" :rotate="rotate" :margin="margin" :color="Accent"></wordcloud>
+        <wordcloud
+                :data="wordCloudData"
+                nameKey="word"
+                valueKey="freq"
+                :rotate="rotate"
+                :margin="margin"
+                :showTooltip="false"
+        ></wordcloud>
     </div>
     <div v-else-if="error">
         <h6 class="text-center my-20">{{ $t('proyecto.componentes.nube.no_carga') }}</h6>
@@ -17,7 +24,8 @@
 </template>
 
 <script>
-    import wordcloud from 'vue-wordcloud';
+    //import wordcloud from 'vue-wordcloud';
+    import wordcloud from 'vue-wordcloud-tooltip-fix';
     import Loading from 'vue-loading-overlay';
     import axios from '../../backend/axios';
 

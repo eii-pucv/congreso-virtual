@@ -55,12 +55,12 @@
                                             </div>
                                             <div class="row vld-parent">
                                                 <div v-if="loadNgram" style="height: 500px;">
-                                                    <loading
+                                                    <Loading
                                                             :active.sync="loadNgram"
                                                             :is-full-page="fullPage"
                                                             :height="128"
-                                                            :color="'#000000'"
-                                                    ></loading>
+                                                            :color="color"
+                                                    ></Loading>
                                                 </div>
                                                 <div v-else-if="!loadNgram && !ngramError" id="barChar" class="mb-25">
                                                     <BarChart :data="chartData" :options="chartOptions"></BarChart>
@@ -76,19 +76,19 @@
                                             <h5 class="text-center mt-20">{{ $t('administrador.componentes.analitica.comentarios_recientes') }}</h5>
                                             <div class="row justify-content-center mt-10 vld-parent">
                                                 <div v-if="loadComments" style="height: 600px;">
-                                                    <loading
+                                                    <Loading
                                                             :active.sync="loadComments"
                                                             :is-full-page="fullPage"
                                                             :height="128"
-                                                            :color="'#000000'"
-                                                    ></loading>
+                                                            :color="color"
+                                                    ></Loading>
                                                 </div>
                                                 <p v-else-if="!loadComments && comments.length === 0">
                                                     {{ $t('administrador.componentes.analitica.sin_comentarios') }}
                                                 </p>
                                                 <ul v-else-if="!loadComments && comments.length > 0" class="list-unstyled pa-20 col-12 custom-scrollbar-wk custom-scrollbar-mz" style="max-height: 600px; overflow: auto;">
                                                     <li v-for="comment in comments" :key="comment.id" class="media pa-20 mb-5 border border-2 border-light col-12">
-                                                        <div class="media-body" v-if="comment.user">
+                                                        <div class="media-body">
                                                             <div class="row">
                                                                 <div class="col-9 mb-2">
                                                                     <h6 v-if="comment.user && comment.user.username">{{ comment.user.username }}</h6>
@@ -102,12 +102,12 @@
                                                     </li>
                                                     <div v-if="totalComments > comments.length" class="mt-10 mb-20">
                                                         <button class="vld-parent btn btn-secondary btn-block" @click="loadMoreComments">{{ $t('administrador.componentes.analitica.ver_mas') + ' (' + limit + ')' }}
-                                                            <loading
+                                                            <Loading
                                                                     :active.sync="loadBtnLoadMoreComments"
                                                                     :is-full-page="fullPage"
                                                                     :height="24"
                                                                     :color="'#ffffff'"
-                                                            ></loading>
+                                                            ></Loading>
                                                         </button>
                                                     </div>
                                                 </ul>
@@ -161,6 +161,7 @@
 </template>
 
 <script>
+    import Loading from 'vue-loading-overlay';
     import BarChart from '../../../BarChart.js';
     import WordCloud from '../../projects/WordCloud';
     import TreemapUsuariosPorRegion from './TreeMapUsuariosPorRegion';
@@ -169,21 +170,18 @@
     import ProjectBarCharts from '../../projects/ProjectBarCharts';
     import TopicModel from './TopicModel';
     import axios from '../../../backend/axios';
-    import HighlightText from 'vue-highlight-text';
-    import Loading from 'vue-loading-overlay';
 
     export default {
         name: 'ProjectAnalytic',
         components: {
+            Loading,
             BarChart,
             WordCloud,
             TreemapUsuariosPorRegion,
             HorizontalUserGenderBarChart,
             HorizontalUserAgesBarChart,
             ProjectBarCharts,
-            TopicModel,
-            HighlightText,
-            Loading
+            TopicModel
         },
         props: {
             project_id: Number
@@ -226,7 +224,7 @@
                 loadNgram: true,
                 ngramError: false,
                 fullPage: false,
-                color: "#000000"
+                color: '#000000'
             };
         },
         mounted() {

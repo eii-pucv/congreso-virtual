@@ -51,7 +51,7 @@ class SettingController extends Controller
             foreach($request->settings as $setting) {
                 $validator = Validator::make($setting, [
                     'key' => 'required|string|max:191|unique:settings',
-                    'label' => 'required|string|max:191',
+                    'label' => 'string|max:191|nullable',
                     'value' => 'string|nullable'
                 ]);
                 if($validator->fails()) {

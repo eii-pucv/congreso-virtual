@@ -43,6 +43,12 @@ import CreateOrEditOffensiveWord from "./components/admin/offensive_words/Create
 import PagesList from "./components/admin/pages/PagesList";
 import CreateOrEditPage from "./components/admin/pages/CreateOrEditPage";
 
+import PlayersList from "./components/admin/gamification/PlayersList";
+import ActionsList from "./components/admin/gamification/ActionsList";
+import CreateOrEditAction from "./components/admin/gamification/CreateOrEditAction";
+import RewardsList from "./components/admin/gamification/RewardsList";
+import CreateOrEditReward from "./components/admin/gamification/CreateOrEditReward";
+
 import DeleteElement from "./components/admin/DeleteElement";
 
 import ProfileEdit from "./components/user/ProfileEdit";
@@ -413,6 +419,42 @@ const routes = [
                 props: true,
                 component: CreateOrEditPage
             },
+            /*-- GAMIFICATION ADMINISTRATION --*/
+            {
+                path: 'gamification/players',
+                props: true,
+                component: PlayersList
+            },
+            {
+                path: 'gamification/actions',
+                props: true,
+                component: ActionsList
+            },
+            {
+                path: 'gamification/action',
+                props: true,
+                component: CreateOrEditAction
+            },
+            {
+                path: 'gamification/action/:action_id',
+                props: true,
+                component: CreateOrEditAction
+            },
+            {
+                path: 'gamification/rewards',
+                props: true,
+                component: RewardsList
+            },
+            {
+                path: 'gamification/reward',
+                props: true,
+                component: CreateOrEditReward
+            },
+            {
+                path: 'gamification/reward/:reward_id',
+                props: true,
+                component: CreateOrEditReward
+            },
             /*-- PERSONAL ACCOUNT ADMINISTRATION --*/
             {
                 path: 'profile',
@@ -453,7 +495,14 @@ const routes = [
 
 const router = new Router({
     mode: 'history',
-    routes: routes
+    routes: routes,
+    scrollBehavior(to, from, savedPosition) {
+        if(savedPosition) {
+            return savedPosition
+        } else {
+            return { x: 0, y: 0 }
+        }
+    }
 });
 
 router.beforeEach((to, from, next) => {

@@ -312,7 +312,7 @@
                     "titulo": "PETICIÓN DE URGENCIA",
                     "popover": "Vota para que este proyecto sea puesto en urgencia y tenga mayor prioridad para ser incorporado a Congreso Virtual.",
                     "strong": "Peticiones de urgencia",
-                    "de": "of"
+                    "de": "de"
                 }
             }
         }
@@ -551,7 +551,6 @@
             "tab": {
                 "proyectos_interes": "Proyectos de Interés",
                 "editar_perfil": "Editar mi Perfil",
-                "temas_interes": "Mis Temas de Interés",
                 "votaciones": "Mis Votaciones",
                 "comentarios": "Mis Comentarios",
                 "propuestas": "Mis Propuestas"
@@ -759,9 +758,6 @@
                     }
                 }
             },
-            "temas_interes": {
-                "titulo": "Temas de interés"
-            },
             "votos": {
                 "titulo": "Tus votaciones",
                 "cantidad": "Cantidad de votos realizados",
@@ -817,18 +813,19 @@
             "parrafo2": "O bien, si hay algún proyecto que le gustaría que tenga prioridad para ser estudiado por el Congreso Nacional, búsquelo, selecciónelo y difúndalo para obtener apoyo de otros participantes y que el Congreso pida al Presidente de la República que le ponga urgencia.",
             "buscar": "Buscar",
             "busqueda": "Título, detalle, resumen...",
-            "resultados": "Resultados",
+            "resultados": "Resultados totales",
             "boletin": "Boletín",
             "autoria": "Autoría",
             "fecha": "Fecha ingreso",
             "autores": "Autores",
             "autores_placeholder": "Ingrese el/los autores",
             "origen": "Origen",
-            "ordenar": "Ordenar Por",
+            "ordenar": "Ordenar por",
+            "limpiar": "Limpiar Filtros",
             "incluir": "Incluir a Congreso Virtual",
             "pedir": "Pedir urgencia",
             "cargar": "Cargar Más",
-            "no_hay_resultados": "No se han encontrado resultados",
+            "no_hay_resultados": "No se han encontrado resultados.",
             "modal": {
                 "detalle": "Ingrese un detalle para la propuesta",
                 "descripcion": "Descripción",
@@ -842,12 +839,12 @@
     },
     "propuestas_usuario": {
         "contenido": {
-            "titulo": "Propuestas",
+            "titulo": "Búsqueda de Propuestas",
             "limpiar":"Limpiar Filtros",
             "buscar": "Buscar",
             "buscar_placeholder": "Título, boletín, autoría...",
-            "filtrar":"Filtrar Por",
-            "ordenar": "Ordenar Por",
+            "filtrar":"Filtrar por",
+            "ordenar": "Ordenar por",
             "boton_propuestas_sugeridas": "Ir a propuestas sugeridas",
             "tipo_1": "Inclusión a Congreso Virtual",
             "tipo_2": "Urgencia",
@@ -990,7 +987,15 @@
             "pagina": {
                 "titulo": "Páginas",
                 "lista": "Lista de Páginas",
-                "crear": "Crear una Página"
+                "crear": "Crear Página"
+            },
+            "gamificacion": {
+                "titulo": "Gamificación",
+                "lista_jugadores": "Lista de Jugadores",
+                "lista_acciones": "Lista de Acciones",
+                "crear_accion": "Crear Acción",
+                "lista_recompensas": "Lista de Recompensas",
+                "crear_recompensa": "Crear Recompensa"
             },
             "configuracion": {
                 "titulo": "Configuración del Sitio Web",
@@ -1591,6 +1596,7 @@
                     "confirme": "Confirme contraseña"
                 },
                 "activo": "¿Desea que el usuario quede activo?",
+                "gamificacion_activada": "¿Desea que el usuario tenga la gamificación activada?",
                 "mensajes": {
                     "exito": {
                         "guardado": {
@@ -1776,6 +1782,145 @@
                     }
                 }
             },
+            "gamificacion": {
+                "lista_jugadores": {
+                    "titulo": "Lista de Jugadores"
+                },
+                "lista_acciones": {
+                    "titulo": "Lista de Acciones"
+                },
+                "crear_accion": {
+                    "titulo1": "Crear Acción",
+                    "titulo2": "Editar Acción",
+                    "tipo": {
+                        "titulo": "Tipo",
+                        "popover": "Describe la naturaleza de la interacción del jugador con la plataforma que implica gamificación y por la cual se obtendrán los puntos.",
+                        "opciones": [
+                            { "id": 1, "label": "Comentario" },
+                            { "id": 2, "label": "Voto" },
+                            { "id": 3, "label": "Lectura" }
+                        ]
+                    },
+                    "subtipo": {
+                        "titulo": "Subtipo",
+                        "popover": "Describe el alcance de la interacción del jugador con la plataforma que implica gamificación y por la cual se obtendrán los puntos.",
+                        "opciones": [
+                            { "id": 1, "label": "Ninguno" },
+                            { "id": 2, "label": "Proyecto de Ley" },
+                            { "id": 3, "label": "Página" },
+                            { "id": 4, "label": "Término" }
+                        ]
+                    },
+                    "puntos": "Puntos",
+                    "mensajes": {
+                        "exito": {
+                            "guardado": {
+                                "generico": {
+                                    "titulo": "Acción guardada exitosamente",
+                                    "cuerpo": "Has registrado correctamente los datos de la acción"
+                                }
+                            },
+                            "modificado": {
+                                "generico": {
+                                    "titulo": "Acción actualizada exitosamente",
+                                    "cuerpo": "Has actualizado correctamente los datos de la acción"
+                                }
+                            }
+                        },
+                        "fallido": {
+                            "guardado": {
+                                "generico": {
+                                    "titulo": "Error al guardar la acción",
+                                    "cuerpo": "No se han podido guardar los datos de la acción"
+                                }
+                            },
+                            "modificado": {
+                                "generico": {
+                                    "titulo": "Error al actualizar la acción",
+                                    "cuerpo": "No se han podido actualizar los datos de la acción"
+                                }
+                            }
+                        }
+                    }
+                },
+                "eliminar_accion": {
+                    "modal_eliminacion": {
+                        "titulo": "Eliminación de una acción",
+                        "pregunta": "¿Está seguro que desea eliminar la acción?"
+                    },
+                    "modal_forzar_eliminacion": {
+                        "titulo": "Eliminación permanente de una acción",
+                        "pregunta": "¿Está seguro que desea eliminar la acción permanentemente?"
+                    },
+                    "modal_restaurar": {
+                        "titulo": "Restauración de una acción",
+                        "pregunta": "¿Está seguro que desea restaurar la acción?"
+                    }
+                },
+                "lista_recompensas": {
+                    "titulo": "Lista de Recompensas"
+                },
+                "crear_recompensa": {
+                    "titulo1": "Crear Recompensa",
+                    "titulo2": "Editar Recompensa",
+                    "nombre": "Nombre",
+                    "puntos": "Puntos",
+                    "acciones_necesarias": {
+                        "titulo": "Acciones necesarias",
+                        "popover": "Corresponde a la cantidad de acciones (del tipo y subtipo que se debe indicar a continuación) que debe cumplir el jugador antes de obtener la recompensa."
+                    },
+                    "accion": {
+                        "titulo": "Acción",
+                        "popover": "Describe a alguna interacción concreta del jugador con la plataforma que implica gamificación y por la cual se obtendrá la recompensa.",
+                        "seleccionar": "Seleccionar acción"
+                    },
+                    "icono": "Ícono",
+                    "mensajes": {
+                        "exito": {
+                            "guardado": {
+                                "generico": {
+                                    "titulo": "Recompensa guardada exitosamente",
+                                    "cuerpo": "Has registrado correctamente los datos de la recompensa"
+                                }
+                            },
+                            "modificado": {
+                                "generico": {
+                                    "titulo": "Recompensa actualizada exitosamente",
+                                    "cuerpo": "Has actualizado correctamente los datos de la recompensa"
+                                }
+                            }
+                        },
+                        "fallido": {
+                            "guardado": {
+                                "generico": {
+                                    "titulo": "Error al guardar la recompensa",
+                                    "cuerpo": "No se han podido guardar los datos de la recompensa"
+                                }
+                            },
+                            "modificado": {
+                                "generico": {
+                                    "titulo": "Error al actualizar la recompensa",
+                                    "cuerpo": "No se han podido actualizar los datos de la recompensa"
+                                }
+                            }
+                        }
+                    }
+                },
+                "eliminar_recompensa": {
+                    "modal_eliminacion": {
+                        "titulo": "Eliminación de una recompensa",
+                        "pregunta": "¿Está seguro que desea eliminar la recompensa?"
+                    },
+                    "modal_forzar_eliminacion": {
+                        "titulo": "Eliminación permanente de una recompensa",
+                        "pregunta": "¿Está seguro que desea eliminar la recompensa permanentemente?"
+                    },
+                    "modal_restaurar": {
+                        "titulo": "Restauración de una recompensa",
+                        "pregunta": "¿Está seguro que desea restaurar la recompensa?"
+                    }
+                }
+            },
             "configuracion_general": {
                 "titulo": "Configuración General",
                 "datos_basicos": {
@@ -1817,6 +1962,30 @@
                     "youtube": "YouTube",
                     "vimeo": "Vimeo",
                     "dailymotion": "Dailymotion"
+                },
+                "api_externa": {
+                    "titulo": "Configuración de API externa",
+                    "popover": "La plataforma requiere de una fuente de datos externa que le provea de cierta información acerca de los proyectos de ley y propuestas que se publican en la plataforma. Dicha fuente de datos corresponde a una API que mediante endpoints facilite la información que se solicita a continuación.",
+                    "info_general_proyecto": {
+                        "titulo": "URL de información general del proyecto de ley",
+                        "popover": "Recurso que provea la autoría, iniciativa, origen y descripción general de la tramitación."
+                    },
+                    "info_seguimiento_proyecto": {
+                        "titulo": "URL de seguimiento del proyecto de ley",
+                        "popover": "Recurso que provea los hitos de la tramitación del proyecto de ley."
+                    },
+                    "votacion_parlamento_proyecto": {
+                        "titulo": "URL de votación en el parlamento del proyecto de ley",
+                        "popover": "Recurso que provea información de la votación en el parlamento."
+                    },
+                    "propuestas": {
+                        "titulo": "URL de propuestas",
+                        "popover": "Recurso que provea una lista de propuestas que puedan elegir los usuarios."
+                    }
+                },
+                "gamificacion": {
+                    "titulo": "Gamificación",
+                    "gamificacion_activada": "¿Activar gamificación?"
                 },
                 "mensajes": {
                     "exito": {

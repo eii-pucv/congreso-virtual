@@ -9,19 +9,17 @@
                 </p>
             </div>
         </section>
-        <div class="px-100 text-center" :style="mode==='dark'?'background: #080035;':''">
-            <div class="row">
-                <div class="col">
-                    <nav class="container px-0" aria-label="breadcrumb">
-                        <ol class="breadcrumb" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
-                            <li class="breadcrumb-item"><a href="/#" :style="mode==='dark'?'color: #fff':''">{{ $t('contacto.breadcumb.inicio') }}</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><a href="/contact" :style="mode==='dark'?'color: #fff':''">{{ $t('contacto.breadcumb.contacto') }}</a></li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <div class="container text-center" :style="mode==='dark'?'background: #080035;':''">
+        <nav class="container px-0" aria-label="breadcrumb">
+            <ol class="breadcrumb" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
+                <li class="breadcrumb-item">
+                    <a href="/#" :style="mode==='dark'?'color: #fff':''">{{ $t('contacto.breadcumb.inicio') }}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a href="/contact" :style="mode==='dark'?'color: #fff':''">{{ $t('contacto.breadcumb.contacto') }}</a>
+                </li>
+            </ol>
+        </nav>
+        <div class="container px-0 text-center" :style="mode==='dark'?'background: #080035;':''">
             <div class="row">
                 <div class="col">
                     <div class="card" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
@@ -190,15 +188,3 @@
         }
     }
 </script>
-
-<style scoped>
-    .dark {
-        color: #fff;
-        background: rgb(8, 0, 53);
-    }
-
-    .light {
-        color: #000;
-        background: #fff;
-    }
-</style>

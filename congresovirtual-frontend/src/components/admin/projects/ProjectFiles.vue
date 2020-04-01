@@ -43,7 +43,7 @@
                                     <h6 class="text-truncate">{{ file.original_filename }}</h6>
                                 </div>
                                 <small class="text-grey">{{ new Date(toLocalDatetime(file.updated_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}</small>
-                                <div class="btn-group btn-group-toggle btn-block mt-10">
+                                <div class="btn-group btn-block mt-10">
                                     <button
                                             class="btn-sm vld-parent"
                                             @click="downloadFile(file.id)"

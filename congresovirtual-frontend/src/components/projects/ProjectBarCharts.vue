@@ -1,12 +1,12 @@
 <template>
-    <div id="app" >
+    <div id="">
         <div v-if="!loadProject">
             <div class="row">
                 <div class="col-12">
                     <h3 :style="mode==='dark'?'color: #fff':''">{{ $t('proyecto.componentes.votos_stacked.votos_general') }}</h3>
                     <br/>
                     <p :style="mode==='dark'?'color: #fff':''">{{ $t('proyecto.componentes.votos_stacked.resultados_general') }}</p>
-                    <div class="col-12 px-4">
+                    <div class="barchart-container col-12 px-4">
                         <horizontal-barChart :data="generalVotingChartData" :options="generalVotingChartOptions"></horizontal-barChart>
                     </div>
                 </div>
@@ -16,7 +16,7 @@
                     <h3 :style="mode==='dark'?'color: #fff':''">{{ $t('proyecto.componentes.votos_stacked.votos_ideas') }}</h3>
                     <br/>
                     <p :style="mode==='dark'?'color: #fff':''">{{ $t('proyecto.componentes.votos_stacked.resultados_ideas') }}</p>
-                    <div class="col-12 px-4">
+                    <div class="barchart-container col-12 px-4">
                         <horizontal-barChart :data="ideasVotingChartData" :options="genericStackedChartOptions"></horizontal-barChart>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                     <h3 :style="mode==='dark'?'color: #fff':''">{{ $t('proyecto.componentes.votos_stacked.votos_articulos') }}</h3>
                     <br/>
                     <p :style="mode==='dark'?'color: #fff':''">{{ $t('proyecto.componentes.votos_stacked.resultados_articulos') }}</p>
-                    <div class="col-12 px-4">
+                    <div class="barchart-container col-12 px-4">
                         <horizontal-barChart :data="articlesVotingChartData" :options="genericStackedChartOptions"></horizontal-barChart>
                     </div>
                 </div>
@@ -63,6 +63,8 @@
                 ideasVotingChartData: null,
                 articlesVotingChartData: null,
                 generalVotingChartOptions: {
+                    //maintainAspectRatio: false,
+                    responsive: true,
                     scales: {
                         xAxes: [
                             {
@@ -82,6 +84,8 @@
                     }
                 },
                 genericStackedChartOptions: {
+                    //maintainAspectRatio: false,
+                    responsive: true,
                     scales: {
                         xAxes: [
                             {
@@ -159,7 +163,7 @@
                             backgroundColor: [this.agreeColor, this.disagreeColor, this.abstentionColor],
                             data: [this.project.votos_a_favor, this.project.votos_en_contra, this.project.abstencion],
                         },
-                    ],
+                    ]
                 };
             },
             generateIdeasVotingChartData() {
@@ -191,7 +195,7 @@
                             label: this.$t('proyecto.contenido.abstenciones'),
                             data: ideasAbstentionVotes,
                             backgroundColor: this.abstentionColor
-                        },
+                        }
                     ]
                 };
             },
@@ -224,7 +228,7 @@
                             label: this.$t('proyecto.contenido.abstenciones'),
                             data: articlesAbstentionVotes,
                             backgroundColor: this.abstentionColor
-                        },
+                        }
                     ]
                 };
             }
@@ -233,22 +237,10 @@
 </script>
 
 <style>
-    .dark {
-        color: #fff;
-        background: rgb(8, 0, 53);
-    }
-
-    .light {
-        color: #000;
-        background: #fff;
-    }
-
-    #app {
-        font-family: "Avenir", Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
-        margin-top: 60px;
+    .barchart-container {
+        position: relative;
+        margin: auto;
+        /*height: 300px;*/
+        /*width: 600px;*/
     }
 </style>

@@ -91,6 +91,7 @@
                     </router-link>
                 </div>
                 <div v-else-if="isLoggedIn">
+                    <Notifications></Notifications>
                     <router-link v-if="userData.rol === 'ADMIN'" :to="{ path: '/admin' }" class="btn text-white">
                         <i class="fas fa-user-circle"></i> {{ $t('navbar.admin') }}
                     </router-link>
@@ -116,13 +117,15 @@
     import axios from '../backend/axios';
     import Toggle from '../views/Toggle';
     import Language from './Language';
+    import Notifications from './Notifications';
 
     export default {
         name: 'Navbar',
         components: {
             Slide,
             Toggle,
-            Language
+            Language,
+            Notifications
         },
         data: function() {
             return {

@@ -52,7 +52,7 @@
                             <div class="col-md-3 mb-10">
                                 <label for="fecha_inicio" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_proyecto.fecha_inicio') }}</label>
                                 <v-popover>
-                                    <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                    <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                     <template slot="popover">
                                         <p>{{ $t('administrador.componentes.crear_proyecto.popover_fecha_inicio') }}</p>
                                     </template>
@@ -68,7 +68,7 @@
                             <div class="col-md-3 mb-10">
                                 <label for="fecha_termino" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_proyecto.fecha_termino') }}</label>
                                 <v-popover>
-                                    <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                    <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                     <template slot="popover">
                                         <p>{{ $t('administrador.componentes.crear_proyecto.popover_fecha_termino') }}</p>
                                     </template>
@@ -96,7 +96,7 @@
                             <div class="col-md-4 mb-10">
                                 <label for="etapa" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_proyecto.etapa.titulo') }}</label>
                                 <v-popover>
-                                    <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                    <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                     <template slot="popover">
                                         <p>{{ $t('administrador.componentes.crear_proyecto.etapa.popover') }}</p>
                                     </template>
@@ -118,7 +118,7 @@
                             <div class="col-md-4 mb-10">
                                 <label for="video_source" :style="mode==='dark'?'color: #fff':''">{{  $t('administrador.componentes.crear_proyecto.fuente_video.titulo') }}</label>
                                 <v-popover>
-                                    <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                    <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                     <template slot="popover">
                                         <p>{{ $t('administrador.componentes.crear_proyecto.fuente_video.popover') }}</p>
                                     </template>
@@ -141,7 +141,7 @@
                             <div class="col-md-6 mb-10">
                                 <label for="video_code" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_proyecto.codigo_video.titulo') }}</label>
                                 <v-popover>
-                                    <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                    <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                     <template slot="popover">
                                         <p>{{ $t('administrador.componentes.crear_proyecto.codigo_video.popover') }}</p>
                                     </template>
@@ -174,6 +174,7 @@
                                         :placeholder="$t('administrador.componentes.crear_proyecto.tema_asociado.buscar')"
                                         :options="taxonomyTerms"
                                         :multiple="true"
+                                        :showLabels="false"
                                         :limit="10"
                                         :limit-text="limitTextTaxonomyTermsMultiselect"
                                         :style="mode==='dark'?' color: #fff':''"
@@ -194,6 +195,7 @@
                                         :placeholder="$t('administrador.componentes.crear_proyecto.stopword.buscar')"
                                         :options="stopwords"
                                         :multiple="true"
+                                        :showLabels="false"
                                         :taggable="true"
                                         @tag="addStopword"
                                         :limit="20"
@@ -277,7 +279,7 @@
                                     >
                                     <label for="is_public" class="custom-control-label" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_proyecto.publico') }}</label>
                                     <v-popover>
-                                        <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                        <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                         <template slot="popover">
                                             <p>{{ $t('administrador.componentes.crear_proyecto.popover_publico') }}</p>
                                         </template>
@@ -297,7 +299,7 @@
                                     >
                                     <label for="is_principal" class="custom-control-label" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_proyecto.principal') }}</label>
                                     <v-popover>
-                                        <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                        <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                         <template slot="popover">
                                             <p>{{ $t('administrador.componentes.crear_proyecto.popover_principal') }}</p>
                                         </template>
@@ -317,7 +319,7 @@
                                     >
                                     <label for="is_enabled" class="custom-control-label" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_proyecto.habilitado') }}</label>
                                     <v-popover>
-                                        <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                        <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                         <template slot="popover">
                                             <p>{{ $t('administrador.componentes.crear_proyecto.popover_habilitado') }}</p>
                                         </template>
@@ -327,8 +329,7 @@
                         </div>
                         <div class="text-center mt-20">
                             <button class="btn btn-primary vld-parent" type="submit">
-                                <font-awesome-icon icon="save" />
-                                <span class="btn-text"> {{ $t('guardar') }}</span>
+                                <i class="fas fa-save"></i> {{ $t('guardar') }}
                                 <Loading
                                         :active.sync="loadBtnSave"
                                         :is-full-page="fullPage"
@@ -336,17 +337,24 @@
                                         :color="'#ffffff'"
                                 ></Loading>
                             </button>
-                            <router-link v-if="project.id" class="btn btn-outline-primary ml-10" :to="{ path: '/admin/project/' + project.id + '/idea' }">
-                                <font-awesome-icon icon="pencil-alt" />
-                                <span class="btn-text" :style="mode==='dark'?'color: #fff':''"> {{ $t('administrador.componentes.crear_proyecto.agregar_idea') }}</span>
+                            <router-link
+                                    v-if="project.id"
+                                    class="btn btn-outline-primary ml-10"
+                                    :class="mode==='dark'?'text-white':''"
+                                    :to="{ path: '/admin/project/' + project.id + '/idea' }"
+                            >
+                                <i class="fas fa-pencil-alt"></i> {{ $t('administrador.componentes.crear_proyecto.agregar_idea') }}
                             </router-link>
-                            <router-link v-if="project.id" class="btn btn-outline-primary ml-10" :to="{ path: '/admin/project/' + project.id + '/article' }">
-                                <font-awesome-icon icon="book" />
-                                <span class="btn-text" :style="mode==='dark'?'color: #fff':''"> {{ $t('administrador.componentes.crear_proyecto.agregar_articulo') }}</span>
+                            <router-link
+                                    v-if="project.id"
+                                    class="btn btn-outline-primary ml-10"
+                                    :class="mode==='dark'?'text-white':''"
+                                    :to="{ path: '/admin/project/' + project.id + '/article' }"
+                            >
+                                <i class="fas fa-book"></i> {{ $t('administrador.componentes.crear_proyecto.agregar_articulo') }}
                             </router-link>
-                            <button @click.prevent="back" class="btn btn-danger text-white ml-10">
-                                <font-awesome-icon icon="window-close" />
-                                <span class="btn-text" :style="mode==='dark'?'color: #fff':''"> {{ $t('cancelar') }}</span>
+                            <button @click.prevent="back" class="btn btn-danger ml-10">
+                                <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
                             </button>
                         </div>
                     </form>

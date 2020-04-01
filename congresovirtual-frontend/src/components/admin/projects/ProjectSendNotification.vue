@@ -8,8 +8,8 @@
                 <br>
                 <p class="lead">{{ $t('administrador.componentes.notificacion.aceptar') }}</p>
                 <div class="button-list text-center">
-                    <button class="btn text-white bg-green votable" :disabled="disabledBtn" @click="ProjectSendNotification()"><font-awesome-icon icon="envelope"/><span class="btn-text"> {{ $t('enviar') }}</span></button>
-                    <button class="btn text-white bg-red ml-10 votable" @click="volver()"><font-awesome-icon icon="window-close"/><span class="btn-text"> {{ $t('cancelar') }}</span></button>
+                    <button class="btn text-white bg-green " :disabled="disabledBtn" @click="ProjectSendNotification()"><font-awesome-icon icon="envelope"/><span class="btn-text"> {{ $t('enviar') }}</span></button>
+                    <button class="btn text-white bg-red ml-10 " @click="volver()"><font-awesome-icon icon="window-close"/><span class="btn-text"> {{ $t('cancelar') }}</span></button>
                 </div>
             </div>
         </section>

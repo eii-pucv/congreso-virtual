@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    import ProjectInterestCard from "../projects/ProjectInterestCard";
+    import ProjectInterestCard from "./ProjectInterestCard";
     import axios from "../../backend/axios";
     import Loading from 'vue-loading-overlay';
 
@@ -29,18 +29,23 @@
             ProjectInterestCard,
             Loading
         },
-        props: {
-            mode: String
-        },
         data() {
             return {
                 projects: [],
                 largo: 7,
+                currentMoment: this.$moment().local(),
                 loadProjects: true,
-                fullPage: false
+                fullPage: false,
+                mode: String
             };
         },
         mounted() {
+            if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
+                this.mode = 'dark';
+            } else {
+                this.mode = 'light';
+            }
+
             axios
                 .get('/users/' + JSON.parse(localStorage.user).id + '/terms')
                 .then(res => {
@@ -65,11 +70,18 @@
                         }
                     })
                     .then(res => {
-                        this.projects = res.data.results;
+                        let auxProjects = res.data.results;
+                        this.projects = auxProjects.filter(project => this.getIsAvailableVoting(project));
+                        this.projects = this.projects.concat(auxProjects.filter(project => !this.getIsAvailableVoting(project)));
                     })
                     .finally(() => {
                         this.loadProjects = false;
                     });
+            },
+            getIsAvailableVoting(project) {
+                let votingStartDate = this.$moment.utc(project.fecha_inicio, 'YYYY-MM-DD HH:mm:ss').local();
+                let votingEndDate = this.$moment.utc(project.fecha_termino, 'YYYY-MM-DD HH:mm:ss').local();
+                return project.is_enabled && project.etapa !== 3 && this.currentMoment.isBetween(votingStartDate, votingEndDate);
             }
         }
     };

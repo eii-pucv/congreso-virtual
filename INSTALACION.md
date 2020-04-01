@@ -500,9 +500,9 @@ _Para ver el estado del servidor de analítica, se deberá usar una terminal par
 
 ## Configuración de API Externa
 
-Congreso Virtual requiere de una fuente de datos externa que le provea de cierta información acerca de los proyectos de ley que se publican en la plataforma. Dicha fuente de datos corresponde a una API que mediante endpoints facilite la información que se indica a continuación.
+Congreso Virtual requiere de una fuente de datos externa que le provea de cierta información acerca de los proyectos de ley y propuestas que se publican en la plataforma. Dicha fuente de datos corresponde a una API que mediante endpoints facilite la información que se indica a continuación.
 
-* Información general del proyecto de ley: recurso que provea la autoría (`AUTORES`), inicitiva (`INICIATIVA`), origen (`ORIGEN`) y descripción general de la tramitación (`TRAMDESCRIPCION`). El formato en que debe encontrarse esta información es un JSON con un arreglo de única posición en el cual se encuentre el objeto con los atributos descritos. Por ejemplo:
+* __Información general del proyecto de ley__: recurso que provea la autoría (`AUTORES`), iniciativa (`INICIATIVA`), origen (`ORIGEN`) y descripción general de la tramitación (`TRAMDESCRIPCION`). El formato en que debe encontrarse esta información es un JSON con un arreglo de única posición en el cual se encuentre el objeto con los atributos descritos. Por ejemplo:
  
   ```
   [
@@ -522,7 +522,7 @@ Congreso Virtual requiere de una fuente de datos externa que le provea de cierta
   https://www.dominioapi.com/foo/bar/[N° de Boletín]
   ```
 
-* Información de seguimiento del proyecto de ley: recurso que provea los hitos de la tramitación del proyecto de ley. El formato en que debe encontrarse esta información es un JSON con un arreglo de una o más posiciones, en cada una de las cuales debe encontrarse un objeto con la información del hito, la que corresponde a descripción del trámite (`TRAMITE`), cámara en la que ocurre (`CAMDELTRAMITE`) y fecha (`FECHA_SORT` formato `AAAA/MM/DD`). Por ejemplo:
+* __Información de seguimiento del proyecto de ley__: recurso que provea los hitos de la tramitación del proyecto de ley. El formato en que debe encontrarse esta información es un JSON con un arreglo de una o más posiciones, en cada una de las cuales debe encontrarse un objeto con la información del hito, la que corresponde a descripción del trámite (`TRAMITE`), cámara en la que ocurre (`CAMDELTRAMITE`) y fecha (`FECHA_SORT` formato `AAAA/MM/DD`). Por ejemplo:
 
   ```
   [
@@ -547,7 +547,7 @@ Congreso Virtual requiere de una fuente de datos externa que le provea de cierta
   https://www.dominioapi.com/foo/bar/[N° de Boletín]
   ```
 
-* Información de la votación en la Cámara del Senado: recurso que provea información de la votación en el parlamento. El formato en que debe encontrarse esta información es un JSON con un arreglo de una o más posiciones, en cada una de las cuales debe encontrarse un objeto con la información del voto, la que corresponde al autor del voto (`NOMBRE`) y la opción elegida (`VOTO`), el voto debe ser un número, donde `1` es a favor, `2` en contra y `3` en abstención. Por ejemplo:
+* __Información de la votación en la Cámara del Senado__: recurso que provea información de la votación en el parlamento. El formato en que debe encontrarse esta información es un JSON con un arreglo de una o más posiciones, en cada una de las cuales debe encontrarse un objeto con la información del voto, la que corresponde al autor del voto (`NOMBRE`) y la opción elegida (`VOTO`), el voto debe ser un número, donde `1` es a favor, `2` en contra y `3` en abstención. Por ejemplo:
 
   ```
   [
@@ -574,7 +574,7 @@ Congreso Virtual requiere de una fuente de datos externa que le provea de cierta
   https://www.dominioapi.com/foo/bar/[N° de Boletín]
   ```
 
-* Listado de propuestas: los usuarios tienen la opción de elegir alguna de estas propuestas que ellos consideran necesaria de solicitar su inclusión como proyecto de ley a Congreso Virtual de forma urgente o no. Es por ello que debe existir un recurso que provea una lista de propuestas que puedan elegir los usuarios. El formato en que debe encontrarse esta información es un JSON con un arreglo de una o más posiciones, en cada una de las cuales debe encontrarse un objeto con la información de la propuesta, la que corresponde a breve descripción de la misma (`PROYSUMA`), N° de boletín (`PROYNUMEROBOLETIN`), origen (`ORIGEN`), autores (`AUTORES`) y fecha de ingreso (`FECHAINGRESO`). Por ejemplo:
+* __Listado de propuestas__: los usuarios tienen la opción de elegir alguna de estas propuestas que ellos consideran necesaria de solicitar su inclusión como proyecto de ley a Congreso Virtual de forma urgente o no. Es por ello que debe existir un recurso que provea una lista de propuestas que puedan elegir los usuarios. El formato en que debe encontrarse esta información es un JSON con un arreglo de una o más posiciones, en cada una de las cuales debe encontrarse un objeto con la información de la propuesta, la que corresponde a breve descripción de la misma (`PROYSUMA`), N° de boletín (`PROYNUMEROBOLETIN`), origen (`ORIGEN`), autores (`AUTORES`) y fecha de ingreso (`FECHAINGRESO`). Por ejemplo:
   
   ```
   [

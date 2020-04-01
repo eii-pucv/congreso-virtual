@@ -106,50 +106,54 @@
                 };
             },
             generateParliamentaryVotingChartData() {
-                axioma
-                    .create()
-                    .get('https://slr.senado.cl/votacionGralSV/' + this.project.boletin)
-                    .then(res => {
-                        let parliamentaryVotingArray = res.data;
-                        if(parliamentaryVotingArray.length > 0) {
-                            let parliamentaryVotingData = {
-                                agreeeVotes: parliamentaryVotingArray.filter(voteData => voteData.VOTO === 1).length,
-                                disagreeVotes: parliamentaryVotingArray.filter(voteData => voteData.VOTO === 2).length,
-                                abstentionVotes: parliamentaryVotingArray.filter(voteData => voteData.VOTO === 3).length,
-                                totalVotes: parliamentaryVotingArray.length
-                            };
-
-                            this.parliamentaryVotingChartData = {
-                                labels: [this.$t('proyecto.contenido.a_favor'), this.$t('proyecto.contenido.en_contra'), this.$t('proyecto.contenido.abstenciones')],
-                                datasets: [
-                                    {
-                                        backgroundColor: [this.agreeColor, this.disagreeColor, this.abstentionColor],
-                                        data: [
-                                            Math.round((parliamentaryVotingData.agreeeVotes / parliamentaryVotingData.totalVotes) * 100),
-                                            Math.round((parliamentaryVotingData.disagreeVotes / parliamentaryVotingData.totalVotes) * 100),
-                                            Math.round((parliamentaryVotingData.abstentionVotes / parliamentaryVotingData.totalVotes) * 100)
-                                        ]
-                                    }
-                                ]
-                            };
+                axios
+                    .get('settings', {
+                        params: {
+                            key: 'external_api'
                         }
                     })
-                    .finally(() => {
-                        this.loadParliamentaryVotingData = false;
+                    .then(res => {
+                        if(res.data.length > 0) {
+                            let parliamentVoteProjectUrl = JSON.parse(res.data[0].value).parliament_vote_project;
+                            axioma
+                                .create()
+                                .get(parliamentVoteProjectUrl + this.project.boletin)
+                                .then(res => {
+                                    let parliamentaryVotingArray = res.data;
+                                    if(parliamentaryVotingArray.length > 0) {
+                                        let parliamentaryVotingData = {
+                                            agreeeVotes: parliamentaryVotingArray.filter(voteData => voteData.VOTO === 1).length,
+                                            disagreeVotes: parliamentaryVotingArray.filter(voteData => voteData.VOTO === 2).length,
+                                            abstentionVotes: parliamentaryVotingArray.filter(voteData => voteData.VOTO === 3).length,
+                                            totalVotes: parliamentaryVotingArray.length
+                                        };
+
+                                        this.parliamentaryVotingChartData = {
+                                            labels: [this.$t('proyecto.contenido.a_favor'), this.$t('proyecto.contenido.en_contra'), this.$t('proyecto.contenido.abstenciones')],
+                                            datasets: [
+                                                {
+                                                    backgroundColor: [this.agreeColor, this.disagreeColor, this.abstentionColor],
+                                                    data: [
+                                                        Math.round((parliamentaryVotingData.agreeeVotes / parliamentaryVotingData.totalVotes) * 100),
+                                                        Math.round((parliamentaryVotingData.disagreeVotes / parliamentaryVotingData.totalVotes) * 100),
+                                                        Math.round((parliamentaryVotingData.abstentionVotes / parliamentaryVotingData.totalVotes) * 100)
+                                                    ]
+                                                }
+                                            ]
+                                        };
+                                    }
+                                })
+                                .finally(() => {
+                                    this.loadParliamentaryVotingData = false;
+                                });
+                        } else {
+                            this.loadParliamentaryVotingData = false;
+                        }
                     })
+                    .catch(() => {
+                        this.loadParliamentaryVotingData = false;
+                    });
             }
         }
     }
 </script>
-
-<style>
-    .dark {
-        color: #fff;
-        background: rgb(8, 0, 53);
-    }
-
-    .light {
-        color: #000;
-        background: #fff;
-    }
-</style>

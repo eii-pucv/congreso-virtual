@@ -15,7 +15,7 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use UserMetadateable, HasApiTokens, Filterable, Notifiable, SoftDeletes;
 
-    protected $appends = ['avatar'];
+    protected $appends = ['avatar', 'active_gamification'];
     protected $dates = ['deleted_at'];
 
     /**
@@ -59,6 +59,20 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $file = File::find($this->avatar_id);
         return $file ? "{$file->stored_name}.{$file->extension}" : null;
+    }
+
+    public function getActiveGamificationAttribute()
+    {
+        $player = $this->player;
+        return $player ? $player->active_gamification : false;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function player()
+    {
+        return $this->hasOne('App\Gamification\Player');
     }
 
     /**

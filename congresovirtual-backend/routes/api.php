@@ -37,10 +37,6 @@ Route::group(['prefix' => 'storage'], function () {
     Route::get('/comments/{comment}/{storedBasename}', 'StorageController@showFileOfComment');
 });
 
-Route::get('/wordcloud', 'WordCloudController@show');
-Route::get('/ngram', 'NgramController@show');
-Route::get('/topicmodel', 'TopicModelController@show');
-
 Route::group(['middleware' => ['auth:api', 'has.roles:ADMIN,USER']], function() {
 
     Route::group(['prefix' => 'projects'], function () {
@@ -118,9 +114,21 @@ Route::group(['middleware' => ['auth:api', 'has.roles:ADMIN,USER']], function() 
         Route::delete('/{memberOrg}', 'MemberOrgController@destroy');
         Route::patch('/{memberOrg}/undelete', 'MemberOrgController@undelete');
     });
+
+    //--GAMIFICATION--//
+    Route::group(['namespace' => 'Gamification'], function () {
+
+        Route::group(['prefix' => 'events'], function () {
+            Route::post('/', 'EventController@store');
+        });
+    });
+    //--GAMIFICATION--//
 });
 
 Route::group(['middleware' => ['auth:api', 'has.roles:ADMIN']], function() {
+
+    Route::get('/ngram', 'NgramController@show');
+    Route::get('/topicmodel', 'TopicModelController@show');
 
     Route::group(['prefix' => 'projects'], function () {
         Route::post('/', 'ProjectController@store');
@@ -262,9 +270,43 @@ Route::group(['middleware' => ['auth:api', 'has.roles:ADMIN']], function() {
         Route::put('/{offensiveword}', 'OffensiveWordController@update');
         Route::delete('/{offensiveword}', 'OffensiveWordController@destroy');
     });
+
+    //--GAMIFICATION--//
+    Route::group(['namespace' => 'Gamification'], function () {
+
+        Route::group(['prefix' => 'players'], function () {
+            Route::post('/', 'PlayerController@store');
+            Route::put('/{player}', 'PlayerController@update');
+            Route::delete('/{player}', 'PlayerController@destroy');
+            Route::patch('/{player}/undelete', 'PlayerController@undelete');
+        });
+
+        Route::group(['prefix' => 'events'], function () {
+            Route::delete('/{event}', 'EventController@destroy');
+            Route::patch('/{event}/undelete', 'EventController@undelete');
+        });
+
+        Route::group(['prefix' => 'actions'], function () {
+            Route::post('/', 'ActionController@store');
+            Route::put('/{action}', 'ActionController@update');
+            Route::delete('/{action}', 'ActionController@destroy');
+            Route::patch('/{action}/undelete', 'ActionController@undelete');
+        });
+
+        Route::group(['prefix' => 'rewards'], function () {
+            Route::post('/', 'RewardController@store');
+            Route::put('/{reward}', 'RewardController@update');
+            Route::delete('/{reward}', 'RewardController@destroy');
+            Route::patch('/{reward}/undelete', 'RewardController@undelete');
+        });
+    });
+    //--GAMIFICATION--//
 });
 
 Route::group(['middleware' => ['is.auth:api']], function() {
+
+    Route::get('/wordcloud', 'WordCloudController@show');
+
     Route::group(['prefix' => 'projects'], function () {
         Route::get('/', 'ProjectController@index');
         Route::get('/{project}', 'ProjectController@show');
@@ -400,4 +442,40 @@ Route::group(['middleware' => ['is.auth:api']], function() {
         Route::get('/', 'StopwordTypeController@index');
         Route::get('/{stopwordType}', 'StopwordTypeController@show');
     });
+
+    //--GAMIFICATION--//
+    Route::group(['namespace' => 'Gamification'], function () {
+
+        Route::group(['prefix' => 'gamification'], function () {
+            Route::get('/ranking_term_players_rewards', 'GamificationController@rankingTermPlayersRewards');
+            Route::get('/ranking_project_players_rewards', 'GamificationController@rankingProjectPlayersRewards');
+            Route::get('/ranking_page_players_rewards', 'GamificationController@rankingPagePlayersRewards');
+            Route::get('/ranking_term_players_rewards_actions', 'GamificationController@rankingTermPlayersRewardsAndActions');
+            Route::get('/ranking_project_players_rewards_actions', 'GamificationController@rankingProjectPlayersRewardsAndActions');
+            Route::get('/ranking_page_players_rewards_actions', 'GamificationController@rankingPagePlayersRewardsAndActions');
+        });
+
+        Route::group(['prefix' => 'players'], function () {
+            Route::get('/', 'PlayerController@index');
+            Route::get('/{player}', 'PlayerController@show');
+            Route::get('/{player}/actions', 'PlayerController@actions');
+            Route::get('/{player}/rewards', 'PlayerController@rewards');
+        });
+
+        Route::group(['prefix' => 'events'], function () {
+            Route::get('/', 'EventController@index');
+            Route::get('/{event}', 'EventController@show');
+        });
+
+        Route::group(['prefix' => 'actions'], function () {
+            Route::get('/', 'ActionController@index');
+            Route::get('/{action}', 'ActionController@show');
+        });
+
+        Route::group(['prefix' => 'rewards'], function () {
+            Route::get('/', 'RewardController@index');
+            Route::get('/{reward}', 'RewardController@show');
+        });
+    });
+    //--GAMIFICATION--//
 });

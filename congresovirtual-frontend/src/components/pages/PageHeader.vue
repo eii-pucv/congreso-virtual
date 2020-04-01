@@ -30,16 +30,14 @@
             <div class="d-block font-20 text-center text-white" style="padding: 0px;">
                 <div class="bg-indigo-light-1">
                     {{ $t('pagina.componentes.header.titulo') }}
-                    <span>
-                        <v-popover>
-                            <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
-                            <template slot="popover">
-                                <p>
-                                    {{ $t('pagina.componentes.header.popover') }}
-                                </p>
-                            </template>
-                        </v-popover>
-                    </span>
+                    <v-popover>
+                        <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
+                        <template slot="popover">
+                            <p>
+                                {{ $t('pagina.componentes.header.popover') }}
+                            </p>
+                        </template>
+                    </v-popover>
                 </div>
             </div>
         </div>

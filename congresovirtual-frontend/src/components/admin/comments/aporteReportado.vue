@@ -22,7 +22,7 @@
                                                         :style="mode==='dark'?'background: #080035; color: #fff':''"
                                                 />
                                                 <div class="input-group-append" v-if="denounce.comment.user">
-                                                    <a role="button" class="btn text-white bg-primary votable" :href="'/admin/user/' + denounce.comment.user.id"><font-awesome-icon icon="eye" style="font-size: 10p;"/></a>
+                                                    <a role="button" class="btn btn-primary " :href="'/admin/user/' + denounce.comment.user.id"><font-awesome-icon icon="eye" style="font-size: 10p;"/></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -37,7 +37,7 @@
                                                         :style="mode==='dark'?'background: #080035; color: #fff':''"
                                                 />
                                                 <div class="input-group-append" v-if="denounce.user">
-                                                    <a role="button" class="btn text-white bg-primary votable" :href="'/admin/user/' + denounce.user.id"><font-awesome-icon icon="eye" style="font-size: 10p;"/></a>
+                                                    <a role="button" class="btn btn-primary " :href="'/admin/user/' + denounce.user.id"><font-awesome-icon icon="eye" style="font-size: 10p;"/></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -75,7 +75,7 @@
                                                                             <span v-if="file.original_filename.length > seeMoreLimitText" class="text-primary seemore-trigger" href="" @click="seeMoreToggle(index)" :id="'myBtn-' + index">{{ $t('componentes.comentarios.ver_mas') }}</span>
                                                                         </div>
                                                                     </div>
-                                                                    <span class="votable float-right ml-1" @click="downloadFile(file,comment.id)"><i class="fas fa-download"></i></span>
+                                                                    <span class=" float-right ml-1" @click="downloadFile(file,comment.id)"><i class="fas fa-download"></i></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -99,7 +99,7 @@
                                         <a
                                                 @click="changeState(2)"
                                                 type="submit"
-                                                class="btn text-white bg-primary mr-2"
+                                                class="btn btn-primary mr-2"
                                         >
                                             <font-awesome-icon icon="ban"/>
                                             <span class="btn-text"> {{ $t('administrador.componentes.aporte_reportado.bloquear') }}</span>

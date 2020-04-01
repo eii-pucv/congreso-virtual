@@ -4,7 +4,7 @@
             <div class="col-12 p-0">
                 <div class="form-row align-content-center justify-content-center">
                     <div class="col-11">
-                        <label class="font-weight-bold" >{{ $t('componentes.comentarios.buscar') }}</label>
+                        <label class="font-weight-bold" :style="mode==='dark'?'color: #fff':''">{{ $t('componentes.comentarios.buscar') }}</label>
                         <div class="input-group has-feedback">
                             <input
                                     v-model="query"
@@ -14,17 +14,17 @@
                                     :placeholder="$t('componentes.comentarios.buscar_placeholder')"
                             >
                             <div v-if="query !== ''" class="input-group-append">
-                                <button @click="query = ''" class="btn text-white bg-grey"><i class="fas fa-times-circle"></i></button>
+                                <button @click="query = ''" class="btn btn-secondary"><i class="fas fa-times-circle"></i></button>
                             </div>
                             <div class="input-group-append"> 
-                                <button @click="search" class="btn text-white bg-primary"><i class="fas fa-search"></i></button>
+                                <button @click="search" class="btn btn-primary"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-row align-content-center justify-content-center mt-3">
                     <div class="col-11">
-                        <label class="font-weight-bold" >{{ $t('componentes.comentarios.orden.titulo') }}</label>
+                        <label class="font-weight-bold" :style="mode==='dark'?'color: #fff':''">{{ $t('componentes.comentarios.orden.titulo') }}</label>
                         <select @change="sort" v-model="selectedSortId" class="form-control custom-select d-block">
                             <option
                                     v-for="optionSort in optionsSort"
@@ -36,7 +36,7 @@
                         </select>
                     </div>
                 </div>
-                <div v-if="loadComments" class="vld-parent pa-50" style="height:500px;">
+                <div v-if="loadComments" class="vld-parent pa-50" style="height: 500px;">
                     <loading
                         :active.sync="loadComments"
                         :is-full-page="fullPage"
@@ -227,8 +227,8 @@
                     </template>
                     <div class="form-row">
                         <div class="col-md-12 mb-10">
-                            <label for="razon">{{ $t('componentes.comentarios.denunciar.razon') }}</label>
-                            <select class="form-control custom-select d-block w-100" id="activityBox" v-model="denunciation.razon" value=" ">
+                            <label for="reason">{{ $t('componentes.comentarios.denunciar.razon') }}</label>
+                            <select id="reason" class="form-control custom-select d-block w-100" id="activityBox" v-model="denunciation.razon" value=" ">
                                 <option>{{ $t('componentes.comentarios.denunciar.lenguaje_indebido') }}</option>
                                 <option>Bullying</option>
                                 <option>{{ $t('componentes.comentarios.denunciar.acoso') }}</option>
@@ -241,13 +241,13 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-12 mb-10">
-                            <label for="descripcion">{{ $t('componentes.comentarios.denunciar.descripcion') }}</label>
+                            <label for="description">{{ $t('componentes.comentarios.denunciar.descripcion') }}</label>
                             <textarea id="description" class="form-control" rows="2" v-model="denunciation.descripcion"></textarea>
                         </div>
                     </div>
                     <template v-slot:modal-footer>
-                        <b-button class="btn btn-sm bg-green votable" block @click="sendDenunciation(),$bvModal.hide('modal-denunciar')"><font-awesome-icon icon="envelope"/><span class="btn-text"> {{ $t('componentes.comentarios.denunciar.enviar') }}</span></b-button>
-                        <b-button class="btn btn-sm bg-red votable mb-2" block @click="$bvModal.hide('modal-denunciar'),cleanModal()"><font-awesome-icon icon="window-close"/><span class="btn-text"> {{ $t('cancelar') }}</span></b-button>
+                        <b-button class="btn btn-sm bg-green " block @click="sendDenunciation(),$bvModal.hide('modal-denunciar')"><font-awesome-icon icon="envelope"/><span class="btn-text"> {{ $t('componentes.comentarios.denunciar.enviar') }}</span></b-button>
+                        <b-button class="btn btn-sm bg-red  mb-2" block @click="$bvModal.hide('modal-denunciar'),cleanModal()"><font-awesome-icon icon="window-close"/><span class="btn-text"> {{ $t('cancelar') }}</span></b-button>
                     </template>
                 </b-modal>
                 <div class="modal" :id="'ShareModal' + shareComment.id">
@@ -422,6 +422,7 @@
             } else {
                 this.mode = 'light';
             }
+
             this.configComponent();
             this.search();
         },
@@ -1026,15 +1027,5 @@
         color: #f83f37;
         pointer-events: none;
         cursor: none;
-    }
-
-    .dark {
-        color: #fff;
-        background: rgb(8, 0, 53);
-    }
-
-    .light {
-        color: #000;
-        background: #fff;
     }
 </style>

@@ -5,7 +5,7 @@
                 <div v-if="loadProject" class="vld-parent">
                     <img
                             src="../assets/img/loader2.gif"
-                            style="height:600px; width:1200px"
+                            style="height: 600px; width: 1200px"
                             class="pl-0 ma-10 img-fluid col-12"
                     />
                 </div>
@@ -468,13 +468,29 @@
                         this.project = res.data;
                     })
                     .finally(() => {
-                        axioma
-                            .create()
-                            .get('https://slr.senado.cl/proyectoInfo/0/' + this.project.boletin)
-                            .then(res => {
-                                this.seguimiento = res.data;
+                        axios
+                            .get('settings', {
+                                params: {
+                                    key: 'external_api'
+                                }
                             })
-                            .finally(() => {
+                            .then(res => {
+                                if(res.data.length > 0) {
+                                    let generalInfoProjectUrl = JSON.parse(res.data[0].value).general_info_project;
+                                    axioma
+                                        .create()
+                                        .get(generalInfoProjectUrl + this.project.boletin)
+                                        .then(res => {
+                                            this.seguimiento = res.data;
+                                        })
+                                        .finally(() => {
+                                            this.loadProject = false;
+                                        });
+                                } else {
+                                    this.loadProject = false;
+                                }
+                            })
+                            .catch(() => {
                                 this.loadProject = false;
                             });
                     });

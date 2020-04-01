@@ -2,7 +2,7 @@
     <div class="col-12 px-0">
         <div class="container px-0">
             <div class="header-img default-proposal-img"></div>
-            <div v-if="proposal.type === 1" class="top-left ml-10 mt-10" style="max-width: 80%;">
+            <div v-if="proposal.state !== 0 && proposal.type === 1" class="top-left ml-10 mt-10" style="max-width: 80%;">
                 <button
                         @click.prevent="voteProjectProposal(proposal)"
                         class="btn btn-success text-white font-20"
@@ -11,7 +11,7 @@
                 </button>
                 <label class="text-white align-text-middle ml-15 my-0">{{ $t('propuesta.componentes.header.apoyar1') }}</label>
             </div>
-            <div v-if="proposal.type === 2" class="top-left ml-10 mt-10" style="max-width: 80%;">
+            <div v-else-if="proposal.state !== 0 && proposal.type === 2" class="top-left ml-10 mt-10" style="max-width: 80%;">
                 <button
                         @click.prevent="voteProjectProposal(proposal)"
                         class="btn text-white btn-warning font-20"
@@ -72,18 +72,16 @@
             <div v-if="proposal.type === 1" class="d-block font-20 text-center text-white" style="padding:0px">
                 <div class="bg-indigo-light-1">
                     {{ $t('propuesta.componentes.header.proyecto_ley.titulo') }}
-                    <span>
-                        <v-popover>
-                            <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
-                            <template slot="popover">
-                                <p>{{ $t('propuesta.componentes.header.proyecto_ley.popover') }}</p>
-                            </template>
-                        </v-popover>
-                    </span>
+                    <v-popover>
+                        <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
+                        <template slot="popover">
+                            <p>{{ $t('propuesta.componentes.header.proyecto_ley.popover') }}</p>
+                        </template>
+                    </v-popover>
                 </div>
-                <div class="row mx-10 align-items-center justify-content-center">
+                <div class="row mx-0 align-items-center justify-content-center">
                     <div class="col-10">
-                        <p class="my-10" :class="mode==='dark'?'':'text-primary '">
+                        <p class="my-10" :class="mode==='dark'?'':'text-primary'">
                             <strong>{{ $t('propuesta.componentes.header.proyecto_ley.strong') }} </strong>{{ proposal.petitions }} {{ $t('propuesta.componentes.header.proyecto_ley.de') }} 100
                         </p>
                         <div class="progress mb-10">
@@ -91,28 +89,32 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="proposal.state === 0" class="bg-red-dark-3">
+                    {{ $t('votacion_cerrada') }}
+                </div>
             </div>
             <div v-if="proposal.type === 2" class="d-block font-20 text-center text-white" style="padding:0px">
                 <div class="bg-yellow-dark-1">
                     {{ $t('propuesta.componentes.header.urgencia.titulo') }}
-                    <span>
-                        <v-popover>
-                            <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
-                            <template slot="popover">
-                                <p>{{ $t('propuesta.componentes.header.urgencia.popover') }}</p>
-                            </template>
-                        </v-popover>
-                    </span>
+                    <v-popover>
+                        <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
+                        <template slot="popover">
+                            <p>{{ $t('propuesta.componentes.header.urgencia.popover') }}</p>
+                        </template>
+                    </v-popover>
                 </div>
-                <div class="row align-items-center justify-content-center">
+                <div class="row mx-0 align-items-center justify-content-center">
                     <div class="col-10">
-                        <p class="text-primary my-10">
+                        <p class="my-10" :class="mode==='dark'?'':'text-primary'">
                             <strong>{{ $t('propuesta.componentes.header.urgencia.strong') }} </strong>{{ proposal.urgencies }} {{ $t('propuesta.componentes.header.urgencia.de') }} {{ maxPetitions }}
                         </p>
                         <div class="progress mb-10">
                             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="{ width: (proposal.urgencies/maxPetitions * 100) + '%' }"></div>
                         </div>
                     </div>
+                </div>
+                <div v-if="proposal.state === 0" class="bg-red-dark-3">
+                    {{ $t('votacion_cerrada') }}
                 </div>
             </div>
         </div>
@@ -182,7 +184,7 @@
                 APP_URL
             }
         },
-        async mounted() {
+        mounted() {
             if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
                 this.mode = 'dark';
             } else {
@@ -190,7 +192,11 @@
             }
 
             axios
-                .get('/settings?key=max_necessary_petitions')
+                .get('/settings', {
+                    params: {
+                        key: 'max_necessary_petitions'
+                    }
+                })
                 .then(res => {
                     if(res.data[0] !== undefined) {
                         this.maxPetitions = JSON.parse(res.data[0].value).number_petitions;
@@ -199,27 +205,26 @@
         },
         methods: {
             voteProjectProposal(proposal) {
-                if(this.isLoggedIn){
-                axios
-                    .post('/urgencies', {
-                        urgency: proposal.type,
-                        proposal_id: proposal.id,
-                        user_id: this.userData.id
-                    })
-                    .then(res => {
-                        if (proposal.type == 1) {
-                            proposal.petitions++;
-                        }
-                        else {
-                            proposal.urgencies++;
-                        }
-                        this.$toastr("success", "Su solicitud fue considerada", "Apoyo enviado");
-                    })
-                    .catch(() => {
-                        this.$toastr("warning", "Existe guardado un voto de urgencia tuyo para esta propuesta", "Ya votaste esta urgencia");
-                    });
+                if(this.isLoggedIn) {
+                    axios
+                        .post('/urgencies', {
+                            urgency: proposal.type,
+                            proposal_id: proposal.id
+                        })
+                        .then(res => {
+                            if(proposal.type == 1) {
+                                proposal.petitions++;
+                            }
+                            else {
+                                proposal.urgencies++;
+                            }
+                            this.$toastr('success', 'Su solicitud fue considerada', 'Apoyo enviado');
+                        })
+                        .catch(() => {
+                            this.$toastr('warning', 'Existe guardado un voto de urgencia tuyo para esta propuesta', 'Ya votaste esta urgencia');
+                        });
                 } else {
-                    this.$toastr("warning", "", "Debes iniciar sesión");
+                    this.$toastr('warning', '', 'Debes iniciar sesión para poder apoyar una propuesta');
                 }
             },
             toLocalDate(date) {
@@ -227,11 +232,8 @@
             }
         },
         computed: {
-            isLoggedIn: function () {
+            isLoggedIn() {
                 return this.$store.getters.isLoggedIn;
-            },
-            userData: function () {
-                return this.$store.getters.userData;
             }
         }
     }

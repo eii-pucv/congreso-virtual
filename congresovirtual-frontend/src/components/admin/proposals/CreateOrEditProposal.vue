@@ -1,7 +1,7 @@
 <template>
     <div class="container mt-20">
         <section class="hk-sec-wrapper" :style="mode === 'dark' ? 'background: rgb(12, 1, 80);' : ''">
-            <h4 v-if="!proposal_id" class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_propuesta.titulo1') }}</h4>
+            <h4 v-if="!inEdition" class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_propuesta.titulo1') }}</h4>
             <h4 v-else class="hk-sec-title text-center">{{ $t('administrador.componentes.crear_propuesta.titulo2') }}</h4>
             <div class="mt-20 vld-parent">
                 <div v-if="loadProposal" style="height: 300px;">
@@ -69,7 +69,7 @@
                             <div class="col-md-2 mb-10">
                                 <label for="fecha_ingreso" :style="mode === 'dark' ? 'color: #fff' : ''">{{ $t('administrador.componentes.crear_propuesta.fecha_ingreso') }}</label>
                                 <v-popover>
-                                    <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                    <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                     <template slot="popover">
                                         <p>{{ $t('administrador.componentes.crear_propuesta.popover_fecha_ingreso') }}</p>
                                     </template>
@@ -85,7 +85,7 @@
                             <div class="col-md-4 mb-10">
                                 <label for="state" :style="mode === 'dark' ? 'color: #fff' : ''">{{ $t('administrador.componentes.crear_propuesta.estado.titulo') }}</label>
                                 <v-popover>
-                                    <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                    <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                     <template slot="popover">
                                         <p style="white-space:pre-wrap;text-align:left;">{{ $t('administrador.componentes.crear_propuesta.estado.popover') }}</p>
                                     </template>
@@ -145,7 +145,7 @@
                                 <div class="col-md-4 mb-10">
                                     <label for="video_source" :style="mode==='dark'?'color: #fff':''">{{  $t('administrador.componentes.crear_propuesta.fuente_video.titulo') }}</label>
                                     <v-popover>
-                                        <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                        <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                         <template slot="popover">
                                             <p>{{ $t('administrador.componentes.crear_propuesta.fuente_video.popover') }}</p>
                                         </template>
@@ -168,7 +168,7 @@
                                 <div class="col-md-6 mb-10">
                                     <label for="video_code" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_propuesta.codigo_video.titulo') }}</label>
                                     <v-popover>
-                                        <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                        <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                         <template slot="popover">
                                             <p>{{ $t('administrador.componentes.crear_propuesta.codigo_video.popover') }}</p>
                                         </template>
@@ -201,7 +201,7 @@
                                     >
                                     <label for="is_public" class="custom-control-label" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_propuesta.publica') }}</label>
                                     <v-popover>
-                                        <font-awesome-icon class="tooltip-target ml-1" icon="info-circle"></font-awesome-icon>
+                                        <span class="tooltip-target ml-1"><i class="fas fa-info-circle"></i></span>
                                         <template slot="popover">
                                             <p>{{ $t('administrador.componentes.crear_propuesta.popover_publica') }}</p>
                                         </template>
@@ -211,8 +211,7 @@
                         </div>
                         <div class="text-center mt-20">
                             <button class="btn btn-primary vld-parent" type="submit">
-                                <font-awesome-icon icon="save" />
-                                <span class="btn-text"> {{ $t('guardar') }}</span>
+                                <i class="fas fa-save"></i> {{ $t('guardar') }}
                                 <Loading
                                         :active.sync="loadBtnSave"
                                         :is-full-page="fullPage"
@@ -220,9 +219,8 @@
                                         :color="'#ffffff'"
                                 ></Loading>
                             </button>
-                            <button @click.prevent="back" class="btn btn-danger text-white ml-10">
-                                <font-awesome-icon icon="window-close" />
-                                <span class="btn-text" :style="mode==='dark'?'color: #fff':''"> {{ $t('cancelar') }}</span>
+                            <button @click.prevent="back" class="btn btn-danger ml-10">
+                                <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
                             </button>
                         </div>
                     </form>

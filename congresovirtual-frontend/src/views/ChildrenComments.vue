@@ -11,9 +11,9 @@
                         </h6>
                     </div>
                     <div v-if="usuario===comment.user.id" class="col-4 col-sm-2 btn-group mt-auto ml-auto float-right" style="margin:0px;padding:0px">
-                        <a @click="edit(comment)" class="btn text-white bg-primary mt-3 votable">
+                        <a @click="edit(comment)" class="btn btn-primary mt-3 ">
                             <span class="btn-text"><font-awesome-icon icon="edit"/></span></a>
-                        <a @click="dlt(comment.id)" class="btn text-white bg-red mt-3 votable">
+                        <a @click="dlt(comment.id)" class="btn text-white bg-red mt-3 ">
                             <span class="btn-text"><font-awesome-icon icon="trash-alt"/></span></a>
                     </div>
                 </div>
@@ -32,17 +32,17 @@
                                         <span v-if="file.original_filename.length > seeMoreLimitText" class="text-primary seemore-trigger" href="" @click="seeMoreToggle(index)" :id="'myBtn-' + index">{{ $t('componentes.comentarios.ver_mas') }}</span>
                                     </div>
                                 </div>
-                                <span class="votable float-right ml-1" @click="downloadFile(file,comment.id)"><i class="fa fa-download"></i></span>
+                                <span class=" float-right ml-1" @click="downloadFile(file,comment.id)"><i class="fa fa-download"></i></span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="float-right mb-20">
-                        <span class="mr-1 votable" @click="addOrEditVote(0,comment.id)"><i class="fa fa-thumbs-up"></i> {{ comment.votos_a_favor }} </span>
-                        <span class="px-1 votable" @click="addOrEditVote(1,comment.id)"> <i class="fa fa-thumbs-down"></i> {{ comment.votos_en_contra }}</span>
-                        <span v-if="usuario!=comment.user.id" class="px-1 votable" @click="denounced_comment = comment, verificarLogin()"><i class="fa fa-ban"></i></span>
-                        <span class="ml-1 votable" @click="shareComment = comment" data-toggle="modal" :data-target="'#ShareModal' + shareComment.id"><i class="fa fa-share-square"></i></span>
+                        <span class="mr-1 " @click="addOrEditVote(0,comment.id)"><i class="fa fa-thumbs-up"></i> {{ comment.votos_a_favor }} </span>
+                        <span class="px-1 " @click="addOrEditVote(1,comment.id)"> <i class="fa fa-thumbs-down"></i> {{ comment.votos_en_contra }}</span>
+                        <span v-if="usuario!=comment.user.id" class="px-1 " @click="denounced_comment = comment, verificarLogin()"><i class="fa fa-ban"></i></span>
+                        <span class="ml-1 " @click="shareComment = comment" data-toggle="modal" :data-target="'#ShareModal' + shareComment.id"><i class="fa fa-share-square"></i></span>
                     </div>
                 </div>
             </div>
@@ -57,15 +57,15 @@
                 {{ comment.body }}
                 <div class="col-12">
                     <div class="float-right mb-20">
-                        <span class="mr-1 votable" @click="addOrEditVote(0,comment.id)"><i class="fa fa-thumbs-up"></i> {{ comment.votos_a_favor }} </span>
-                        <span class="px-1 votable" @click="addOrEditVote(1,comment.id)"> <i class="fa fa-thumbs-down"></i> {{ comment.votos_en_contra }}</span>
-                        <span class="px-1 votable" @click="denounced_comment = comment, verificarLogin()"><i class="fa fa-ban"></i></span>
-                        <span class="ml-1 votable" @click="shareComment = comment" data-toggle="modal" :data-target="'#ShareModal' + shareComment.id"><i class="fa fa-share-square"></i></span>
+                        <span class="mr-1 " @click="addOrEditVote(0,comment.id)"><i class="fa fa-thumbs-up"></i> {{ comment.votos_a_favor }} </span>
+                        <span class="px-1 " @click="addOrEditVote(1,comment.id)"> <i class="fa fa-thumbs-down"></i> {{ comment.votos_en_contra }}</span>
+                        <span class="px-1 " @click="denounced_comment = comment, verificarLogin()"><i class="fa fa-ban"></i></span>
+                        <span class="ml-1 " @click="shareComment = comment" data-toggle="modal" :data-target="'#ShareModal' + shareComment.id"><i class="fa fa-share-square"></i></span>
                     </div>
                 </div>
             </div>
         </li>
-        <a v-if="comments[index-1]" @click="aumento" class="btn text-white btn-secondary mt-3 d-block votable">
+        <a v-if="comments[index-1]" @click="aumento" class="btn text-white btn-secondary mt-3 d-block ">
             <span class="btn-text" style="text-transform: none !important;">{{ $t('componentes.comentarios.mas_comentarios') }} (10)</span>
         </a>
         <b-modal id="modal-denunciar"  
@@ -102,8 +102,8 @@
                 </div>
             </div>
             <template v-slot:modal-footer>
-                <b-button class="btn btn-sm bg-green votable" block @click="sendDenunciation(),$bvModal.hide('modal-denunciar')"><font-awesome-icon icon="envelope"/><span class="btn-text"> {{ $t('componentes.comentarios.denunciar.enviar') }}</span></b-button>
-                <b-button class="btn btn-sm bg-red votable mb-2" block @click="$bvModal.hide('modal-denunciar'),cleanModal()"><font-awesome-icon icon="window-close"/><span class="btn-text"> {{ $t('cancelar') }}</span></b-button>
+                <b-button class="btn btn-sm bg-green " block @click="sendDenunciation(),$bvModal.hide('modal-denunciar')"><font-awesome-icon icon="envelope"/><span class="btn-text"> {{ $t('componentes.comentarios.denunciar.enviar') }}</span></b-button>
+                <b-button class="btn btn-sm bg-red  mb-2" block @click="$bvModal.hide('modal-denunciar'),cleanModal()"><font-awesome-icon icon="window-close"/><span class="btn-text"> {{ $t('cancelar') }}</span></b-button>
             </template>
         </b-modal>
         <div class="modal" :id="'ShareModal' + shareComment.id">
@@ -368,15 +368,6 @@ export default {
         cursor: pointer;
     }
 
-    .dark {
-        color: #fff;
-        background: rgb(8, 0, 53);
-    }
-
-    .light {
-        color: #000;
-        background: #fff;
-    }
     .Button {
         font-size:13px;
         font-weight: bold;

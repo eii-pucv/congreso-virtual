@@ -1,409 +1,448 @@
 <template>
-  <section class="mt-1" :style="mode==='dark'?'background: #080035; color: #fff':''">
-    <div class="container" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
-      <div class="row">
-        <div class="col-12 mt-20">
-          <h3 :style="mode==='dark'?'color: #fff':''">{{ $t('propuestas.contenido.titulo') }}</h3>
-          <br />
-          <p class="mb-5">{{ $t('propuestas.contenido.parrafo1') }}</p>
-          <p class="mt-5">{{ $t('propuestas.contenido.parrafo2') }}</p>
-        </div>
-      </div>
-    </div>
-    <nav aria-label="breadcrumb" class="container px-0">
-      <ol class="breadcrumb" :style="mode === 'dark' ? 'background: rgb(12, 1, 80);' : ''">
-        <li class="breadcrumb-item">
-          <a
-            href="/#"
-            :style="mode==='dark'?'color: #fff':''"
-          >{{ $t('propuestas.breadcumb.inicio') }}</a>
-        </li>
-        <li
-          class="breadcrumb-item active"
-          aria-current="page"
-          :style="mode==='dark'?'color: #fff':''"
-        >{{ $t('propuestas.breadcumb.propuestas') }}</li>
-      </ol>
-    </nav>
-    <div class="container card" :style="mode === 'dark' ? 'background: rgb(12, 1, 80);' : ''">
-      <div class="hk-row">
-        <div class="col-sm-4">
-          <form class="form-group row ma-20">
-            <div class="col-12">
-              <div class="col-12 row-md-4 mt-15">
-                <form class="row" v-on:submit.prevent>
-                  <label class="col-12 font-weight-bold" :style="mode==='dark'?'color: #fff':''">
-                    {{ $t('propuestas.contenido.buscar') }}
-                    <input
-                      v-model="buscar"
-                      class="form-control text mt-5"
-                      :placeholder="$t('propuestas.contenido.busqueda')"
-                      :style="mode==='dark'?'background: #080035; color: #fff':''"
-                    />
-                  </label>
-                  <label class="col-12 font-weight-bold" :style="mode==='dark'?'color: #fff':''">            
-                    {{ $t('propuestas.contenido.fecha') }}
-                    <date-picker v-model="fechaIngreso" :config="dateOptions" :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"></date-picker>
-                  </label>
-                  <label class="col-12 font-weight-bold" :style="mode==='dark'?'color: #fff':''">
-                    {{ $t('propuestas.contenido.autores') }}
-                    <input
-                      v-model="autores"
-                      class="form-control text mt-5"
-                      :placeholder="$t('propuestas.contenido.autores_placeholder')"
-                      :style="mode==='dark'?'background: #080035; color: #fff':''"
-                    />
-                  </label>
-                  <label class="col-12 font-weight-bold" :style="mode==='dark'?'color: #fff':''">
-                    {{ $t('propuestas.contenido.origen') }}
-                      <select
-                        v-model="origen"
-                        class="form-control custom-select d-block"
-                        id="filterOrigen"
-                      >
-                       <option v-for="(source, index) in sourceProposals" :key="'origen_tipo_' + index" :value="source">{{ source }}</option>
-                      </select>
-                  </label>
-                  <label class="col-12 font-weight-bold" :style="mode==='dark'?'color: #fff':''">
-                    {{ $t('propuestas.contenido.ordenar') }}
-                      <select
-                        @change="sort"
-                        v-model="ordenar"
-                        class="form-control custom-select d-block"
-                        id="filterOrigen"
-                      >
-                       <option v-for="(sort, index) in sortOptions" :key="'ordenar_' + index" :value="sort.value">{{ sort.name }}</option>
-                      </select>
-                  </label>
-                  <div class="btn-group btn-group-toggle btn-block mt-10 mx-15">
-                    <button
-                      @click="clearFilters"
-                      class="btn btn-outline-primary"
-                      type="button"
-                      :class="mode==='dark'?'btn-light':'btn-primary'"
-                      :style="mode==='dark'?'color: #fff':''"
-                    >{{ $t('proyectos.contenido.limpiar') }}</button>
-                    <button class="vld-parent btn btn-primary" @click="search">{{ $t('proyectos.contenido.buscar') }}
-                      <loading
-                        :active.sync="loadBtnSearch"
-                        :is-full-page="fullPage"
-                        :height="24"
-                        :color="color"
-                      ></loading>
-                    </button>
-                  </div>
-                   <label
-                    class="col-12 font-weight-bold"
-                    :style="mode==='dark'?'color: #fff':''"
-                  >{{ projects.length }} {{ $t('propuestas.contenido.resultados') }}</label>
-                </form>
-              </div>
+    <div :style="mode==='dark'?'background: #080035; color: #fff':''">
+        <div class="jumbotron text-center" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
+            <div class="container">
+                <h1 class="jumbotron-heading" :style="mode==='dark'?'color: #fff':''">{{ $t('propuestas.contenido.titulo') }}</h1>
+                <br>
+                <p class="lead mb-0" :class="mode==='dark'?'':'text-muted'" :style="mode==='dark'?'color: #fff':''">
+                    {{ $t('propuestas.contenido.parrafo1') }}
+                </p>
+                <p class="lead mb-0" :class="mode==='dark'?'':'text-muted'" :style="mode==='dark'?'color: #fff':''">
+                    {{ $t('propuestas.contenido.parrafo2') }}
+                </p>
             </div>
-          </form>
         </div>
-        <div class="col-sm-8 mt-25" v-if="projects.length > 0">
-          <div class="col-12" v-for="(project, index) in projects.slice(0, limit)" :key="'card-project_' + index">
-            <div class="ma-5 col-lg-12">
-              <div class="card" :style="mode === 'dark' ? 'background: rgb(12, 1, 80); border-color: #fff;' : ''">
-                <div class="card-header">
-                  <p class="card-title text-justify font-weight-bold" :class="mode === 'dark' ? '' : 'text-primary'">
-                    {{ project.PROYSUMA }}
-                  </p>
+        <nav class="container px-0" aria-label="breadcrumb">
+            <ol class="breadcrumb" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
+                <li class="breadcrumb-item">
+                    <a href="/#" :style="mode==='dark'?'color: #fff':''">{{ $t('propuestas.breadcumb.inicio') }}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page" :style="mode==='dark'?'color: #fff':''">
+                    {{ $t('propuestas.breadcumb.propuestas') }}
+                </li>
+            </ol>
+        </nav>
+        <div class="container hk-sec-wrapper" :style="mode === 'dark' ? 'background: rgb(12, 1, 80);' : ''">
+            <div class="row mx-0">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <h5 class="mb-2" :style="mode==='dark'?'color: #fff':''">{{ $t('propuestas.contenido.buscar') }}</h5>
+                        <input
+                                v-model="query"
+                                v-on:keyup.enter="search"
+                                type="text"
+                                class="form-control"
+                                :placeholder="$t('propuestas.contenido.busqueda')"
+                                :style="mode==='dark'?'background: #080035; color: #fff':''"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <h5 class="mb-2" :style="mode==='dark'?'color: #fff':''">{{ $t('propuestas.contenido.fecha') }}</h5>
+                        <DatePicker
+                                v-model="fechaIngreso"
+                                :config="dateOptions"
+                                :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                        ></DatePicker>
+                    </div>
+                    <div class="form-group">
+                        <h5 class="mb-2" :style="mode==='dark'?'color: #fff':''">{{ $t('propuestas.contenido.autores') }}</h5>
+                        <input
+                                v-model="autores"
+                                type="text"
+                                class="form-control"
+                                :placeholder="$t('propuestas.contenido.autores_placeholder')"
+                                :style="mode==='dark'?'background: #080035; color: #fff':''"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <h5 class="mb-2" :style="mode==='dark'?'color: #fff':''">{{ $t('propuestas.contenido.origen') }}</h5>
+                        <select
+                                v-model="origen"
+                                class="form-control custom-select d-block"
+                        >
+                            <option v-for="(source, index) in sourceProposals" :key="'origen_tipo_' + index" :value="source">{{ source }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <h5 class="mb-2" :style="mode==='dark'?'color: #fff':''">{{ $t('propuestas.contenido.ordenar') }}</h5>
+                        <select
+                                @change="sort"
+                                v-model="ordenar"
+                                class="form-control custom-select d-block"
+                        >
+                            <option v-for="(sort, index) in sortOptions" :key="'ordenar_' + index" :value="sort.value">{{ sort.name }}</option>
+                        </select>
+                    </div>
+                    <span class="mt-10" :style="mode==='dark'?'color: #fff':''">{{ $t('propuestas.contenido.resultados') }}: {{ proposals.length }}</span>
+                    <div class="btn-group btn-block mt-10 mb-20">
+                        <button
+                                @click="clearFilters"
+                                class="btn btn-outline-primary"
+                                type="button"
+                                :class="mode==='dark'?'btn-light':'btn-primary'"
+                                :style="mode==='dark'?'color: #fff':''"
+                        >
+                            {{ $t('propuestas.contenido.limpiar') }}
+                        </button>
+                        <button @click="search" class="vld-parent btn btn-primary">{{ $t('propuestas.contenido.buscar') }}
+                            <Loading
+                                    :active.sync="loadBtnSearch"
+                                    :is-full-page="fullPage"
+                                    :height="24"
+                                    :color="color"
+                            ></Loading>
+                        </button>
+                    </div>
                 </div>
-                <div class="card-body pt-0">
-                  <p>
-                    <strong>{{ $t('propuestas.contenido.boletin') }}</strong>
-                    {{ project.PROYNUMEROBOLETIN }}
-                  </p>
-                  <p>
-                    <strong>{{ $t('propuestas.contenido.autoria') }}</strong>
-                    {{ project.AUTORES }}
-                  </p>
-                  <p>
-                    <strong>{{ $t('propuestas.contenido.fecha') }}</strong>
-                    {{ project.FECHAINGRESO }}
-                  </p>
-                </div>
-                <div class="btn-group-vertical">
-                  <div class="btn-group mt-auto" role="group" aria-label="Basic example">
+                <div class="col-md-8" v-if="!loadBtnSearch && proposals.length > 0">
+                    <div v-for="(proposal, index) in proposals.slice(0, limit)" :key="'proposal-' + index">
+                        <div class="card" :style="mode === 'dark' ? 'background: rgb(12, 1, 80); border-color: #fff;' : ''">
+                            <div class="card-header">
+                                <p class="card-title text-justify font-weight-bold" :class="mode === 'dark' ? '' : 'text-primary'">
+                                    {{ proposal.PROYSUMA }}
+                                </p>
+                            </div>
+                            <div class="card-body pt-0">
+                                <p>
+                                    <strong>{{ $t('propuestas.contenido.boletin') }}</strong>
+                                    {{ proposal.PROYNUMEROBOLETIN }}
+                                </p>
+                                <p>
+                                    <strong>{{ $t('propuestas.contenido.autoria') }}</strong>
+                                    {{ proposal.AUTORES }}
+                                </p>
+                                <p>
+                                    <strong>{{ $t('propuestas.contenido.fecha') }}</strong>
+                                    {{ proposal.FECHAINGRESO }}
+                                </p>
+                            </div>
+                            <div class="btn-group-vertical">
+                                <a class="font-1"></a>
+                                <div class="btn-group mt-auto">
+                                    <button
+                                            @click="createUserProposal(proposal, 1)"
+                                            class="btn btn-primary font-12"
+                                    >
+                                        <i class="fas fa-vote-yea"></i> {{ $t('propuestas.contenido.incluir') }}
+                                    </button>
+                                    <button
+                                            @click="createUserProposal(proposal, 2)"
+                                            class="btn btn-warning font-12"
+                                    >
+                                        <i class="fas fa-warning"></i> {{ $t('propuestas.contenido.pedir') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <button
-                      @click="showModal(project, 1)"
-                      class="btn text-white bg-primary font-12"
+                            class="btn btn-secondary btn-block"
+                            v-if="limit < proposals.length"
+                            @click="loadMore"
                     >
-                      <font-awesome-icon icon="vote-yea" />
-                      <span class="btn-text">{{ $t('propuestas.contenido.incluir') }}</span>
+                        {{ $t('propuestas.contenido.cargar') }}
                     </button>
-                    <button
-                      @click="showModal(project, 2)"
-                      class="btn text-white bg-warning font-12"
-                    >
-                      <i class="fa fa-warning"></i>
-                      <span class="btn-text text-primary">{{ $t('propuestas.contenido.pedir') }}</span>
-                    </button>
-                  </div>
                 </div>
-              </div>
+                <div v-if="!loadBtnSearch && proposals.length === 0" class="col-md-8 my-30 border d-flex align-self-start">
+                    <p class="text-center w-100 h-100 my-50">
+                        {{ $t('propuestas.contenido.no_hay_resultados') }}
+                    </p>
+                </div>
             </div>
-          </div>
-          <button
-            class="btn btn-primary btn-block"
-            v-if="limit < projects.length"
-            @click="loadMoreProjects()"
-          >{{ $t('propuestas.contenido.cargar') }}</button>
         </div>
-        <div class="col-sm-8 my-30 border d-flex align-self-start" v-if="projects.length === 0 && !loadBtnSearch">
-          <p class="text-center w-100 h-100 my-50">
-            {{ $t('propuestas.contenido.no_hay_resultados') }}
-          </p>
-        </div>
-      </div>
+        <b-modal
+                id="modal-new-user-proposal"
+                header-bg-variant="primary"
+                body-bg-variant="light"
+                footer-bg-variant="light"
+                header-class="justify-content-center"
+                hide-header-close
+                no-close-on-backdrop
+                centered
+        >
+            <template v-slot:modal-header>
+                <h5 class="text-white">{{ $t('propuestas.contenido.modal.detalle') }}</h5>
+            </template>
+            <form @submit.prevent="commitCreateUserProposal" id="form-new-proposal">
+                <div class="form-row">
+                    <div class="col-md-12 mb-10">
+                        <label for="detalle">{{ $t('propuestas.contenido.modal.descripcion') }}</label>
+                        <textarea
+                                id="detalle"
+                                v-model="newUserProposal.detalle"
+                                class="form-control"
+                                rows="3"
+                                required
+                        ></textarea>
+                    </div>
+                </div>
+            </form>
+            <template v-slot:modal-footer>
+                <div class="btn-group w-100">
+                    <b-button
+                            variant="success"
+                            size="sm"
+                            type="submit"
+                            form="form-new-proposal"
+                    >
+                        <i class="fas fa-envelope"></i> {{ $t('propuestas.contenido.modal.enviar') }}
+                        <Loading
+                                :active.sync="loadModalBtn"
+                                :is-full-page="fullPage"
+                                :height="24"
+                                :color="'#ffffff'"
+                        ></Loading>
+                    </b-button>
+                    <b-button
+                            variant="danger"
+                            size="sm"
+                            @click.prevent="abortCreateUserProposal"
+                    >
+                        <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
+                    </b-button>
+                </div>
+            </template>
+        </b-modal>
     </div>
-    <b-modal
-      id="modal-descripcion"
-      footer-bg-variant="primary"
-      header-bg-variant="primary"
-      body-bg-variant="light"
-      header-class="justify-content-center"
-      hide-header-close
-      no-close-on-backdrop
-      centered
-    >
-      <template v-slot:modal-header>
-        <h5 class="hk-sec-title text-white my-3">{{ $t('propuestas.contenido.modal.detalle') }}</h5>
-      </template>
-      <div class="form-row">
-        <div class="col-md-12 mb-10">
-          <label for="description">{{ $t('propuestas.contenido.modal.descripcion') }}</label>
-          <textarea id="description" class="form-control" rows="3" v-model="descripcion"></textarea>
-        </div>
-      </div>
-      <template v-slot:modal-footer>
-        <b-button
-          class="btn btn-sm bg-green votable"
-          block
-          @click="createProposal(),$bvModal.hide('modal-descripcion')"
-        >
-          <font-awesome-icon icon="envelope" />
-          <span class="btn-text">{{ $t('propuestas.contenido.modal.enviar') }}</span>
-        </b-button>
-        <b-button
-          class="btn btn-sm bg-red votable mb-2"
-          block
-          @click="$bvModal.hide('modal-descripcion'),descripcion = ''"
-        >
-          <font-awesome-icon icon="window-close" />
-          <span class="btn-text">{{ $t('cancelar') }}</span>
-        </b-button>
-      </template>
-    </b-modal>
-  </section>
 </template>
 
 <script>
-import { BModal } from "bootstrap-vue";
-import datePicker from 'vue-bootstrap-datetimepicker';
-import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
-import axios from "../backend/axios";
-import axioma from "axios";
+    import { BModal } from 'bootstrap-vue';
+    import DatePicker from 'vue-bootstrap-datetimepicker';
+    import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
+    import axios from '../backend/axios';
+    import axioma from 'axios';
+    import Loading from 'vue-loading-overlay';
 
-export default {
-  name: "Proposals",
-  components: {
-    BModal,
-    datePicker
-  },
-  props: {
-    mode: String
-  },
-  methods: {
-    sort() {
-      if(this.ordenar === 'DESC') {
-        this.projects = this.projects.sort((a, b) => {
-          return new Date(b.PROYFECHAINGRESO) - new Date(a.PROYFECHAINGRESO);
-        });
-      } else {
-        this.projects = this.projects.sort((a, b) => {
-          return new Date(a.PROYFECHAINGRESO) - new Date(b.PROYFECHAINGRESO);
-        });
-      }
-    },
-    clearFilters() {
-      this.buscar = "";
-      this.fechaIngreso = "";
-      this.autores = "";
-      this.origen = "";
-      this.limit = 10;
-      this.projects = [...this.startProjects]
-    },
-    search() {
-      var projectsList = []
-      this.projects = [...this.startProjects]
-      projectsList = this.projects.filter(project => {
-        if (project.PROYSUMA !== undefined
-          && project.AUTORES !== undefined
-          && project.FECHAINGRESO !== undefined
-          && project.ORIGEN !== undefined) {
-          return project.PROYSUMA.toLowerCase().includes(
-            this.buscar.toLowerCase()
-          ) && project.AUTORES.toLowerCase().includes(
-              this.autores.toLowerCase())
-            && project.FECHAINGRESO.includes(
-            this.fechaIngreso)
-            && project.ORIGEN.includes(
-            this.origen)
-        } else return false;
-      })
-      this.projects = [...projectsList]
-      this.sort();
-      return this.projects
-    },
-    loadMoreProjects() {
-      let projectsLength = this.projects.length
-      if(this.limit < projectsLength) {
-        if(projectsLength - this.limit < 10) {
-          this.limit += projectsLength - this.limit
-        } else {
-          this.limit += 10
+    export default {
+        name: 'Proposals',
+        components: {
+            BModal,
+            DatePicker,
+            Loading
+        },
+        data: function() {
+            return {
+                proposals: [],
+                auxProposals: [],
+                startProposals: [],
+                boletines: [],
+                query: '',
+                fechaIngreso: '',
+                autores: '',
+                origen: '',
+                sourceProposals: [],
+                ordenar: 'DESC',
+                sortOptions: [
+                    {
+                        name: this.$t('propuestas.contenido.opciones_ordenar.opcion_1'),
+                        value: 'DESC'
+                    },
+                    {
+                        name: this.$t('propuestas.contenido.opciones_ordenar.opcion_2'),
+                        value: 'ASC'
+                    }
+                ],
+                limit: 10,
+                newUserProposal: {
+                    titulo: null,
+                    detalle: null,
+                    autoria: null,
+                    boletin: null,
+                    fecha_ingreso: null,
+                    type: null
+                },
+                loadBtnSearch: true,
+                loadModalBtn: false,
+                fullPage: false,
+                color: '#000000',
+                mode: String
+            };
+        },
+        mounted() {
+            if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
+                this.mode = 'dark';
+            } else {
+                this.mode = 'light';
+            }
+
+            this.getAllProposals();
+        },
+        methods: {
+            getAllProposals() {
+                axios
+                    .get('settings', {
+                        params: {
+                            key: 'external_api'
+                        }
+                    })
+                    .then(res => {
+                        if(res.data.length > 0) {
+                            let proposalsUrlList = JSON.parse(res.data[0].value).proposals_url_list;
+                            if(proposalsUrlList.length > 0) {
+                                let promises = [];
+                                proposalsUrlList.forEach(url => {
+                                    promises.push(this.getProposalsFromUrl(url));
+                                });
+
+                                Promise.all(promises)
+                                    .then(() => {
+                                        this.proposals = this.auxProposals;
+                                        this.removeExistingUserProposals()
+                                            .finally(() => {
+                                                this.loadBtnSearch = false;
+                                            });
+                                    });
+                            } else {
+                                this.loadBtnSearch = false;
+                            }
+                        } else {
+                            this.loadBtnSearch = false;
+                        }
+                    })
+                    .catch(() => {
+                        this.loadBtnSearch = false;
+                    });
+            },
+            getProposalsFromUrl(url) {
+                return new Promise(resolve => {
+                    axioma
+                        .create()
+                        .get(url)
+                        .then(res => {
+                            this.auxProposals = this.auxProposals.concat(res.data);
+                        })
+                        .finally(() => {
+                            resolve(true);
+                        });
+                });
+            },
+            removeExistingUserProposals() {
+                return new Promise(resolve => {
+                    axios
+                        .get('/proposals', {
+                            params: {
+                                return_all: 1
+                            }
+                        })
+                        .then(res => {
+                            let userProposals = res.data.results;
+                            this.boletines = userProposals.map(userProposal => userProposal.boletin);
+                            this.proposals = this.proposals.filter(proposal => !this.boletines.includes(proposal.PROYNUMEROBOLETIN));
+
+                            this.sourceProposals = [...new Set(this.proposals.map(proposal => proposal.ORIGEN))];
+                            this.startProposals.push(...this.proposals);
+                        })
+                        .finally(() => {
+                            resolve(true);
+                        });
+                });
+            },
+            search() {
+                let proposalsList = [];
+                this.proposals = [...this.startProposals];
+                proposalsList = this.proposals.filter(proposal => {
+                    if(proposal.PROYSUMA !== undefined
+                        && proposal.AUTORES !== undefined
+                        && proposal.FECHAINGRESO !== undefined
+                        && proposal.ORIGEN !== undefined) {
+                        return proposal.PROYSUMA.toLowerCase().includes(this.query.toLowerCase())
+                            && proposal.AUTORES.toLowerCase().includes(this.autores.toLowerCase())
+                            && proposal.FECHAINGRESO.includes(this.fechaIngreso)
+                            && proposal.ORIGEN.includes(this.origen);
+                    } else {
+                        return false;
+                    }
+                });
+                this.proposals = [...proposalsList];
+                this.sort();
+            },
+            loadMore() {
+                let proposalsLength = this.proposals.length;
+                if(this.limit < proposalsLength) {
+                    if(proposalsLength - this.limit < 10) {
+                        this.limit += proposalsLength - this.limit;
+                    } else {
+                        this.limit += 10;
+                    }
+                }
+            },
+            sort() {
+                if(this.ordenar === 'DESC') {
+                    this.proposals = this.proposals.sort((a, b) => {
+                        return new Date(b.PROYFECHAINGRESO) - new Date(a.PROYFECHAINGRESO);
+                    });
+                } else {
+                    this.proposals = this.proposals.sort((a, b) => {
+                        return new Date(a.PROYFECHAINGRESO) - new Date(b.PROYFECHAINGRESO);
+                    });
+                }
+            },
+            clearFilters() {
+                this.query = '';
+                this.fechaIngreso = '';
+                this.autores = '';
+                this.origen = '';
+                this.limit = 10;
+                this.proposals = [...this.startProposals];
+            },
+            createUserProposal(proposal, type) {
+                this.newUserProposal.titulo = proposal.PROYSUMA;
+                this.newUserProposal.autoria = proposal.AUTORES;
+                this.newUserProposal.boletin = proposal.PROYNUMEROBOLETIN;
+                this.newUserProposal.fecha_ingreso = proposal.FECHAINGRESO.split('/').reverse().join('-');
+                this.newUserProposal.type = type;
+                this.$bvModal.show('modal-new-user-proposal');
+            },
+            commitCreateUserProposal() {
+                this.loadModalBtn = true;
+                if(this.isLoggedIn) {
+                    axios
+                        .post('/proposals', this.newUserProposal)
+                        .then(() => {
+                            this.$toastr('success', 'Debes esperar a que ésta sea revisada y aprobada por un administrador antes de que se publique', 'Propuesta creada correctamente');
+                        })
+                        .catch(() => {
+                            this.$toastr('warning', '', 'Alguien ya hizo esta propuesta antes');
+                        })
+                        .finally(() => {
+                            this.clearNewUserProposal();
+                            this.loadModalBtn = false;
+                            this.$bvModal.hide('modal-new-user-proposal');
+                        });
+                } else {
+                    this.clearNewUserProposal();
+                    this.loadModalBtn = false;
+                    this.$toastr('warning', '', 'Debes iniciar sesión para poder crear una propuesta');
+                }
+            },
+            abortCreateUserProposal() {
+                this.clearNewUserProposal();
+                this.$bvModal.hide('modal-new-user-proposal');
+            },
+            clearNewUserProposal() {
+                this.newUserProposal = {
+                    titulo: null,
+                    detalle: null,
+                    autoria: null,
+                    boletin: null,
+                    fecha_ingreso: null,
+                    type: null
+                };
+            }
+        },
+        computed: {
+            dateOptions() {
+                return {
+                    //format: this.$t('componentes.moment.formato_editable_sin_hora'),
+                    format: 'DD/MM/YYYY',
+                    useCurrent: false,
+                    locale: this.$moment.locale()
+                };
+            },
+            isLoggedIn() {
+                return this.$store.getters.isLoggedIn;
+            }
         }
-      }
-    },
-    toggleClass: function(event) {
-      if (this.isVoted) {
-        this.isVoted = false;
-      } else {
-        this.isVoted = true;
-      }
-    },
-    getProjectPropusalsFromSIR() {
-      axioma
-        .create()
-        .get("https://slr.senado.cl/getListaProyectosConMovto/D/30")
-        .then(res => {
-          this.projects.push(...res.data);
-        })
-        .catch(e => console.error("FAIL: " + JSON.stringify(e)));
-      axioma
-        .create()
-        .get("https://slr.senado.cl/getListaProyectosConMovto/S/30")
-        .then(res => {
-          this.projects.push(...res.data);
-          this.removeExistingUserProposals();
-          this.isLoading = true;
-        })
-        .catch(e => console.error("FAIL: " + JSON.stringify(e)));
-    },
-    removeExistingUserProposals() {
-      axios
-        .get('/proposals', {
-          params: {
-            return_all: 1
-          }
-        })
-        .then((res) => {
-          let proposals = res.data.results
-
-          this.boletines = proposals.map(proposal => proposal.boletin)
-          this.projects = this.projects.filter(project => !this.boletines.includes(project.PROYNUMEROBOLETIN))
-
-          this.sourceProposals = [...new Set(this.projects.map(project => project.ORIGEN))];
-          this.startProjects.push(...this.projects);
-        })
-        .catch(err => console.error("FAIL: " + err));
-    },
-    createProposal() {
-      let fecha = this.project.FECHAINGRESO.split("/").reverse().join("-");
-      if (this.isLoggedIn) {
-        axios
-          .post("/proposals", {
-            titulo: this.project.PROYSUMA,
-            detalle: this.descripcion,
-            autoria: this.project.AUTORES,
-            boletin: this.project.PROYNUMEROBOLETIN,
-            fecha_ingreso: fecha,
-            type: this.type,
-          })
-          .then(res => {
-            this.$toastr("success", "", "Propuesta creada correctamente. Debe esperar a ser aprobado por el administrador");
-          })
-          .catch(e => {
-            this.$toastr("warning", "", "Ya fue propuesto este proyecto");
-          });
-      } else {
-        this.$toastr("warning", "", "Debes iniciar sesión");
-      }
-      this.descripcion = "";
-    },
-
-    showModal(project, type) {
-      this.project = project;
-      this.type = type;
-      this.$bvModal.show("modal-descripcion");
     }
-  },
-  data: function() {
-    return {
-      isLoading: false,
-      fullPage: false,
-      componente: "ListaProyectos",
-      arrayPreferencias: ["postulante", "ASC", "6", []],
-      isVoted: false,
-      projects: [],
-      startProjects: [],
-      boletines: [],
-      buscar: "",
-      fechaIngreso: "",
-      autores: "",
-      origen: "",
-      ordenar: "DESC",
-      sortOptions: [{
-          name: this.$t('propuestas.contenido.opciones_ordenar.opcion_1'),
-          value: 'DESC'
-        },{
-          name: this.$t('propuestas.contenido.opciones_ordenar.opcion_2'), 
-          value:'ASC'
-        }
-      ],
-      limit: 10,
-      offset: 0,
-      descripcion: "",
-      project: null,
-      type: null,
-      projectsToShow: 10,
-      maxToShow: 10,
-      sourceProposals: [],
-      dateOptions: {
-        format: 'DD/MM/YYYY',
-        useCurrent: false,
-      }, 
-    };
-  },
-  mounted() {
-    if (this.$store.getters.modo_oscuro == "dark") {
-      this.mode = "dark";
-    } else if (!this.mode) {
-      this.mode = "light";
-    }
-    this.getProjectPropusalsFromSIR();
-  },
-  computed: {
-    isLoggedIn: function() {
-      return this.$store.getters.isLoggedIn;
-    },
-    userData: function() {
-      return this.$store.getters.userData;
-    }
-  }
-};
 </script>
-
-<style>
-.dark {
-  color: #fff;
-  background: rgb(8, 0, 53);
-}
-
-.light {
-  color: #000;
-  background: #fff;
-}
-</style>

@@ -23,6 +23,7 @@ class UserObserver
                 $urgency->delete();
             }
 
+            $user->player()->delete();
             $user->locationOrgs()->delete();
             $user->memberOrgs()->delete();
             $user->proposals()->delete();
@@ -66,6 +67,7 @@ class UserObserver
             $urgency->restore();
         }
 
+        $user->player()->restore();
         $user->locationOrgs()->restore();
         $user->memberOrgs()->restore();
         $user->proposals()->restore();

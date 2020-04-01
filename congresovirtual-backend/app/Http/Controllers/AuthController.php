@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Gamification\Player;
 use App\MemberOrg;
 use App\LocationOrg;
 use App\User;
@@ -132,7 +133,7 @@ class AuthController extends Controller
     public function user(Request $request)
     {
         try {
-            $user = User::where('id', Auth::id())->withCount(['comments', 'votes'])->first();
+            $user = User::where('id', Auth::id())->with(['player'])->withCount(['comments', 'votes'])->first();
             return response()->json($user, 200);
         } catch (\Exception $exception) {
             return response()->json([
@@ -226,7 +227,7 @@ class AuthController extends Controller
             } else {
                 $userMeta = UserMeta::where([['key', $nameProviderToken], ['value', $userData->$nameProviderToken]])->first();
                 if(isset($userMeta->user)) {
-                    return $this->loginRrss($user, $nameProviderToken, $userData->$nameProviderToken);
+                    return $this->loginRrss($userMeta->user, $nameProviderToken, $userData->$nameProviderToken);
                 }
             }
 
@@ -366,6 +367,11 @@ class AuthController extends Controller
                 'actividad'             => $request->actividad
             ]);
             $user->save();
+
+            $player = new Player();
+            $player->user()->associate($user);
+            $player->save();
+
             return $user;
         } catch (\Exception $exception) {
             return false;

@@ -20,7 +20,6 @@
                         <h5 class="mb-2" :style="mode==='dark'?'color: #fff':''">{{ $t('propuestas_usuario.contenido.filtrar') }}</h5>
                         <div class="input-group">
                             <select
-                                @change="filterProposals"
                                 v-model="filterBy"
                                 class="form-control custom-select d-block"
                                 id="filter"
@@ -42,7 +41,7 @@
                         </div>
                     </div>
                     <span class="mt-10" :style="mode==='dark'?'color: #fff':''">{{ $t('propuestas_usuario.contenido.resultados') }}: {{ proposals.length }}</span>
-                    <div class="btn-group btn-group-toggle btn-block mt-10 mb-20">
+                    <div class="btn-group btn-block mt-10 mb-20">
                         <button
                             @click="clearFilters"
                             class="btn btn-outline-primary"
@@ -59,11 +58,18 @@
                             ></loading>
                         </button>
                     </div>
-                    <div class="btn-group btn-block">
-                        <router-link :to="{ path: '/proposals' }" class="btn btn-primary">{{ $t('propuestas_usuario.contenido.boton_propuestas_sugeridas') }}</router-link>
-                    </div>
-                    <div class="alert alert-info mt-1 text-center">
-                        <p>{{ $t('propuestas_usuario.contenido.mensaje_propuestas_sugeridas') }}</p>
+                    <div class="card">
+                        <div class="card-body" :style="mode==='dark'?'background: #080035; color: #fff; border-color: #fff':''">
+                            <p>{{ $t('propuestas_usuario.contenido.mensaje_propuestas_sugeridas') }}</p>
+                        </div>
+                        <div class="btn-group-vertical">
+                            <a class="font-1"></a>
+                            <div class="btn-group mt-auto">
+                                <router-link :to="{ path: '/proposals' }" class="btn btn-primary">
+                                    {{ $t('propuestas_usuario.contenido.boton_propuestas_sugeridas') }}
+                                </router-link>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -108,7 +114,7 @@
                                     </div>
                                 </div>
                                 <div class="btn-group-vertical">
-                                    <a class="font-1"> </a>
+                                    <a class="font-1"></a>
                                     <div class="btn-group mt-auto">
                                         <router-link
                                                 :to="{ path: '/proposal/' + proposal.id }"

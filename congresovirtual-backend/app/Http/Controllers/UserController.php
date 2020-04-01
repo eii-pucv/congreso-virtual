@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Gamification\Player;
 use App\LocationOrg;
 use App\MemberOrg;
 use App\Notifications\PasswordResetSuccess;
@@ -73,7 +74,7 @@ class UserController extends Controller
             $users = $users
                 ->offset($offset)
                 ->limit($limit);
-            $users = $users->with(['terms'])->get();
+            $users = $users->with(['player', 'terms'])->get();
 
             return response()->json([
                 'total_results' => $totalResults,
@@ -152,7 +153,7 @@ class UserController extends Controller
     public function show($id)
     {
         try {
-            return response()->json(User::with(['locationOrgs', 'memberOrgs', 'terms', 'avatarRelated'])->findOrFail($id), 200);
+            return response()->json(User::with(['player', 'locationOrgs', 'memberOrgs', 'terms', 'avatarRelated'])->findOrFail($id), 200);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the user was not found.'], 412);
@@ -805,7 +806,8 @@ class UserController extends Controller
                 'sector'                => 'integer|nullable',
                 'nivel_educacional'     => 'integer|nullable',
                 'genero'                => 'integer|nullable',
-                'actividad'             => 'integer|nullable'
+                'actividad'             => 'integer|nullable',
+                'active_gamification'   => 'boolean'
             ]);
             if($validator->fails()) {
                 throw new \Exception();
@@ -843,6 +845,13 @@ class UserController extends Controller
                 'actividad'             => $request->actividad
             ]);
             $user->save();
+
+            $player = new Player([
+                'active_gamification' => $request->has('active_gamification') ? $request->active_gamification : true
+            ]);
+            $player->user()->associate($user);
+            $player->save();
+
             return $user;
         } catch (\Exception $exception) {
             return false;
@@ -1085,7 +1094,8 @@ class UserController extends Controller
                 'sector'                => 'integer|nullable',
                 'nivel_educacional'     => 'integer|nullable',
                 'genero'                => 'integer|nullable',
-                'actividad'             => 'integer|nullable'
+                'actividad'             => 'integer|nullable',
+                'active_gamification'   => 'boolean'
             ]);
             if($validator->fails()) {
                 throw new \Exception();
@@ -1094,7 +1104,8 @@ class UserController extends Controller
             $active = $user->active;
             $activationToken = $user->activation_token;
             $rol = $user->rol;
-            if(Auth::user()->hasRole('ADMIN') && isset($request->active)) {
+            $activeGamification = $user->player ? $user->player->active_gamification : true;
+            if(Auth::user()->hasRole('ADMIN')) {
                 if(isset($request->active)) {
                     $active = $request->active;
                     if($active && $activationToken) {
@@ -1103,6 +1114,9 @@ class UserController extends Controller
                 }
                 if(isset($request->rol)) {
                     $rol = $request->rol;
+                }
+                if(isset($request->active_gamification)) {
+                    $activeGamification = $request->active_gamification;
                 }
             }
 
@@ -1125,6 +1139,15 @@ class UserController extends Controller
                 'actividad'             => $request->actividad
             ]);
             $user->save();
+
+            Player::updateOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'active_gamification' => $activeGamification,
+                    'user_id' => $user->id
+                ]
+            );
+
             return $user;
         } catch (\Exception $exception) {
             return false;
@@ -1149,14 +1172,14 @@ class UserController extends Controller
             }
 
             if(!$request->has('es_experto') || !$request->es_experto) {
-                    $fillArray = [
-                        'es_experto'            => false,
-                        'titulo_profesional'    => null,
-                        'estudios_adicionales'  => null,
-                        'anios_experiencia_laboral' => null,
-                        'areas_desempenio'      => null,
-                        'temas_trabajo'         => null
-                    ];
+                $fillArray = [
+                    'es_experto'            => false,
+                    'titulo_profesional'    => null,
+                    'estudios_adicionales'  => null,
+                    'anios_experiencia_laboral' => null,
+                    'areas_desempenio'      => null,
+                    'temas_trabajo'         => null
+                ];
             } else {
                 $validator = Validator::make($request->all(), [
                     'titulo_profesional'    => 'integer|nullable',

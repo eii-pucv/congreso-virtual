@@ -12,7 +12,9 @@ use App\Vote;
 use App\File;
 use App\FileType;
 use App\OffensiveWord;
+use App\Events\Gamification\RegisterCommentEvent;
 use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -200,15 +202,7 @@ class CommentController extends Controller
                 $comment->fill(['state' => 1])->save();
             }
 
-            $offensive_comment = DB::select(
-                DB::raw("SELECT * FROM 
-                (SELECT :comment_body AS comentario) AS tabla, offensive_words 
-                WHERE tabla.comentario 
-                LIKE CONCAT('%', offensive_words.word, '%') 
-                LIMIT 1"), ['comment_body' => $comment->body]
-            );
-
-            if(count($offensive_comment) > 0) {
+            if(OffensiveWord::hasOffensiveWord($comment->body)) {
                 $comment->fill(['state' => 1])->save();
             }
 
@@ -231,6 +225,18 @@ class CommentController extends Controller
                 'email' => $user->email,
                 'avatar' => $user->avatar
             ];
+
+            $pipes = [
+                RegisterCommentEvent::class
+            ];
+            $gamificationResult = app(Pipeline::class)
+                ->send($comment)
+                ->through($pipes)
+                ->then(function($result) {
+                    return $result;
+                });
+
+            $data['gamification_result'] = $gamificationResult;
 
             DB::commit();
             return response()->json([

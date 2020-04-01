@@ -79,6 +79,22 @@ class Term extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function events()
+    {
+        return $this->belongsToMany('App\Gamification\Event', 'event_reward_term')->withPivot('reward_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function rewards()
+    {
+        return $this->belongsToMany('App\Gamification\Reward', 'event_reward_term')->withPivot('event_id');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function parent()

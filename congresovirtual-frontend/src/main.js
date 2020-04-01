@@ -7,30 +7,30 @@ import "@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css";
 import axios from "./backend/axios";
 import router from "./router";
 import VTooltip from "v-tooltip";
-import { library } from "@fortawesome/fontawesome-svg-core";
 import tinymce from "vue-tinymce-editor";
 import VueGlide from 'vue-glide-js';
 import 'vue-glide-js/dist/vue-glide.css';
 import 'tiny-slider/src/tiny-slider.scss';
 import VueCarousel from 'vue-carousel';
 import BootstrapVue from 'bootstrap-vue';
+import BModal from 'bootstrap-vue';
 import VueAnalytics from 'vue-analytics';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
-import { far } from "@fortawesome/free-regular-svg-icons";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {far} from "@fortawesome/free-regular-svg-icons";
+import {fas} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import VueAxios from "vue-axios";
 import VuejsDialog from 'vuejs-dialog';
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
 import datePicker from 'vue-bootstrap-datetimepicker';
 import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
-import BModal from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import HighlightText from 'vue-highlight-text';
 import LiquorTree from 'liquor-tree';
-import { i18n } from '@/plugins/i18n';
+import {i18n} from '@/plugins/i18n';
 import 'vue-multiselect/dist/vue-multiselect.min.css';
 import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 
@@ -43,10 +43,13 @@ Vue.use(BootstrapVue);
 Vue.use(VueAnalytics, {
     id: async () => {
         try {
-            const res = await axios.get('/settings?key=code_google_analytics');
+            const res = await axios.get('/settings', {
+                params: {
+                    key: 'code_google_analytics'
+                }
+            });
             if(res.data.length > 0) {
-                let idGA = res.data[0].value;
-                return idGA;
+                return res.data[0].value;
             }
         } catch (error) {
             console.log(error);

@@ -50,7 +50,7 @@
         },
         data() {
             return {
-                proposal: {},
+                proposal: Object,
                 loadHeader: true
             }
         },
@@ -74,7 +74,7 @@
 </script>
 
 <style scoped>
-    .arrow-steps .step {
+    /*.arrow-steps .step {
         font-size: 14px;
         cursor: default;
         padding: 10px 10px 10px 30px;
@@ -141,5 +141,5 @@
     .tab-content {
         -webkit-box-shadow: inherit !important;
         box-shadow: inherit !important;
-    }
+    }*/
 </style>

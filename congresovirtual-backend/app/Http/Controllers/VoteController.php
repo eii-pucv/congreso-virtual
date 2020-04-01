@@ -8,8 +8,9 @@ use App\Article;
 use App\Idea;
 use App\Comment;
 use App\PublicConsultation;
-use App\User;
+use App\Events\Gamification\RegisterVoteEvent;
 use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -192,6 +193,18 @@ class VoteController extends Controller
 
             $data = $vote->refresh()->toArray();
             unset($data['user']);
+
+            $pipes = [
+                RegisterVoteEvent::class
+            ];
+            $gamificationResult = app(Pipeline::class)
+                ->send($vote)
+                ->through($pipes)
+                ->then(function($result) {
+                    return $result;
+                });
+
+            $data['gamification_result'] = $gamificationResult;
 
             return response()->json([
                 'message' => 'Successfully created vote!',

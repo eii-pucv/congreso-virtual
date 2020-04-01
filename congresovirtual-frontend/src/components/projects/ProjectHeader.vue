@@ -48,36 +48,30 @@
             <div class="d-block font-20 text-center text-white">
                 <div v-if="project.etapa === 1 && isAvailableVoting" class="bg-indigo-light-1">
                     {{ $t('votacion_general') }}
-                    <span>
-                        <v-popover>
-                            <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
-                            <template slot="popover">
-                                <p>{{ $t('proyecto.componentes.header.popover_general') }}</p>
-                            </template>
-                        </v-popover>
-                    </span>
+                    <v-popover>
+                        <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
+                        <template slot="popover">
+                            <p>{{ $t('proyecto.componentes.header.popover_general') }}</p>
+                        </template>
+                    </v-popover>
                 </div>
                 <div v-else-if="project.etapa === 2 && isAvailableVoting" class="bg-green">
                     {{ $t('votacion_particular') }}
-                    <span>
-                        <v-popover>
-                            <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
-                            <template slot="popover">
-                                <p>{{ $t('proyecto.componentes.header.popover_particular') }}</p>
-                            </template>
-                        </v-popover>
-                    </span>
+                    <v-popover>
+                        <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
+                        <template slot="popover">
+                            <p>{{ $t('proyecto.componentes.header.popover_particular') }}</p>
+                        </template>
+                    </v-popover>
                 </div>
                 <div v-else class="bg-red-dark-3">
                     {{ $t('votacion_cerrada') }}
-                    <span>
-                        <v-popover>
-                            <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
-                            <template slot="popover">
-                                <p>{{ $t('proyecto.componentes.header.popover_cerrada') }}</p>
-                            </template>
-                        </v-popover>
-                    </span>
+                    <v-popover>
+                        <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
+                        <template slot="popover">
+                            <p>{{ $t('proyecto.componentes.header.popover_cerrada') }}</p>
+                        </template>
+                    </v-popover>
                 </div>
             </div>
             <div class="text-center ma-5">

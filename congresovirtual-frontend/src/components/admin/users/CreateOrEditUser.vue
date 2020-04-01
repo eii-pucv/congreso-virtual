@@ -225,6 +225,7 @@
                                         :placeholder="$t('perfil_usuario.componentes.edicion_perfil.buscar_tema_interes')"
                                         :options="terms"
                                         :multiple="true"
+                                        :showLabels="false"
                                         :style="mode==='dark'?' color: #fff':''"
                                 ></multiselect>
                             </div>
@@ -255,8 +256,8 @@
                                     />
                                     <div class="input-group-append">
                                         <button class="btn btn-primary" type="button" @click="switchPasswordVisibility" style="width: 55px;">
-                                            <font-awesome-icon v-if="passwordFieldType === 'password'" icon="eye-slash" size="lg"></font-awesome-icon>
-                                            <font-awesome-icon v-else icon="eye" size="lg"></font-awesome-icon>
+                                            <i v-if="passwordFieldType === 'password'" class="fas fa-eye-slash fa-lg"></i>
+                                            <i v-else class="fas fa-eye fa-lg"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -284,6 +285,20 @@
                                             :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
                                     />
                                     <label for="active" class="custom-control-label" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.activo') }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row align-items-center justify-content-center">
+                            <div class="col-md-10 mb-10">
+                                <div class="custom-control custom-checkbox checkbox-primary float-left">
+                                    <input
+                                            id="active_gamification"
+                                            v-model="user.active_gamification"
+                                            type="checkbox"
+                                            class="custom-control-input"
+                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                                    />
+                                    <label for="active_gamification" class="custom-control-label" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.crear_usuario.gamificacion_activada') }}</label>
                                 </div>
                             </div>
                         </div>
@@ -319,8 +334,7 @@
                         </div>
                         <div class="text-center mt-20">
                             <button class="btn btn-primary vld-parent" type="submit">
-                                <font-awesome-icon icon="save" />
-                                <span class="btn-text ml-1">{{ $t('guardar') }}</span>
+                                <i class="fas fa-save"></i> {{ $t('guardar') }}
                                 <Loading
                                         :active.sync="loadBtnSave"
                                         :is-full-page="fullPage"
@@ -328,9 +342,8 @@
                                         :color="'#ffffff'"
                                 ></Loading>
                             </button>
-                            <button @click.prevent="back" class="btn btn-danger text-white ml-10">
-                                <font-awesome-icon icon="window-close" />
-                                <span class="btn-text ml-1">{{ $t('cancelar') }}</span>
+                            <button @click.prevent="back" class="btn btn-danger ml-10">
+                                <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
                             </button>
                         </div>
                     </form>
@@ -406,6 +419,7 @@
                                     :placeholder="$t('perfil_usuario.componentes.edicion_perfil.usuario_experto.area_desempenio.buscar')"
                                     :options="areasDesempenio"
                                     :multiple="true"
+                                    :showLabels="false"
                                     :style="mode==='dark'?' color: #fff':''"
                             ></multiselect>
                         </div>
@@ -426,8 +440,7 @@
                     </div>
                     <div class="text-center mt-20">
                         <button class="btn btn-primary vld-parent" type="submit">
-                            <font-awesome-icon icon="save" />
-                            <span class="btn-text ml-1">{{ $t('guardar') }}</span>
+                            <i class="fas fa-save"></i> {{ $t('guardar') }}
                             <Loading
                                     :active.sync="loadBtnSave"
                                     :is-full-page="fullPage"
@@ -435,9 +448,8 @@
                                     :color="'#ffffff'"
                             ></Loading>
                         </button>
-                        <button @click.prevent="back" class="btn btn-danger text-white ml-10">
-                            <font-awesome-icon icon="window-close" />
-                            <span class="btn-text ml-1">{{ $t('cancelar') }}</span>
+                        <button @click.prevent="back" class="btn btn-danger ml-10">
+                            <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
                         </button>
                     </div>
                 </form>
@@ -555,11 +567,11 @@
                                     class="float-right"
                                     v-bind:class="{ 'btn-group': index || (!index && user.member_orgs.length > 1) }"
                             >
-                                <a @click="removeMember(index)" v-show="index || (!index && user.member_orgs.length > 1)" class="btn btn-sm btn-danger text-white">
-                                    <span class="btn-text"><font-awesome-icon icon="minus"/></span>
+                                <a @click="removeMember(index)" v-show="index || (!index && user.member_orgs.length > 1)" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-minus"></i>
                                 </a>
-                                <a @click="addMember" class="btn btn-sm btn-primary text-white">
-                                    <span class="btn-text"><font-awesome-icon icon="plus"/></span>
+                                <a @click="addMember" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-plus"></i>
                                 </a>
                             </div>
                         </div>
@@ -609,11 +621,11 @@
                                     class="float-right"
                                     v-bind:class="{ 'btn-group': index || (!index && user.location_orgs.length > 1) }"
                             >
-                                <a @click="removeLoaction(index)" v-show="index || (!index && user.location_orgs.length > 1)" class="btn btn-sm btn-danger text-white">
-                                    <span class="btn-text"><font-awesome-icon icon="minus"/></span>
+                                <a @click="removeLoaction(index)" v-show="index || (!index && user.location_orgs.length > 1)" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-minus"></i>
                                 </a>
-                                <a @click="addLocation" class="btn btn-sm btn-primary text-white">
-                                    <span class="btn-text"><font-awesome-icon icon="plus"/></span>
+                                <a @click="addLocation" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-plus"></i>
                                 </a>
                             </div>
                         </div>
@@ -726,8 +738,7 @@
                     </div>
                     <div class="text-center mt-20">
                         <button class="btn btn-primary vld-parent" type="submit">
-                            <font-awesome-icon icon="save" />
-                            <span class="btn-text ml-1">{{ $t('guardar') }}</span>
+                            <i class="fas fa-save"></i> {{ $t('guardar') }}
                             <Loading
                                     :active.sync="loadBtnSave"
                                     :is-full-page="fullPage"
@@ -735,9 +746,8 @@
                                     :color="'#ffffff'"
                             ></Loading>
                         </button>
-                        <button @click.prevent="back" class="btn btn-danger text-white ml-10">
-                            <font-awesome-icon icon="window-close" />
-                            <span class="btn-text ml-1">{{ $t('cancelar') }}</span>
+                        <button @click.prevent="back" class="btn btn-danger ml-10">
+                            <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
                         </button>
                     </div>
                 </form>
@@ -783,6 +793,7 @@
                     nivel_educacional: null,
                     genero: null,
                     actividad: null,
+                    active_gamification: true,
                     es_experto: false,
                     titulo_profesional: null,
                     estudios_adicionales: null,
@@ -951,7 +962,6 @@
                                 .post('/users', this.user)
                                 .then(res => {
                                     let userData = res.data.data;
-
                                     if(this.currentUserTerms.length > 0) {
                                         let termsId = this.currentUserTerms.map(term => term.id);
                                         axios
@@ -1015,10 +1025,9 @@
                     this.getCities(this.user);
                 }
 
-                // Pasando a false si es que son NULL, ya que sino no se podrían guardar los datos
-                if(this.user.tiene_per_jur === null) this.user.tiene_per_jur = false;
                 if(this.user.es_experto === null) this.user.es_experto = false;
                 if(this.user.es_organizacion === null) this.user.es_organizacion = false;
+                if(this.user.tiene_per_jur === null) this.user.tiene_per_jur = false;
 
                 if(this.user.member_orgs.length === 0) {
                     this.user.member_orgs.push({
@@ -1152,29 +1161,3 @@
         }
     }
 </script>
-
-<style scoped>
-    @media (min-width: 1500px) {
-        .container-small {
-            width: 700px;
-        }
-        .container-large {
-            width: 1500px;
-        }
-    }
-
-    @media (max-width: 1400px) {
-        .hk-sec-wrapper {
-            padding-left: 1.25rem;
-            padding-right: 1.25rem;
-        }
-    }
-
-    .hk-sec-wrapper {
-        background: #fff;
-        padding: 1.5rem;
-        border: 1px solid rgba(0, 0, 0, 0.125);
-        border-radius: 0.25rem;
-        margin-bottom: 14px;
-    }
-</style>

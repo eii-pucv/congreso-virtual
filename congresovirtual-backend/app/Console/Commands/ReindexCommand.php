@@ -39,7 +39,6 @@ class ReindexCommand extends Command
     public function __construct(Client $client)
     {
         parent::__construct();
-
         $this->client = $client;
     }
 
