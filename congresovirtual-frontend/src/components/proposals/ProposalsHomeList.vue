@@ -26,7 +26,13 @@
                             </div>
                             <div class="card-body py-0">
                                 <p>
-                                    <strong>{{ $t('home.contenido.propuesta.persona') }} </strong> {{ proposal.user.name }} {{ proposal.user.surname }}
+                                    <strong>{{ $t('home.contenido.propuesta.persona') }} </strong>
+                                    <router-link v-if="proposal.user && proposal.user.username" :to="{ path: '/user', query: { 'username': proposal.user.username } }">
+                                        {{ proposal.user.username }} ({{ proposal.user.name }} {{ proposal.user.surname }})
+                                    </router-link>
+                                    <router-link v-else-if="proposal.user && !proposal.user.username" :to="{ path: '/user', query: { 'user_id': proposal.user.id } }">
+                                        {{ proposal.user.name }} {{ proposal.user.surname }}
+                                    </router-link>
                                 </p>
                                 <p>
                                     <strong>{{ $t('home.contenido.propuesta.fecha_ingreso') }} </strong>{{ new Date(toLocalDate(proposal.fecha_ingreso)) | moment($t('componentes.moment.formato_sin_hora')) }}
@@ -37,7 +43,7 @@
                                     <strong>{{ $t('home.contenido.propuesta.apoyos') }} </strong>{{ proposal.petitions }} de {{ maxPetitions }}
                                 </p>
                                 <div class="progress mt-5">
-                                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="{width: (proposal.petitions/maxPetitions * 100) + '%' }"></div>
+                                    <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="{width: (proposal.petitions/maxPetitions * 100) + '%' }"></div>
                                 </div>
                             </div>
                             <div class="btn-group-vertical">
@@ -107,7 +113,7 @@
                                     <strong>{{ $t('home.contenido.propuesta.apoyos') }} </strong>{{ proposal.urgencies }} de {{ maxPetitions }}
                                 </p>
                                 <div class="progress mt-5">
-                                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="{ width: (proposal.urgencies/maxPetitions * 100) + '%' }"></div>
+                                    <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="{ width: (proposal.urgencies/maxPetitions * 100) + '%' }"></div>
                                 </div>
                             </div>
                             <div class="btn-group-vertical">
@@ -160,7 +166,7 @@
                 loadPetitionProposals: true,
                 loadUrgencyProposals: true,
                 fullPage: false,
-                color: "#000000",
+                color: '#000000',
                 mode: String
             };
         },
@@ -175,7 +181,11 @@
             this.getUrgencyProposals();
 
             axios
-                .get('/settings?key=max_necessary_petitions')
+                .get('/settings', {
+                    params: {
+                        key: 'max_necessary_petitions'
+                    }
+                })
                 .then(res => {
                     if(res.data[0] !== undefined) {
                         this.maxPetitions = JSON.parse(res.data[0].value).number_petitions;
@@ -277,7 +287,6 @@
         height: 18em;
     }
     .proposal-card {
-        /* height: 24em; */
         height: 16em;
     }
 

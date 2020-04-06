@@ -80,7 +80,7 @@
                         </p>
                     </form>
                 </div>
-                <div class="col-sm-6 col-12">
+                <div class="col-sm-6 col-12 pt-30 pt-sm-0">
                     <a class="btn btn-indigo btn-block btn-wth-icon" :href="API_URL + '/api/auth/facebook'">
                         <span class="icon-label"><i class="fab fa-facebook-square"></i></span>
                         <span class="btn-text">Facebook</span>

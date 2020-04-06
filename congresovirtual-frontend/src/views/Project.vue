@@ -37,7 +37,6 @@
                     <div class="row px-10">
                         <div class="col-sm-8">
                             <ul
-                                    id="myTab"
                                     class="nav nav-light nav-tabs"
                                     role="tablist"
                                     :data-intro="$t('proyecto.ruta_guiada.pasos.paso_1')"
@@ -50,12 +49,11 @@
                                         data-step="3"
                                 >
                                     <a
-                                            @click="changeTab"
-                                            id="articulos-tab"
+                                            id="general-info-ideas-articles-tab"
                                             data-toggle="tab"
-                                            href="#articulos"
+                                            href="#general-info-ideas-articles"
                                             role="tab"
-                                            aria-controls="articulos"
+                                            aria-controls="general-info-ideas-articles"
                                             aria-selected="true"
                                             class="nav-link active"
                                             :style="mode==='dark'?'color: #fff':''"
@@ -63,18 +61,18 @@
                                         {{ $t('proyecto.contenido.tab.articulos_ideas') }}
                                     </a>
                                 </li>
-                                <li id="section-info" 
-                                    class="nav-item"
-                                    :data-intro="$t('proyecto.ruta_guiada.pasos.paso_5')"
-                                    data-step="5"
+                                <li
+                                        id="section-info"
+                                        class="nav-item"
+                                        :data-intro="$t('proyecto.ruta_guiada.pasos.paso_5')"
+                                        data-step="5"
                                 >
                                     <a
-                                            @click="changeTab"
-                                            id="informacion-tab"
+                                            id="detail-video-tab"
                                             data-toggle="tab"
-                                            href="#informacion"
+                                            href="#detail-video"
                                             role="tab"
-                                            aria-controls="informacion"
+                                            aria-controls="detail-video"
                                             aria-selected="true"
                                             class="nav-link"
                                             :style="mode==='dark'?'color: #fff':''"
@@ -82,17 +80,18 @@
                                         {{ $t('proyecto.contenido.tab.detalle') }}
                                     </a>
                                 </li>
-                                <li id="section-traces" class="nav-item"
-                                    :data-intro="$t('proyecto.ruta_guiada.pasos.paso_6')"
-                                    data-step="6"	
+                                <li
+                                        id="section-traces"
+                                        class="nav-item"
+                                        :data-intro="$t('proyecto.ruta_guiada.pasos.paso_6')"
+                                        data-step="6"
                                 >
                                     <a
-                                            @click="changeTab"
                                             id="traces-tab"
                                             data-toggle="tab"
                                             href="#traces"
                                             role="tab"
-                                            aria-controls="comments"
+                                            aria-controls="traces"
                                             aria-selected="true"
                                             class="nav-link"
                                             :style="mode==='dark'?'color: #fff':''"
@@ -100,17 +99,18 @@
                                         {{ $t('proyecto.contenido.tab.seguimiento') }}
                                     </a>
                                 </li>
-                                <li id="section-analysis" class="nav-item"
-                                    :data-intro="$t('proyecto.ruta_guiada.pasos.paso_7')"
-                                    data-step="7"
+                                <li
+                                        id="section-analysis"
+                                        class="nav-item"
+                                        :data-intro="$t('proyecto.ruta_guiada.pasos.paso_7')"
+                                        data-step="7"
                                 >
                                     <a
-                                            @click="changeTab"
-                                            id="analisis-tab"
+                                            id="analysis-tab"
                                             data-toggle="tab"
-                                            href="#analisis"
+                                            href="#analysis"
                                             role="tab"
-                                            aria-controls="comments"
+                                            aria-controls="analysis"
                                             aria-selected="true"
                                             class="nav-link"
                                             :style="mode==='dark'?'color: #fff':''"
@@ -118,18 +118,18 @@
                                         {{ $t('proyecto.contenido.tab.estadistica') }}
                                     </a>
                                 </li>
-                                <li id="section-documents" 
-                                    class="nav-item"
-                                    :data-intro="$t('proyecto.ruta_guiada.pasos.paso_8')"
-                                    data-step="8"
+                                <li
+                                        id="section-documents"
+                                        class="nav-item"
+                                        :data-intro="$t('proyecto.ruta_guiada.pasos.paso_8')"
+                                        data-step="8"
                                 >
                                     <a
-                                            @click="changeTab"
-                                            id="documentosAdjuntos-tab"
+                                            id="documents-tab"
                                             data-toggle="tab"
-                                            href="#documentosAdjuntos"
+                                            href="#documents"
                                             role="tab"
-                                            aria-controls="comments"
+                                            aria-controls="documents"
                                             aria-selected="true"
                                             class="nav-link"
                                             :style="mode==='dark'?'color: #fff':''"
@@ -137,13 +137,27 @@
                                         {{ $t('proyecto.contenido.tab.documentos') }}
                                     </a>
                                 </li>
+                                <li v-if="isAvailableGamification" class="nav-item">
+                                    <a
+                                            id="participants-ranking-tab"
+                                            data-toggle="tab"
+                                            href="#participants-ranking"
+                                            role="tab"
+                                            aria-controls="participants-ranking"
+                                            aria-selected="true"
+                                            class="nav-link"
+                                            :style="mode==='dark'?'color: #fff':''"
+                                    >
+                                        {{ $t('proyecto.contenido.tab.ranking_participantes') }}
+                                    </a>
+                                </li>
                             </ul>
                             <div class="tab-content py-25">
                                 <div
+                                        id="general-info-ideas-articles"
                                         class="tab-pane fade show active"
-                                        id="articulos"
                                         role="tabpanel"
-                                        aria-labelledby="articulos-tab"
+                                        aria-labelledby="general-info-ideas-articles-tab"
                                 >
                                     <div class="row no-gutters py-5">
                                         <div class="col-12">
@@ -239,10 +253,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade show"
-                                     id="informacion"
-                                     role="tabpanel"
-                                     aria-labelledby="informacion-tab"
+                                <div
+                                        id="detail-video"
+                                        class="tab-pane fade show"
+                                        role="tabpanel"
+                                        aria-labelledby="detail-video-tab"
                                 >
                                     <div class="container">
                                         <div class="row">
@@ -254,17 +269,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade show"
-                                     id="traces"
-                                     role="tabpanel"
-                                     aria-labelledby="comments-tab"
+                                <div
+                                        id="traces"
+                                        class="tab-pane fade show"
+                                        role="tabpanel"
+                                        aria-labelledby="traces-tab"
                                 >
                                     <ProjectTraces v-if="project.id" :project="project"></ProjectTraces>
                                 </div>
-                                <div class="tab-pane fade show"
-                                     id="analisis"
-                                     role="tabpanel"
-                                     aria-labelledby="comments-tab"
+                                <div
+                                        id="analysis"
+                                        class="tab-pane fade show"
+                                        role="tabpanel"
+                                        aria-labelledby="analysis-tab"
                                 >
                                     <div class="card"
                                          :style="mode==='dark'?'background: rgb(12, 1, 80);':''"
@@ -325,16 +342,28 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade show"
-                                    id="documentosAdjuntos"
-                                    role="tabpanel"
-                                    aria-labelledby="comments-tab"
+                                <div
+                                        id="documents"
+                                        class="tab-pane fade show"
+                                        role="tabpanel"
+                                        aria-labelledby="documents-tab"
                                 >
-                                    <div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <ProjectFiles v-if="project.id" :project_id="project.id"></ProjectFiles>
-                                            </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <ProjectFiles v-if="project.id" :project_id="project.id"></ProjectFiles>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                        id="participants-ranking"
+                                        v-if="isAvailableGamification"
+                                        class="tab-pane fade show"
+                                        role="tabpanel"
+                                        aria-labelledby="participants-ranking-tab"
+                                >
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <ProjectParticipantsRanking v-if="project.id" :project_id="project.id"></ProjectParticipantsRanking>
                                         </div>
                                     </div>
                                 </div>
@@ -372,13 +401,14 @@
 
 <script>
     import ProjectHeader from '../components/projects/ProjectHeader';
-    import ProjectComments from './Comments';
     import ProjectIdeas from '../components/projects/ProjectIdeas';
     import ProjectArticles from '../components/projects/ProjectArticles';
     import ProjectTraces from '../components/projects/ProjectTraces';
     import ProjectBarCharts from '../components/projects/ProjectBarCharts';
     import ProjectPieCharts from '../components/projects/ProjectPieCharts';
     import ProjectFiles from '../components/projects/ProjectFiles';
+    import ProjectParticipantsRanking from '../components/projects/ProjectParticipantsRanking';
+    import ProjectComments from './Comments';
     import WordCloud from '../components/projects/WordCloud';
     import axios from '../backend/axios';
     import axioma from 'axios';
@@ -389,13 +419,14 @@
         name: 'Project',
         components: {
             ProjectHeader,
-            ProjectComments,
             ProjectIdeas,
             ProjectArticles,
             ProjectTraces,
             ProjectBarCharts,
             ProjectPieCharts,
             ProjectFiles,
+            ProjectParticipantsRanking,
+            ProjectComments,
             WordCloud
         },
         props: {
@@ -495,12 +526,11 @@
                             });
                     });
             },
-            changeTab(e) {
-                e.preventDefault();
-                $(this).tab("show");
-            },
             forceRerender() {
-                this.keyStackedChartComponent += 1
+                this.keyStackedChartComponent += 1;
+            },
+            isAvailableGamification() {
+                return this.$store.getters.activeGamification;
             }
         }
     };

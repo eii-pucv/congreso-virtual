@@ -46,9 +46,15 @@
                 </div>
                 <div class="row mx-0 mt-40">
                     <div class="col-12 mb-10">
-                        <small class="pt-15" style="margin:0px; font-size: 16px;">
+                        <small class="pt-15" style="margin: 0; font-size: 16px;">
                             <i class="fas fa-user"></i>
-                            {{ $t('propuesta.componentes.header.datos.persona') }}: {{ proposal.user.name }} {{ proposal.user.surname }}
+                            {{ $t('propuesta.componentes.header.datos.persona') }}:
+                            <router-link v-if="proposal.user && proposal.user.username" class="text-white" :to="{ path: '/user', query: { 'username': proposal.user.username } }">
+                                {{ proposal.user.username }} ({{ proposal.user.name }} {{ proposal.user.surname }})
+                            </router-link>
+                            <router-link v-else-if="proposal.user && !proposal.user.username" class="text-white" :to="{ path: '/user', query: { 'user_id': proposal.user.id } }">
+                                {{ proposal.user.name }} {{ proposal.user.surname }}
+                            </router-link>
                         </small>
                     </div>
                 </div>
@@ -71,21 +77,21 @@
         <div class="card" :style="mode==='dark'?'background: rgb(12, 1, 80); border-color: #fff;':''"   >
             <div v-if="proposal.type === 1" class="d-block font-20 text-center text-white" style="padding:0px">
                 <div class="bg-indigo-light-1">
-                    {{ $t('propuesta.componentes.header.proyecto_ley.titulo') }}
+                    {{ $t('propuesta.componentes.header.inclusion.titulo') }}
                     <v-popover>
                         <span class="tooltip-target font-18"><i class="fas fa-question-circle"></i></span>
                         <template slot="popover">
-                            <p>{{ $t('propuesta.componentes.header.proyecto_ley.popover') }}</p>
+                            <p>{{ $t('propuesta.componentes.header.inclusion.popover') }}</p>
                         </template>
                     </v-popover>
                 </div>
                 <div class="row mx-0 align-items-center justify-content-center">
                     <div class="col-10">
                         <p class="my-10" :class="mode==='dark'?'':'text-primary'">
-                            <strong>{{ $t('propuesta.componentes.header.proyecto_ley.strong') }} </strong>{{ proposal.petitions }} {{ $t('propuesta.componentes.header.proyecto_ley.de') }} 100
+                            <strong>{{ $t('propuesta.componentes.header.inclusion.strong') }} </strong>{{ proposal.petitions }} {{ $t('propuesta.componentes.header.inclusion.de') }} {{ maxPetitions }}
                         </p>
                         <div class="progress mb-10">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="{ width: (proposal.petitions/100*100) + '%' }"></div>
+                            <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="{ width: (proposal.petitions/maxPetitions * 100) + '%' }"></div>
                         </div>
                     </div>
                 </div>
@@ -109,7 +115,7 @@
                             <strong>{{ $t('propuesta.componentes.header.urgencia.strong') }} </strong>{{ proposal.urgencies }} {{ $t('propuesta.componentes.header.urgencia.de') }} {{ maxPetitions }}
                         </p>
                         <div class="progress mb-10">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="{ width: (proposal.urgencies/maxPetitions * 100) + '%' }"></div>
+                            <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="{ width: (proposal.urgencies/maxPetitions * 100) + '%' }"></div>
                         </div>
                     </div>
                 </div>

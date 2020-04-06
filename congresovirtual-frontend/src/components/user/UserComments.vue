@@ -1,107 +1,143 @@
 <template>
-    <div class="row">
-        <div class="col-12">
-            <div class="card card-profile-feed" :class="mode==='dark'?'dark':'light'">
-                <div class="card-header card-header-action">
-                    <h2 :style="mode==='dark'?'color: #fff':''">{{ $t('perfil_usuario.componentes.comentarios.titulo') }}</h2>
+    <div class="container">
+        <div class="hk-sec-wrapper" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
+            <h2 class="hk-sec-title text-center">{{ $t('perfil_usuario.componentes.comentarios.titulo') }}</h2>
+            <div class="mt-20 vld-parent">
+                <div v-if="loadComments" style="height: 300px;">
+                    <Loading
+                            :active.sync="loadComments"
+                            :is-full-page="fullPage"
+                            :height="128"
+                            :color="color"
+                    ></Loading>
                 </div>
-                <div v-if="loaded">
-                    <p class="px-4 mb-2">{{ $t('perfil_usuario.componentes.comentarios.cantidad') }}: {{ totalResults }}</p>
-                    <br/>
-                    <ul v-if="comments.length > 0" class="list-group list-group-flush">
-                        <li v-for="(comment, index) in comments" :key="'comentario_' + index" class="mb-2 mx-10 list-group-item border border-success rounded" :class="mode === 'dark' ? 'dark' : 'light'">
-                            <div v-if="comment.project" class="media align-items-center">
-                                <div class="media-body mb-2">
-                                    <h5 v-if="comment.project.titulo" :style="mode==='dark'?'color: #fff':''"><small><b>{{ comment.project.titulo }}</b></small></h5>
-                                    <span class="d-block text-dark text-capitalize"></span>
-                                    <span class="d-block font-26 mb-2">{{ comment.body }}</span>
-                                    <small>{{ comment.created_at }}</small>
-                                </div>
-                                <a :href="'/project/' + comment.project.id" class="btn ma-5 text-white bg-indigo-light-2  ">
-                                    <span class="btn-text">
-                                        <font-awesome-icon icon="share-square"/>
+                <div v-if="!loadComments">
+                    <div v-for="comment in comments" :key="'comment-' + comment.id" class="list-group list-group-flush">
+                        <router-link v-if="comment.project" class="list-group-item list-group-item-action border border-primary rounded mb-2" :to="{ path: '/project/' + comment.project_id }">
+                            <div class="media align-items-center">
+                                <div class="media-body">
+                                    <span class="d-block">
+                                        "{{ comment.project.titulo }}"
                                     </span>
-                                </a>
-                            </div>
-                            <div class="col-12">
-                                <div class="float-right">
-                                    <span class="mr-1" ><i class="fas fa-thumbs-up"></i> {{ comment.votos_a_favor }} </span>
-                                    <span class="px-1" > <i class="fas fa-thumbs-down"></i> {{ comment.votos_en_contra }}</span>
+                                    <blockqoute class="d-block blockquote my-10">
+                                        {{ comment.body }}
+                                        <footer class="text-grey small text-right">
+                                            {{ new Date(toLocalDatetime(comment.updated_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}
+                                        </footer>
+                                    </blockqoute>
                                 </div>
                             </div>
-                        </li>
-                    </ul>
-                    <div class="mb-20" v-if="totalResults > comments.length">
+                            <div class="float-right">
+                                <span class="text-success mr-15"><i class="fas fa-thumbs-up"></i> {{ comment.votos_a_favor }} </span>
+                                <span class="text-danger"> <i class="fas fa-thumbs-down"></i> {{ comment.votos_en_contra }}</span>
+                            </div>
+                        </router-link>
+                        <router-link v-else-if="comment.idea" class="list-group-item list-group-item-action border border-primary rounded mb-2" :to="{ path: '/project/' + comment.idea.project_id }">
+                            <div class="media align-items-center">
+                                <div class="media-body">
+                                    <span class="d-block">
+                                        "{{ comment.idea.titulo }}" {{ $t('perfil_usuario.componentes.comentarios.del_proyecto') }} "{{ comment.idea.project.titulo }}"
+                                    </span>
+                                    <blockqoute class="d-block blockquote my-10">
+                                        {{ comment.body }}
+                                        <footer class="text-grey small text-right">
+                                            {{ new Date(toLocalDatetime(comment.updated_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}
+                                        </footer>
+                                    </blockqoute>
+                                </div>
+                            </div>
+                            <div class="float-right">
+                                <span class="text-success mr-15"><i class="fas fa-thumbs-up"></i> {{ comment.votos_a_favor }} </span>
+                                <span class="text-danger"> <i class="fas fa-thumbs-down"></i> {{ comment.votos_en_contra }}</span>
+                            </div>
+                        </router-link>
+                        <router-link v-else-if="comment.article" class="list-group-item list-group-item-action border border-primary rounded mb-2" :to="{ path: '/project/' + comment.article.project_id }">
+                            <div class="media align-items-center">
+                                <div class="media-body">
+                                    <span class="d-block">
+                                        "{{ comment.article.titulo }}" {{ $t('perfil_usuario.componentes.comentarios.del_proyecto') }} "{{ comment.article.project.titulo }}"
+                                    </span>
+                                    <blockqoute class="d-block blockquote my-10">
+                                        {{ comment.body }}
+                                        <footer class="text-grey small text-right">
+                                            {{ new Date(toLocalDatetime(comment.updated_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}
+                                        </footer>
+                                    </blockqoute>
+                                </div>
+                            </div>
+                            <div class="float-right">
+                                <span class="text-success mr-15"><i class="fas fa-thumbs-up"></i> {{ comment.votos_a_favor }} </span>
+                                <span class="text-danger"> <i class="fas fa-thumbs-down"></i> {{ comment.votos_en_contra }}</span>
+                            </div>
+                        </router-link>
+                        <router-link v-if="comment.public_consultation" class="list-group-item list-group-item-action border border-primary rounded mb-2" :to="{ path: '/public_consultation/' + comment.public_consultation_id }">
+                            <div class="media align-items-center">
+                                <div class="media-body">
+                                    <span class="d-block">
+                                        "{{ comment.public_consultation.titulo }}"
+                                    </span>
+                                    <blockqoute class="d-block blockquote my-10">
+                                        {{ comment.body }}
+                                        <footer class="text-grey small text-right">
+                                            {{ new Date(toLocalDatetime(comment.updated_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}
+                                        </footer>
+                                    </blockqoute>
+                                </div>
+                            </div>
+                            <div class="float-right">
+                                <span class="text-success mr-15"><i class="fas fa-thumbs-up"></i> {{ comment.votos_a_favor }} </span>
+                                <span class="text-danger"> <i class="fas fa-thumbs-down"></i> {{ comment.votos_en_contra }}</span>
+                            </div>
+                        </router-link>
+                    </div>
+                    <div v-if="totalResults > comments.length">
                         <button class="vld-parent btn btn-secondary btn-block" @click="loadMore">{{ $t('perfil_usuario.componentes.comentarios.cargar') }}
-                            <loading
+                            <Loading
                                     :active.sync="loadBtnLoadMore"
                                     :is-full-page="false"
                                     :height="24"
-                                    :color="color"
-                            ></loading>
+                            ></Loading>
                         </button>
                     </div>
-                    <div v-if="comments.length == 0">
-                        <h6 class="px-4 mb-2" :style="mode === 'dark' ? 'color: #fff' : ''">{{ $t('perfil_usuario.componentes.comentarios.error1') }}</h6>
-                    </div>
+                    <h6
+                            v-if="totalResults === 0 && !loadBtnLoadMore"
+                            class="text-center"
+                            :style="mode === 'dark' ? 'color: #fff' : ''"
+                    >
+                        {{ $t('perfil_usuario.componentes.comentarios.no_hay_comentarios') }}
+                    </h6>
                 </div>
-                <div v-else>
-                    <h6 class="px-4 mb-2" :style="mode === 'dark' ? 'color: #fff' : ''"> {{ $t('perfil_usuario.componentes.comentarios.cargando') }}</h6>
-                </div>
-                <div v-if="failed">
-                    <h6 class="px-4 mb-2" :style="mode === 'dark' ? 'color: #fff' : ''">{{ $t('perfil_usuario.componentes.comentarios.error2') }}</h6>
-                </div>
-            </div>   
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import axios from "../../backend/axios";
+    import axios from '../../backend/axios';
+    import Loading from 'vue-loading-overlay';
 
     export default {
-        name: "userComments",
+        name: 'UserComments',
+        components: {
+            Loading
+        },
+        props: {
+            user_id: Number
+        },
         data() {
             return {
-                totalResults: 0,
                 comments: [],
+                totalResults: 0,
                 limit: 10,
                 offset: 0,
+                loadComments: true,
                 loadBtnLoadMore: false,
-                loaded: false,
-                failed: false,
-                mode: String,
+                fullPage: false,
+                color: '#000000',
+                mode: String
             };
         },
-        methods: {
-            getComments() {
-                axios
-                    .get("/users/"+ JSON.parse(localStorage.user).id+"/comments" , {
-                        params: {
-                            limit: this.limit,
-                            offset: this.offset
-                        }
-                    })
-                    .then(res => {
-                        this.totalResults = res.data.total_results
-                        this.comments = this.comments.concat(res.data.results)
-
-                        this.offset += res.data.returned_results;
-                    })
-                    .catch(() => {
-                        console.log("FALLO");
-                        this.failed = true;
-                    })
-                    .finally(() => {
-                        this.loaded = true;
-                    })
-            },
-            loadMore() {
-                this.loadBtnLoadMore = true;
-                this.getComments();
-            },
-        },
-        mounted(){
+        mounted() {
             if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
                 this.mode = 'dark';
             } else {
@@ -109,6 +145,37 @@
             }
 
             this.getComments();
-        },    
+        },
+        methods: {
+            getComments() {
+                axios
+                    .get('/users/' + this.user_id + '/comments', {
+                        params: {
+                            state: 0,
+                            has: ['project', 'article', 'idea', 'publicConsultation'],
+                            order: 'DESC',
+                            order_by: 'updated_at',
+                            limit: this.limit,
+                            offset: this.offset
+                        }
+                    })
+                    .then(res => {
+                        this.totalResults = res.data.total_results;
+                        this.comments = this.comments.concat(res.data.results);
+                        this.offset += res.data.returned_results;
+                    })
+                    .finally(() => {
+                        this.loadComments = false;
+                        this.loadBtnLoadMore = false;
+                    });
+            },
+            loadMore() {
+                this.loadBtnLoadMore = true;
+                this.getComments();
+            },
+            toLocalDatetime(datetime) {
+                return this.$moment.utc(datetime, 'YYYY-MM-DD HH:mm:ss').local();
+            }
+        }
     }
 </script>

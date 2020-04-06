@@ -57,6 +57,8 @@ Para el caso de Debian se puede instalar de esta forma:
 $ sudo apt-get install fonts-roboto
 ```
 
+_Si al generar el reporte se presenta un error similar a: `file_put_contents(/tmp/knp_snappy....html): failed to open stream: No such file or directory` ejecute `php artisan cache:clear`._ 
+
 #### Acerca de SELinux
 
 En este caso se está haciendo una instalación de la plataforma en CentOS 7, el cual tiene por defecto activado SELinux en modo `enforcing` lo que no permitiría la conexión de la API con el servidor de Elasticsearch y de correos electrónicos en caso de no estar configurado para tales efectos. Es por ello que se recomienda desactivarlo, esto se puede lograr de dos formas:

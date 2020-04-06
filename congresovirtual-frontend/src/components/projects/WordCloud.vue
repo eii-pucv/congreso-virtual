@@ -8,7 +8,7 @@
                 :background-color="backgroundColor"
         ></loading>
     </div>
-    <div v-else-if="!loadWordCloud && !error" id="divWordCloud">
+    <div v-else-if="!loadWordCloud && !error" id="div-wordcloud">
         <wordcloud
                 :data="wordCloudData"
                 nameKey="word"
@@ -24,10 +24,10 @@
 </template>
 
 <script>
+    import axios from '../../backend/axios';
     //import wordcloud from 'vue-wordcloud';
     import wordcloud from 'vue-wordcloud-tooltip-fix';
     import Loading from 'vue-loading-overlay';
-    import axios from '../../backend/axios';
 
     export default {
         name: 'WordCloud',
@@ -114,7 +114,7 @@
         position: absolute;
     }
 
-    #divWordCloud {
+    #div-wordcloud {
         object-fit: cover;
         width: 100%;
         height: 100%;

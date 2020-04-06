@@ -67,10 +67,21 @@ class CommentController extends Controller
                 $filter['ideaIsPublic'] = true;
             }
 
-            if(Auth::check() && Auth::user()->hasRole('ADMIN') && isset($request->only_trashed) && $request->only_trashed) {
-                $comments = Comment::filter($filter)->onlyTrashed();
+            if($request->has('has') && is_array($request->has)) {
+                $relations = $request->has;
+                $comments = Comment::has($relations[0]);
+                foreach($relations as $index => $relation) {
+                    if($index > 0) {
+                        $comments = $comments->orWhereHas($relation);
+                    }
+                }
+                $comments = $comments->filter($filter);
             } else {
                 $comments = Comment::filter($filter);
+            }
+
+            if(Auth::check() && Auth::user()->hasRole('ADMIN') && isset($request->only_trashed) && $request->only_trashed) {
+                $comments = $comments->onlyTrashed();
             }
 
             if(isset($request->has_denounces)) {
@@ -92,7 +103,7 @@ class CommentController extends Controller
             $comments = $comments
                 ->offset($offset)
                 ->limit($limit);
-            $comments = $comments->with(['project', 'article', 'idea', 'publicConsultation', 'user'])->get();
+            $comments = $comments->with(['project', 'article', 'idea', 'publicConsultation', 'user', 'idea.project', 'article.project'])->get();
 
             return response()->json([
                 'total_results' => $totalResults,

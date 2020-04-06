@@ -879,7 +879,7 @@
         methods: {
             getUser() {
                 axios
-                    .get('/users/' + JSON.parse(localStorage.user).id)
+                    .get('/users/' + this.$store.getters.userData.id)
                     .then(res => {
                         this.refreshUser(res.data);
                     })

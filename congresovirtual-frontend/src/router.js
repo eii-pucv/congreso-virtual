@@ -164,38 +164,7 @@ const routes = [
         path: '/user',
         name: 'User',
         props: true,
-        component: () => import('./views/User.vue'),
-        meta: {
-            requiresAuth: true,
-            user_rol: 'USER'
-        }
-    },
-    {
-        path: '/user/my-comments',
-        props: true,
-        component: () => import('./components/user/UserComments.vue'),
-        meta: {
-            requiresAuth: true,
-            user_rol: 'USER'
-        }
-    },
-    {
-        path: '/user/my-votes',
-        props: true,
-        component: () => import('./components/user/UserVotes.vue'),
-        meta: {
-            requiresAuth: true,
-            user_rol: 'USER'
-        }
-    },
-    {
-        path: '/user/my-proposals',
-        props: true,
-        component: () => import('./components/user/UserProposals'),
-        meta: {
-            requiresAuth: true,
-            user_rol: 'USER'
-        }
+        component: () => import('./views/User.vue')
     },
     {
         path: '/admin',
@@ -204,7 +173,7 @@ const routes = [
         component: () => import('./components/admin/AdminNavbar'),
         meta: {
             requiresAuth: true,
-            user_rol: 'ADMIN'
+            userRoles: ['ADMIN']
         },
         children: [
             /*-- USERS AND ORGANIZATIONS ADMINISTRATION --*/
@@ -498,9 +467,9 @@ const router = new Router({
     routes: routes,
     scrollBehavior(to, from, savedPosition) {
         if(savedPosition) {
-            return savedPosition
+            return savedPosition;
         } else {
-            return { x: 0, y: 0 }
+            return { x: 0, y: 0 };
         }
     }
 });
@@ -508,7 +477,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
     if(to.matched.some(record => record.meta.requiresAuth)) {
         if(store.getters.isLoggedIn) {
-            if(to.matched.some(record => store.state.user.rol === record.meta.user_rol)) {
+            if(to.matched.some(record => record.meta.userRoles.includes(store.state.user.rol))) {
                 next();
             } else {
                 next('/');

@@ -151,7 +151,6 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        background-color: #2e2e2e;
     }
 
     .agree {
@@ -417,6 +416,7 @@
             }
 
             this.user = JSON.parse(localStorage.getItem('user'));
+            this.$store.dispatch('activeGamification');
         },
         computed: {
             isLoggedIn() {

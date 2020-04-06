@@ -2,9 +2,18 @@
     "navbar" : {
         "registrar": "Register",
         "iniciar_sesion": "Login",
-        "admin": "Admin",
+        "admin": {
+            "titulo": "Admin",
+            "perfil": "Profile",
+            "administrar": "Manage"
+        },
         "perfil": "Profile",
-        "panel": "Panel",
+        "notificaciones": {
+            "titulo": "Notifications",
+            "puntos": "participation points",
+            "no_hay_recompensas": "No rewards earned were found.",
+            "cargar": "Load More"
+        },
         "busqueda": "Search",
         "modo_oscuro": "Dark mode",
         "idioma": "Language",
@@ -33,7 +42,7 @@
             "consultas_publicas": "Public Consultations",
             "incorporacion_proyectos": {
                 "titulo": "Proposed Projects of Law to be Included in Congreso Virtual",
-                "descripcion": "Are there any project that are of your total interest, and that you would like to be incorporated into the Virtual Congress? If it reaches 100 support signatures, it will be added to the site, so that it can be voted and debated by the active community.",
+                "descripcion": "Are there any project that are of your total interest, and that you would like to be incorporated into the Congreso Virtual? If it reaches 100 support signatures, it will be added to the site, so that it can be voted and debated by the active community.",
                 "boton_apoyo": "Support Inclusion",
                 "ver": "View Proposal"
             },
@@ -201,7 +210,7 @@
             "abstenciones": "Abstentions",
             "cantidad_comentarios": "Number of Comments",
             "cantidad_participantes": "Amount of Participants",
-            "congreso_virtual": "Virtual Congress",
+            "congreso_virtual": "Congreso Virtual",
             "senado": "Senate",
             "no_hay_datos_senado": "There is no data on the vote of the parliamentarians.",
             "nube": "Word Cloud",
@@ -241,7 +250,7 @@
                 "no_carga": "We're sorry, there was an error loading word cloud."
             },
             "archivos": {
-                "texto": "The following files have been made available by the Virtual Congress administration for the possession of more information when participating in the projects.",
+                "texto": "The following files have been made available by the Congreso Virtual administration for the possession of more information when participating in the projects.",
                 "descargar": "Download",
                 "no_hay_archivos": "No files found for this project of law.",
                 "mensajes": {
@@ -302,15 +311,15 @@
                     "autoria": "Authorship",
                     "inicio": "Start"
                 },
-                "proyecto_ley": {
+                "inclusion": {
                     "titulo": "INCLUSION TO CONGRESO VIRTUAL",
-                    "popover": "Vote for this project to be incorporated into the Virtual Congress.",
+                    "popover": "Vote for this project to be incorporated into the Congreso Virtual.",
                     "strong": "Support achieved",
                     "de": "of"
                 },
                 "urgencia": {
                     "titulo": "URGENCY REQUEST",
-                    "popover": "Vote for this project to be placed in an urgency and have a higher priority to be incorporated into the Virtual Congress.",
+                    "popover": "Vote for this project to be placed in an urgency and have a higher priority to be incorporated into the Congreso Virtual.",
                     "strong": "Urgency Requests",
                     "de": "of"
                 }
@@ -333,7 +342,7 @@
             "header": {
                 "fecha_publicacion": "Publication date",
                 "titulo": "CONTENT PAGE",
-                "popover": "This page corresponds to an exhibition of content created directly by the Virtual Congress staff."
+                "popover": "This page corresponds to an exhibition of content created directly by the Congreso Virtual staff."
             }
         }
     },
@@ -545,20 +554,112 @@
     },
     "perfil_usuario": {
         "contenido": {
+            "usuario_no_existe": "User does not exist.",
             "votos": "Votes",
             "comentarios": "Comments",
             "puntos": "Points",
             "tab": {
                 "proyectos_interes": "Projects of Interest",
-                "editar_perfil": "Edit my Profile",
                 "votaciones": "My Votes",
                 "comentarios": "My Comments",
-                "propuestas": "My Proposals"
+                "propuestas": "My Proposals",
+                "recompensas": "My Rewards",
+                "recompensas_disponibles": "Available Rewards",
+                "editar_perfil": "Edit my Profile"
             }
         },
         "componentes": {
             "proyectos_interes": {
                 "no_hay_resultados": "No projects of your interest found."
+            },
+            "votos": {
+                "titulo": "My Votes",
+                "del_proyecto": "of the project",
+                "no_hay_votos": "No votes were found.",
+                "cargar": "Load More"
+            },
+            "comentarios": {
+                "titulo": "My Comments",
+                "del_proyecto": "of the project",
+                "no_hay_comentarios": "No comments were found.",
+                "cargar": "Load More"
+            },
+            "propuestas": {
+                "titulo": "My Proposals",
+                "ver": "View proposal",
+                "editar": "Edit proposal",
+                "no_hay_propuestas": "No proposals were found.",
+                "cargar": "Load More",
+                "boletin": "Bulletin",
+                "fecha_ingreso": "Admission date",
+                "autoria": "Authorship",
+                "tipo": {
+                    "titulo": "Type",
+                    "inclusion": "Inclusion to Congreso Virtual",
+                    "urgencia": "Urgency request"
+                },
+                "estado": {
+                    "titulo": "State",
+                    "publica": "Public",
+                    "no_publica": "Not public",
+                    "activa": "Active",
+                    "inactiva": "Inactive",
+                    "solo_detalle": "Just detail",
+                    "argumento_video": "Detail + argument + video"
+                },
+                "apoyos": "Support achieved",
+                "de": "of",
+                "detalle": "Detail",
+                "argumento": "Argument",
+                "fuente_video": {
+                    "titulo": "Video source service",
+                    "popover": "External service where the video is hosted.",
+                    "opciones": [
+                        { "id": null, "label": "No video" },
+                        { "id": "youtube", "label": "YouTube" },
+                        { "id": "vimeo", "label": "Vimeo" },
+                        { "id": "dailymotion", "label": "Dailymotion" }
+                    ]
+                },
+                "codigo_video": {
+                    "titulo": "Video access code",
+                    "popover": "Corresponds to the code, usually alphanumeric, that identifies the video and is part of the URL to access to view it.",
+                    "prepends": [
+                        { "id": "youtube", "label": "youtube.com/watch?v=" },
+                        { "id": "vimeo", "label": "vimeo.com/" },
+                        { "id": "dailymotion", "label": "dailymotion.com/video/" }
+                    ]
+                },
+                "mensajes": {
+                    "exito": {
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Proposal updated successfully",
+                                "cuerpo": "You have successfully updated the proposal data"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error updating proposal",
+                                "cuerpo": "Failed to update proposal data"
+                            }
+                        }
+                    }
+                }
+            },
+            "recompensas": {
+                "titulo": "My Rewards",
+                "puntos": "participation points",
+                "no_hay_recompensas": "No rewards earned were found.",
+                "cargar": "Load More"
+            },
+            "recompensas_disponibles": {
+                "titulo": "Available Rewards",
+                "puntos": "participation points",
+                "no_hay_recompensas": "No available rewards found.",
+                "cargar": "Load More"
             },
             "edicion_perfil": {
                 "titulo": "Personal Information",
@@ -757,48 +858,6 @@
                         }
                     }
                 }
-            },
-            "votos": {
-                "titulo": "Your votes",
-                "cantidad": "Number of votes made",
-                "proyecto": "of the project",
-                "error1": "We are sorry, no votes have been found.",
-                "error2": "We are sorry, there was an error loading the votes.",
-                "cargando": "Loading feedback data",
-                "cargar": "Load More"
-            },
-            "comentarios": {
-                "titulo": "Your comments",
-                "cantidad": "Number of comments made",
-                "error1": "We are sorry, no comments have been found.",
-                "error2": "We are sorry, there was an error loading comments.",
-                "cargando": "Loading comment data",
-                "cargar": "Load More"
-            },
-            "propuestas": {
-                "titulo": "Your proposals",
-                "cantidad": "Number of proposals made",
-                "boletin": "Bulletin",
-                "fecha": "Date",
-                "estado": {
-                    "titulo": "State",
-                    "publica": "Public",
-                    "no_publica": "Not public",
-                    "activa": "Active",
-                    "no_activa": "Not active"
-                },
-                "autoria": "Authorship",
-                "detalle": "Detail",
-                "ordenar": "Order by",
-                "de": "of",
-                "argumento": "Argument",
-                "video_url": "Video URL",
-                "fuente": "Video source",
-                "error1": "We are sorry, no proposals have been found.",
-                "error2": "We are sorry, there was an error loading the proposals.",
-                "cargando": "Loading proposal data",
-                "editar": "Edit Proposal",
-                "cargar": "Load More"
             }
         }
     },
@@ -809,7 +868,7 @@
         },
         "contenido": {
             "titulo": "Projects of law in parliament",
-            "parrafo1": "Is there a bill that interests you and is not in the Virtual Congress? If so, select it and disseminate it to obtain votes and be considered.",
+            "parrafo1": "Is there a bill that interests you and is not in the Congreso Virtual? If so, select it and disseminate it to obtain votes and be considered.",
             "parrafo2": "Or if there is any project that you would like to have priority to be studied by the National Congress, look for it, select it and disseminate it to obtain support from other participants and that Congress ask the President of the Republic to put it urgently.",
             "buscar": "Search",
             "busqueda": "Title, detail, summary...",
@@ -822,7 +881,7 @@
             "origen": "Source",
             "ordenar": "Order by",
             "limpiar": "Clean Filters",
-            "incluir": "Include Virtual Congress",
+            "incluir": "Include Congreso Virtual",
             "pedir": "Ask for urgency",
             "cargar": "Load More",
             "no_hay_resultados": "No results found.",
@@ -846,24 +905,24 @@
             "filtrar":"Filter by",
             "ordenar": "Sort by",
             "boton_propuestas_sugeridas": "Go to Suggested Proposals",
-            "tipo_1": "Inclusion in Virtual Congress",
+            "tipo_1": "Inclusion to Congreso Virtual",
             "tipo_2": "Urgency",
             "ver":"See proposal",
             "de": "of",
             "resultados": "Total results",
             "cargar": "Load More",
             "no_hay_resultados": "No results found",
-            "mensaje_propuestas_sugeridas": "The Suggested Proposals are all the bills that can be considered in the Virtual Congress thanks to the support of other participants",
+            "mensaje_propuestas_sugeridas": "The Suggested Proposals are all the bills that can be considered in the Congreso Virtual thanks to the support of other participants",
             "opciones_ordenar": {
                 "opcion_1": "Admission date (Desc.)",
                 "opcion_2": "Admission date (Asc.)",
-                "opcion_3": "Amount of Support for Virtual Congress Inclusion Request (Desc.)",
-                "opcion_4": "Amount of Support for Virtual Congress Inclusion Request (Asc.)",
+                "opcion_3": "Amount of Support for Congreso Virtual Inclusion Request (Desc.)",
+                "opcion_4": "Amount of Support for Congreso Virtual Inclusion Request (Asc.)",
                 "opcion_5": "Amount of Emergency Request Support (Desc.)",
                 "opcion_6": "Amount of Emergency Request Support (Asc.)"
             },
             "opciones_filtrar": {
-                "opcion_1": "Inclusion in Virtual Congress",
+                "opcion_1": "Inclusion to Congreso Virtual",
                 "opcion_2": "Urgent Request"
             }
         }
@@ -926,8 +985,8 @@
             "contacto": "Contact"
         },
         "contenido": {
-            "titulo": "Virtual Congress Contact",
-            "texto": "Here you can contact the Virtual Congress staff directly, in case you have any questions, suggestions or anything else in particular.",
+            "titulo": "Congreso Virtual Contact",
+            "texto": "Here you can contact the Congreso Virtual staff directly, in case you have any questions, suggestions or anything else in particular.",
             "nombre": {
                 "titulo": "Name",
                 "placeholder": "Enter your full name"
@@ -948,7 +1007,8 @@
             "titulo": "ADMINISTRATOR",
             "mi_configuracion": {
                 "titulo": "My Settings",
-                "perfil": "Profile"
+                "ver_perfil": "Ver mi Perfil",
+                "editar_perfil": "Edit my Profile"
             },
             "usuarios": {
                 "titulo": "Users",

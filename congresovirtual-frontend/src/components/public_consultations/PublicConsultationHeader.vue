@@ -61,7 +61,7 @@
             </div>
             <div class="text-center ma-5">
                 <div
-                        class="col-4 col-sm-2 card mx-sm-50 pa-5 my-0 agree"
+                        class="col-4 col-md-2 card mx-md-50 pa-5 my-0 agree"
                         v-bind:class="{ 'agree-blocked': !isAvailableVoting, 'agree-selected': userVotedAgree }"
                         @click="addOrEditVote(0)"
                         style="display: inline-block;"
@@ -72,7 +72,7 @@
                     <span class="col-6 display-6">{{ publicConsultation.votos_a_favor }}</span>
                 </div>
                 <div
-                        class="col-4 col-sm-2 card mx-sm-50 pa-5 my-0 disagree"
+                        class="col-4 col-md-2 card mx-md-50 pa-5 my-0 disagree"
                         v-bind:class="{ 'disagree-blocked': !isAvailableVoting, 'disagree-selected': userVotedDisagree }"
                         @click="addOrEditVote(1)"
                         style="display: inline-block;"

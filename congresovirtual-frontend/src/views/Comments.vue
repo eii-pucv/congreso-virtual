@@ -56,8 +56,12 @@
                         <div class="media-body">
                             <div class="row">
                                 <div class="col-9 mb-2">
-                                    <h6 v-if="comment.user && comment.user.username">{{ comment.user.username }}</h6>
-                                    <h6 v-else-if="comment.user && !comment.user.username">{{ comment.user.name }} {{ comment.user.surname }}</h6>
+                                    <router-link v-if="comment.user && comment.user.username" class="h6" :to="{ path: '/user', query: { 'username': comment.user.username } }">
+                                        {{ comment.user.username }}<br>
+                                    </router-link>
+                                    <router-link v-else-if="comment.user && !comment.user.username" class="h6" :to="{ path: '/user', query: { 'user_id': comment.user.id } }">
+                                        {{ comment.user.name }} {{ comment.user.surname }}<br>
+                                    </router-link>
                                     <h6 v-else>{{ $t('componentes.comentarios.no_identificado') }}</h6>
                                     <small class="text-grey">{{ new Date(toLocalDatetime(comment.created_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}</small>
                                 </div>
@@ -144,8 +148,12 @@
                                     <div class="media-body">
                                         <div class="row">
                                             <div class="col-9 mb-2">
-                                                <h6 v-if="parentComment.user && parentComment.user.username">{{ parentComment.user.username }}</h6>
-                                                <h6 v-else-if="parentComment.user && !parentComment.user.username">{{ parentComment.user.name }} {{ parentComment.user.surname }}</h6>
+                                                <router-link v-if="parentComment.user && parentComment.user.username" class="h6" :to="{ path: '/user', query: { 'username': parentComment.user.username } }">
+                                                    {{ parentComment.user.username }}<br>
+                                                </router-link>
+                                                <router-link v-else-if="parentComment.user && !parentComment.user.username" class="h6" :to="{ path: '/user', query: { 'user_id': parentComment.user.id } }">
+                                                    {{ parentComment.user.name }} {{ parentComment.user.surname }}<br>
+                                                </router-link>
                                                 <h6 v-else>{{ $t('componentes.comentarios.no_identificado') }}</h6>
                                                 <small class="text-grey">{{ new Date(toLocalDatetime(parentComment.created_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}</small>
                                             </div>
@@ -976,10 +984,7 @@
         },
         computed: {
             isCommenting() {
-                if(this.comment.body || this.comment.withFiles || this.parentComment) {
-                    return true;
-                }
-                return false;
+                return !!(this.comment.body || this.comment.withFiles || this.parentComment);
             }
         }
     }

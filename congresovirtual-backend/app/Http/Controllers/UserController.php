@@ -43,6 +43,9 @@ class UserController extends Controller
             if($request->has('surname')) {
                 $filter['surname'] = $request->surname;
             }
+            if($request->has('username')) {
+                $filter['username'] = $request->username;
+            }
             if($request->has('es_experto')) {
                 $filter['esExperto'] = $request->es_experto;
             }
@@ -153,7 +156,39 @@ class UserController extends Controller
     public function show($id)
     {
         try {
-            return response()->json(User::with(['player', 'locationOrgs', 'memberOrgs', 'terms', 'avatarRelated'])->findOrFail($id), 200);
+            return response()->json(
+                User::with(['player', 'locationOrgs', 'memberOrgs', 'terms', 'avatarRelated'])
+                    ->withCount(['comments', 'votes'])
+                    ->findOrFail($id),
+                200
+            );
+        } catch (\Exception $exception) {
+            return response()->json([
+                'message' => 'Error: the user was not found.'], 412);
+        }
+    }
+
+    /**
+     * Display the specified resource by username.
+     * About access control: all users can use this method (see routes).
+     *
+     * @param  $username
+     * @return \Illuminate\Http\Response
+     */
+    public function showByUsername($username)
+    {
+        try {
+            $userMeta = UserMeta::where([
+                ['key', '=', 'username'],
+                ['value', '=', $username]
+            ])->first();
+
+            return response()->json(
+                User::with(['player', 'locationOrgs', 'memberOrgs', 'terms', 'avatarRelated'])
+                    ->withCount(['comments', 'votes'])
+                    ->findOrFail($userMeta->user_id),
+                200
+            );
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the user was not found.'], 412);

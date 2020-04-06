@@ -242,7 +242,8 @@ class ProposalController extends Controller
             } else {
                 $proposal = Proposal::where([
                     ['id', $id],
-                    ['user_id', Auth::id()]
+                    ['user_id', Auth::id()],
+                    ['is_public', true]
                 ])->firstOrFail();
 
                 $argument = $proposal->argument;
@@ -305,7 +306,8 @@ class ProposalController extends Controller
                 $proposal = Proposal::withTrashed()
                     ->where([
                         ['id', $id],
-                        ['user_id', Auth::id()]
+                        ['user_id', Auth::id()],
+                        ['is_public', true]
                     ])->firstOrFail();
             }
             $forceDelete = $request->query('force_delete', false);

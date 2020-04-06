@@ -15,7 +15,7 @@
                 <li v-for="file in files" :key="file.id" class="media pa-20 border border-2 border-light mb-5">
                     <div class="media-body" v-if="file">
                         <div class="row mx-0">
-                            <h6 class="text-truncate">{{ file.original_filename }}</h6>
+                            <h6>{{ file.original_filename }}</h6>
                         </div>
                         <small class="text-grey">{{ new Date(toLocalDatetime(file.updated_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}</small>
                         <div class="mt-10">

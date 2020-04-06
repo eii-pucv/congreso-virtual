@@ -45,8 +45,13 @@ class GamificationController extends Controller
                 ->join('events', 'players.user_id', '=', 'events.player_id')
                 ->join('event_reward_term', 'events.id', '=', 'event_reward_term.event_id')
                 ->join('rewards', 'event_reward_term.reward_id', '=', 'rewards.id')
-                ->where('event_reward_term.term_id', '=', $request->term_id)
-                ->groupBy('players.user_id');
+                ->where([
+                    ['players.active_gamification', true],
+                    ['event_reward_term.term_id', $request->term_id],
+                ])
+                ->groupBy('players.user_id')->has('user');
+
+            $totalResults = count($ranking->get());
 
             if($request->has('order_by')) {
                 $orderBy = $request->query('order_by', 'term_total_points');
@@ -60,7 +65,11 @@ class GamificationController extends Controller
                 ->limit($limit);
             $ranking = $ranking->get();
 
-            return response()->json($ranking, 200);
+            return response()->json([
+                'total_results' => $totalResults,
+                'returned_results' => count($ranking),
+                'results' => $ranking
+            ], 200);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the ranking could not be generated.'], 412);
@@ -104,10 +113,13 @@ class GamificationController extends Controller
                 ->join('rewards', 'event_reward_term.reward_id', '=', 'rewards.id')
                 ->join('actions', 'rewards.action_id', '=', 'actions.id')
                 ->where([
+                    ['players.active_gamification', true],
                     ['events.project_id', $request->project_id],
                     ['actions.subtype', 'PROJECT']
                 ])
-                ->groupBy('players.user_id');
+                ->groupBy('players.user_id')->has('user');
+
+            $totalResults = count($ranking->get());
 
             if($request->has('order_by')) {
                 $orderBy = $request->query('order_by', 'project_total_points');
@@ -121,7 +133,11 @@ class GamificationController extends Controller
                 ->limit($limit);
             $ranking = $ranking->get();
 
-            return response()->json($ranking, 200);
+            return response()->json([
+                'total_results' => $totalResults,
+                'returned_results' => count($ranking),
+                'results' => $ranking
+            ], 200);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the ranking could not be generated.'], 412);
@@ -165,10 +181,13 @@ class GamificationController extends Controller
                 ->join('rewards', 'event_reward_term.reward_id', '=', 'rewards.id')
                 ->join('actions', 'rewards.action_id', '=', 'actions.id')
                 ->where([
+                    ['players.active_gamification', true],
                     ['events.page_id', $request->page_id],
                     ['actions.subtype', 'PAGE']
                 ])
-                ->groupBy('players.user_id');
+                ->groupBy('players.user_id')->has('user');
+
+            $totalResults = count($ranking->get());
 
             if($request->has('order_by')) {
                 $orderBy = $request->query('order_by', 'page_total_points');
@@ -182,7 +201,11 @@ class GamificationController extends Controller
                 ->limit($limit);
             $ranking = $ranking->get();
 
-            return response()->json($ranking, 200);
+            return response()->json([
+                'total_results' => $totalResults,
+                'returned_results' => count($ranking),
+                'results' => $ranking
+            ], 200);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the ranking could not be generated.'], 412);
@@ -229,10 +252,13 @@ class GamificationController extends Controller
                 ->join('action_event', 'events.id', '=', 'action_event.event_id')
                 ->join('actions', 'action_event.action_id', '=', 'actions.id')
                 ->where([
+                    ['players.active_gamification', true],
                     ['event_reward_term.term_id', $request->term_id],
                     ['actions.subtype', 'TERM']
                 ])
-                ->groupBy('players.user_id');
+                ->groupBy('players.user_id')->has('user');
+
+            $totalResults = count($ranking->get());
 
             if($request->has('order_by')) {
                 $orderBy = $request->query('order_by', 'term_total_points');
@@ -246,7 +272,11 @@ class GamificationController extends Controller
                 ->limit($limit);
             $ranking = $ranking->get();
 
-            return response()->json($ranking, 200);
+            return response()->json([
+                'total_results' => $totalResults,
+                'returned_results' => count($ranking),
+                'results' => $ranking
+            ], 200);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the ranking could not be generated.'], 412);
@@ -288,10 +318,11 @@ class GamificationController extends Controller
                 ->join('action_event', 'events.id', '=', 'action_event.event_id')
                 ->join('actions', 'action_event.action_id', '=', 'actions.id')
                 ->where([
+                    ['players.active_gamification', true],
                     ['events.project_id', $request->project_id],
                     ['actions.subtype', 'PROJECT']
                 ])
-                ->groupBy('players.user_id');
+                ->groupBy('players.user_id')->has('user');
 
             $secondQuery = Player::select(
                 'players.user_id',
@@ -302,10 +333,11 @@ class GamificationController extends Controller
                 ->leftJoin('rewards', 'event_reward_term.reward_id', '=', 'rewards.id')
                 ->join('actions', 'rewards.action_id', '=', 'actions.id')
                 ->where([
+                    ['players.active_gamification', true],
                     ['events.project_id', $request->project_id],
                     ['actions.subtype', 'PROJECT']
                 ])
-                ->groupBy('players.user_id');
+                ->groupBy('players.user_id')->has('user');
 
             $ranking = DB::table(DB::raw("({$firstQuery->toSql()}) AS a"))
                 ->mergeBindings($firstQuery->getQuery())
@@ -323,6 +355,7 @@ class GamificationController extends Controller
                 ->mergeBindings($secondQuery->getQuery())
                 ->groupBy('a.user_id');
 
+            $totalResults = count($ranking->get());
 
             if($request->has('order_by')) {
                 $orderBy = $request->query('order_by', 'project_total_points');
@@ -336,7 +369,11 @@ class GamificationController extends Controller
                 ->limit($limit);
             $ranking = $ranking->get();
 
-            return response()->json($ranking, 200);
+            return response()->json([
+                'total_results' => $totalResults,
+                'returned_results' => count($ranking),
+                'results' => $ranking
+            ], 200);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the ranking could not be generated.'], 412);
@@ -378,10 +415,11 @@ class GamificationController extends Controller
                 ->join('action_event', 'events.id', '=', 'action_event.event_id')
                 ->join('actions', 'action_event.action_id', '=', 'actions.id')
                 ->where([
+                    ['players.active_gamification', true],
                     ['events.page_id', $request->page_id],
                     ['actions.subtype', 'PAGE']
                 ])
-                ->groupBy('players.user_id');
+                ->groupBy('players.user_id')->has('user');
 
             $secondQuery = Player::select(
                 'players.user_id',
@@ -392,10 +430,11 @@ class GamificationController extends Controller
                 ->leftJoin('rewards', 'event_reward_term.reward_id', '=', 'rewards.id')
                 ->join('actions', 'rewards.action_id', '=', 'actions.id')
                 ->where([
+                    ['players.active_gamification', true],
                     ['events.page_id', $request->page_id],
                     ['actions.subtype', 'PAGE']
                 ])
-                ->groupBy('players.user_id');
+                ->groupBy('players.user_id')->has('user');
 
             $ranking = DB::table(DB::raw("({$firstQuery->toSql()}) AS a"))
                 ->mergeBindings($firstQuery->getQuery())
@@ -413,6 +452,7 @@ class GamificationController extends Controller
                 ->mergeBindings($secondQuery->getQuery())
                 ->groupBy('a.user_id');
 
+            $totalResults = count($ranking->get());
 
             if($request->has('order_by')) {
                 $orderBy = $request->query('order_by', 'page_total_points');
@@ -426,7 +466,11 @@ class GamificationController extends Controller
                 ->limit($limit);
             $ranking = $ranking->get();
 
-            return response()->json($ranking, 200);
+            return response()->json([
+                'total_results' => $totalResults,
+                'returned_results' => count($ranking),
+                'results' => $ranking
+            ], 200);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the ranking could not be generated.'], 412);

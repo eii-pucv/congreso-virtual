@@ -2,9 +2,18 @@
     "navbar" : {
         "registrar": "Registrar",
         "iniciar_sesion": "Iniciar Sesión",
-        "admin": "Admin",
+        "admin": {
+            "titulo": "Admin",
+            "perfil": "Perfil",
+            "administrar": "Administrar"
+        },
         "perfil": "Perfil",
-        "panel": "Panel",
+        "notificaciones": {
+            "titulo": "Notificaciones",
+            "puntos": "puntos de participación",
+            "no_hay_recompensas": "No se han encontrado recompensas obtenidas.",
+            "cargar": "Cargar Más"
+        },
         "busqueda": "Búsqueda",
         "modo_oscuro": "Modo oscuro",
         "idioma": "Idioma",
@@ -162,7 +171,8 @@
                 "detalle": "Detalle",
                 "seguimiento": "Seguimiento",
                 "estadistica": "Estadística",
-                "documentos": "Documentos adjuntos"
+                "documentos": "Documentos adjuntos",
+                "ranking_participantes": "Participantes destacados"
             },
             "autoria": "Autoría",
             "iniciativa": "Iniciativa",
@@ -262,6 +272,11 @@
                         }
                     }
                 }
+            },
+            "ranking_participantes": {
+                "titulo": "Participantes Destacados",
+                "no_hay_participantes": "No se han encontrado participantes destacados.",
+                "puntos": "puntos de participación"
             }
         },
         "ruta_guiada": {
@@ -302,7 +317,7 @@
                     "autoria": "Autoría",
                     "inicio": "Inicio"
                 },
-                "proyecto_ley": {
+                "inclusion": {
                     "titulo": "INCLUSIÓN A CONGRESO VIRTUAL",
                     "popover": "Vota para que este proyecto sea incorporado a Congreso Virtual.",
                     "strong": "Apoyos logrados",
@@ -545,20 +560,112 @@
     },
     "perfil_usuario": {
         "contenido": {
+            "usuario_no_existe": "El usuario no existe.",
             "votos": "Votos",
             "comentarios": "Comentarios",
             "puntos": "Puntos",
             "tab": {
                 "proyectos_interes": "Proyectos de Interés",
-                "editar_perfil": "Editar mi Perfil",
                 "votaciones": "Mis Votaciones",
                 "comentarios": "Mis Comentarios",
-                "propuestas": "Mis Propuestas"
+                "propuestas": "Mis Propuestas",
+                "recompensas": "Mis Recompensas",
+                "recompensas_disponibles": "Recompensas Disponibles",
+                "editar_perfil": "Editar mi Perfil"
             }
         },
         "componentes": {
             "proyectos_interes": {
                 "no_hay_resultados": "No se han encontrado proyectos de tu interés."
+            },
+            "votos": {
+                "titulo": "Mis Votaciones",
+                "del_proyecto": "del proyecto",
+                "no_hay_votos": "No se han encontrado votos realizados.",
+                "cargar": "Cargar Más"
+            },
+            "comentarios": {
+                "titulo": "Mis Comentarios",
+                "del_proyecto": "del proyecto",
+                "no_hay_comentarios": "No se han encontrado comentarios realizados.",
+                "cargar": "Cargar Más"
+            },
+            "propuestas": {
+                "titulo": "Mis Propuestas",
+                "ver": "Ver propuesta",
+                "editar": "Editar propuesta",
+                "no_hay_propuestas": "No se han encontrado propuestas realizadas.",
+                "cargar": "Cargar Más",
+                "boletin": "Boletín",
+                "fecha_ingreso": "Fecha de ingreso",
+                "autoria": "Autoría",
+                "tipo": {
+                    "titulo": "Tipo",
+                    "inclusion": "Inclusión a Congreso Virtual",
+                    "urgencia": "Petición de urgencia"
+                },
+                "estado": {
+                    "titulo": "Estado",
+                    "publica": "Pública",
+                    "no_publica": "No pública",
+                    "activa": "Activa",
+                    "inactiva": "Inactiva",
+                    "solo_detalle": "Solo detalle",
+                    "argumento_video": "Detalle + argumento + video"
+                },
+                "apoyos": "Apoyos logrados",
+                "de": "de",
+                "detalle": "Detalle",
+                "argumento": "Argumento",
+                "fuente_video": {
+                    "titulo": "Servicio de origen del video",
+                    "popover": "Servicio externo en donde está alojado el video.",
+                    "opciones": [
+                        { "id": null, "label": "Sin video" },
+                        { "id": "youtube", "label": "YouTube" },
+                        { "id": "vimeo", "label": "Vimeo" },
+                        { "id": "dailymotion", "label": "Dailymotion" }
+                    ]
+                },
+                "codigo_video": {
+                    "titulo": "Código de acceso al video",
+                    "popover": "Corresponde al código, generalmente alfanumérico, que identifica al video y que es parte de la URL para acceder a visualizar el mismo.",
+                    "prepends": [
+                        { "id": "youtube", "label": "youtube.com/watch?v=" },
+                        { "id": "vimeo", "label": "vimeo.com/" },
+                        { "id": "dailymotion", "label": "dailymotion.com/video/" }
+                    ]
+                },
+                "mensajes": {
+                    "exito": {
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Propuesta actualizada exitosamente",
+                                "cuerpo": "Has actualizado correctamente los datos de la propuesta"
+                            }
+                        }
+                    },
+                    "fallido": {
+                        "modificado": {
+                            "generico": {
+                                "titulo": "Error al actualizar la propuesta",
+                                "cuerpo": "No se han podido actualizar los datos de la propuesta"
+                            }
+                        }
+                    }
+                }
+            },
+            "recompensas": {
+                "titulo": "Mis Recompensas",
+                "puntos": "puntos de participación",
+                "no_hay_recompensas": "No se han encontrado recompensas obtenidas.",
+                "cargar": "Cargar Más"
+            },
+            "recompensas_disponibles": {
+                "titulo": "Recompensas Disponibles",
+                "puntos": "puntos de participación",
+                "no_hay_recompensas": "No se han encontrado recompensas disponibles.",
+                "cargar": "Cargar Más"
             },
             "edicion_perfil": {
                 "titulo": "Datos Personales",
@@ -757,48 +864,6 @@
                         }
                     }
                 }
-            },
-            "votos": {
-                "titulo": "Tus votaciones",
-                "cantidad": "Cantidad de votos realizados",
-                "proyecto": "del proyecto",
-                "error1": "Lo lamentamos, no se han encontrado votos realizados.",
-                "error2": "Lo lamentamos, ha ocurrido un error al cargar los votos.",
-                "cargando": "Cargando datos de votos",
-                "cargar": "Cargar Más"
-            },
-            "comentarios": {
-                "titulo": "Tus comentarios",
-                "cantidad": "Cantidad de comentarios realizados",
-                "error1": "Lo lamentamos, no se han encontrado comentarios realizados.",
-                "error2": "Lo lamentamos, ha ocurrido un error al cargar los comentarios.",
-                "cargando": "Cargando datos de comentarios",
-                "cargar": "Cargar Más"
-            },
-            "propuestas": {
-                "titulo": "Tus propuestas",
-                "cantidad": "Cantidad de propuestas realizadas",
-                "boletin": "Boletín",
-                "fecha": "Fecha",
-                "estado": {
-                    "titulo": "Estado",
-                    "publica": "Pública",
-                    "no_publica": "No pública",
-                    "activa": "Activa",
-                    "no_activa": "No activa"
-                },
-                "autoria": "Autoría",
-                "detalle": "Detalle",
-                "ordenar": "Ordenar Por",
-                "de": "de",
-                "argumento": "Argumento",
-                "video_url": "Video URL",
-                "fuente": "Fuente del video",
-                "error1": "Lo lamentamos, no se han encontrado propuestas realizadas.",
-                "error2": "Lo lamentamos, ha ocurrido un error al cargar los propuestas.",
-                "cargando": "Cargando datos de propuestas",
-                "editar": "Editar Propuesta",
-                "cargar": "Cargar Más"
             }
         }
     },
@@ -848,7 +913,7 @@
             "boton_propuestas_sugeridas": "Ir a propuestas sugeridas",
             "tipo_1": "Inclusión a Congreso Virtual",
             "tipo_2": "Urgencia",
-            "ver":"Ver Propuesta",
+            "ver": "Ver Propuesta",
             "de": "de",
             "resultados": "Resultados totales",
             "cargar": "Cargar Más",
@@ -948,7 +1013,8 @@
             "titulo": "ADMINISTRADOR",
             "mi_configuracion": {
                 "titulo": "Mi Configuración",
-                "perfil": "Perfil"
+                "ver_perfil": "Ver mi Perfil",
+                "editar_perfil": "Editar mi Perfil"
             },
             "usuarios": {
                 "titulo": "Usuarios",

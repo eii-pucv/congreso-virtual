@@ -28,6 +28,20 @@ class UserFilter extends ModelFilter
         });
     }
 
+    public function username($value)
+    {
+        return $this
+            ->join('user_metas AS user_metas_username', 'users.id', '=', 'user_metas_username.user_id')
+            ->select('users.*')
+            ->where(function($query) use ($value) {
+                return $query->where([
+                    ['user_metas_username.key', 'username'],
+                    ['user_metas_username.value', $value]
+                ]);
+            })
+            ->distinct();
+    }
+
     public function query($value)
     {
         return $this->where(function($query) use ($value) {

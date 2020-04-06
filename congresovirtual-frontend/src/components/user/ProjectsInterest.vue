@@ -1,11 +1,11 @@
 <template>
-    <div class="hk-col col-12">
-        <div v-if="loadProjects" class="vld-parent" style="height: 500px;">
-            <loading
+    <div class="container vld-parent">
+        <div v-if="loadProjects" style="height: 300px;">
+            <Loading
                     :active.sync="loadProjects"
                     :is-full-page="fullPage"
                     :height="128"
-            ></loading>
+            ></Loading>
         </div>
         <div v-if="!loadProjects">
             <ProjectInterestCard
@@ -13,7 +13,9 @@
                     :project="project"
                     :key="project.id"
             ></ProjectInterestCard>
-            <div v-if="projects.length === 0" class="py-50 text-center">{{ $t('perfil_usuario.componentes.proyectos_interes.no_hay_resultados') }}</div>
+            <h6 v-if="projects.length === 0" class="py-50 text-center">
+                {{ $t('perfil_usuario.componentes.proyectos_interes.no_hay_resultados') }}
+            </h6>
         </div>
     </div>
 </template>
@@ -28,6 +30,9 @@
         components: {
             ProjectInterestCard,
             Loading
+        },
+        props: {
+            user_id: Number
         },
         data() {
             return {
@@ -47,7 +52,7 @@
             }
 
             axios
-                .get('/users/' + JSON.parse(localStorage.user).id + '/terms')
+                .get('/users/' + this.user_id + '/terms')
                 .then(res => {
                     let terms = res.data;
                     let termsId = [];

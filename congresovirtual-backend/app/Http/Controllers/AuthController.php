@@ -268,6 +268,10 @@ class AuthController extends Controller
                 throw new \Exception();
             }
 
+            $player = new Player();
+            $player->user()->associate($user);
+            $player->save();
+
             /* Se crea el token y query para enviar al navegador */
             $tokenResult = $user->createToken('Personal Access Token');
             $token = $tokenResult->token;

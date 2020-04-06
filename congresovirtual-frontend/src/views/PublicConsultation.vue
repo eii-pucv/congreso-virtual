@@ -14,20 +14,43 @@
                     </ol>
                 </nav>
                 <div class="col-sm-12 hk-sec-wrapper hk-gallery-wrap" :style="mode==='dark'?'background: rgb(12, 1, 80);color: #fff':''">
-                    <ul id="myTab" class="nav nav-light nav-tabs" role="tablist">
+                    <ul class="nav nav-light nav-tabs" role="tablist">
                         <li class="nav-item active">
-                            <a @click="changeTab" id="detalle-tab" data-toggle="tab" href="#detalle" role="tab" aria-controls="detalle" aria-selected="true" class="nav-link active" :style="mode==='dark'?'color: #fff':''">
+                            <a
+                                id="detail-tab"
+                                data-toggle="tab"
+                                href="#detail"
+                                role="tab"
+                                aria-controls="detail"
+                                aria-selected="true"
+                                class="nav-link active"
+                                :style="mode==='dark'?'color: #fff':''"
+                            >
                                 {{ $t('consulta.contenido.detalle') }}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a @click="changeTab" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="true" class="nav-link" :style="mode==='dark'?'color: #fff':''">
+                            <a
+                                    id="comments-tab"
+                                    data-toggle="tab"
+                                    href="#comments"
+                                    role="tab"
+                                    aria-controls="comments"
+                                    aria-selected="true"
+                                    class="nav-link"
+                                    :style="mode==='dark'?'color: #fff':''"
+                            >
                                 {{ $t('consulta.contenido.comentarios') }}
                             </a>
                         </li>
                     </ul>
                     <div class="tab-content py-25">
-                        <div class="tab-pane fade show active" id="detalle" role="tabpanel" aria-labelledby="detalle-tab">
+                        <div
+                                id="detail"
+                                class="tab-pane fade show active"
+                                role="tabpanel"
+                                aria-labelledby="detail-tab"
+                        >
                             <div class="container">
                                 <div class="row">
                                     <a class="col-12 px-5">{{ publicConsultation.resumen }}</a>
@@ -39,7 +62,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade show" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+                        <div
+                                id="comments"
+                                class="tab-pane fade show"
+                                role="tabpanel"
+                                aria-labelledby="comments-tab"
+                        >
                             <PublicConsultationComments v-if="publicConsultation.id" :publicConsultation="publicConsultation"></PublicConsultationComments>
                         </div>
                     </div>
@@ -61,13 +89,13 @@
             PublicConsultationHeader
         },
         props: {
-            public_consultation_id: Number,
-            mode: String
+            public_consultation_id: Number
         },
         data() {
             return {
                 publicConsultation: Object,
-                loadPublicConsultation: true
+                loadPublicConsultation: true,
+                mode: String
             };
         },
         mounted() {
@@ -89,13 +117,9 @@
                     .finally(() => {
                         this.loadPublicConsultation = false;
                     });
-            },
-            changeTab(e) {
-                e.preventDefault();
-                $(this).tab('show');
             }
         }
-    };
+    }
 </script>
 
 <style>
@@ -172,6 +196,7 @@
     .arrow-steps .step.current:after {
         border-left: 17px solid  green !important;
     }
+
     .tab-content {
         -webkit-box-shadow: inherit !important;
         box-shadow: inherit !important;

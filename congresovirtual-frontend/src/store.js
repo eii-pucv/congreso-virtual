@@ -11,6 +11,7 @@ export default new Vuex.Store({
         status: '',
         access_token: localStorage.getItem('access_token') || '',
         user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : { rol: '' },
+        active_gamification: localStorage.getItem('active_gamification') ? JSON.parse(localStorage.getItem('active_gamification')) : false,
         language: localStorage.getItem('language'),
         modo_oscuro: localStorage.getItem('modo_oscuro')
     },
@@ -30,6 +31,9 @@ export default new Vuex.Store({
             state.status = '';
             state.access_token = '';
             state.user = { rol: '' };
+        },
+        active_gamification(state, data) {
+            state.active_gamification = data.active_gamification;
         },
         setLanguage() {
             localStorage.setItem('language', i18n.locale);
@@ -99,13 +103,38 @@ export default new Vuex.Store({
                         reject(error);
                     });
             });
+        },
+        activeGamification({commit}) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get('/settings', {
+                        params: {
+                            key: 'active_gamification'
+                        }
+                    })
+                    .then(res => {
+                        let activeGamification = JSON.stringify(false);
+                        if(res.data.length > 0) {
+                            activeGamification = res.data[0].value;
+                        }
+                        localStorage.setItem('active_gamification', activeGamification);
+                        commit('active_gamification', { active_gamification: JSON.parse(activeGamification) });
+                        resolve(res);
+                    })
+                    .catch(error => {
+                        localStorage.setItem('active_gamification', JSON.stringify(false));
+                        commit('active_gamification', { active_gamification: false });
+                        reject(error);
+                    });
+            });
         }
     },
-    getters : {
+    getters: {
         isLoggedIn: state => state.access_token && state.user,
         authStatus: state => state.status,
         userData: state => state.user,
+        activeGamification: state => state.active_gamification,
         language: state => state.language,
-        modo_oscuro: state => state.modo_oscuro
+        modo_oscuro: state => state.modo_oscuro,
     }
 });

@@ -55,7 +55,20 @@ class VoteController extends Controller
                 $filter['commentArticleIsPublic'] = true;
                 $filter['commentIdeaIsPublic'] = true;
             }
-            $votes = Vote::filter($filter);
+
+            if($request->has('has') && is_array($request->has)) {
+                $relations = $request->has;
+                $votes = Vote::has($relations[0]);
+                foreach($relations as $index => $relation) {
+                    if($index > 0) {
+                        $votes = $votes->orWhereHas($relation);
+                    }
+                }
+                $votes = $votes->filter($filter);
+            } else {
+                $votes = Vote::filter($filter);
+            }
+
             $totalResults = $votes->count();
 
             if($request->has('order_by')) {
@@ -70,7 +83,7 @@ class VoteController extends Controller
                     ->offset($offset)
                     ->limit($limit);
             }
-            $votes = $votes->with(['project', 'article', 'idea', 'comment', 'publicConsultation'])->get();
+            $votes = $votes->with(['project', 'article', 'idea', 'comment', 'publicConsultation', 'idea.project', 'article.project'])->get();
 
             return response()->json([
                 'total_results' => $totalResults,

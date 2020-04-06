@@ -1,11 +1,11 @@
 <template>
     <div class="bg-primary" style="min-height: 75px;">
-        <nav class="navbar navbar-expand-lg bg-primary container">
+        <nav class="navbar navbar-expand container-sm">
             <div class="accordion" id="accordion_1">
                 <Slide ref="Slide" disableOutsideClick>
                     <div class="d-md-none">
                         <div v-if="!isLoggedIn" class="btn-group btn-block">
-                            <router-link :to="{ path: '/signup' }" class="btn btn-outline-light btn-sm text-white">
+                            <router-link :to="{ path: '/signup' }" class="btn btn-outline-light btn-sm btn-text-toggle">
                                 <i class="fas fa-user-plus"></i> {{ $t('navbar.registrar') }}
                             </router-link>
                             <router-link :to="{ path: '/login' }" class="btn btn-light btn-sm">
@@ -13,10 +13,10 @@
                             </router-link>
                         </div>
                         <div v-else-if="isLoggedIn" class="btn-group btn-block">
-                            <router-link v-if="userData.rol === 'ADMIN'" :to="{ path: '/admin' }" class="btn btn-outline-light btn-sm text-white">
-                                <i class="fas fa-user-circle"></i> {{ $t('navbar.admin') }}
+                            <router-link v-if="userData.rol === 'ADMIN'" :to="{ path: '/admin' }" class="btn btn-outline-light btn-sm btn-text-toggle">
+                                <i class="fas fa-user-circle"></i> {{ $t('navbar.admin.titulo') }}
                             </router-link>
-                            <router-link v-else-if="userData.rol === 'USER'" :to="{ path: '/user' }" class="btn btn-outline-light btn-sm text-white">
+                            <router-link v-else-if="userData.rol === 'USER'" :to="{ path: '/user' }" class="btn btn-outline-light btn-sm btn-text-toggle">
                                 <i class="fas fa-user-circle"></i> {{ $t('navbar.perfil') }}
                             </router-link>
                             <button @click.prevent="logout" class="btn btn-light btn-sm">
@@ -83,7 +83,7 @@
             </a>
             <div class="navbar-nav top-right d-none d-md-block">
                 <div v-if="!isLoggedIn" class="btn-group btn-block">
-                    <router-link :to="{ path: '/signup' }" class="btn btn-outline-light text-white">
+                    <router-link :to="{ path: '/signup' }" class="btn btn-outline-light btn-text-toggle">
                         <i class="fas fa-user-plus"></i> {{ $t('navbar.registrar') }}
                     </router-link>
                     <router-link :to="{ path: '/login' }" class="btn btn-light">
@@ -92,9 +92,15 @@
                 </div>
                 <div v-else-if="isLoggedIn">
                     <Notifications></Notifications>
-                    <router-link v-if="userData.rol === 'ADMIN'" :to="{ path: '/admin' }" class="btn text-white">
-                        <i class="fas fa-user-circle"></i> {{ $t('navbar.admin') }}
-                    </router-link>
+                    <div v-if="userData.rol === 'ADMIN'" style="display: inline;">
+                        <a class="btn text-white dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i> {{ $t('navbar.admin.titulo') }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navDropdown">
+                            <router-link class="dropdown-item" :to="{ path: '/user' }">{{ $t('navbar.admin.perfil') }}</router-link>
+                            <router-link class="dropdown-item" :to="{ path: '/admin' }">{{ $t('navbar.admin.administrar') }}</router-link>
+                        </div>
+                    </div>
                     <router-link v-else-if="userData.rol === 'USER'" :to="{ path: '/user' }" class="btn text-white">
                         <i class="fas fa-user-circle"></i> {{ $t('navbar.perfil') }}
                     </router-link>
@@ -115,7 +121,7 @@
 
     require('../../src/assets/js/dropdown-bootstrap-extended');
     import axios from '../backend/axios';
-    import Toggle from '../views/Toggle';
+    import Toggle from './Toggle';
     import Language from './Language';
     import Notifications from './Notifications';
 
@@ -177,15 +183,13 @@
                     });
             },
             logout() {
+                this.$router.push('/');
                 this.$store.dispatch('logout')
                     .then(() => {
                         this.$toastr('success', this.$t('navbar.cerrar_sesion.mensajes.exito.generico.cuerpo'), this.$t('navbar.cerrar_sesion.mensajes.exito.generico.titulo'));
                     })
                     .catch(() => {
                         this.$toastr('error', this.$t('navbar.cerrar_sesion.mensajes.fallido.generico.cuerpo'), this.$t('navbar.cerrar_sesion.mensajes.fallido.generico.titulo'));
-                    })
-                    .finally(() => {
-                        this.$router.push('/');
                     });
             },
             search() {
@@ -205,19 +209,12 @@
 </script>
 
 <style scoped>
-    .nav-link {
-        color: white !important;
+    .btn-text-toggle {
+        color: #ffffff;
     }
 
-    .my-button span.text {
-        color: red;
-    }
-
-    .center {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%;
+    .btn-text-toggle:hover {
+        color: #324148;
     }
 
     .top-right {

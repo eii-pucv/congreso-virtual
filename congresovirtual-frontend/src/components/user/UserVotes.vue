@@ -1,143 +1,132 @@
 <template>
-    <div class="row">
-        <div class="col-12">
-            <div class="card card-profile-feed" :class="mode === 'dark' ? 'dark' : 'light'">
-                <div class="card-header card-header-action">
-                    <h2 :style="mode === 'dark' ? 'color: #fff' : ''">{{ $t('perfil_usuario.componentes.votos.titulo') }}</h2>
+    <div class="container">
+        <div class="hk-sec-wrapper" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
+            <h2 class="hk-sec-title text-center">{{ $t('perfil_usuario.componentes.votos.titulo') }}</h2>
+            <div class="mt-20 vld-parent">
+                <div v-if="loadVotes" style="height: 300px;">
+                    <Loading
+                            :active.sync="loadVotes"
+                            :is-full-page="fullPage"
+                            :height="128"
+                            :color="color"
+                    ></Loading>
                 </div>
-                <div v-if="loaded">
-                    <p class="px-4 mb-2" :style="mode === 'dark' ? 'color: #fff' : ''">{{ $t('perfil_usuario.componentes.votos.cantidad') }}: {{ totalResults }}</p> 
-                    <br/>
-                    <ul class="list-group list-group-flush px-10" v-if="votes.length > 0">
-                        <router-link v-for="(vote, index) in votes" v-if="vote.project" :to="{ path: '/project/' + vote.project_id }" :key="'votos_proyecto_' + index" class="mb-2 list-group-item list-group-item-action border border-success rounded" :class="mode === 'dark' ? 'dark' : 'light'">
+                <div v-if="!loadVotes">
+                    <div v-for="vote in votes" :key="'vote-' + vote.id" class="list-group list-group-flush">
+                        <router-link v-if="vote.project" class="list-group-item list-group-item-action border border-primary rounded mb-2" :to="{ path: '/project/' + vote.project_id }">
                             <div class="media align-items-center">
                                 <div class="media-body">
-                                    <span class="d-block  text-capitalize" :style="mode === 'dark' ? 'color: #fff' : ''">
-                                        {{ vote.project ? vote.project.titulo : '' }}
-                                    </span>                            
-                                    <span class="d-block font-26">{{ new Date(vote.project.updated_at) | moment("D MMM YYYY")}}</span>
+                                    <span class="d-block">
+                                        "{{ vote.project.titulo }}"
+                                    </span>
+                                    <span class="d-block text-grey">
+                                        {{ new Date(toLocalDatetime(vote.updated_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}
+                                    </span>
                                 </div>
-                                <a href="#" class="text-light-40 ml-auto">
-                                    <span v-if="vote.vote === 0" class="font-30 col-6 text-green"><i class="fas fa-thumbs-up"></i></span>
-                                    <span v-if="vote.vote === 1" class="font-30 col-6 text-red"><i class="fas fa-thumbs-down"></i></span>
-                                    <span v-if="vote.vote === 2" class="font-30 col-6 text-grey"><i class="fas fa-minus-circle"></i></span>
-                                </a>
+                                <div class="ml-auto">
+                                    <span v-if="vote.vote === 0" class="font-30 text-green"><i class="fas fa-thumbs-up"></i></span>
+                                    <span v-if="vote.vote === 1" class="font-30 text-red"><i class="fas fa-thumbs-down"></i></span>
+                                    <span v-if="vote.vote === 2" class="font-30 text-grey"><i class="fas fa-minus-circle"></i></span>
+                                </div>
                             </div>
                         </router-link>
-                        <router-link v-for="(vote, index) in votes" v-if="vote.article" :to="{ path: '/project/' + vote.article.project_id }" :key="'votos_articulo_' + index" class="mb-2 list-group-item list-group-item-action border border-success rounded" :class="mode === 'dark' ? 'dark' : 'light'">
+                        <router-link v-else-if="vote.idea" class="list-group-item list-group-item-action border border-primary rounded mb-2" :to="{ path: '/project/' + vote.idea.project_id }">
                             <div class="media align-items-center">
                                 <div class="media-body">
-                                    <span class="d-block  text-capitalize" :style="mode === 'dark' ? 'color: #fff' : ''">
-                                        "{{ vote.article ? vote.article.titulo : '' }}" {{ $t('perfil_usuario.componentes.votos.proyecto') }} n° {{ vote.article.project_id }}
-                                    </span>                            
-                                    <span class="d-block font-26">{{ new Date(vote.article.updated_at) | moment("D MMM YYYY")}}</span>
+                                    <span class="d-block">
+                                        "{{ vote.idea.titulo }}" {{ $t('perfil_usuario.componentes.votos.del_proyecto') }} "{{ vote.idea.project.titulo }}"
+                                    </span>
+                                    <span class="d-block text-grey">
+                                        {{ new Date(toLocalDatetime(vote.updated_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}
+                                    </span>
                                 </div>
-                                <a href="#" class="text-light-40 ml-auto">
-                                    <span v-if="vote.vote === 0" class="font-30 col-6 text-green"><i class="fas fa-thumbs-up"></i></span>
-                                    <span v-if="vote.vote === 1" class="font-30 col-6 text-red"><i class="fas fa-thumbs-down"></i></span>
-                                    <span v-if="vote.vote === 2" class="font-30 col-6 text-grey"><i class="fas fa-minus-circle"></i></span>
-                                </a>
+                                <div class="ml-auto">
+                                    <span v-if="vote.vote === 0" class="font-30 text-green"><i class="fas fa-thumbs-up"></i></span>
+                                    <span v-if="vote.vote === 1" class="font-30 text-red"><i class="fas fa-thumbs-down"></i></span>
+                                    <span v-if="vote.vote === 2" class="font-30 text-grey"><i class="fas fa-minus-circle"></i></span>
+                                </div>
                             </div>
                         </router-link>
-                        <router-link v-for="(vote, index) in votes" v-if="vote.idea" :to="{ path: '/project/' + vote.idea.project_id }" :key="'votos_idea_' + index" class="mb-2 list-group-item list-group-item-action border border-success rounded" :class="mode === 'dark' ? 'dark' : 'light'">
-                            <div class="media align-items-center" >
+                        <router-link v-else-if="vote.article" class="list-group-item list-group-item-action border border-primary rounded mb-2" :to="{ path: '/project/' + vote.article.project_id }">
+                            <div class="media align-items-center">
                                 <div class="media-body">
-                                    <span class="d-block  text-capitalize" :style="mode === 'dark' ? 'color: #fff' : ''">
-                                        "{{ vote.idea ? vote.idea.titulo : '' }}" {{ $t('perfil_usuario.componentes.votos.proyecto') }} n° {{vote.idea.project_id}}
-                                    </span>                            
-                                    <span class="d-block font-26">{{ new Date(vote.idea.updated_at) | moment("D MMM YYYY")}}</span>
+                                    <span class="d-block">
+                                        "{{ vote.article.titulo }}" {{ $t('perfil_usuario.componentes.votos.del_proyecto') }} "{{ vote.article.project.titulo }}"
+                                    </span>
+                                    <span class="d-block text-grey">
+                                        {{ new Date(toLocalDatetime(vote.updated_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}
+                                    </span>
                                 </div>
-                                <a href="#" class="text-light-40 ml-auto">
-                                    <span v-if="vote.vote === 0" class="font-30 col-6 text-green"><i class="fas fa-thumbs-up"></i></span>
-                                    <span v-if="vote.vote === 1" class="font-30 col-6 text-red"><i class="fas fa-thumbs-down"></i></span>
-                                    <span v-if="vote.vote === 2" class="font-30 col-6 text-grey"><i class="fas fa-minus-circle"></i></span>
-                                </a>
+                                <div class="ml-auto">
+                                    <span v-if="vote.vote === 0" class="font-30 text-green"><i class="fas fa-thumbs-up"></i></span>
+                                    <span v-if="vote.vote === 1" class="font-30 text-red"><i class="fas fa-thumbs-down"></i></span>
+                                    <span v-if="vote.vote === 2" class="font-30 text-grey"><i class="fas fa-minus-circle"></i></span>
+                                </div>
                             </div>
                         </router-link>
-                        <router-link v-for="(vote, index) in votes" v-if="vote.public_consultation" :to="{ path: '/project/' + vote.public_consultation }" :key="'votos_idea_' + index" class="mb-2 list-group-item list-group-item-action border border-success rounded" :class="mode === 'dark' ? 'dark' : 'light'">
-                            <div class="media align-items-center" >
+                        <router-link v-else-if="vote.public_consultation" class="list-group-item list-group-item-action border border-primary rounded mb-2" :to="{ path: '/public_consultation/' + vote.public_consultation_id }">
+                            <div class="media align-items-center">
                                 <div class="media-body">
-                                    <span class="d-block  text-capitalize" :style="mode === 'dark' ? 'color: #fff' : ''">
-                                        "{{ vote.public_consultation ? vote.public_consultation.titulo : '' }}" {{ $t('perfil_usuario.componentes.votos.proyecto') }} n° {{vote.public_consultation.project_id}}
-                                    </span>                            
-                                    <span class="d-block font-26">{{ new Date(vote.public_consultation.updated_at) | moment("D MMM YYYY")}}</span>
+                                    <span class="d-block">
+                                        "{{ vote.public_consultation.titulo }}"
+                                    </span>
+                                    <span class="d-block text-grey">
+                                        {{ new Date(toLocalDatetime(vote.updated_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}
+                                    </span>
                                 </div>
-                                <a href="#" class="text-light-40 ml-auto">
-                                    <span v-if="vote.vote === 0" class="font-30 col-6 text-green"><i class="fas fa-thumbs-up"></i></span>
-                                    <span v-if="vote.vote === 1" class="font-30 col-6 text-red"><i class="fas fa-thumbs-down"></i></span>
-                                    <span v-if="vote.vote === 2" class="font-30 col-6 text-grey"><i class="fas fa-minus-circle"></i></span>
-                                </a>
+                                <div class="ml-auto">
+                                    <span v-if="vote.vote === 0" class="font-30 text-green"><i class="fas fa-thumbs-up"></i></span>
+                                    <span v-if="vote.vote === 1" class="font-30 text-red"><i class="fas fa-thumbs-down"></i></span>
+                                </div>
                             </div>
                         </router-link>
-                    </ul>
-                    <div class="mb-20" v-if="totalResults > votes.length">
+                    </div>
+                    <div v-if="totalResults > votes.length">
                         <button class="vld-parent btn btn-secondary btn-block" @click="loadMore">{{ $t('perfil_usuario.componentes.votos.cargar') }}
-                            <loading
-                                :active.sync="loadBtnLoadMore"
-                                :is-full-page="fullPage"
-                                :height="24"
-                                :color="color"
-                            ></loading>
+                            <Loading
+                                    :active.sync="loadBtnLoadMore"
+                                    :is-full-page="false"
+                                    :height="24"
+                            ></Loading>
                         </button>
                     </div>
-                    <div v-if="votes.length == 0">
-                        <h6 class="px-4 mb-2" :style="mode === 'dark' ? 'color: #fff' : ''">{{ $t('perfil_usuario.componentes.votos.error1') }}</h6>
-                    </div>
+                    <h6
+                            v-if="totalResults === 0 && !loadBtnLoadMore"
+                            class="text-center"
+                            :style="mode === 'dark' ? 'color: #fff' : ''"
+                    >
+                        {{ $t('perfil_usuario.componentes.votos.no_hay_votos') }}
+                    </h6>
                 </div>
-                <div v-else>
-                    <h6 class="px-4 mb-2" :style="mode === 'dark' ? 'color: #fff' : ''"> {{ $t('perfil_usuario.componentes.votos.cargando') }}</h6>
-                </div>
-                <div v-if="failed">
-                    <h4 class="px-4 mb-2" :style="mode === 'dark' ? 'color: #fff' : ''">{{ $t('perfil_usuario.componentes.votos.error2') }}</h4>
-                </div>
-            </div>   
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import axios from "../../backend/axios";
+    import axios from '../../backend/axios';
+    import Loading from 'vue-loading-overlay';
 
     export default {
         name: 'UserVotes',
+        components: {
+            Loading
+        },
+        props: {
+            user_id: Number
+        },
         data() {
             return {
                 votes: [],
                 totalResults: 0,
                 limit: 10,
                 offset: 0,
+                loadVotes: true,
                 loadBtnLoadMore: false,
-                loaded: false,
-                failed: false,
-                mode: String,
+                fullPage: false,
+                color: '#000000',
+                mode: String
             };
-        },
-        methods: {
-            loadMore() {
-                this.loadBtnLoadMore = true;
-                this.getVotes();
-            },
-            getVotes() {
-                axios
-                    .get("/users/"+  JSON.parse(localStorage.user).id+"/votes", {
-                        params: {
-                            limit: this.limit,
-                            offset: this.offset
-                        }
-                    })
-                    .then(res => {
-                        this.totalResults = res.data.total_results
-                        this.votes = this.votes.concat(res.data.results)
-                        this.offset += res.data.returned_results
-                    })
-                    .catch(() => {
-                        // console.log("FALLO");
-                        this.failed = true;
-                    })
-                    .finally(() => {
-                        this.loaded = true;
-                    })
-            },
         },
         mounted(){
             if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
@@ -146,19 +135,37 @@
                 this.mode = 'light';
             }
 
-            this.getVotes()
+            this.getVotes();
+        },
+        methods: {
+            getVotes() {
+                axios
+                    .get('/users/' + this.user_id + '/votes', {
+                        params: {
+                            has: ['project', 'article', 'idea', 'publicConsultation'],
+                            order: 'DESC',
+                            order_by: 'updated_at',
+                            limit: this.limit,
+                            offset: this.offset
+                        }
+                    })
+                    .then(res => {
+                        this.totalResults = res.data.total_results;
+                        this.votes = this.votes.concat(res.data.results);
+                        this.offset += res.data.returned_results;
+                    })
+                    .finally(() => {
+                        this.loadVotes = false;
+                        this.loadBtnLoadMore = false;
+                    });
+            },
+            loadMore() {
+                this.loadBtnLoadMore = true;
+                this.getVotes();
+            },
+            toLocalDatetime(datetime) {
+                return this.$moment.utc(datetime, 'YYYY-MM-DD HH:mm:ss').local();
+            }
         }
     }
 </script>
-
-<style scoped>
-    a:hover{
-        color: black; 
-        text-decoration: none; 
-    }
-
-    a:hover span {
-        color: black; 
-        text-decoration: none; 
-    }
-</style>

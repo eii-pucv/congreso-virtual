@@ -1,6 +1,6 @@
 <template>
     <v-popover
-            @show="getRewards"
+            @show="showRewards"
             :popover-class="'custom-popover-theme'"
             :popover-inner-class="'tooltip-inner custom-popover-inner custom-scrollbar-wk custom-scrollbar-mz'"
     >
@@ -9,7 +9,7 @@
         </button>
         <template slot="popover">
             <div>
-                <h5 class="mb-10">Notificaciones</h5>
+                <h5 class="mb-10">{{ $t('navbar.notificaciones.titulo') }}</h5>
                 <hr class="my-10">
                 <div v-if="loadRewards" class="vld-parent" style="height: 60vh;">
                     <Loading
@@ -20,15 +20,27 @@
                             :background-color="backgroundColor"
                     ></Loading>
                 </div>
-                <div v-else-if="!loadRewards && rewards.length > 0">
+                <div v-else-if="!loadRewards">
                     <div v-for="reward in rewards" :key="reward.id">
-                        <div class="alert alert-secondary alert-wth-icon alert-dismissible" role="alert">
-                            <span class="alert-icon-wrap"><i class="fas fa-vote-yea"></i></span>
+                        <div class="alert alert-secondary alert-wth-icon border border-info">
+                            <span v-if="reward.icon" class="alert-icon-wrap"><i :class="'fas fa-' + reward.icon"></i></span>
                             <p>{{ reward.name }}</p>
                             <small>{{ reward.action.type }} {{ reward.action.subtype }}</small>
-                            <p class="alert-link mt-5">{{ reward.points }} puntos de participación</p>
+                            <p class="alert-link mt-5">{{ reward.points }} {{ $t('navbar.notificaciones.puntos') }}</p>
                         </div>
                     </div>
+                    <div v-if="totalResults > rewards.length" class="px-2 w-100">
+                        <button class="vld-parent btn btn-secondary btn-block" @click="loadMore">{{ $t('navbar.notificaciones.cargar') }}
+                            <Loading
+                                    :active.sync="loadBtnLoadMore"
+                                    :is-full-page="false"
+                                    :height="24"
+                            ></Loading>
+                        </button>
+                    </div>
+                    <h6 v-if="totalResults === 0 && !loadBtnLoadMore" class="text-center">
+                        {{ $t('navbar.notificaciones.no_hay_recompensas') }}
+                    </h6>
                 </div>
             </div>
         </template>
@@ -47,13 +59,17 @@
         data: function() {
             return {
                 rewards: [],
-                loadRewards: false,
+                totalResults: 0,
+                limit: 5,
+                offset: 0,
                 popoverOptions: {
                     popover: {
                         defaultClass: 'vue-popover-theme',
-                        defaultInnerClass: 'tooltip-inner popover-inner vue-popover-inner custom-scrollbar-wk custom-scrollbar-mz',
+                        defaultInnerClass: 'tooltip-inner popover-inner vue-popover-inner custom-scrollbar-wk custom-scrollbar-mz'
                     }
                 },
+                loadRewards: false,
+                loadBtnLoadMore: false,
                 fullPage: false,
                 color: '#000000',
                 backgroundColor: 'transparent',
@@ -69,8 +85,6 @@
         },
         methods: {
             getRewards() {
-                this.loadRewards = true;
-
                 axios
                     .get('/events', {
                         params: {
@@ -84,11 +98,22 @@
                     })
                     .then(res => {
                         let events = res.data.results;
-                        this.rewards = [].concat(...events.map(event => event.rewards));
+                        this.totalResults = res.data.total_results;
+                        this.rewards = this.rewards.concat(...events.map(event => event.rewards));
+                        this.offset += res.data.returned_results;
                     })
                     .finally(() => {
                         this.loadRewards = false;
+                        this.loadBtnLoadMore = false;
                     });
+            },
+            showRewards() {
+                this.loadRewards = true;
+                this.getRewards();
+            },
+            loadMore() {
+                this.loadBtnLoadMore = true;
+                this.getRewards();
             }
         }
     }

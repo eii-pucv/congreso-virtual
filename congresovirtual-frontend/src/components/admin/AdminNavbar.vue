@@ -16,7 +16,8 @@
                                     <i class="fas fa-wrench"></i> {{ $t('administrador.navbar.mi_configuracion.titulo') }}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navDropdown">
-                                    <router-link class="dropdown-item" :to="{ path: '/admin/profile' }">{{ $t('administrador.navbar.mi_configuracion.perfil') }}</router-link>
+                                    <router-link class="dropdown-item" :to="{ path: '/user' }">{{ $t('administrador.navbar.mi_configuracion.ver_perfil') }}</router-link>
+                                    <router-link class="dropdown-item" :to="{ path: '/admin/profile' }">{{ $t('administrador.navbar.mi_configuracion.editar_perfil') }}</router-link>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">

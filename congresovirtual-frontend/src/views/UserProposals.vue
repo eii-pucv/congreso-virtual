@@ -129,12 +129,12 @@
                     </div>
                     <div class="mb-20" v-if="totalProposals > proposals.length">
                         <button @click="loadMore" class="vld-parent btn btn-secondary btn-block">{{ $t('propuestas_usuario.contenido.cargar') }}
-                            <loading
+                            <Loading
                                 :active.sync="loadBtnLoadMore"
                                 :is-full-page="fullPage"
                                 :height="24"
                                 :color="color"
-                            ></loading>
+                            ></Loading>
                         </button>
                     </div>
                     <div class="py-50 text-center border mb-2" v-if="totalProposals === 0 && !loadBtnSearch">{{ $t('propuestas_usuario.contenido.no_hay_resultados') }}</div>
@@ -154,7 +154,6 @@
         },
         data() {
             return {
-                mode: String,
                 query: '',
                 filterBy: {
                     label: '',
@@ -167,10 +166,6 @@
                     value: 'DESC'
                 },
                 proposals: [],
-                loadBtnSearch: false,
-                loadBtnLoadMore: false,
-                fullPage: false,
-                color: '#ffffff',
                 limit: 10,
                 offset: 0,
                 totalProposals: 0,
@@ -205,7 +200,7 @@
                         name: 'urgencies',
                         value:'ASC',
                         type: 2
-                    }],
+                }],
                 filterOptions: [{
                         label: this.$t('propuestas_usuario.contenido.opciones_filtrar.opcion_1'),
                         name: 'petitions',
@@ -214,7 +209,12 @@
                         label: this.$t('propuestas_usuario.contenido.opciones_filtrar.opcion_2'), 
                         name: 'urgencies',
                         type: 2
-                    }],
+                }],
+                loadBtnSearch: false,
+                loadBtnLoadMore: false,
+                fullPage: false,
+                color: '#ffffff',
+                mode: String
             }
         },
         mounted() {
@@ -225,18 +225,25 @@
             }
 
             if(this.$route.query['type']) {
-                this.filterBy = this.filterOptions.find(option => option.type == this.$route.query['type'])
+                this.filterBy = this.filterOptions.find(option => option.type == this.$route.query['type']);
             }
-            this.search()
+
+            this.getMaxPetitionsSettings();
+            this.search();
         },
         methods: {
-            computed: {
-                isLoggedIn: function () {
-                    return this.$store.getters.isLoggedIn;
-                },
-                userData: function () {
-                    return this.$store.getters.userData;
-                },
+            getMaxPetitionsSettings() {
+                axios
+                    .get('/settings', {
+                        params: {
+                            key: 'max_necessary_petitions'
+                        }
+                    })
+                    .then(res => {
+                        if(res.data[0] !== undefined) {
+                            this.maxPetitions = JSON.parse(res.data[0].value).number_petitions;
+                        }
+                    });
             },
             getProposalsResults() {
                 axios
@@ -292,7 +299,7 @@
             toLocalDate(date) {
                 return this.$moment.utc(date, 'YYYY-MM-DD').local();
             }
-        },
+        }
     }
 </script>
 <style>

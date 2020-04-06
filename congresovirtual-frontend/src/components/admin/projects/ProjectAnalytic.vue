@@ -5,29 +5,74 @@
                 <section class="hk-sec-wrapper col-12" :class="mode==='dark'?'dark':'light'">
                     <div class="row">
                         <div class="col-12">
-                            <ul id="myTab" class="nav nav-light nav-tabs" role="tablist">
+                            <ul class="nav nav-light nav-tabs" role="tablist">
                                 <li class="nav-item active">
-                                    <a @click="changeTab" id="nGramaBarChart-tab" data-toggle="tab" href="#nGramaBarChart" role="tab" aria-controls="infromacion" aria-selected="true" class="nav-link active" :style="mode==='dark'?'color: #fff':''">
+                                    <a
+                                            id="n-gram-bar-chart-tab"
+                                            data-toggle="tab"
+                                            href="#n-gram-bar-chart"
+                                            role="tab"
+                                            aria-controls="n-gram-bar-chart"
+                                            aria-selected="true"
+                                            class="nav-link active"
+                                            :style="mode==='dark'?'color: #fff':''"
+                                    >
                                         N-{{ $t('administrador.componentes.analitica.n-grama') }}
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a @click="changeTab" id="nubePalabras-tab" data-toggle="tab" href="#nubePalabras" role="tab" aria-controls="informacion" aria-selected="true" class="nav-link" :style="mode==='dark'?'color: #fff':''">
+                                    <a
+                                            id="wordcloud-tab"
+                                            data-toggle="tab"
+                                            href="#wordcloud"
+                                            role="tab"
+                                            aria-controls="wordcloud"
+                                            aria-selected="true"
+                                            class="nav-link"
+                                            :style="mode==='dark'?'color: #fff':''"
+                                    >
                                         {{ $t('administrador.componentes.analitica.nube') }}
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a @click="changeTab" id="usuarioPorRangoDeEdadBarChart-tab" data-toggle="tab" href="#usuarioPorRangoDeEdadBarChart" role="tab" aria-controls="informacion" aria-selected="true" class="nav-link" :style="mode==='dark'?'color: #fff':''">
+                                    <a
+                                            id="user-provinces-ages-gender-bar-charts-tab"
+                                            data-toggle="tab"
+                                            href="#user-provinces-ages-gender-bar-charts"
+                                            role="tab"
+                                            aria-controls="user-provinces-ages-gender-bar-charts"
+                                            aria-selected="true"
+                                            class="nav-link"
+                                            :style="mode==='dark'?'color: #fff':''"
+                                    >
                                         {{ $t('administrador.componentes.analitica.analisis_usuario') }}
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a @click="changeTab" id="datosPorVotacionBarChart-tab" data-toggle="tab" href="#datosPorVotacion" role="tab" aria-controls="informacion" aria-selected="true" class="nav-link" :style="mode==='dark'?'color: #fff':''">
+                                    <a
+                                            id="project-voting-bar-charts-tab"
+                                            data-toggle="tab"
+                                            href="#project-voting-bar-charts"
+                                            role="tab"
+                                            aria-controls="project-voting-bar-charts"
+                                            aria-selected="true"
+                                            class="nav-link"
+                                            :style="mode==='dark'?'color: #fff':''"
+                                    >
                                         {{ $t('administrador.componentes.analitica.datos_votacion') }}
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a @click="changeTab" id="topicmodel-tab" data-toggle="tab" href="#topicmodel" role="tab" aria-controls="topicmodel" aria-selected="true" class="nav-link" :style="mode==='dark'?'color: #fff':''">
+                                    <a
+                                            id="topicmodel-tab"
+                                            data-toggle="tab"
+                                            href="#topicmodel"
+                                            role="tab"
+                                            aria-controls="topicmodel"
+                                            aria-selected="true"
+                                            class="nav-link"
+                                            :style="mode==='dark'?'color: #fff':''"
+                                    >
                                         Topic Model
                                     </a>
                                 </li>
@@ -37,7 +82,12 @@
                     <div class="row mt-20">
                         <div class="col-12">
                             <div class="tab-content">
-                                <div id="nGramaBarChart" class="tab-pane fade show active" role="tabpanel">
+                                <div
+                                        id="n-gram-bar-chart"
+                                        class="tab-pane fade show active"
+                                        role="tabpanel"
+                                        aria-labelledby="n-gram-bar-chart-tab"
+                                >
                                     <div class="row px-20">
                                         <div class="col-md-6">
                                             <div class="row">
@@ -91,8 +141,12 @@
                                                         <div class="media-body">
                                                             <div class="row">
                                                                 <div class="col-9 mb-2">
-                                                                    <h6 v-if="comment.user && comment.user.username">{{ comment.user.username }}</h6>
-                                                                    <h6 v-else-if="comment.user && !comment.user.username">{{ comment.user.name }} {{ comment.user.surname }}</h6>
+                                                                    <router-link v-if="comment.user && comment.user.username" class="h6" :to="{ path: '/user', query: { 'username': comment.user.username } }">
+                                                                        {{ comment.user.username }}<br>
+                                                                    </router-link>
+                                                                    <router-link v-else-if="comment.user && !comment.user.username" class="h6" :to="{ path: '/user', query: { 'user_id': comment.user.id } }">
+                                                                        {{ comment.user.name }} {{ comment.user.surname }}<br>
+                                                                    </router-link>
                                                                     <h6 v-else>{{ $t('componentes.comentarios.no_identificado') }}</h6>
                                                                     <small class="text-grey">{{ new Date(toLocalDatetime(comment.created_at)) | moment($t('componentes.moment.formato_con_hora')) }} {{ $t('componentes.moment.horas') }}</small>
                                                                 </div>
@@ -115,14 +169,24 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="nubePalabras" class="tab-pane fade show" role="tabpanel">
+                                <div
+                                        id="wordcloud"
+                                        class="tab-pane fade show"
+                                        role="tabpanel"
+                                        aria-labelledby="wordcloud-tab"
+                                >
                                     <div class="row px-20">
                                         <h2>{{ $t('administrador.componentes.analitica.nube') }}:</h2>
                                         <p class="text-justify">{{ $t('administrador.componentes.analitica.descripcion_nube') }}</p>
                                         <WordCloud v-if="project_id" :project_id="project_id"></WordCloud>
                                     </div>
                                 </div>
-                                <div id="usuarioPorRangoDeEdadBarChart" class="tab-pane fade show" role="tabpanel">
+                                <div
+                                        id="user-provinces-ages-gender-bar-charts"
+                                        class="tab-pane fade show"
+                                        role="tabpanel"
+                                        aria-labelledby="user-provinces-ages-gender-bar-charts-tab"
+                                >
                                     <div class="row px-20">
                                         <div class="row">
                                             <h2>{{ $t('administrador.componentes.analitica.usuarios') }}:</h2>
@@ -137,7 +201,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="datosPorVotacion" class="tab-pane fade show" role="tabpanel">
+                                <div
+                                        id="project-voting-bar-charts"
+                                        class="tab-pane fade show"
+                                        role="tabpanel"
+                                        aria-labelledby="project-voting-bar-charts-tab"
+                                >
                                     <div class="row px-20">
                                         <h2>{{ $t('administrador.componentes.analitica.datos') }}:</h2>
                                         <p class="text-justify">{{ $t('administrador.componentes.analitica.seccion') }}</p>
@@ -146,7 +215,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="topicmodel" class="tab-pane fade show" role="tabpanel">
+                                <div
+                                        id="topicmodel"
+                                        class="tab-pane fade show"
+                                        role="tabpanel"
+                                        aria-labelledby="topicmodel-tab"
+                                >
                                     <div class="row px-20" style="overflow: auto;">
                                         <TopicModel :project_id="project_id"></TopicModel>
                                     </div>
@@ -161,6 +235,7 @@
 </template>
 
 <script>
+    import axios from '../../../backend/axios';
     import Loading from 'vue-loading-overlay';
     import BarChart from '../../../BarChart.js';
     import WordCloud from '../../projects/WordCloud';
@@ -169,19 +244,18 @@
     import HorizontalUserAgesBarChart from '../../projects/AnalitycUsersAgesChart';
     import ProjectBarCharts from '../../projects/ProjectBarCharts';
     import TopicModel from './TopicModel';
-    import axios from '../../../backend/axios';
 
     export default {
         name: 'ProjectAnalytic',
         components: {
-            Loading,
             BarChart,
             WordCloud,
             TreemapUsuariosPorRegion,
             HorizontalUserGenderBarChart,
             HorizontalUserAgesBarChart,
             ProjectBarCharts,
-            TopicModel
+            TopicModel,
+            Loading
         },
         props: {
             project_id: Number
@@ -292,11 +366,7 @@
             },
             toLocalDatetime(datetime) {
                 return this.$moment.utc(datetime, 'YYYY-MM-DD HH:mm:ss').local();
-            },
-            changeTab(e) {
-                e.preventDefault();
-                $(this).tab("show");
-            },
+            }
         }
     }
 </script>

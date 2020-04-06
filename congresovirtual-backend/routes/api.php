@@ -398,6 +398,7 @@ Route::group(['middleware' => ['is.auth:api']], function() {
 
     Route::group(['prefix' => 'users'], function () {
         Route::get('/{user}', 'UserController@show');
+        Route::get('/username/{username}', 'UserController@showByUsername');
         Route::get('/{user}/avatar', 'UserController@avatar');
         Route::get('/{user}/locations_orgs', 'UserController@locationOrgs');
         Route::get('/{user}/members_orgs', 'UserController@memberOrgs');

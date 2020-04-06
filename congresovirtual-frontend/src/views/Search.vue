@@ -355,7 +355,7 @@
                                             class="top-right badge badge-primary font-12 m-1"
                                             style="opacity: 0.7;"
                                     >
-                                        {{ $t('propuesta.componentes.header.proyecto_ley.titulo') }}
+                                        {{ $t('propuesta.componentes.header.inclusion.titulo') }}
                                     </router-link>
                                     <router-link
                                             v-else-if="object.type === 2"
