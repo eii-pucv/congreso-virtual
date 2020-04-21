@@ -204,7 +204,7 @@
         methods: {
             isFirstVote() {
                 axios
-                    .get('/users/' + JSON.parse(localStorage.user).id + '/votes')
+                    .get('/users/' + this.$store.getters.userData.id + '/votes')
                     .then(res => {
                         let votes = res.data.results;
                         if(votes.length > 0) {
@@ -220,7 +220,7 @@
                 }
             },
             getUserVote() {
-                let userId = JSON.parse(localStorage.user).id;
+                let userId = this.$store.getters.userData.id;
                 axios
                     .get('/project/' + this.project.id + '/vote', {
                         params: {
@@ -307,10 +307,16 @@
                                         this.toggleAbstention();
                                     }
 
+                                    if(this.vote.gamification_result && this.vote.gamification_result.rewards.length > 0) {
+                                        this.$store.dispatch('hasNewNotifications', true);
+                                        this.$toastr('success', this.$t('navbar.notificaciones.mensajes.nuevas_recompensas.cuerpo'), this.$t('navbar.notificaciones.mensajes.nuevas_recompensas.titulo'));
+                                    }
+
                                     if(!this.userHasVoted) {
                                         bus.$emit('tour');
                                         // $('#modalMessage').modal('show');
                                     }
+
                                     this.$toastr('success', 'Tu voto fue registrado con éxito', 'Voto guardado');
                                 })
                                 .catch(() => {

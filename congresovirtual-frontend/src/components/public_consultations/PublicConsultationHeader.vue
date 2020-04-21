@@ -179,7 +179,7 @@
                 }
             },
             getUserVote() {
-                let userId = JSON.parse(localStorage.user).id;
+                let userId = this.$store.getters.userData.id;
                 axios
                     .get('/consultations/' + this.publicConsultation.id + '/vote', {
                         params: {

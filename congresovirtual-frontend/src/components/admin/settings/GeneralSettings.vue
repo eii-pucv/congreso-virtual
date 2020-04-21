@@ -390,6 +390,147 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-row align-items-center justify-content-center">
+                            <div class="col-md-10 mb-10">
+                                <label :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.configuracion_general.gamificacion.clasificacion_jugador.titulo') }}</label>
+                                <blockquote class="blockquote math">
+                                    <p class="text-center">{{ $t('administrador.componentes.configuracion_general.gamificacion.clasificacion_jugador.formula') }}</p>
+                                    <p class="small">{{ $t('administrador.componentes.configuracion_general.gamificacion.clasificacion_jugador.donde.titulo') }}:</p>
+                                    <div class="row">
+                                        <p class="col-md-6 small">{{ $t('administrador.componentes.configuracion_general.gamificacion.clasificacion_jugador.donde.cvj') }}</p>
+                                        <p class="col-md-6 small">{{ $t('administrador.componentes.configuracion_general.gamificacion.clasificacion_jugador.donde.pv') }}</p>
+                                        <p class="col-md-6 small">{{ $t('administrador.componentes.configuracion_general.gamificacion.clasificacion_jugador.donde.ccj') }}</p>
+                                        <p class="col-md-6 small">{{ $t('administrador.componentes.configuracion_general.gamificacion.clasificacion_jugador.donde.pc') }}</p>
+                                        <p class="col-md-6 small">{{ $t('administrador.componentes.configuracion_general.gamificacion.clasificacion_jugador.donde.cpj') }}</p>
+                                        <p class="col-md-6 small">{{ $t('administrador.componentes.configuracion_general.gamificacion.clasificacion_jugador.donde.pp') }}</p>
+                                        <p class="col-md-6 small">{{ $t('administrador.componentes.configuracion_general.gamificacion.clasificacion_jugador.donde.f') }}</p>
+                                    </div>
+                                </blockquote>
+                            </div>
+                            <div class="col-md-3 mb-10">
+                                <label for="votes_ponderation" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.configuracion_general.gamificacion.clasificacion_jugador.ponderacion_votos') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button
+                                                @click.prevent="addOrSubtractVotesPonderation(-0.1)"
+                                                :disabled="getVotesPonderation() == 0"
+                                                class="btn btn-outline-secondary"
+                                        >
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input
+                                            id="votes_ponderation"
+                                            v-model="settings.find(setting => setting.key === 'player_rating').value.votes_ponderation"
+                                            @input="votesPonderationFormat"
+                                            type="text"
+                                            class="form-control"
+                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                                    >
+                                    <div class="input-group-append">
+                                        <button
+                                                @click.prevent="addOrSubtractVotesPonderation(0.1)"
+                                                :disabled="getVotesPonderation() >= 0.9"
+                                                class="btn btn-outline-secondary"
+                                        >
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-10">
+                                <label for="comments_ponderation" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.configuracion_general.gamificacion.clasificacion_jugador.ponderacion_comentarios') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button
+                                                @click.prevent="addOrSubtractCommentsPonderation(-0.1)"
+                                                :disabled="getCommentsPonderation() == 0"
+                                                class="btn btn-outline-secondary"
+                                        >
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input
+                                            id="comments_ponderation"
+                                            v-model="settings.find(setting => setting.key === 'player_rating').value.comments_ponderation"
+                                            @input="commentsPonderationFormat"
+                                            type="text"
+                                            class="form-control"
+                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                                    >
+                                    <div class="input-group-append">
+                                        <button
+                                                @click.prevent="addOrSubtractCommentsPonderation(0.1)"
+                                                :disabled="getCommentsPonderation() >= 0.9"
+                                                class="btn btn-outline-secondary"
+                                        >
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-10">
+                                <label for="points_ponderation" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.configuracion_general.gamificacion.clasificacion_jugador.ponderacion_puntos') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button
+                                                @click.prevent="addOrSubtractPointsPonderation(-0.1)"
+                                                :disabled="getPointsPonderation() == 0"
+                                                class="btn btn-outline-secondary"
+                                        >
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input
+                                            id="points_ponderation"
+                                            v-model="settings.find(setting => setting.key === 'player_rating').value.points_ponderation"
+                                            @input="pointsPonderationFormat"
+                                            type="text"
+                                            class="form-control"
+                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                                    >
+                                    <div class="input-group-append">
+                                        <button
+                                                @click.prevent="addOrSubtractPointsPonderation(0.1)"
+                                                :disabled="getPointsPonderation() >= 0.9"
+                                                class="btn btn-outline-secondary"
+                                        >
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-10 mb-10">
+                                <label for="factor" :style="mode==='dark'?'color: #fff':''">{{ $t('administrador.componentes.configuracion_general.gamificacion.clasificacion_jugador.factor') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button
+                                                @click.prevent="addOrSubtractFactor(-1)"
+                                                :disabled="getFactor() == 1"
+                                                class="btn btn-outline-secondary"
+                                        >
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input
+                                            id="factor"
+                                            v-model="settings.find(setting => setting.key === 'player_rating').value.factor"
+                                            @input="factorFormat"
+                                            type="text"
+                                            class="form-control"
+                                            :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
+                                    >
+                                    <div class="input-group-append">
+                                        <button
+                                                @click.prevent="addOrSubtractFactor(1)"
+                                                class="btn btn-outline-secondary"
+                                        >
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="text-center mt-20">
                             <button class="btn btn-primary vld-parent" type="submit">
                                 <i class="fas fa-save"></i> {{ $t('guardar') }}
@@ -497,6 +638,17 @@
                         key: 'active_gamification',
                         label: null,
                         value: false,
+                        json: true
+                    },
+                    {
+                        key: 'player_rating',
+                        label: null,
+                        value: {
+                            votes_ponderation: 0.3,
+                            comments_ponderation: 0.3,
+                            points_ponderation: 0.4,
+                            factor: 100
+                        },
                         json: true
                     }
                 ],
@@ -623,7 +775,7 @@
             },
             numberPetitionsFormat(event) {
                 let settingValue = this.settings.find(setting => setting.key === 'max_necessary_petitions').value;
-                settingValue.number_petitions = isNaN(event.target.value) ? 0 : event.target.value;
+                settingValue.number_petitions = isNaN(event.target.value) ? 0 : parseInt(event.target.value);
             },
             addProposalsUrl() {
                 let settingValue = this.settings.find(setting => setting.key === 'external_api').value.proposals_url_list;
@@ -632,6 +784,86 @@
             removeProposalsUrl(index) {
                 let settingValue = this.settings.find(setting => setting.key === 'external_api').value.proposals_url_list;
                 settingValue.splice(index, 1);
+            },
+            addOrSubtractVotesPonderation(value) {
+                let settingValue = this.settings.find(setting => setting.key === 'player_rating').value;
+                let votesPonderation = parseFloat(settingValue.votes_ponderation);
+                value = parseFloat(value);
+
+                if(!isNaN(votesPonderation) && !isNaN(value)) {
+                    if(votesPonderation + value >= 0 && votesPonderation + value < 1) {
+                        settingValue.votes_ponderation = parseFloat((votesPonderation + value).toPrecision(1));
+                        return;
+                    }
+                }
+                settingValue.votes_ponderation = 0;
+            },
+            getVotesPonderation() {
+                return this.settings.find(setting => setting.key === 'player_rating').value.votes_ponderation;
+            },
+            votesPonderationFormat(event) {
+                let settingValue = this.settings.find(setting => setting.key === 'player_rating').value;
+                settingValue.votes_ponderation = isNaN(event.target.value) ? 0 : event.target.value;
+            },
+            addOrSubtractCommentsPonderation(value) {
+                let settingValue = this.settings.find(setting => setting.key === 'player_rating').value;
+                let commentsPonderation = parseFloat(settingValue.comments_ponderation);
+                value = parseFloat(value);
+
+                if(!isNaN(commentsPonderation) && !isNaN(value)) {
+                    if(commentsPonderation + value >= 0 && commentsPonderation + value < 1) {
+                        settingValue.comments_ponderation = parseFloat((commentsPonderation + value).toPrecision(1));
+                        return;
+                    }
+                }
+                settingValue.comments_ponderation = 0;
+            },
+            getCommentsPonderation() {
+                return this.settings.find(setting => setting.key === 'player_rating').value.comments_ponderation;
+            },
+            commentsPonderationFormat(event) {
+                let settingValue = this.settings.find(setting => setting.key === 'player_rating').value;
+                settingValue.comments_ponderation = isNaN(event.target.value) ? 0 : event.target.value;
+            },
+            addOrSubtractPointsPonderation(value) {
+                let settingValue = this.settings.find(setting => setting.key === 'player_rating').value;
+                let pointsPonderation = parseFloat(settingValue.points_ponderation);
+                value = parseFloat(value);
+
+                if(!isNaN(pointsPonderation) && !isNaN(value)) {
+                    if(pointsPonderation + value >= 0 && pointsPonderation + value < 1) {
+                        settingValue.points_ponderation = parseFloat((pointsPonderation + value).toPrecision(1));
+                        return;
+                    }
+                }
+                settingValue.points_ponderation = 0;
+            },
+            getPointsPonderation() {
+                return this.settings.find(setting => setting.key === 'player_rating').value.points_ponderation;
+            },
+            pointsPonderationFormat(event) {
+                let settingValue = this.settings.find(setting => setting.key === 'player_rating').value;
+                settingValue.points_ponderation = isNaN(event.target.value) ? 0 : event.target.value;
+            },
+            addOrSubtractFactor(value) {
+                let settingValue = this.settings.find(setting => setting.key === 'player_rating').value;
+                let factor = parseInt(settingValue.factor);
+                value = parseInt(value);
+
+                if(!isNaN(factor) && !isNaN(value)) {
+                    if(factor + value >= 1) {
+                        settingValue.factor = factor + value;
+                        return;
+                    }
+                }
+                settingValue.factor = 1;
+            },
+            getFactor() {
+                return this.settings.find(setting => setting.key === 'player_rating').value.factor;
+            },
+            factorFormat(event) {
+                let settingValue = this.settings.find(setting => setting.key === 'player_rating').value;
+                settingValue.factor = isNaN(event.target.value) ? 0 : parseInt(event.target.value);
             },
             back() {
                 this.$router.go(-1);
@@ -643,5 +875,9 @@
 <style>
     .code {
         font-family: SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+    }
+
+    .math {
+        font-family: Cambria, serif;
     }
 </style>

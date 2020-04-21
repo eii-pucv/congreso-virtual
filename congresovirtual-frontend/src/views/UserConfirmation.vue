@@ -10,7 +10,7 @@
         </div>
         <section v-if="!loadConfirmation">
             <div v-if="confirmation" class="ma-80 text-center">
-                <img src="../../assets/img/success-icon.png" height="200" width="200">
+                <img src="../assets/img/success-icon.png" height="200" width="200">
                 <h1 class="display-3">{{ $t('confirmacion.contenido.usuario') }}</h1>
                 <p class="lead mt-20" :class="mode==='dark'?'text-white':'text-primary '">
                     {{ $t('confirmacion.contenido.ahora') }} <a href="/login"><strong>{{ $t('confirmacion.contenido.enlace') }}</strong></a>
@@ -18,7 +18,7 @@
                 <router-link :to="{ path: '/' }" class="btn btn-primary btn-sm text-uppercase mt-30">{{ $t('confirmacion.contenido.inicio') }}</router-link>
             </div>
             <div v-else class="ma-80 text-center">
-                <img src="../../assets/img/fail-icon.png" height="200" width="200">
+                <img src="../assets/img/fail-icon.png" height="200" width="200">
                 <h1 class="display-3">{{ $t('confirmacion.contenido.error') }}</h1>
                 <p class="lead mt-20" :class="mode==='dark'?'text-white':'text-primary '">
                     <strong>{{ $t('confirmacion.contenido.pasos') }}</strong> {{ $t('confirmacion.contenido.intentar') }}
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    import axios from '../../backend/axios';
+    import axios from '../backend/axios';
     import Loading from 'vue-loading-overlay';
 
     export default {
@@ -56,7 +56,7 @@
 
             axios
                 .get('/auth/signup/activate/' + this.$route.query.token)
-                .then(res => {
+                .then(() => {
                     this.confirmation = true;
                 })
                 .catch(() => {

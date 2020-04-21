@@ -14,26 +14,37 @@
             </h3>
             <div v-if="!loadUser && user" class="container profile-cover-content py-50">
                 <div class="hk-row">
-                    <div class="col-lg-6">
+                    <div class="col-12">
                         <div class="media align-items-center">
                             <div class="media-img-wrap d-flex">
-                                <div class="avatar">
-                                    <img
-                                            class="avatar-img rounded-circle default-avatar-img"
-                                            :src="getImgUrl()"
-                                            style="object-fit: cover;"
-                                    />
-                                </div>
+                                <b-avatar
+                                        size="100px"
+                                        variant="light"
+                                        :src="getImgUrl()"
+                                        :text="user.name.slice(0, 2)"
+                                ></b-avatar>
                             </div>
                             <div class="media-body">
-                                <router-link v-if="user.username" class="display-6 font-weight-400 mb-5" :to="{ path: '/user', query: { 'username': user.username } }">
+                                <router-link
+                                        v-if="user.username"
+                                        class="display-6 font-weight-400 mb-5"
+                                        :class="mode==='dark'?'text-white':''"
+                                        :to="{ path: '/user', query: { 'username': user.username } }"
+                                >
                                     {{ user.username }} ({{ user.name }} {{ user.surname }})
                                 </router-link>
-                                <router-link v-else class="display-6 font-weight-400 mb-5" :to="{ path: '/user', query: { 'user_id': user.id } }">
+                                <router-link
+                                        v-else
+                                        class="display-6 font-weight-400 mb-5"
+                                        :class="mode==='dark'?'text-white':''"
+                                        :to="{ path: '/user', query: { 'user_id': user.id } }"
+                                >
                                     {{ user.name }} {{ user.surname }}
                                 </router-link>
-                                <star-rating v-if="isAvailableGamification"
-                                        :rating="1"
+                                <star-rating
+                                        v-if="isAvailableGamification"
+                                        :rating="getCalculatedRating()"
+                                        :increment="0.01"
                                         :read-only="true"
                                         :show-rating="false"
                                         :star-size="20"
@@ -204,7 +215,7 @@
                     role="tabpanel"
                     aria-labelledby="user-rewards-tab"
             >
-                <UserRewards :user_id="user.id"></UserRewards>
+                <UserRewards :user_id="user.id" :readOnly="readOnly"></UserRewards>
             </div>
             <div
                     id="available-rewards"
@@ -231,6 +242,7 @@
 <script>
     import axios from '../backend/axios';
     import { API_URL } from '../backend/data_server';
+    import { BAvatar } from 'bootstrap-vue';
     import StarRating from 'vue-star-rating';
     import Loading from 'vue-loading-overlay';
     import ProjectsInterest from '../components/user/ProjectsInterest';
@@ -244,6 +256,7 @@
     export default {
         name: 'User',
         components: {
+            BAvatar,
             StarRating,
             Loading,
             ProjectsInterest,
@@ -260,6 +273,12 @@
                 username: null,
                 user: null,
                 readOnly: true,
+                playerRatingSetting: {
+                    votes_ponderation: 0.3,
+                    comments_ponderation: 0.3,
+                    points_ponderation: 0.4,
+                    factor: 100
+                },
                 loadUser: true,
                 mode: String
             };
@@ -273,6 +292,7 @@
 
             this.configComponent();
             this.getUser();
+            this.getRatingSetting();
         },
         methods: {
             configComponent() {
@@ -321,15 +341,35 @@
                     this.$router.push({ path: '/' });
                 }
             },
+            getRatingSetting() {
+                axios
+                    .get('/settings', {
+                        params: {
+                            key: 'player_rating'
+                        }
+                    })
+                    .then(res => {
+                        if(res.data.length > 0) {
+                            this.playerRatingSetting = JSON.parse(res.data[0].value);
+                        }
+                    });
+            },
             getImgUrl() {
                 if(this.user.avatar) {
                     return (API_URL + '/api/storage/avatars/' + this.user.id + '/' + this.user.avatar);
                 }
                 return null;
             },
+            getCalculatedRating() {
+                return ((this.user.votes_count * this.playerRatingSetting.votes_ponderation) +
+                    (this.user.comments_count * this.playerRatingSetting.comments_ponderation) +
+                    (this.user.player.points * this.playerRatingSetting.points_ponderation)) / (5 * this.playerRatingSetting.factor);
+            }
+        },
+        computed: {
             isAvailableGamification() {
                 return !!(this.user.player && this.user.player.active_gamification && this.$store.getters.activeGamification);
             }
         }
-    };
+    }
 </script>

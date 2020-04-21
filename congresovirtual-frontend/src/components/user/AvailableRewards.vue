@@ -14,11 +14,11 @@
                 <div v-if="!loadRewards" class="row mx-0">
                     <div class="row mx-0">
                         <div v-for="reward in rewards" :key="'reward-' + reward.id" class="col-md-4 pb-3 px-2">
-                            <div class="alert alert-secondary alert-wth-icon border border-info h-100 mb-0">
+                            <div class="alert alert-secondary alert-wth-icon border h-100 mb-0" :class="playerAlreadyHasThisReward(reward.id) ? 'border-info' : 'border-secondary'">
                                 <span v-if="reward.icon" class="alert-icon-wrap"><i :class="'fas fa-' + reward.icon"></i></span>
                                 <p>{{ reward.name }}</p>
-                                <small>{{ reward.action.type }} {{ reward.action.subtype }}</small>
-                                <p class="alert-link mt-5">{{ reward.points }} {{ $t('perfil_usuario.componentes.recompensas_disponibles.puntos') }}</p>
+                                <small class="mt-5">{{ getTypeAndSubtypeTrans(reward.action.type, reward.action.subtype) }}</small>
+                                <p class="mt-5">{{ reward.points }} {{ $t('perfil_usuario.componentes.recompensas_disponibles.puntos') }}</p>
                             </div>
                         </div>
                     </div>
@@ -62,6 +62,9 @@
                 totalResults: 0,
                 limit: 12,
                 offset: 0,
+                types: this.$t('perfil_usuario.componentes.recompensas_disponibles.tipo.opciones'),
+                subtypes: this.$t('perfil_usuario.componentes.recompensas_disponibles.subtipo.opciones'),
+                playerRewards: [],
                 loadRewards: true,
                 loadBtnLoadMore: false,
                 fullPage: false,
@@ -69,7 +72,7 @@
                 mode: String
             };
         },
-        mounted(){
+        mounted() {
             if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
                 this.mode = 'dark';
             } else {
@@ -77,6 +80,7 @@
             }
 
             this.getRewards();
+            this.getPlayerRewards();
         },
         methods: {
             getRewards() {
@@ -103,8 +107,33 @@
                 this.loadBtnLoadMore = true;
                 this.getRewards();
             },
-            toLocalDatetime(datetime) {
-                return this.$moment.utc(datetime, 'YYYY-MM-DD HH:mm:ss').local();
+            getPlayerRewards() {
+                axios
+                    .get('/players/' + this.user_id + '/rewards', {
+                        params: {
+                            return_all: 1
+                        }
+                    })
+                    .then(res => {
+                        this.playerRewards = this.playerRewards.concat(res.data.results);
+                    });
+            },
+            getTypeAndSubtypeTrans(type, subtype) {
+                let typeTrans = this.types.find(typeTrans => typeTrans.value === type).label;
+                let subtypeTans = this.subtypes.find(subtypeTrans => subtypeTrans.value === subtype).label;
+
+                if(typeTrans && subtypeTans) {
+                    return (typeTrans) + ' - ' + (subtypeTans);
+                } else if(typeTrans) {
+                    return typeTrans;
+                } else if(subtypeTans) {
+                    return subtypeTans;
+                } else {
+                    return '';
+                }
+            },
+            playerAlreadyHasThisReward(rewardId) {
+                return !!(this.playerRewards.find(playerReward => playerReward.id === rewardId));
             }
         }
     }

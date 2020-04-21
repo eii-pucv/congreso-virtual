@@ -238,11 +238,14 @@ class PlayerController extends Controller
                 $order = $request->query('order', 'DESC');
                 $rewards = $rewards->orderBy($orderBy, $order);
             }
-            $limit = $request->query('limit', 10);
-            $offset = $request->query('offset', 0);
-            $rewards = $rewards
-                ->offset($offset)
-                ->limit($limit);
+
+            if(!isset($request->return_all) || !$request->return_all) {
+                $limit = $request->query('limit', 10);
+                $offset = $request->query('offset', 0);
+                $rewards = $rewards
+                    ->offset($offset)
+                    ->limit($limit);
+            }
             $rewards = $rewards->with(['action'])->get();
 
             return response()->json([

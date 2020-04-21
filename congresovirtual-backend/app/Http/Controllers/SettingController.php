@@ -150,11 +150,10 @@ class SettingController extends Controller
                     return response()->json($validator->errors(), 412);
                 }
 
-                $oldSetting = Setting::where('key', '=', $settingModified['key'])->firstOrFail();
-                $oldSetting->fill([
-                    'value' => isset($settingModified['value']) ? $settingModified['value'] : null
-                ]);
-                $oldSetting->save();
+                Setting::updateOrCreate(
+                    ['key' => $settingModified['key']],
+                    ['value' => isset($settingModified['value']) ? $settingModified['value'] : null]
+                );
             }
             DB::commit();
             return response()->json([

@@ -10,9 +10,29 @@
         "perfil": "Profile",
         "notificaciones": {
             "titulo": "Notifications",
+            "tipo": {
+                "opciones": [
+                    { "value": "COMMENT", "label": "Comment" },
+                    { "value": "VOTE", "label": "Vote" },
+                    { "value": "READ", "label": "Reading" }
+                ]
+            },
+            "subtipo": {
+                "opciones": [
+                    { "value": "PROJECT", "label": "Project of Law" },
+                    { "value": "PAGE", "label": "Page" },
+                    { "value": "TERM", "label": "Term" }
+                ]
+            },
             "puntos": "participation points",
             "no_hay_recompensas": "No rewards earned were found.",
-            "cargar": "Load More"
+            "cargar": "Load More",
+            "mensajes": {
+                "nuevas_recompensas": {
+                    "titulo": "Congratulations!",
+                    "cuerpo": "You have managed to obtain new rewards due to your participation, you can see them by clicking on the notifications button"
+                }
+            }
         },
         "busqueda": "Search",
         "modo_oscuro": "Dark mode",
@@ -651,12 +671,49 @@
             },
             "recompensas": {
                 "titulo": "My Rewards",
+                "tipo": {
+                    "opciones": [
+                        { "value": "COMMENT", "label": "Comment" },
+                        { "value": "VOTE", "label": "Vote" },
+                        { "value": "READ", "label": "Reading" }
+                    ]
+                },
+                "subtipo": {
+                    "opciones": [
+                        { "value": "PROJECT", "label": "Project of Law" },
+                        { "value": "PAGE", "label": "Page" },
+                        { "value": "TERM", "label": "Term" }
+                    ]
+                },
                 "puntos": "participation points",
                 "no_hay_recompensas": "No rewards earned were found.",
-                "cargar": "Load More"
+                "cargar": "Load More",
+                "detalle": {
+                    "titulo": "Detail of the reward",
+                    "motivo": "Reason",
+                    "puntos_obtenidos": "Points earned",
+                    "obtenida_el": "Obtained on",
+                    "proyecto_relacionado": "Related project of law",
+                    "pagina_relacionada": "Related page",
+                    "terminos_relacionados": "Related terms"
+                }
             },
             "recompensas_disponibles": {
                 "titulo": "Available Rewards",
+                "tipo": {
+                    "opciones": [
+                        { "value": "COMMENT", "label": "Comment" },
+                        { "value": "VOTE", "label": "Vote" },
+                        { "value": "READ", "label": "Reading" }
+                    ]
+                },
+                "subtipo": {
+                    "opciones": [
+                        { "value": "PROJECT", "label": "Project of Law" },
+                        { "value": "PAGE", "label": "Page" },
+                        { "value": "TERM", "label": "Term" }
+                    ]
+                },
                 "puntos": "participation points",
                 "no_hay_recompensas": "No available rewards found.",
                 "cargar": "Load More"
@@ -2045,7 +2102,25 @@
                 },
                 "gamificacion": {
                     "titulo": "Gamification",
-                    "gamificacion_activada": "Activate gamification?"
+                    "gamificacion_activada": "Activate gamification?",
+                    "clasificacion_jugador": {
+                        "titulo": "Calculation of the number of stars of a player",
+                        "formula": "[(NPV * PV) + (NPC * PC) + (NPP * PP)] / (5 * F)",
+                        "donde": {
+                            "titulo": "Where",
+                            "cvj": "NPV: Number of Player Votes",
+                            "pv": "PV: Ponderation of Votes",
+                            "ccj": "NPC: Number of Player Comments",
+                            "pc": "PC: Ponderation of Comments",
+                            "cpj": "NPP: Number of Player Points",
+                            "pp": "PP: Ponderation of Points",
+                            "f": "F: Factor"
+                        },
+                        "ponderacion_votos": "Ponderation of votes (PV)",
+                        "ponderacion_comentarios": "Ponderation of comments (PC)",
+                        "ponderacion_puntos": "Ponderation of points (PP)",
+                        "factor": "Factor (F)"
+                    }
                 },
                 "mensajes": {
                     "exito": {

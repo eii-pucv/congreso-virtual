@@ -181,7 +181,7 @@
                     });
             },
             getUserVotes() {
-                let userId = JSON.parse(localStorage.user).id;
+                let userId = this.$store.getters.userData.id;
                 axios
                     .get('/votes', {
                         params: {
@@ -303,7 +303,7 @@
                                     this.$toastr('success', 'Tu voto fue cambiado con éxito', 'Voto actualizado');
                                 })
                                 .catch(() => {
-                                    this.$toastr('error', 'No se ha  podido cambiar tu voto', 'Error');
+                                    this.$toastr('error', 'No se ha podido cambiar tu voto', 'Error');
                                 });
                         } else {
                             axios
@@ -311,7 +311,7 @@
                                     vote: voteValue
                                 })
                                 .then(res => {
-                                    vote = res.data.data
+                                    vote = res.data.data;
                                     this.votes.push(vote);
                                     if(voteValue === 0) {
                                         idea.votos_a_favor += 1;
@@ -324,9 +324,14 @@
                                         this.toggleAbstention(idea.id);
                                     }
 
+                                    if(vote.gamification_result && vote.gamification_result.rewards.length > 0) {
+                                        this.$store.dispatch('hasNewNotifications', true);
+                                        this.$toastr('success', this.$t('navbar.notificaciones.mensajes.nuevas_recompensas.cuerpo'), this.$t('navbar.notificaciones.mensajes.nuevas_recompensas.titulo'));
+                                    }
+
                                     this.setChartData(idea);
                                     this.forceRerender();
-                                    this.$emit('updateStackedChartVotos', vote.id)
+                                    this.$emit('updateStackedChartVotos', vote.id);
                                     this.$toastr('success', 'Tu voto fue registrado con éxito', 'Voto guardado');
                                 })
                                 .catch(() => {

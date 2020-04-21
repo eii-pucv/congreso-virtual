@@ -23,14 +23,7 @@
         data() {
             return {
                 selection: ''
-            }
-        },
-        methods: {
-            changeLanguage() {
-                i18n.locale = this.selection;
-                this.$store.commit('setLanguage');
-                this.$moment.locale(this.selection);
-            }
+            };
         },
         mounted() {
             if(this.$store.getters.language) {
@@ -39,6 +32,13 @@
             }
             this.$store.commit('setLanguage');
             this.selection = i18n.locale;
+        },
+        methods: {
+            changeLanguage() {
+                i18n.locale = this.selection;
+                this.$store.commit('setLanguage');
+                this.$moment.locale(this.selection);
+            }
         }
     }
 </script>

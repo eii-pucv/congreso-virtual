@@ -175,7 +175,7 @@
                     });
             },
             getUserVotes() {
-                let userId = JSON.parse(localStorage.user).id;
+                let userId = this.$store.getters.userData.id;
                 axios
                     .get('/votes', {
                         params: {
@@ -293,7 +293,7 @@
                                     vote.vote = voteValue;
                                     this.setChartData(article);
                                     this.forceRerender();
-                                    this.$emit('updateStackedChartVotos', vote.id)
+                                    this.$emit('updateStackedChartVotos', vote.id);
                                     this.$toastr('success', 'Tu voto fue cambiado con éxito', 'Voto actualizado');
                                 })
                                 .catch(() => {
@@ -305,7 +305,7 @@
                                     vote: voteValue
                                 })
                                 .then(res => {
-                                    vote = res.data.data
+                                    vote = res.data.data;
                                     this.votes.push(vote);
                                     if(voteValue === 0) {
                                         article.votos_a_favor += 1;
@@ -316,6 +316,11 @@
                                     } else if(voteValue === 2) {
                                         article.abstencion += 1;
                                         this.toggleAbstention(article.id);
+                                    }
+
+                                    if(vote.gamification_result && vote.gamification_result.rewards.length > 0) {
+                                        this.$store.dispatch('hasNewNotifications', true);
+                                        this.$toastr('success', this.$t('navbar.notificaciones.mensajes.nuevas_recompensas.cuerpo'), this.$t('navbar.notificaciones.mensajes.nuevas_recompensas.titulo'));
                                     }
 
                                     this.setChartData(article);

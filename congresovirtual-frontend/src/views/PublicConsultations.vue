@@ -153,7 +153,7 @@
                                                 :id="'myBtn-' + publicConsultation.id"
                                         >{{ $t('proyectos.contenido.ver_mas') }}</span>
                                     </p>
-                                    <router-link :to="{ path: '/consultation/' + publicConsultation.id }" class="btn btn-primary">{{ $t('participar') }}</router-link>
+                                    <router-link :to="{ path: '/public_consultation/' + publicConsultation.id }" class="btn btn-primary">{{ $t('participar') }}</router-link>
                                 </div>
                             </div>
                         </div>

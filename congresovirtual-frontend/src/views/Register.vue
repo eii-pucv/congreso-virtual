@@ -205,6 +205,7 @@
                                     password_confirmation: this.user.password_confirmation
                                 })
                                 .then(() => {
+                                    this.$router.push('/');
                                     this.$toastr('success', this.$t('registro.contenido.mensajes.exito.generico.cuerpo'), this.$t('registro.contenido.mensajes.exito.generico.titulo'));
                                 })
                                 .catch(error => {

@@ -7,6 +7,7 @@ use App\User;
 use App\Project;
 use App\PublicConsultation;
 use App\Comment;
+use Illuminate\Support\Facades\File as FileFacade;
 use Illuminate\Support\Facades\Response;
 
 class StorageController extends Controller
@@ -14,7 +15,10 @@ class StorageController extends Controller
     private function handle($path = '', $customBasename = null)
     {
         try {
-            return response()->download($path, $customBasename, [], 'inline');
+            $headers = [
+                'Content-Type' => FileFacade::mimeType($path) != 'image/svg' ?: 'image/svg+xml'
+            ];
+            return response()->download($path, $customBasename, $headers, 'inline');
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the file was not found.'], 404);

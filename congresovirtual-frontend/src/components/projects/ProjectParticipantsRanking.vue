@@ -15,16 +15,25 @@
                 <div v-for="(participant, index) in participants" :key="participant.user_id" class="list-group-item list-group-item-action">
                     <div class="row ma-0 pa-0">
                         <div class="col-sm-2 text-center align-self-center pa-10">
-                            <span v-if="index === 0" class="font-25" style="color: #efb810;"><i class="fas fa-trophy fa-lg"></i></span>
-                            <span v-else-if="index === 1" class="font-25" style="color: #e3e4e5;"><i class="fas fa-trophy fa-lg"></i></span>
-                            <span v-else-if="index === 2" class="font-25" style="color: #cd7f32;"><i class="fas fa-trophy fa-lg"></i></span>
-                            <span v-else class="font-25"><i class="fas fa-medal fa-lg"></i></span>
+                            <b-avatar
+                                    size="50px"
+                                    variant="light"
+                                    :src="getParticipantAvatarUrl(participant.user_id, participant.avatar)"
+                                    :text="participant.name.slice(0, 2)"
+                                    :to="{ path: '/user', query: { 'user_id': participant.user_id } }"
+                            ></b-avatar>
                         </div>
-                        <div class="col-sm-10 align-self-center pa-10">
+                        <div class="col-sm-8 text-center text-sm-left align-self-center pa-10">
                             <router-link class="h6" :to="{ path: '/user', query: { 'user_id': participant.user_id } }">
                                 {{ participant.name }} {{ participant.surname }}
                             </router-link>
                             <p>{{ participant.project_total_points }} {{ $t('proyecto.componentes.ranking_participantes.puntos') }}</p>
+                        </div>
+                        <div class="col-sm-2 text-center align-self-center pa-10">
+                            <span v-if="index === 0" class="font-25" style="color: #efb810;"><i class="fas fa-trophy fa-lg"></i></span>
+                            <span v-else-if="index === 1" class="font-25" style="color: #e3e4e5;"><i class="fas fa-trophy fa-lg"></i></span>
+                            <span v-else-if="index === 2" class="font-25" style="color: #cd7f32;"><i class="fas fa-trophy fa-lg"></i></span>
+                            <span v-else class="font-25"><i class="fas fa-medal fa-lg"></i></span>
                         </div>
                     </div>
                 </div>
@@ -36,11 +45,13 @@
 <script>
     import axios from '../../backend/axios';
     import { API_URL } from '../../backend/data_server';
+    import { BAvatar } from 'bootstrap-vue';
     import Loading from 'vue-loading-overlay';
 
     export default {
         name: 'ProjectParticipantsRanking',
         components: {
+            BAvatar,
             Loading
         },
         props: {
@@ -83,12 +94,12 @@
                         this.loadParticipants = false;
                     });
             },
-            getParticipantAvatarImgUrl(userId, userAvatar) {
+            getParticipantAvatarUrl(userId, userAvatar) {
                 if(userAvatar) {
-                    return (API_URL + '/api/storage/avatars/' + userId + '/' + userAvatar);
+                    return (API_URL + '/api/storage/users/' + userId + '/' + userAvatar);
                 }
                 return null;
-            },
+            }
         }
     }
 </script>

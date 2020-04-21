@@ -11,6 +11,7 @@ export default new Vuex.Store({
         status: '',
         access_token: localStorage.getItem('access_token') || '',
         user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : { rol: '' },
+        has_new_notifications: localStorage.getItem('has_new_notifications') ? JSON.parse(localStorage.getItem('has_new_notifications')) : false,
         active_gamification: localStorage.getItem('active_gamification') ? JSON.parse(localStorage.getItem('active_gamification')) : false,
         language: localStorage.getItem('language'),
         modo_oscuro: localStorage.getItem('modo_oscuro')
@@ -31,6 +32,9 @@ export default new Vuex.Store({
             state.status = '';
             state.access_token = '';
             state.user = { rol: '' };
+        },
+        has_new_notifications(state, data) {
+            state.has_new_notifications = data.has_new_notifications;
         },
         active_gamification(state, data) {
             state.active_gamification = data.active_gamification;
@@ -53,8 +57,10 @@ export default new Vuex.Store({
                         const userData = res.data.user;
                         localStorage.setItem('access_token', accessToken);
                         localStorage.setItem('user', JSON.stringify(userData));
+                        localStorage.setItem('has_new_notifications', JSON.stringify(false));
                         axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
                         commit('auth_success', { access_token: accessToken, user_data: userData });
+                        commit('has_new_notifications', { has_new_notifications: false });
                         resolve(res);
                     })
                     .catch(error => {
@@ -74,7 +80,9 @@ export default new Vuex.Store({
                         const userData = res.data;
                         localStorage.setItem('access_token', accessToken);
                         localStorage.setItem('user', JSON.stringify(userData));
+                        localStorage.setItem('has_new_notifications', JSON.stringify(false));
                         commit('auth_success', { access_token: accessToken, user_data: userData });
+                        commit('has_new_notifications', { has_new_notifications: false });
                         resolve(res);
                     })
                     .catch(error => {
@@ -92,17 +100,23 @@ export default new Vuex.Store({
                     .then(() => {
                         localStorage.removeItem('access_token');
                         localStorage.removeItem('user');
+                        localStorage.removeItem('has_new_notifications');
                         delete axios.defaults.headers.common['Authorization'];
                         resolve();
                     })
                     .catch(error => {
                         localStorage.removeItem('access_token');
                         localStorage.removeItem('user');
+                        localStorage.removeItem('has_new_notifications');
                         delete axios.defaults.headers.common['Authorization'];
                         commit('auth_error');
                         reject(error);
                     });
             });
+        },
+        hasNewNotifications({commit}, value) {
+            localStorage.setItem('has_new_notifications', JSON.stringify(value));
+            commit('has_new_notifications', { has_new_notifications: value });
         },
         activeGamification({commit}) {
             return new Promise((resolve, reject) => {
@@ -133,8 +147,9 @@ export default new Vuex.Store({
         isLoggedIn: state => state.access_token && state.user,
         authStatus: state => state.status,
         userData: state => state.user,
+        hasNewNotifications: state => state.has_new_notifications,
         activeGamification: state => state.active_gamification,
         language: state => state.language,
-        modo_oscuro: state => state.modo_oscuro,
+        modo_oscuro: state => state.modo_oscuro
     }
 });

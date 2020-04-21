@@ -1,5 +1,11 @@
 <template>
     <div :class="mode==='dark'?'dark':'light'">
+        <vue-scroll-progress-bar
+                v-if="!loadPage && page"
+                @complete="userReadPage"
+                height="1rem"
+                backgroundColor="#22af47"
+        />
         <div class="container">
             <div class="row">
                 <div v-if="loadPage" class="vld-parent">
@@ -13,7 +19,7 @@
                         <li v-if="page" class="breadcrumb-item active" aria-current="page" :style="mode==='dark'?'color: #fff':''">{{ $t('pagina.breadcumb.pagina') }} {{ page.id }}</li>
                     </ol>
                 </nav>
-                <div v-if="!loadPage" class="col-sm-12 hk-sec-wrapper hk-gallery-wrap" :style="mode==='dark'?'background: rgb(12, 1, 80);color: #fff':''">
+                <div v-if="!loadPage" class="col-sm-12 hk-sec-wrapper hk-gallery-wrap" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
                     <div class="container py-25">
                         <div class="row">
                             <div v-if="page" class="col-12 px-5" v-html="page.content">
@@ -31,22 +37,25 @@
 </template>
 
 <script>
-    import PageHeader from "../components/pages/PageHeader";
-    import axios from "../backend/axios";
+    import PageHeader from '../components/pages/PageHeader';
+    import axios from '../backend/axios';
+    import { VueScrollProgressBar } from '@guillaumebriday/vue-scroll-progress-bar';
 
     export default {
         name: 'Page',
         components: {
             PageHeader,
+            VueScrollProgressBar
         },
         props: {
-            slug: String,
-            mode: String
+            slug: String
         },
         data() {
             return {
                 page: Object,
-                loadPage: true
+                readComplete: false,
+                loadPage: true,
+                mode: String
             }
         },
         mounted() {
@@ -72,88 +81,25 @@
                     .finally(() => {
                         this.loadPage = false;
                     });
+            },
+            userReadPage() {
+                if(!this.readComplete) {
+                    this.readComplete = true;
+                    axios
+                        .post('/events',
+                            {
+                                action_type: 'READ',
+                                page_id: this.page.id
+                            }
+                        )
+                        .then(res => {
+                            if(res.data.data && res.data.data.gamification_result && res.data.data.gamification_result.rewards.length > 0) {
+                                this.$store.dispatch('hasNewNotifications', true);
+                                this.$toastr('success', this.$t('navbar.notificaciones.mensajes.nuevas_recompensas.cuerpo'), this.$t('navbar.notificaciones.mensajes.nuevas_recompensas.titulo'));
+                            }
+                        });
+                }
             }
         }
     }
 </script>
-
-<style scoped>
-    .arrow-steps .step {
-        font-size: 14px;
-        cursor: default;
-        padding: 10px 10px 10px 30px;
-        float: left;
-        position: relative;
-        background-color: #d9e3f7;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        transition: background-color 0.2s ease;
-    }
-
-    .arrow-steps .step:after,
-    .arrow-steps .step:before {
-        content: " ";
-        position: absolute;
-        top: 0;
-        right: -16px;
-        width: 0;
-        height: 0;
-        border-top: 25px solid transparent;
-        border-bottom: 25px solid transparent;
-        border-left: 17px solid #9e9e9e!important;
-        z-index: 2;
-        transition: border-color 0.2s ease;
-    }
-
-    .arrow-steps .step:before {
-        right: auto;
-        left: 0;
-        border-left: 17px solid #fff;
-        z-index: 0;
-    }
-
-    .arrow-steps .step:first-child:before {
-        border: none;
-    }
-
-    .arrow-steps .step:first-child {
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
-    }
-
-    .arrow-steps .step span {
-        position: relative;
-    }
-
-    .arrow-steps .step span:before {
-        opacity: 0;
-        content: "✔";
-        position: absolute;
-        top: -2px;
-        left: -20px;
-    }
-
-    .arrow-steps .step.done span:before {
-        opacity: 1;
-        -webkit-transition: opacity 0.3s ease 0.5s;
-        -moz-transition: opacity 0.3s ease 0.5s;
-        -ms-transition: opacity 0.3s ease 0.5s;
-        transition: opacity 0.3s ease 0.5s;
-    }
-
-    .arrow-steps .step.current {
-        color: #fff;
-        background-color: green !important;
-    }
-
-    .arrow-steps .step.current:after {
-        border-left: 17px solid  green !important;
-    }
-
-    .tab-content {
-        -webkit-box-shadow: inherit !important;
-        box-shadow: inherit !important;
-    }
-</style>

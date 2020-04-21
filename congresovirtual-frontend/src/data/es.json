@@ -10,9 +10,29 @@
         "perfil": "Perfil",
         "notificaciones": {
             "titulo": "Notificaciones",
+            "tipo": {
+                "opciones": [
+                    { "value": "COMMENT", "label": "Comentario" },
+                    { "value": "VOTE", "label": "Voto" },
+                    { "value": "READ", "label": "Lectura" }
+                ]
+            },
+            "subtipo": {
+                "opciones": [
+                    { "value": "PROJECT", "label": "Proyecto de Ley" },
+                    { "value": "PAGE", "label": "Página" },
+                    { "value": "TERM", "label": "Término" }
+                ]
+            },
             "puntos": "puntos de participación",
             "no_hay_recompensas": "No se han encontrado recompensas obtenidas.",
-            "cargar": "Cargar Más"
+            "cargar": "Cargar Más",
+            "mensajes": {
+                "nuevas_recompensas": {
+                    "titulo": "¡Felicitaciones!",
+                    "cuerpo": "Has logrado obtener nuevas recompensas debido a tu participación, puedes verlas haciendo click en el botón de notificaciones"
+                }
+            }
         },
         "busqueda": "Búsqueda",
         "modo_oscuro": "Modo oscuro",
@@ -657,12 +677,49 @@
             },
             "recompensas": {
                 "titulo": "Mis Recompensas",
+                "tipo": {
+                    "opciones": [
+                        { "value": "COMMENT", "label": "Comentario" },
+                        { "value": "VOTE", "label": "Voto" },
+                        { "value": "READ", "label": "Lectura" }
+                    ]
+                },
+                "subtipo": {
+                    "opciones": [
+                        { "value": "PROJECT", "label": "Proyecto de Ley" },
+                        { "value": "PAGE", "label": "Página" },
+                        { "value": "TERM", "label": "Término" }
+                    ]
+                },
                 "puntos": "puntos de participación",
                 "no_hay_recompensas": "No se han encontrado recompensas obtenidas.",
-                "cargar": "Cargar Más"
+                "cargar": "Cargar Más",
+                "detalle": {
+                    "titulo": "Detalle de la recompensa",
+                    "motivo": "Motivo",
+                    "puntos_obtenidos": "Puntos obtenidos",
+                    "obtenida_el": "Obtenida el",
+                    "proyecto_relacionado": "Proyecto de ley relacionado",
+                    "pagina_relacionada": "Página relacionada",
+                    "terminos_relacionados": "Términos relacionados"
+                }
             },
             "recompensas_disponibles": {
                 "titulo": "Recompensas Disponibles",
+                "tipo": {
+                    "opciones": [
+                        { "value": "COMMENT", "label": "Comentario" },
+                        { "value": "VOTE", "label": "Voto" },
+                        { "value": "READ", "label": "Lectura" }
+                    ]
+                },
+                "subtipo": {
+                    "opciones": [
+                        { "value": "PROJECT", "label": "Proyecto de Ley" },
+                        { "value": "PAGE", "label": "Página" },
+                        { "value": "TERM", "label": "Término" }
+                    ]
+                },
                 "puntos": "puntos de participación",
                 "no_hay_recompensas": "No se han encontrado recompensas disponibles.",
                 "cargar": "Cargar Más"
@@ -2051,7 +2108,25 @@
                 },
                 "gamificacion": {
                     "titulo": "Gamificación",
-                    "gamificacion_activada": "¿Activar gamificación?"
+                    "gamificacion_activada": "¿Activar gamificación?",
+                    "clasificacion_jugador": {
+                        "titulo": "Cálculo de la cantidad de estrellas de un jugador",
+                        "formula": "[(CVJ * PV) + (CCJ * PC) + (CPJ * PP)] / (5 * F)",
+                        "donde": {
+                            "titulo": "Donde",
+                            "cvj": "CVJ: Cantidad de Votos del Jugador",
+                            "pv": "PV: Ponderación de los Votos",
+                            "ccj": "CCJ: Cantidad de Comentarios del Jugador",
+                            "pc": "PC: Ponderación de los Comentarios",
+                            "cpj": "CPJ: Cantidad de Puntos del Jugador",
+                            "pp": "PP: Ponderación de los Puntos",
+                            "f": "F: Factor"
+                        },
+                        "ponderacion_votos": "Ponderación de los votos (PV)",
+                        "ponderacion_comentarios": "Ponderación de los comentarios (PC)",
+                        "ponderacion_puntos": "Ponderación de los puntos (PP)",
+                        "factor": "Factor (F)"
+                    }
                 },
                 "mensajes": {
                     "exito": {

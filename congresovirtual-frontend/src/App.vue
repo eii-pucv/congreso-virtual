@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex flex-column min-vh-100" :class="mode">
         <Preload></Preload>
-        <Navbar :userRol="userRol" :isLoggedIn="isLoggedIn"></Navbar>
+        <Navbar></Navbar>
         <router-view :key="$route.fullPath"></router-view>
         <Footer></Footer>
     </div>
@@ -404,9 +404,8 @@
         },
         data() {
             return {
-                user: Object,
                 mode: String
-            }
+            };
         },
         mounted() {
             if((this.$store.getters.modo_oscuro === 'dark') || (window.location.href.includes('dark'))) {
@@ -415,16 +414,7 @@
                 this.mode = 'light';
             }
 
-            this.user = JSON.parse(localStorage.getItem('user'));
             this.$store.dispatch('activeGamification');
-        },
-        computed: {
-            isLoggedIn() {
-                return this.$store.getters.isLoggedIn;
-            },
-            userRol() {
-                return this.$store.getters.user ? this.$store.getters.user.rol : null;
-            }
         }
     }
 </script>

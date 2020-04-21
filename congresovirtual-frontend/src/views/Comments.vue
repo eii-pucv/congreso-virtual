@@ -437,7 +437,7 @@
         methods: {
             configComponent() {
                 if(this.$store.getters.isLoggedIn) {
-                    this.userId = JSON.parse(localStorage.user).id;
+                    this.userId = this.$store.getters.userData.id;
                 }
 
                 this.optionsSort.forEach(option => {
@@ -677,7 +677,7 @@
                                 axios
                                     .post('/comments', commentFormData)
                                     .then(res => {
-                                        let newComment = res.data.data
+                                        let newComment = res.data.data;
                                         this.comments.push(newComment);
                                         this.clearComment();
 
@@ -688,6 +688,11 @@
                                             this.$toastr('success', 'Tu comentario fue registrado con éxito, pero debido al contenido pasará a moderación antes de ser publicado', 'Comentario registrado');
                                         } else {
                                             this.$toastr('success', 'Tu comentario fue registrado con éxito', 'Comentario registrado');
+                                        }
+
+                                        if(newComment.gamification_result && newComment.gamification_result.rewards.length > 0) {
+                                            this.$store.dispatch('hasNewNotifications', true);
+                                            this.$toastr('success', this.$t('navbar.notificaciones.mensajes.nuevas_recompensas.cuerpo'), this.$t('navbar.notificaciones.mensajes.nuevas_recompensas.titulo'));
                                         }
                                     })
                                     .catch(() => {
@@ -919,7 +924,7 @@
                     reason: this.denunciation.razon,
                     description: this.denunciation.descripcion,
                     comment_id: this.denounced_comment.id,
-                    user_id: JSON.parse(localStorage.user).id,
+                    user_id: this.$store.getters.userData.id,
                 };
                 
                 try {

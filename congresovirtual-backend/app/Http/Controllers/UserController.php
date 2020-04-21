@@ -1078,11 +1078,15 @@ class UserController extends Controller
             ]);
 
             $userDirectory = "users/{$user->id}/";
-            $extension = 'png';
+            $extension = 'svg';
             $originalName = 'avatar';
             $storedName = \Str::random(40);
             $storedBasename = "{$storedName}.{$extension}";
-            $avatarFile = (new Avatar)->create($user->name)->getImageObject()->encode($extension);
+            $avatarFile = (new Avatar)->create($user->name)
+                ->setBackground('#2a335d')
+                ->setBorder(2, '#2a335d')
+                ->setFontFamily('Helvetica, sans-serif')
+                ->toSvg();
             Storage::put("{$userDirectory}{$storedBasename}", $avatarFile);
 
             $file = new File([

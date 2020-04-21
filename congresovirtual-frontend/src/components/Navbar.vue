@@ -3,7 +3,7 @@
         <nav class="navbar navbar-expand container-sm">
             <div class="accordion" id="accordion_1">
                 <Slide ref="Slide" disableOutsideClick>
-                    <div class="d-md-none">
+                    <div class="d-md-none d-block">
                         <div v-if="!isLoggedIn" class="btn-group btn-block">
                             <router-link :to="{ path: '/signup' }" class="btn btn-outline-light btn-sm btn-text-toggle">
                                 <i class="fas fa-user-plus"></i> {{ $t('navbar.registrar') }}
@@ -12,16 +12,21 @@
                                 <i class="fas fa-sign-in-alt"></i> {{ $t('navbar.iniciar_sesion') }}
                             </router-link>
                         </div>
-                        <div v-else-if="isLoggedIn" class="btn-group btn-block">
-                            <router-link v-if="userData.rol === 'ADMIN'" :to="{ path: '/admin' }" class="btn btn-outline-light btn-sm btn-text-toggle">
-                                <i class="fas fa-user-circle"></i> {{ $t('navbar.admin.titulo') }}
+                        <div v-else-if="isLoggedIn">
+                            <div class="btn-group btn-block">
+                                <router-link v-if="userData.rol === 'ADMIN'" :to="{ path: '/admin' }" class="btn btn-outline-light btn-sm btn-text-toggle">
+                                    <i class="fas fa-user-circle"></i> {{ $t('navbar.admin.titulo') }}
+                                </router-link>
+                                <router-link v-else-if="userData.rol === 'USER'" :to="{ path: '/user' }" class="btn btn-outline-light btn-sm btn-text-toggle">
+                                    <i class="fas fa-user-circle"></i> {{ $t('navbar.perfil') }}
+                                </router-link>
+                                <button @click.prevent="logout" class="btn btn-light btn-sm">
+                                    <i class="fas fa-sign-out-alt"></i> {{ $t('navbar.cerrar_sesion.titulo') }}
+                                </button>
+                            </div>
+                            <router-link v-if="isAvailableGamification" :to="{ path: '/notifications' }" class="btn btn-outline-light btn-sm btn-block btn-text-toggle">
+                                <i class="fas fa-bell"></i> {{ $t('navbar.notificaciones.titulo') }}
                             </router-link>
-                            <router-link v-else-if="userData.rol === 'USER'" :to="{ path: '/user' }" class="btn btn-outline-light btn-sm btn-text-toggle">
-                                <i class="fas fa-user-circle"></i> {{ $t('navbar.perfil') }}
-                            </router-link>
-                            <button @click.prevent="logout" class="btn btn-light btn-sm">
-                                <i class="fas fa-sign-out-alt"></i> {{ $t('navbar.cerrar_sesion.titulo') }}
-                            </button>
                         </div>
                     </div>
                     <form @submit.prevent="search" class="input-group md-form">
@@ -91,7 +96,7 @@
                     </router-link>
                 </div>
                 <div v-else-if="isLoggedIn">
-                    <Notifications></Notifications>
+                    <NotificationsPopover v-if="isAvailableGamification"></NotificationsPopover>
                     <div v-if="userData.rol === 'ADMIN'" style="display: inline;">
                         <a class="btn text-white dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user-circle"></i> {{ $t('navbar.admin.titulo') }}
@@ -123,7 +128,7 @@
     import axios from '../backend/axios';
     import Toggle from './Toggle';
     import Language from './Language';
-    import Notifications from './Notifications';
+    import NotificationsPopover from './notifications/NotificationsPopover';
 
     export default {
         name: 'Navbar',
@@ -131,9 +136,9 @@
             Slide,
             Toggle,
             Language,
-            Notifications
+            NotificationsPopover
         },
-        data: function() {
+        data() {
             return {
                 siteName: null,
                 categories: [],
@@ -203,6 +208,9 @@
             },
             userData() {
                 return this.$store.getters.userData;
+            },
+            isAvailableGamification() {
+                return !!(this.userData.player && this.userData.player.active_gamification && this.$store.getters.activeGamification);
             }
         }
     }

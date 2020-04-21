@@ -277,7 +277,7 @@ export default {
                 reason: this.denunciation.razon,
                 description: this.denunciation.descripcion,
                 comment_id: this.denounced_comment.id,
-                user_id: JSON.parse(localStorage.user).id,
+                user_id: this.$store.getters.userData.id,
             }
             
             try {

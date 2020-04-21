@@ -123,7 +123,7 @@ const routes = [
         path: '/confirmation',
         name: 'UserConfirmation',
         props: true,
-        component: () => import('./components/user/UserConfirmation.vue')
+        component: () => import('./views/UserConfirmation.vue')
     },
     {
         path: '/login',
@@ -167,10 +167,16 @@ const routes = [
         component: () => import('./views/User.vue')
     },
     {
+        path: '/notifications',
+        name: 'User',
+        props: true,
+        component: () => import('./components/notifications/NotificationsPage.vue')
+    },
+    {
         path: '/admin',
         name: 'admin',
         props: true,
-        component: () => import('./components/admin/AdminNavbar'),
+        component: () => import('./components/admin/AdminNavbar.vue'),
         meta: {
             requiresAuth: true,
             userRoles: ['ADMIN']

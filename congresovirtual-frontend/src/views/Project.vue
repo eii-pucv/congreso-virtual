@@ -1,7 +1,7 @@
 <template>
     <div :class="mode==='dark'?'dark':'light'">
         <div class="container">
-            <div class="row" id="principalRow">
+            <div class="row">
                 <div v-if="loadProject" class="vld-parent">
                     <img
                             src="../assets/img/loader2.gif"
@@ -477,18 +477,18 @@
         },
         created() {
             Chart.helpers.merge(Chart.defaults.global.plugins.datalabels, {
-                color: "#FFFFFF",
+                color: '#ffffff',
                 formatter: function(value, context) {
-                    return value + "%";
+                    return value + '%';
                 }
             });
         },
         methods: {
             focusVotesSection(e) {
-                $('#modalMessage').modal('hide')
+                $('#modalMessage').modal('hide');
 
                 $('html, body').animate({
-                    scrollTop: $('#section-votes').offset().top + "px"
+                    scrollTop: $('#section-votes').offset().top + 'px'
                 }, 1500);
                 $('#btn-ideas').click();
             },
@@ -528,7 +528,9 @@
             },
             forceRerender() {
                 this.keyStackedChartComponent += 1;
-            },
+            }
+        },
+        computed: {
             isAvailableGamification() {
                 return this.$store.getters.activeGamification;
             }
@@ -536,11 +538,7 @@
     };
 </script>
 
-<style>
-    #principalRow {
-        height: fit-content;
-    }
-
+<style scoped>
     .arrow-steps .step {
         font-size: 14px;
         cursor: default;
@@ -613,10 +611,5 @@
 
     .arrow-steps .step.current:after {
         border-left: 17px solid green !important;
-    }
-
-    .tab-content {
-        -webkit-box-shadow: inherit !important;
-        box-shadow: inherit !important;
     }
 </style>
