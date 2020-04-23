@@ -11,7 +11,7 @@
                             :color="color"
                     ></Loading>
                 </div>
-                <div v-if="!loadRewards" class="row mx-0">
+                <div v-if="!loadRewards">
                     <div class="row mx-0">
                         <div v-for="reward in rewards" :key="'reward-' + reward.id" class="col-md-4 pb-3 px-2">
                             <div class="alert alert-secondary alert-wth-icon border h-100 mb-0" :class="playerAlreadyHasThisReward(reward.id) ? 'border-info' : 'border-secondary'">

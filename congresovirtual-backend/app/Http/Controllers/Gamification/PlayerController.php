@@ -74,7 +74,7 @@ class PlayerController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'user_id' => 'required|integer',
+                'user_id' => 'required|integer|unique:players',
                 'active_gamification' => 'boolean'
             ]);
             if($validator->fails()) {

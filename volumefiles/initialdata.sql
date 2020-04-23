@@ -2,7 +2,7 @@
 -- Host:                         127.0.0.1
 -- Versión del servidor:         10.1.37-MariaDB - mariadb.org binary distribution
 -- SO del servidor:              Win32
--- HeidiSQL Versión:             10.3.0.5771
+-- HeidiSQL Versión:             11.0.0.5920
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -11,23 +11,23 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+-- Volcando datos para la tabla congreso-generico.actions: ~7 rows (aproximadamente)
+/*!40000 ALTER TABLE `actions` DISABLE KEYS */;
+INSERT INTO `actions` (`id`, `type`, `subtype`, `points`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'COMMENT', 'PROJECT', 5, '2020-02-27 17:25:35', '2020-02-27 17:25:35', NULL),
+	(2, 'VOTE', 'PROJECT', 5, '2020-02-27 17:25:35', '2020-02-27 17:25:35', NULL),
+	(3, 'READ', 'PROJECT', 5, '2020-02-27 17:25:35', '2020-02-27 17:25:35', NULL),
+	(4, 'READ', 'PAGE', 5, '2020-02-27 17:25:35', '2020-02-27 17:25:35', NULL),
+	(5, 'COMMENT', 'TERM', 10, '2020-02-27 17:25:35', '2020-02-27 17:25:35', NULL),
+	(6, 'VOTE', 'TERM', 5, '2020-02-27 17:25:35', '2020-02-27 17:25:35', NULL),
+	(7, 'READ', 'TERM', 10, '2020-02-27 17:25:35', '2020-02-27 17:25:35', NULL);
+/*!40000 ALTER TABLE `actions` ENABLE KEYS */;
+
 -- Volcando datos para la tabla congreso-generico.articles: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `articles` DISABLE KEYS */;
 INSERT INTO `articles` (`id`, `titulo`, `detalle`, `votos_a_favor`, `votos_en_contra`, `abstencion`, `project_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Artículo 1', 'Descripción del artículo.', 0, 0, 0, 1, '2020-02-27 17:25:35', '2020-02-27 17:25:35', NULL);
 /*!40000 ALTER TABLE `articles` ENABLE KEYS */;
-
--- Volcando datos para la tabla congreso-generico.comments: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
-
--- Volcando datos para la tabla congreso-generico.denounces: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `denounces` DISABLE KEYS */;
-/*!40000 ALTER TABLE `denounces` ENABLE KEYS */;
-
--- Volcando datos para la tabla congreso-generico.files: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `files` DISABLE KEYS */;
-/*!40000 ALTER TABLE `files` ENABLE KEYS */;
 
 -- Volcando datos para la tabla congreso-generico.file_types: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `file_types` DISABLE KEYS */;
@@ -47,61 +47,60 @@ INSERT INTO `ideas` (`id`, `titulo`, `detalle`, `votos_a_favor`, `votos_en_contr
 	(1, 'Idea Fundamental 1', 'Descripción de la idea fundamental.', 0, 0, 0, 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
 /*!40000 ALTER TABLE `ideas` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-generico.location_orgs: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `location_orgs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `location_orgs` ENABLE KEYS */;
-
--- Volcando datos para la tabla congreso-generico.member_orgs: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `member_orgs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `member_orgs` ENABLE KEYS */;
-
--- Volcando datos para la tabla congreso-generico.pages: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla congreso-generico.pages: ~10 rows (aproximadamente)
 /*!40000 ALTER TABLE `pages` DISABLE KEYS */;
+INSERT INTO `pages` (`id`, `title`, `slug`, `content`, `is_public`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(3, 'Preguntas Frecuentes', 'faq', '<div class="row">\n<div class="col-4">\n<h5 class="text-light m-2">TEMAS</h5>\n<div id="list-tab" class="list-group" role="tablist"><a id="list-home-list" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center active" role="tab" href="#list-home" data-toggle="list" aria-controls="home">Uso general del sitio <span class="badge badge-light badge-pill">06</span></a> <a id="list-profile-list" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" role="tab" href="#list-profile" data-toggle="list" aria-controls="profile">Proyectos de Ley <span class="badge badge-light badge-pill">06</span></a> <a id="list-messages-list" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" role="tab" href="#list-messages" data-toggle="list" aria-controls="messages">Consultas P&uacute;blicas <span class="badge badge-light badge-pill">01</span></a></div>\n</div>\n<div class="col-8">\n<div id="nav-tabContent" class="tab-content">\n<div id="list-home" class="tab-pane fade show active" role="tabpanel" aria-labelledby="list-home-list">\n<div id="accordion">\n<h3 class="text-light m-2 mb-0">PREGUNTAS GENERALES SOBRE EL USO DEL SITIO</h3>\n<div class="card mb-1">\n<div id="headingOne" class="card-header">\n<h5 class="mb-0"><button class="btn btn-link text-uppercase text-left" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> C&oacute;mo hago para participar en el sitio Congreso Virtual </button></h5>\n</div>\n<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">\n<div class="card-body text-justify">Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedir&aacute; informaci&oacute;n importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contar&aacute; con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su inter&eacute;s en los cuales se quiera participar y ser un Congresista Virtual.</div>\n</div>\n</div>\n<div class="card mb-1">\n<div id="headingTwo" class="card-header">\n<h5 class="mb-0"><button class="btn btn-link collapsed text-uppercase text-left" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> C&oacute;mo hago para postular un proyecto de ley a Congreso Virtual </button></h5>\n</div>\n<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">\n<div class="card-body text-justify">Para postular un proyecto de ley al sitio se deben seguir lo siguientes pasos: Logearse con su cuenta de usuario (si no tiene una, dir&iacute;jase a crearla). Luego ir al apartado de listado de proyectos disponibles para ser postulados, estos proyectos estar&aacute;n ac&aacute;, ya sea por inactividad, o haber sido despachados con anterioridad. Seleccionar el proyecto que se desea que sea puesto en votaciones, adem&aacute;s tambi&eacute;n de justificar la petici&oacute;n del proyecto en cuesti&oacute;n. Luego de esto el proyecto ser&aacute; puesto en votaci&oacute;n y discusi&oacute;n para los otros usuarios.</div>\n</div>\n</div>\n<div class="card mb-1">\n<div id="headingThree" class="card-header">\n<h5 class="mb-0"><button class="btn btn-link collapsed text-uppercase text-left" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> C&oacute;mo hago para postular una urgencia sobre un proyecto de ley a Congreso Virtual </button></h5>\n</div>\n<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">\n<div class="card-body text-justify">Para postular una urgencia sobre cierto proyecto se deben seguir lo siguientes pasos: Logearse con su cuenta de usuario (si no tiene una, dir&iacute;jase a crearla). Luego ir al apartado de listado de proyectos disponibles para ser postulados, estos proyectos estar&aacute;n ac&aacute;, ya sea por inactividad, o haber sido despachados con anterioridad. Seleccionar el proyecto que sea desea que sea puesto en urgencia, se deber&aacute; especificar el porqu&eacute; de la urgencia. Luego de esto el proyecto ser&aacute; ingresado al sistema Congreso Virtual para ser votado ya sea en contra o a favor del proyecto. Si el proyecto en urgencia obtiene un buen acogimiento, este se le ser&aacute; notificado al postulante para subir mas informacion al proyecto, para as&iacute; poder avalar y justificar el porqu&eacute; de la petici&oacute;n, ya sea por el medio que estime m&aacute;s conveniente, por ejemplo video, instructivo, etc.</div>\n</div>\n</div>\n<div class="card mb-1">\n<div id="headingFour" class="card-header">\n<h5 class="mb-0"><button class="btn btn-link collapsed text-uppercase text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour"> D&oacute;nde puedo revisar los proyectos de ley puestos a disposici&oacute;n para opinar/debatir/votar </button></h5>\n</div>\n<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">\n<div class="card-body text-justify">Para revisar los proyectos puestos a disposici&oacute;n de los usuarios, se debe dirigir al apartado de votaciones y se desplegaran todos los proyectos de ley los cuales est&aacute;n en votaci&oacute;n, adem&aacute;s de mostrar los votos que llevan hasta el momento e informaci&oacute;n importante sobre estos.</div>\n</div>\n</div>\n<div class="card mb-1">\n<div id="headingFive" class="card-header">\n<h5 class="mb-0"><button class="btn btn-link collapsed text-uppercase text-left" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive"> Me he olvidado de mi contrase&ntilde;a o no me funciona &iquest;qu&eacute; puedo hacer?</button></h5>\n</div>\n<div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">\n<div class="card-body text-justify">Puedes solicitar un nueva contrase&ntilde;a para que se te env&iacute;e una nueva contrase&ntilde;a a tu correo electr&oacute;nico. Te recomendamos intentar recuperar contrase&ntilde;a con todas las direcciones de email que tengas.</div>\n</div>\n</div>\n<div class="card mb-1">\n<div id="headingSix" class="card-header">\n<h5 class="mb-0"><button class="btn btn-link collapsed text-uppercase text-left" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix"> Me indica que mi RUT/DNI ya est&aacute; en uso</button></h5>\n</div>\n<div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">\n<div class="card-body text-justify">Si intentas verificar tu cuenta y aparece un mensaje de error diciendo que el \'DNI ya est&aacute; en uso\', lo primero que tienes que revisar es si tienes otra cuenta de usuario que hayas verificado con tu DNI. Ten en cuenta que puedes tener muchas cuentas de usuario, pero solo una con tu DNI, que ser&aacute; con la que puedas apoyar y votar propuestas, lo que llamamos una cuenta verificada.</div>\n</div>\n</div>\n</div>\n</div>\n<div id="list-profile" class="tab-pane fade" role="tabpanel" aria-labelledby="list-profile-list">\n<div id="accordion2">\n<h3 class="text-light m-2 mb-0">PREGUNTAS SOBRE PROYECTOS DE LEY</h3>\n<div class="card mb-1">\n<div id="headingOne-projects" class="card-header">\n<h5 class="mb-0"><button class="btn btn-link text-uppercase text-left" data-toggle="collapse" data-target="#collapseOne-projects" aria-expanded="true" aria-controls="collapseOne-projects">Dudas acerca del proyecto de ley Uber</button></h5>\n</div>\n<div id="collapseOne-projects" class="collapse show" aria-labelledby="headingOne-projects" data-parent="#accordion2">\n<div class="card-body text-justify">Aqu&iacute; va texto.</div>\n</div>\n</div>\n<div class="card mb-1">\n<div id="headingTwo-projects" class="card-header">\n<h5 class="mb-0"><button class="btn btn-link collapsed text-uppercase text-left" data-toggle="collapse" data-target="#collapseTwo-projects" aria-expanded="false" aria-controls="collapseTwo-projects"> Dudas acerca del proyecto de ley de cambio clim&aacute;tico </button></h5>\n</div>\n<div id="collapseTwo-projects" class="collapse" aria-labelledby="headingTwo-projects" data-parent="#accordion2">\n<div class="card-body text-justify">Aqu&iacute; va texto.</div>\n</div>\n</div>\n<div class="card mb-1">\n<div id="headingThree-projects" class="card-header">\n<h5 class="mb-0"><button class="btn btn-link collapsed text-uppercase text-left" data-toggle="collapse" data-target="#collapseThree-projects" aria-expanded="false" aria-controls="collapseThree-projects"> Dudas acerca del proyecto de ley de "Goles para todos" </button></h5>\n</div>\n<div id="collapseThree-projects" class="collapse" aria-labelledby="headingThree-projects" data-parent="#accordion2">\n<div class="card-body text-justify">Aqu&iacute; va texto.</div>\n</div>\n</div>\n<div class="card mb-1">\n<div id="headingFour-projects" class="card-header">\n<h5 class="mb-0"><button class="btn btn-link collapsed text-uppercase text-left" data-toggle="collapse" data-target="#collapseFour-projects" aria-expanded="false" aria-controls="collapseFour-projects"> Dudas acerca del proyecto de ley de protecci&oacute;n de glaciares </button></h5>\n</div>\n<div id="collapseFour-projects" class="collapse" aria-labelledby="headingFour-projects" data-parent="#accordion2">\n<div class="card-body text-justify">Aqu&iacute; va texto.</div>\n</div>\n</div>\n<div class="card mb-1">\n<div id="headingFive-projects" class="card-header">\n<h5 class="mb-0"><button class="btn btn-link collapsed text-uppercase text-left" data-toggle="collapse" data-target="#collapseFive-projects" aria-expanded="false" aria-controls="collapseFive-projects"> Dudas acerca del proyecto de ley de donaci&oacute;n de &oacute;rganos </button></h5>\n</div>\n<div id="collapseFive-projects" class="collapse" aria-labelledby="headingFive-projects" data-parent="#accordion2">\n<div class="card-body text-justify">Aqu&iacute; va texto.</div>\n</div>\n</div>\n<div class="card mb-1">\n<div id="headingSix-projects" class="card-header">\n<h5 class="mb-0"><button class="btn btn-link collapsed text-uppercase text-left" data-toggle="collapse" data-target="#collapseSix-projects" aria-expanded="false" aria-controls="collapseSix-projects"> Dudas acerca del proyecto de ley contra el bullying </button></h5>\n</div>\n<div id="collapseSix-projects" class="collapse" aria-labelledby="headingSix-projects" data-parent="#accordion2">\n<div class="card-body text-justify">Aqu&iacute; va texto.</div>\n</div>\n</div>\n</div>\n</div>\n<div id="list-messages" class="tab-pane fade" role="tabpanel" aria-labelledby="list-messages-list">\n<div id="accordion3">\n<h3 class="text-light m-2 mb-0">PREGUNTAS SOBRE CONSULTAS P&Uacute;BLICAS</h3>\n<div class="card mb-1">\n<div id="headingOne-consultatios" class="card-header">\n<h5 class="mb-0"><button class="btn btn-link text-uppercase text-left" data-toggle="collapse" data-target="#collapseOne-consultatios" aria-expanded="true" aria-controls="collapseOne-consultatios">Preguntas sobre consulta p&uacute;blica 1</button></h5>\n</div>\n<div id="collapseOne-consultatios" class="collapse show" aria-labelledby="headingOne-consultatios" data-parent="#accordion3">\n<div class="card-body text-justify">Para participar en el sitio Congreso Virtual, es preciso primero crearse una cuenta de usuario, en la cual se le pedir&aacute; informaci&oacute;n importante acerca de usted, luego de crear exitosamente su cuenta de usuario, contar&aacute; con todas las funcionalidades que ofrece el sitio, solamente queda buscar los proyectos de su inter&eacute;s en los cuales se quiera participar y ser un Congresista Virtual.</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>', 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
+	(6, 'Quiénes Somos', 'about', '<h1 style="text-align: center;"><strong>&iquest;Qui&eacute;nes Somos?</strong></h1>', 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
+	(7, 'Manual de Uso', 'instructive', '<h1 class="text-center" style="text-align: center;">INSTRUCTIVO: CONGRESO VIRTUAL</h1>\n<p>&nbsp;</p>\n<div id="accordion_2" class="accordion accordion-type-2 accordion-flush">\n<div class="card">\n<div class="card-header d-flex justify-content-between activestate"><a role="button" href="#collapse_1i" data-toggle="collapse" aria-expanded="true">Inicio de Sesi&oacute;n</a></div>\n<div id="collapse_1i" class="collapse show" role="tabpanel" data-parent="#accordion_2">\n<div class="card-body pa-15">Para la participaci&oacute;n en el sitio web de congreso virtual, es necesario realizar un registro y posterior ingreso a cuenta con sus datos correspondientes, esto permitir&aacute; tener disponible las funcionalidades que ofrece el sitio.<br />En caso de no contar con una cuenta, se podr&aacute; visualizar de todos modos los proyectos de ley.</div>\n</div>\n</div>\n<div class="card">\n<div class="card-header d-flex justify-content-between"><a class="collapsed" role="button" href="#collapse_2i" data-toggle="collapse" aria-expanded="false">Postulaci&oacute;n de proyectos de ley</a></div>\n<div id="collapse_2i" class="collapse" data-parent="#accordion_2">\n<div class="card-body pa-15">Si desea postular un proyecto de ley debe dirigirse a la pagina principal de Congreso Virtual y debe ingresar a la opci&oacute;n que se encuentra al inferior de la p&aacute;gina "realizar propuesta", una vez ingresada su propuesta proceda a enviarla.</div>\n</div>\n</div>\n<div class="card">\n<div class="card-header d-flex justify-content-between"><a class="collapsed" role="button" href="#collapse_3i" data-toggle="collapse" aria-expanded="false">Opinar/debatir/votar proyectos de ley</a></div>\n<div id="collapse_3i" class="collapse" data-parent="#accordion_2">\n<div class="card-body pa-15">Para revisar e interactuar con los proyectos de ley, se debe ir a Proyectos de ley. En votaci&oacute;n en barra de navegaci&oacute;n, luego se debe seleccionar un proyecto y posteriormente realizar un voto o comentario el cual quedara registrado en su respectiva cuenta.</div>\n</div>\n</div>\n<div class="card">\n<div class="card-header d-flex justify-content-between"><a class="collapsed" role="button" href="#collapse_4i" data-toggle="collapse" aria-expanded="false">Olvido de contrase&ntilde;a</a></div>\n<div id="collapse_4i" class="collapse" data-parent="#accordion_2">\n<div class="card-body pa-15">Se puede solicitar una nueva contrase&ntilde;a desde la p&aacute;gina de login, declarando que olvid&oacute; su contrase&ntilde;a, la reasignaci&oacute;n ser&aacute; enviada a su correo electr&oacute;nico.</div>\n</div>\n</div>\n</div>', 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
+	(8, 'Glosario de Términos', 'glossary', '<h1 class="text-center" style="text-align: center;">GLOSARIO DE T&Eacute;RMINOS GENERALES PARA ENTENDER DE MEJOR MANERA EL SITIO</h1>', 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
+	(10, 'Políticas de Privacidad', 'privacy-policies', '<h1 style="text-align: center;"><strong>POL&Iacute;TICAS DE PRIVACIDAD</strong></h1>', 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
+	(11, 'Términos y Condiciones', 'terms-and-conditions', '<h1 style="text-align: center;"><strong>T&Eacute;RMINOS Y CONDICIONES</strong></h1>', 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
+	(12, 'Reglamento', 'rules', '<h1 style="text-align: center;"><span style="color: #000000;">Reglamento</span></h1>', 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-generico.page_term: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `page_term` DISABLE KEYS */;
-/*!40000 ALTER TABLE `page_term` ENABLE KEYS */;
+-- Volcando datos para la tabla congreso-generico.players: ~1 rows (aproximadamente)
+/*!40000 ALTER TABLE `players` DISABLE KEYS */;
+INSERT INTO `players` (`user_id`, `points`, `active_gamification`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 0, 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
+/*!40000 ALTER TABLE `players` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-generico.positions: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `positions` DISABLE KEYS */;
-/*!40000 ALTER TABLE `positions` ENABLE KEYS */;
-
--- Volcando datos para la tabla congreso-generico.projects: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla congreso-generico.projects: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
 INSERT INTO `projects` (`id`, `titulo`, `postulante`, `estado`, `etapa`, `detalle`, `resumen`, `fecha_inicio`, `fecha_termino`, `boletin`, `is_principal`, `is_public`, `is_enabled`, `votos_a_favor`, `votos_en_contra`, `abstencion`, `video_code`, `video_source`, `imagen_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Proyecto de Demostración', 'Nombre 1 Apellido 1, Nombre 2 Apellido 2', 'Proceso de elaboración', 2, '<p>Detalle del proyecto de ley.</p>', 'Resumen del proyecto de ley.', '2020-01-01 03:00:00', '2020-03-01 02:59:59', '00001-01', 1, 1, 1, 0, 0, 0, NULL, NULL, NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-generico.project_term: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `project_term` DISABLE KEYS */;
-/*!40000 ALTER TABLE `project_term` ENABLE KEYS */;
+-- Volcando datos para la tabla congreso-generico.rewards: ~9 rows (aproximadamente)
+/*!40000 ALTER TABLE `rewards` DISABLE KEYS */;
+INSERT INTO `rewards` (`id`, `name`, `points`, `actions_needed`, `icon`, `action_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'Comentar proyecto (o artículo e idea fundamental relacionada) por 2° vez', 5, 2, 'comment', 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
+	(2, 'Comentar algo relacionado a un término por 2° vez', 10, 2, 'comment', 5, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
+	(3, 'Votar proyecto (o artículo e idea fundamental relacionada) por 2° vez', 5, 2, 'vote-yea', 2, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
+	(4, 'Votar algo relacionado a un término por 2° vez', 10, 2, 'vote-yea', 6, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
+	(5, 'Leer proyecto (o artículo e idea fundamental relacionada) por 2° vez', 5, 2, 'book-open', 3, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
+	(6, 'Leer página por 2° vez', 5, 2, 'book-open', 4, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
+	(7, 'Leer algo relacionado a un término por 2° vez', 10, 2, 'book-open', 7, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
+	(8, 'Leer algo relacionado a un término por 3° vez', 15, 3, 'book-open', 7, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
+	(9, 'Leer algo relacionado a un término por 4° vez', 20, 4, 'book-open', 7, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
+/*!40000 ALTER TABLE `rewards` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-generico.proposals: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `proposals` DISABLE KEYS */;
-/*!40000 ALTER TABLE `proposals` ENABLE KEYS */;
-
--- Volcando datos para la tabla congreso-generico.public_consultations: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `public_consultations` DISABLE KEYS */;
-/*!40000 ALTER TABLE `public_consultations` ENABLE KEYS */;
-
--- Volcando datos para la tabla congreso-generico.public_consultation_term: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `public_consultation_term` DISABLE KEYS */;
-/*!40000 ALTER TABLE `public_consultation_term` ENABLE KEYS */;
-
--- Volcando datos para la tabla congreso-generico.settings: ~10 rows (aproximadamente)
+-- Volcando datos para la tabla congreso-generico.settings: ~13 rows (aproximadamente)
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
 INSERT INTO `settings` (`id`, `key`, `label`, `value`, `created_at`, `updated_at`) VALUES
 	(1, 'site_name', 'Nombre del sitio', 'Congreso Virtual', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
-	(5, 'site_menu_principal', 'Menú principal', '{"name":"Configuración menú principal","lastCategoriesId":25,"categorias":[{"id":1,"text":"Proyectos de Ley","url":"#","subcategorias":[{"id":2,"text":"Todos los Proyectos","parent_id":1,"url":"/projects"},{"id":3,"text":"En Votación","parent_id":1,"url":"/projects?is_available_voting=1"},{"id":4,"text":"Votaciones Cerradas","parent_id":1,"url":"/projects?is_available_voting=0"}]},{"id":5,"text":"Consultas Públicas","url":"#","subcategorias":[{"id":6,"text":"Todas las Consultas","parent_id":5,"url":"/public_consultations"},{"id":7,"text":"En Votación","parent_id":5,"url":"/public_consultations?is_available_voting=1"},{"id":8,"text":"Votaciones Cerradas","parent_id":5,"url":"/public_consultations?is_available_voting=0"}]},{"id":9,"text":"Propuestas de Ley","url":"#","subcategorias":[{"id":10,"text":"Todas las Propuestas","parent_id":9,"url":"/proposals"},{"id":11,"text":"Incorporación de Proyectos","parent_id":9,"url":"/proposals?type=1"},{"id":12,"text":"Peticiones de Urgencias","parent_id":9,"url":"/proposals?type=2"}]},{"id":16,"text":"Acerca de","url":"#","subcategorias":[{"id":17,"text":"Preguntas Frecuentes","parent_id":16,"url":"/page/preguntas-frecuentes"},{"id":18,"text":"Manual de Uso","parent_id":16,"url":"/instructive"},{"id":19,"text":"Política de Privacidad","parent_id":16,"url":"/page/privacy-policies"},{"id":20,"text":"Términos y Condiciones","parent_id":16,"url":"/page/terms-and-conditions"},{"id":21,"text":"Reglamento","parent_id":16,"url":"/reglamento"},{"id":22,"text":"Glosario de Términos","parent_id":16,"url":"/glosario"},{"id":23,"text":"¿Quiénes Somos?","parent_id":16,"url":"/somos"},{"id":24,"text":"Contacto","parent_id":16,"url":"/contact"}]}]}', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
-	(6, 'max_necessary_petitions', 'Peticiones máximas', '{"number_petitions":"100"}', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
-	(7, 'social_networks', 'Redes sociales', '{"facebook":"https://www.facebook.com/foo_bar","twitter":"https://twitter.com/foo_bar","instagram":"https://www.instagram.com/foo_bar","youtube":"https://www.youtube.com/c/foo_bar"}', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
-	(8, 'code_google_analytics', 'Código de google analytics', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
-	(9, 'site_footer', 'Footer del sitio', '{"name":"Configuración footer","lastCategoriesId":19,"categorias":[{"id":1,"text":"Proyectos de Ley","url":"/projects","subcategorias":[{"id":2,"text":"En Votación","parent_id":1,"url":"/projects?is_available_voting=1"},{"id":3,"text":"Votaciones Cerradas","parent_id":1,"url":"/projects?is_available_voting=0"}]},{"id":4,"text":"Consultas públicas","url":"/public_consultations","subcategorias":[{"id":5,"text":"En Votación","parent_id":4,"url":"/public_consultations?is_available_voting=1"},{"id":6,"text":"Votaciones Cerradas","parent_id":4,"url":"/public_consultations?is_available_voting=0"}]},{"id":7,"text":"Propuestas de Ley","url":"/proposals","subcategorias":[{"id":8,"text":"Incorporación de Proyectos","parent_id":7,"url":"/proposals?type=1"},{"id":9,"text":"Peticiones de Urgencias","parent_id":7,"url":"/proposals?type=2"}]},{"id":10,"text":"Acerca de","url":"#","subcategorias":[{"id":11,"text":"Preguntas Frecuentes","parent_id":10,"url":"/page/preguntas-frecuentes"},{"id":12,"text":"Manual de Uso","parent_id":10,"url":"/instructive"},{"id":13,"text":"Política de Privacidad","parent_id":10,"url":"/page/privacy-policies"},{"id":14,"text":"Términos y Condiciones","parent_id":10,"url":"/page/terms-and-conditions"},{"id":15,"text":"Reglamento","parent_id":10,"url":"/reglamento"},{"id":16,"text":"Glosario de Términos","parent_id":10,"url":"/glosario"},{"id":17,"text":"¿Quiénes Somos?","parent_id":10,"url":"/somos"},{"id":18,"text":"Contacto","parent_id":10,"url":"/contacto"}]}]}', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
-	(11, 'contact_emails', 'Direcciones de Correo Electrónico de Contacto', '["contacto@dominio.cl","admin@dominio.cl"]', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
-	(12, 'address', 'Dirección', 'Avenida Foo Bar N°1234, Lorem City', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
-	(13, 'contact_phones', 'Teléfonos de Contacto', '["(12) 34 5678 9012","(12) 34 5678 9013"]', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
-	(14, 'video_iframes', 'Códigos de Inserción de Videos', '{"youtube":"<iframe class=\\"embed-responsive-item\\" src=\\"https://www.youtube.com/embed/[VIDEO_CODE]\\" allowfullscreen=\\"allowfullscreen\\"></iframe>","vimeo":"<iframe class=\\"embed-responsive-item\\" src=\\"https://player.vimeo.com/video/[VIDEO_CODE]\\" allowfullscreen=\\"allowfullscreen\\"></iframe>","dailymotion":"<iframe class=\\"embed-responsive-item\\" src=\\"https://www.dailymotion.com/embed/video/[VIDEO_CODE]\\" allowfullscreen=\\"allowfullscreen\\"></iframe>"}', '2020-03-02 12:38:26', '2020-03-02 17:33:48');
+	(2, 'site_menu_principal', 'Menú principal', '{"name":"Configuración menú principal","lastCategoriesId":27,"categorias":[{"id":1,"text":"Proyectos de Ley","url":"#","subcategorias":[{"id":2,"text":"Todos los Proyectos","parent_id":1,"url":"/projects"},{"id":3,"text":"En Votación","parent_id":1,"url":"/projects?etapas[]=1&etapas[]=2"},{"id":4,"text":"Votaciones Cerradas","parent_id":1,"url":"/projects?etapas[]=3"}]},{"id":5,"text":"Consultas Públicas","url":"#","subcategorias":[{"id":6,"text":"Todas las Consultas","parent_id":5,"url":"/public_consultations"},{"id":7,"text":"En Votación","parent_id":5,"url":"/public_consultations?estados[]=1"},{"id":8,"text":"Votaciones Cerradas","parent_id":5,"url":"/public_consultations?estados[]=0"}]},{"id":9,"text":"Propuestas de Ley","url":"#","subcategorias":[{"id":10,"text":"Todas las Propuestas","parent_id":9,"url":"/user-proposals"},{"id":11,"text":"Incorporación de Proyectos","parent_id":9,"url":"/user-proposals?type=1"},{"id":12,"text":"Peticiones de Urgencias","parent_id":9,"url":"/user-proposals?type=2"}]},{"id":16,"text":"Acerca de","url":"#","subcategorias":[{"id":17,"text":"Preguntas Frecuentes","parent_id":16,"url":"/page/faq"},{"id":18,"text":"Manual de Uso","parent_id":16,"url":"/page/instructive"},{"id":19,"text":"Política de Privacidad","parent_id":16,"url":"/page/privacy-policies"},{"id":20,"text":"Términos y Condiciones","parent_id":16,"url":"/page/terms-and-conditions"},{"id":21,"text":"Reglamento","parent_id":16,"url":"/page/rules"},{"id":22,"text":"Glosario de Términos","parent_id":16,"url":"/page/glossary"},{"id":23,"text":"¿Quiénes Somos?","parent_id":16,"url":"/page/about"},{"id":24,"text":"Contacto","parent_id":16,"url":"/contact"}]}]}', '2020-02-27 17:25:36', '2020-04-22 23:17:29'),
+	(3, 'max_necessary_petitions', 'Peticiones máximas', '{"number_petitions":"100"}', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
+	(4, 'social_networks', 'Redes sociales', '{"facebook":"https://www.facebook.com/foo_bar","twitter":"https://twitter.com/foo_bar","instagram":"https://www.instagram.com/foo_bar","youtube":"https://www.youtube.com/c/foo_bar"}', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
+	(5, 'code_google_analytics', 'Código de Google Analytics', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
+	(6, 'site_footer', 'Footer del sitio', '{"name":"Configuración footer","lastCategoriesId":28,"categorias":[{"id":1,"text":"Proyectos de Ley","url":"/projects","subcategorias":[{"id":2,"text":"En Votación","parent_id":1,"url":"/projects?etapas[]=1&etapas[]=2"},{"id":3,"text":"Votaciones Cerradas","parent_id":1,"url":"/projects?etapas[]=3"}]},{"id":4,"text":"Consultas públicas","url":"/public_consultations","subcategorias":[{"id":5,"text":"En Votación","parent_id":4,"url":"/public_consultations?estados[]=1"},{"id":6,"text":"Votaciones Cerradas","parent_id":4,"url":"/public_consultations?estados[]=0"}]},{"id":7,"text":"Propuestas de Ley","url":"/user-proposals","subcategorias":[{"id":8,"text":"Incorporación de Proyectos","parent_id":7,"url":"/user-proposals?type=1"},{"id":9,"text":"Peticiones de Urgencias","parent_id":7,"url":"/user-proposals?type=2"}]},{"id":10,"text":"Acerca de","url":"#","subcategorias":[{"id":11,"text":"Preguntas Frecuentes","parent_id":10,"url":"/page/faq"},{"id":12,"text":"Manual de Uso","parent_id":10,"url":"/page/instructive"},{"id":13,"text":"Política de Privacidad","parent_id":10,"url":"/page/privacy-policies"},{"id":14,"text":"Términos y Condiciones","parent_id":10,"url":"/page/terms-and-conditions"},{"id":15,"text":"Reglamento","parent_id":10,"url":"/page/rules"},{"id":16,"text":"Glosario de Términos","parent_id":10,"url":"/page/glossary"},{"id":17,"text":"¿Quiénes Somos?","parent_id":10,"url":"/page/about"},{"id":18,"text":"Contacto","parent_id":10,"url":"/contact"}]}]}', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
+	(7, 'contact_emails', 'Direcciones de correo electrónico de contacto', '["contacto@dominio.cl","admin@dominio.cl"]', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
+	(8, 'address', 'Dirección', 'Avenida Foo Bar N°1234, Lorem City', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
+	(9, 'contact_phones', 'Teléfonos de contacto', '["(12) 34 5678 9012","(12) 34 5678 9013"]', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
+	(10, 'video_iframes', 'Códigos de inserción de videos', '{"youtube":"<iframe class=\\"embed-responsive-item\\" src=\\"https://www.youtube.com/embed/[VIDEO_CODE]\\" allowfullscreen=\\"allowfullscreen\\"></iframe>","vimeo":"<iframe class=\\"embed-responsive-item\\" src=\\"https://player.vimeo.com/video/[VIDEO_CODE]\\" allowfullscreen=\\"allowfullscreen\\"></iframe>","dailymotion":"<iframe class=\\"embed-responsive-item\\" src=\\"https://www.dailymotion.com/embed/video/[VIDEO_CODE]\\" allowfullscreen=\\"allowfullscreen\\"></iframe>"}', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
+	(11, 'external_api', 'API externa', '{"general_info_project":null,"trace_info_project":null,"parliament_vote_project":null,"proposals_url_list":[]}', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
+	(12, 'active_gamification', 'Gamificación activa', 'true', '2020-02-27 17:25:36', '2020-02-27 17:25:36'),
+	(13, 'player_rating', 'Estrellas de clasificación de jugadores', '{"votes_ponderation":0.3,"comments_ponderation":0.3,"points_ponderation":0.4,"factor":100}', '2020-02-27 17:25:36', '2020-02-27 17:25:36');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 
 -- Volcando datos para la tabla congreso-generico.stopwords: ~514 rows (aproximadamente)
@@ -631,7 +630,7 @@ INSERT INTO `stopword_types` (`id`, `label`, `table_name`, `created_at`, `update
 	(3, 'Términos', 'terms', '2020-02-27 17:25:36', '2020-02-27 17:25:36');
 /*!40000 ALTER TABLE `stopword_types` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-generico.taxonomies: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla congreso-generico.taxonomies: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `taxonomies` DISABLE KEYS */;
 INSERT INTO `taxonomies` (`id`, `value`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Categorías', '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
@@ -706,14 +705,6 @@ INSERT INTO `terms` (`id`, `value`, `parent_id`, `created_at`, `updated_at`, `de
 	(29, 'Estudiantes', NULL, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
 /*!40000 ALTER TABLE `terms` ENABLE KEYS */;
 
--- Volcando datos para la tabla congreso-generico.term_user: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `term_user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `term_user` ENABLE KEYS */;
-
--- Volcando datos para la tabla congreso-generico.urgencies: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `urgencies` DISABLE KEYS */;
-/*!40000 ALTER TABLE `urgencies` ENABLE KEYS */;
-
 -- Volcando datos para la tabla congreso-generico.users: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `surname`, `rol`, `email`, `avatar_id`, `active`, `activation_token`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -727,10 +718,6 @@ INSERT INTO `user_metas` (`id`, `key`, `value`, `user_id`, `created_at`, `update
 	(2, 'es_experto', '0', 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL),
 	(3, 'es_organizacion', '0', 1, '2020-02-27 17:25:36', '2020-02-27 17:25:36', NULL);
 /*!40000 ALTER TABLE `user_metas` ENABLE KEYS */;
-
--- Volcando datos para la tabla congreso-generico.votes: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `votes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `votes` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
