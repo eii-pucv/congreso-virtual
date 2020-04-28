@@ -405,7 +405,7 @@ _Instalar paquetes opcionales de assets si existiesen, siguiendo los pasos corre
 
 #### Acerca de la Gamificación
 
-Congreso Virtual cuenta con un sistema de gamificación que implica la entrega de recompensas a los usuarios (juagdores) según sus interacciones con el sistema, entre otras cosas. Estas recompensas, junto con otros elementos relacionados, el administrador deberá configurarlos previamente desde el panel de administración.
+Congreso Virtual cuenta con un sistema de gamificación que implica la entrega de recompensas a los usuarios (juagdores) según sus interacciones con el sistema, entre otras cosas. Estas recompensas, junto con otros elementos relacionados, deberán ser configurardos previamente por el administrador desde el panel de administración.
 
 Al instalar el script SQL que se provee en este repositorio (`~/congreso-virtual/volumefiles/initialdata.sql`) podrá encontrar datos iniciales de ejemplo que le permitan entender cómo debe configurar una recompensa.
 
@@ -413,7 +413,7 @@ Para que la gamificación funcione, debe ser activada. También debe tener en cu
 
 * __Activación global__: desde el panel de administración debe dirigirse a "Configuración del Sitio Web" > "Configuracíon General", sección "Gamificación" y activar el interruptor donde se pregunta "¿Activar gamificación?".
 
-* __Activación particular__: existen dos formas de lograr esto,
+* __Activación particular__: existen dos formas para lograr esto,
   * La primera es por cada usuario, para ello desde el panel de administración diríjase a "Usuarios" > "Lista de Usuarios" o "Lista de Organizaciones", presione el botón "Acciones" y luego "Editar" del usuario al cual desea activar la gamificación, en la vista para editar diríjase hasta la pregunta "¿Desea que el usuario tenga la gamificación activada?" y active la casilla. Otro camino para llegar hasta esta configuración es mediante "Gamificación" > "Lista de Jugadores".
   * La segunda es para activarla en todos los usuarios de una vez, para ello debe ejecutar el siguiente comando:
     ```
@@ -506,10 +506,10 @@ _Cada vez que se compile el frontend, este archivo será sobreescrito o eliminad
    $ crontab -e
    ```
 
-_Crontab utiliza el editor de texto Vim. Si desea utilizar otro editor (como Nano), luego de iniciar sesión por SSH escribir el siguiente comando._
-```
-$ export EDITOR=nano
-```
+   _Crontab utiliza el editor de texto Vim. Si desea utilizar otro editor (como Nano), luego de iniciar sesión por SSH escribir el siguiente comando._
+   ```
+   $ export EDITOR=nano
+   ```
 
 5. En el editor escribir la siguiente línea.
    ```
@@ -660,7 +660,7 @@ Congreso Virtual ofrece la opción de Instalación rápida, el cual luego de con
    $ ./scripts/fast_setup.sh
    ```
 
-* Se iniciará automáticamente el proceso de instalación y puesta en punto, el cual dependiendo del rendimiento de su servidor tardará dentro de 30 a 40 minutos.
+   Se iniciará automáticamente el proceso de instalación y puesta en punto, el cual dependiendo del rendimiento de su servidor tardará dentro de 30 a 40 minutos.
 
 5. Una vez finalizado el proceso, deje aproximadamente unos 10 a 15 minutos adicionales para que Congreso Virtual termine de inicializarse en segundo plano (librerías, dependencias y bases de datos).  Una forma de comprobar si Congreso Virtual ha inicializado satisfactoriamente es entrando a la URL de la API. Si este indica un error 503 Service Unavailable, entonces este no ha terminado de inicializar aún. 
 
@@ -669,19 +669,19 @@ Congreso Virtual ofrece la opción de Instalación rápida, el cual luego de con
    $ ./scripts/installinitialdata.sh
    ```
 
-* Se creará con ello un **usuario** `admin@congresovirtual.cl` con **contraseña** `abc123456`
+   Se creará con ello un **usuario** `admin@congresovirtual.cl` con **contraseña** `abc123456`
 
-* En cualquier momento usted puede ver los **logs** de Congreso Virtual (y sus componentes) ejecutando:
+En cualquier momento usted puede ver los **logs** de Congreso Virtual (y sus componentes) ejecutando:
   ```
   $ ./scripts/livelog.sh
   ```
 
-* Puede **detener** la ejecución de congreso virtual en cualquier momento ejecutando el comando:
+Puede **detener** la ejecución de congreso virtual en cualquier momento ejecutando el comando:
   ```
   $ ./scripts/stop.sh
   ```
 
-* De la misma forma puede **volver a iniciar** el servidor ejecutando:
+De la misma forma puede **volver a iniciar** el servidor ejecutando:
   ```
   $ ./scripts/run.sh
   ```
@@ -726,14 +726,14 @@ El primer script es `./scripts/configure.sh`  cuya tarea es ayudar en las tareas
    $ ./scripts/compile_frontend.sh
    ```
 
-* Inicializará una instancia temporal de vue y compilará el frontend (esto puede tardar mucho tiempo, y puede consumir mucha RAM). Luego añadirá archivos especiales y asignará permisos para apache.  
+   Inicializará una instancia temporal de vue y compilará el frontend (esto puede tardar mucho tiempo, y puede consumir mucha RAM). Luego añadirá archivos especiales y asignará permisos para apache.  
 
 5. Con el frontend compilado, ya se puede inicializar el proyecto con el comando: 
    ```
    $ ./scripts/run.sh
    ```
 
-* Si se **corre por primera vez**, se inicializarán los contenedores, y se crearán los archivos de bases de datos segun lo descrito en el archivo de configuración en `/dist/volumefiles/mysql` y `/dist/volumefiles/elasticsearch`. Si no es la primera vez que se corren, entonces se usarán los archivos ya existentes.
+   Si se **corre por primera vez**, se inicializarán los contenedores, y se crearán los archivos de bases de datos segun lo descrito en el archivo de configuración en `/dist/volumefiles/mysql` y `/dist/volumefiles/elasticsearch`. Si no es la primera vez que se corren, entonces se usarán los archivos ya existentes.
 
 6. Una vez que haya finalizado el inicio, en segundo plano Congreso Virtual correrá las actualizaciónes de Composer y Artisan, lo que puede tardar un tiempo. Una forma de comprobar si Congreso Virtual ha inicializado satisfactoriamente es entrando a la URL de la API. Si este indica un error 503 Service Unavailable, entonces este no ha terminado de inicializar aún. Además, uede ver el estado y los logs de Congreso y sus componentes con:
    ```
@@ -745,30 +745,30 @@ El primer script es `./scripts/configure.sh`  cuya tarea es ayudar en las tareas
    $ ./scripts/installinitialdata.sh
    ```
 
-* Se creará con ello un **usuario** `admin@dominio.com` con contraseña `abc123456`.
+   Se creará con ello un **usuario** `admin@dominio.com` con contraseña `abc123456`.
 
-**NOTA:** Si necesita cargar un set de datos especiales, puede editar el archivo `/dist/volumefiles/initialdata.sql` e ingresarlos allí. Luego correr `./scripts/installinitialdata.sh` para aplicarlo.
+   **NOTA:** Si necesita cargar un set de datos especiales, puede editar el archivo `/dist/volumefiles/initialdata.sql` e ingresarlos allí. Luego correr `./scripts/installinitialdata.sh` para aplicarlo.
 
-* De la misma forma, puede **detener** la ejecución de Congreso Virtual con el comando:
-  ```
-  $ ./scripts/stop.sh
-  ```
+De la misma forma, puede **detener** la ejecución de Congreso Virtual con el comando:
+```
+$ ./scripts/stop.sh
+```
 
-* Si bien esto destruye los contenedores, la información persistente (storage, bases de datos, etc) se encuentra intacta en la carpeta `dist`. Después, puede usar el comando `./scripts/start.sh` para volver a iniciar el servidor.
+Si bien esto destruye los contenedores, la información persistente (storage, bases de datos, etc) se encuentra intacta en la carpeta `dist`. Después, puede usar el comando `./scripts/start.sh` para volver a iniciar el servidor.
 
-* Para **eliminar** la instancia de Congreso Virtual, junto con los datos y la base de datos utilice el comando:
-  ```
-  $ ./scripts/configure.sh --clean
-  ```
+Para **eliminar** la instancia de Congreso Virtual, junto con los datos y la base de datos utilice el comando:
+```
+$ ./scripts/configure.sh --clean
+```
 
-* Le pedirá una confirmación adicional para verificar que esté seguro con `--yes`.
+Le pedirá una confirmación adicional para verificar que esté seguro con `--yes`.
 
-* El script de configure tambien permite realizar la **actualización** del código del repositorio a la carpeta `dist`. Para ello, pare Congreso Virtual, sincronice su git con `git pull` y luego inicie la actualización con:
-  ```
-  $ ./scripts/configure.sh --update
-  ```
+El script de configure tambien permite realizar la **actualización** del código del repositorio a la carpeta `dist`. Para ello, pare Congreso Virtual, sincronice su git con `git pull` y luego inicie la actualización con:
+```
+$ ./scripts/configure.sh --update
+```
 
-* Esto rescatará la configuración y data persistente de Congreso Virtual, y luego actulalizará el código fuente, para finalmente efectuar la restauración de los datos de la antigua versión. Una vez terminado el proceso deberá recompilar el frontend con los pasos descritos mas arriba.
+Esto rescatará la configuración y data persistente de Congreso Virtual, y luego actulalizará el código fuente, para finalmente efectuar la restauración de los datos de la antigua versión. Una vez terminado el proceso deberá recompilar el frontend con los pasos descritos mas arriba.
 
 ---
 

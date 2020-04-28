@@ -222,7 +222,7 @@
             getUserVote() {
                 let userId = this.$store.getters.userData.id;
                 axios
-                    .get('/project/' + this.project.id + '/vote', {
+                    .get('/projects/' + this.project.id + '/vote', {
                         params: {
                             user_id: userId
                         }
