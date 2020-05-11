@@ -1,3 +1,3 @@
-# Acerca de #
+# Acerca de
 
-Módulo de Anañítica de Datos de Congreso Virtual.
+Módulo de Analítica de Datos de Congreso Virtual.
