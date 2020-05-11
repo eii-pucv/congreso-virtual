@@ -4,7 +4,7 @@ namespace App\Gamification;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class ActionEvent extends Pivot // No usado
+class ActionEvent extends Pivot
 {
     public $incrementing = true;
     public $timestamps = false;

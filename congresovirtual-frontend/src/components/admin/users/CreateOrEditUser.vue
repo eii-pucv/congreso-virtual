@@ -365,6 +365,7 @@
                                     id="titulo_profesional"
                                     v-model="user.titulo_profesional"
                                     class="form-control custom-select d-block w-100"
+                                    required
                                     :style="mode==='dark'?'background: #080035; color: #fff':''"
                             >
                                 <option
@@ -402,7 +403,6 @@
                                     v-model="user.estudios_adicionales"
                                     type="text"
                                     class="form-control"
-                                    required
                                     :style="mode==='dark'?'background: #080035; color: #fff':''"
                             />
                             <div class="invalid-feedback">{{ $t('invalid-feedback.area') }}</div>
@@ -432,7 +432,6 @@
                                     v-model="user.temas_trabajo"
                                     type="text"
                                     class="form-control"
-                                    required
                                     :style="mode==='dark'?'background: #080035; color: #fff':''"
                             />
                             <div class="invalid-feedback">{{ $t('invalid-feedback.temas') }}</div>
@@ -567,10 +566,10 @@
                                     class="float-right"
                                     v-bind:class="{ 'btn-group': index || (!index && user.member_orgs.length > 1) }"
                             >
-                                <a @click="removeMember(index)" v-show="index || (!index && user.member_orgs.length > 1)" class="btn btn-sm btn-danger">
+                                <a @click="removeMember(index)" v-show="index || (!index && user.member_orgs.length > 1)" class="btn btn-sm btn-danger text-white">
                                     <i class="fas fa-minus"></i>
                                 </a>
-                                <a @click="addMember" class="btn btn-sm btn-primary">
+                                <a @click="addMember()" class="btn btn-sm btn-primary text-white">
                                     <i class="fas fa-plus"></i>
                                 </a>
                             </div>
@@ -621,10 +620,10 @@
                                     class="float-right"
                                     v-bind:class="{ 'btn-group': index || (!index && user.location_orgs.length > 1) }"
                             >
-                                <a @click="removeLoaction(index)" v-show="index || (!index && user.location_orgs.length > 1)" class="btn btn-sm btn-danger">
+                                <a @click="removeLoaction(index)" v-show="index || (!index && user.location_orgs.length > 1)" class="btn btn-sm btn-danger text-white">
                                     <i class="fas fa-minus"></i>
                                 </a>
-                                <a @click="addLocation" class="btn btn-sm btn-primary">
+                                <a @click="addLocation()" class="btn btn-sm btn-primary text-white">
                                     <i class="fas fa-plus"></i>
                                 </a>
                             </div>

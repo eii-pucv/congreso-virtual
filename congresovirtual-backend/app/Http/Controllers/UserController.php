@@ -1221,7 +1221,7 @@ class UserController extends Controller
                 ];
             } else {
                 $validator = Validator::make($request->all(), [
-                    'titulo_profesional'    => 'integer|nullable',
+                    'titulo_profesional'    => 'required|integer|nullable',
                     'estudios_adicionales'  => 'string|nullable',
                     'anios_experiencia_laboral' => 'integer|nullable',
                     'areas_desempenio'      => 'array|nullable',

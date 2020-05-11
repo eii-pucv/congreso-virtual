@@ -156,10 +156,12 @@ class AuthController extends Controller
                 'activation_token' => null
             ]);
             $user->save();
-            return $user;
+
+            return response()->json([
+                'message' => 'User activated successfully.'], 201);
         } catch (\Exception $exception) {
             return response()->json([
-                'message' => 'Error: activation token is invalid.'], 404);
+                'message' => 'Error: activation token is invalid.'], 412);
         }
     }
 
@@ -405,7 +407,7 @@ class AuthController extends Controller
                 ];
             } else {
                 $validator = Validator::make($request->all(), [
-                    'titulo_profesional'    => 'integer|nullable',
+                    'titulo_profesional'    => 'required|integer|nullable',
                     'estudios_adicionales'  => 'string|nullable',
                     'anios_experiencia_laboral' => 'integer|nullable',
                     'areas_desempenio'      => 'array|nullable',

@@ -541,7 +541,7 @@
                                         :color="'#ffffff'"
                                 ></Loading>
                             </button>
-                            <button @click.prevent="back" class="btn btn-danger text-white ml-10">
+                            <button @click.prevent="back" class="btn btn-danger ml-10">
                                 <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
                             </button>
                         </div>

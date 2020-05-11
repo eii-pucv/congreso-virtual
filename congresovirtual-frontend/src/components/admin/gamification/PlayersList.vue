@@ -134,7 +134,7 @@
                                     v-bind:class="i === currentPage ? 'active':''"
                                     class="page-item"
                             >
-                                <a class="page-link" @click="getUsers(i)">{{ i }}</a>
+                                <a class="page-link" @click="getPlayers(i)">{{ i }}</a>
                             </li>
                             <li class="page-item" v-bind:class="currentPage + 1 > Math.ceil(totalRows/limit) ? 'disabled' : ''">
                                 <a

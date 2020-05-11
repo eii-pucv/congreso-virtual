@@ -1,7 +1,7 @@
 <template>
     <div :style="mode==='dark'?'background: #080035; color: #fff':''">
-        <div class="row mb-30">
-            <div class="col-sm">
+        <div class="row mx-0 mb-30">
+            <div class="col-sm px-0">
                 <nav class="navbar navbar-expand-xl navbar-dark" style="background-color: #454545">
                     <a class="navbar-brand d-xl-none" href="/admin">
                         <h4>{{ $t('administrador.navbar.titulo') }}</h4>

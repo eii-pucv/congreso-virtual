@@ -269,7 +269,7 @@
                                         :color="'#ffffff'"
                                 ></Loading>
                             </button>
-                            <button @click.prevent="back" class="btn btn-danger text-white ml-10">
+                            <button @click.prevent="back" class="btn btn-danger ml-10">
                                 <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
                             </button>
                         </div>
@@ -292,6 +292,7 @@
                                     id="titulo_profesional"
                                     v-model="user.titulo_profesional"
                                     class="form-control custom-select d-block w-100"
+                                    required
                                     :style="mode==='dark'?'background: #080035; color: #fff':''"
                             >
                                 <option
@@ -329,7 +330,6 @@
                                     v-model="user.estudios_adicionales"
                                     type="text"
                                     class="form-control"
-                                    required
                                     :style="mode==='dark'?'background: #080035; color: #fff':''"
                             />
                             <div class="invalid-feedback">{{ $t('invalid-feedback.area') }}</div>
@@ -359,7 +359,6 @@
                                     v-model="user.temas_trabajo"
                                     type="text"
                                     class="form-control"
-                                    required
                                     :style="mode==='dark'?'background: #080035; color: #fff':''"
                             />
                             <div class="invalid-feedback">{{ $t('invalid-feedback.temas') }}</div>
@@ -375,7 +374,7 @@
                                     :color="'#ffffff'"
                             ></Loading>
                         </button>
-                        <button @click.prevent="back" class="btn btn-danger text-white ml-10">
+                        <button @click.prevent="back" class="btn btn-danger ml-10">
                             <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
                         </button>
                     </div>
@@ -673,7 +672,7 @@
                                     :color="'#ffffff'"
                             ></Loading>
                         </button>
-                        <button @click.prevent="back" class="btn btn-danger text-white ml-10">
+                        <button @click.prevent="back" class="btn btn-danger ml-10">
                             <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
                         </button>
                     </div>
@@ -751,7 +750,7 @@
                                     :color="'#ffffff'"
                             ></Loading>
                         </button>
-                        <button @click.prevent="back" class="btn btn-danger text-white ml-10">
+                        <button @click.prevent="back" class="btn btn-danger ml-10">
                             <i class="fas fa-window-close"></i> {{ $t('cancelar') }}
                         </button>
                     </div>
