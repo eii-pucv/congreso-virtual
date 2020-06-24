@@ -649,6 +649,8 @@ Congreso Virtual ofrece la opción de Instalación rápida, el cual luego de con
 
 * Windows: Si bien, estos scripts son hechos para bash, y por ende, pensados para sistemas basados en UNIX (Linux, OSX, otros), también pueden correrse en **Windows** con ayuda de componentes adicionales, tales como _MSYS2_, _Git for Windows_ o _WSL_.
 
+* Linux: Para permitir que la instalación con Docker pueda realizar peticiones de descarga de dependencias a Internet, por favor, asegurarse que la funcionalidad IPv4 forwarding este activada. Para mas información visitar https://success.docker.com/article/ipv4-forwarding
+
 3. Luego de clonar el repositorio de Congreso Virtual, por favor copie el archivo `.env` localizado en `/volumefiles/` a la raiz del repositorio, y configure los parámetros de acuerdo a su criterio (viene ya preconfigurado, aunque deberá especificar algunos parámetros tales como las URL de funcionamiento).
 
 **Importante:** El script de instalación **CREARÁ una base de datos** en un contenedor Docker, no es necesario que usted prepare una. Los datos que aparece en la configuración son usados al momento de crear las tablas.
