@@ -100,7 +100,7 @@
                                 <div>
                                     <router-link
                                             v-if="getIsAvailableVoting(publicConsultation.id)"
-                                            :to="{ path: 'consultations', query: { 'estado': 1 } }"
+                                            :to="{ path: 'public_consultations', query: { 'estados[]': 1 } }"
                                             class="top-right badge badge-primary font-12 m-1"
                                             style="opacity: 0.7;"
                                     >
@@ -108,7 +108,7 @@
                                     </router-link>
                                     <router-link
                                             v-else
-                                            :to="{ path: 'consultations', query: { 'estado': 0 } }"
+                                            :to="{ path: 'public_consultations', query: { 'estados[]': '0' } }"
                                             class="top-right badge badge-danger font-12 m-1"
                                             style="opacity: 0.7;"
                                     >

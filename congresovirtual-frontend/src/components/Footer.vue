@@ -40,6 +40,11 @@
                     </a>
                 </div>
             </div>
+            <div class="row mt-20">
+                <div class="col-md-12">
+                    Desarrollado por la <a href="http://inf.ucv.cl/" class="text-white">Escuela de Ingeniería Informática</a> de la <a href="http://pucv.cl/" class="text-white">PUCV</a>
+                </div>
+            </div>
         </div>
     </footer>
 </template>
