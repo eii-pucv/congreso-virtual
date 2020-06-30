@@ -27,7 +27,10 @@ def getData(projectId):
 def projectWordCloud(projectId, maxWords):
     projectComments = getData(projectId)
     projectComments = projectComments.body
-    text = " ".join(review for review in projectComments)
-    WordCloud(max_words = maxWords).generate(text)
+    text = " ".join(str(review) for review in projectComments)
+    try:
+        WordCloud(max_words = maxWords).generate(text)
+    except ValueError:
+        return json.dumps({ "error": "ANALYTICS_ERR_EMPTY_WORDS", "message": "Error: empty words; unable to continue." })
 
     return json.dumps({ "value": text })

@@ -28,7 +28,7 @@ def projectNgram(projectId, minWords):
 
     cv = CountVectorizer(stop_words = 'english', ngram_range = (minWords, minWords))
     try:
-        text_processed = cv.fit_transform(projectComments)
+        text_processed = cv.fit_transform(str(review) for review in projectComments)
     except ValueError:
         return json.dumps({ "error": "ANALYTICS_ERR_EMPTY_VOCABULARY", "message": "Error: empty vocabulary; unable to continue." })
 

@@ -34,7 +34,7 @@ def ngram():
             else:
                 return Response(output, status = 200, mimetype = 'application/json')
         except Exception as exception:
-            return Response(json.dumps({ "error": "ANALYTICS_ERR_SERVER_ERROR", "message": exception }), status = 500, mimetype = 'application/json')
+            return Response(json.dumps({ "error": "ANALYTICS_ERR_SERVER_ERROR", "message": str(exception) }), status = 500, mimetype = 'application/json')
 
 @app.route("/topicmodel")
 def topicmodel():
@@ -51,7 +51,7 @@ def topicmodel():
             else:
                 return Response(output, status = 200, mimetype = 'application/json')
         except Exception as exception:
-            return Response(json.dumps({ "error": "ANALYTICS_ERR_SERVER_ERROR", "message": exception }), status = 500, mimetype = 'application/json')
+            return Response(json.dumps({ "error": "ANALYTICS_ERR_SERVER_ERROR", "message": str(exception) }), status = 500, mimetype = 'application/json')
 
 @app.route("/wordcloud")
 def wordcloud():
@@ -61,6 +61,7 @@ def wordcloud():
         return Response(json.dumps({ "error": "ANALYTICS_ERR_PARAM_MISSING", "message": "Error: missing parameters." }), status = 400, mimetype = 'application/json')
     else:
         try:
+            # This can return the following errors: ANALYTICS_ERR_EMPTY_WORDS
             output = projectWordCloud(projectId, maxWords)
             outputDict = json.loads(output)
             if "error" in outputDict:
@@ -68,8 +69,7 @@ def wordcloud():
             else:
                 return Response(output, status = 200, mimetype = 'application/json')
         except Exception as exception:
-            print(exception)
-            return Response(json.dumps({ "error": "ANALYTICS_ERR_SERVER_ERROR", "message": exception }), status = 500, mimetype = 'application/json')
+            return Response(json.dumps({ "error": "ANALYTICS_ERR_SERVER_ERROR", "message": str(exception) }), status = 500, mimetype = 'application/json')
 
 @app.route("/coruscant")
 def coruscant():
