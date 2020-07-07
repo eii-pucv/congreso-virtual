@@ -34,7 +34,7 @@ class OffensiveWordController extends Controller
                 $offset = $request->query('offset', 0);
                 $offensiveWords = $offensiveWords
                     ->offset($offset)
-                    ->limit($limit);
+                    ->limit($limit > 100 ? 100 : $limit);
             }
 
             $offensiveWords = $offensiveWords->get();

@@ -71,7 +71,7 @@ class EventController extends Controller
             $offset = $request->query('offset', 0);
             $events = $events
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $events = $events->with(['player', 'project', 'page', 'terms', 'actions', 'rewards'])->get();
 
             return response()->json([

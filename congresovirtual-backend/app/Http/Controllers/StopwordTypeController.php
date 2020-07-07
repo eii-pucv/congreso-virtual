@@ -36,7 +36,7 @@ class StopwordTypeController extends Controller
             $offset = $request->query('offset', 0);
             $stopwordTypes = $stopwordTypes
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $stopwordTypes = $stopwordTypes->get();
 
             return response()->json($stopwordTypes, 200);

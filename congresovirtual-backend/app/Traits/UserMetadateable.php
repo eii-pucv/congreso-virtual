@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\UserMeta;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 trait UserMetadateable
 {
@@ -25,6 +26,12 @@ trait UserMetadateable
         'tiene_per_jur' => 'boolean',
         'areas_desempenio' => 'json'
     ];
+    protected $metaAttributesPrivates = ['dni', 'pais', 'region', 'comuna',
+        'sector', 'nivel_educacional', 'genero', 'actividad', 'es_experto', 'titulo_profesional', 'estudios_adicionales', 'anios_experiencia_laboral',
+        'areas_desempenio', 'temas_trabajo', 'es_organizacion', 'nombre_org', 'email_org', 'enlace_org', 'tiene_per_jur', 'dni_org',
+        'rep_legal_org', 'tipo_org'
+    ];
+
     private $tempMetaAttributes = [];
 
     public function __construct(array $attributes = [])
@@ -113,6 +120,12 @@ trait UserMetadateable
 
     private function getMetaAttribute($attributeName)
     {
+        if(!(Auth::check() && (Auth::user()->hasRole('ADMIN') || Auth::id() === $this->id))) {
+            if(in_array($attributeName, $this->metaAttributesPrivates)) {
+                return null;
+            }
+        }
+
         $metaAttribute = UserMeta::where([
             ['key', $attributeName],
             ['user_id', parent::getKey()]

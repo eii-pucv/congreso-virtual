@@ -68,7 +68,7 @@ class ProposalController extends Controller
                 $offset = $request->query('offset', 0);
                 $proposals = $proposals
                     ->offset($offset)
-                    ->limit($limit);
+                    ->limit($limit > 100 ? 100 : $limit);
             }
             $proposals = $proposals->with(['user', 'urgenciesRelated'])->get();
 

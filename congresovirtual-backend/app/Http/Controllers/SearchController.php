@@ -51,6 +51,8 @@ class SearchController extends Controller
             $objectsTypes = $request->query('objects_types', []);
             $limit = $request->query('limit', 10);
 
+            $limit = $limit > 100 ? 100 : $limit;
+
             $orderBy = $request->query('order_by', null);
             $order = null;
             if($orderBy) {

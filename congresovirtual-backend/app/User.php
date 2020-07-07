@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -65,6 +66,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $player = $this->player;
         return $player ? $player->active_gamification : false;
+    }
+
+    public function getEmailAttribute($value) {
+        if(Auth::check() && (Auth::user()->hasRole('ADMIN') || Auth::id() === $this->id)) {
+            return $value;
+        } else {
+            return null;
+        }
     }
 
     /**

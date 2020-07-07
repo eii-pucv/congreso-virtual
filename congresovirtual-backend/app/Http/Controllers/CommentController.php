@@ -102,7 +102,7 @@ class CommentController extends Controller
             $offset = $request->query('offset', 0);
             $comments = $comments
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $comments = $comments->with(['project', 'article', 'idea', 'publicConsultation', 'user', 'idea.project', 'article.project'])->get();
 
             return response()->json([
@@ -112,7 +112,8 @@ class CommentController extends Controller
             ], 200);
         } catch (\Exception $exception) {
             return response()->json([
-                'message' => 'Error: comments were not found.'], 412);
+                'message' => 'Error: comments were not found.'
+            ], 412);
         }
     }
 
@@ -980,7 +981,9 @@ class CommentController extends Controller
             $limit = $request->query('limit', 10);
             $offset = $request->query('offset', 0);
 
-            $comments = $this->indexSortdedBy(
+            $limit = $limit > 100 ? 100 : $limit;
+
+            $comments = $this->indexSortedBy(
                 $option,
                 $order,
                 $limit,
@@ -997,7 +1000,8 @@ class CommentController extends Controller
             return response()->json($comments, 200);
         } catch (\Exception $exception) {
             return response()->json([
-                'message' => 'Error: it was not possible to list the requested information.'], 412);
+                'message' => 'Error: it was not possible to list the requested information.'
+            ], 412);
         }
     }
 

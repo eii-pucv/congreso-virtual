@@ -58,7 +58,7 @@ class ArticleController extends Controller
             $offset = $request->query('offset', 0);
             $articles = $articles
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $articles = $articles->with(['project'])->get();
 
             return response()->json([

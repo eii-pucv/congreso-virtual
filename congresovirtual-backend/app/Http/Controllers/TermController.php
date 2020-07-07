@@ -41,7 +41,7 @@ class TermController extends Controller
                 $offset = $request->query('offset', 0);
                 $terms = $terms
                     ->offset($offset)
-                    ->limit($limit);
+                    ->limit($limit > 100 ? 100 : $limit);
             }
             $terms = $terms->with(['parent', 'taxonomies', 'children'])->get();
 

@@ -42,7 +42,7 @@ class DenounceController extends Controller
             $offset = $request->query('offset', 0);
             $denounces = $denounces
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $denounces = $denounces->with(['comment', 'user'])->get();
 
             return response()->json([

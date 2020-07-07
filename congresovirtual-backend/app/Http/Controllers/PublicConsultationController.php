@@ -65,7 +65,7 @@ class PublicConsultationController extends Controller
             $offset = $request->query('offset', 0);
             $publicConsultations = $publicConsultations
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $publicConsultations = $publicConsultations->with(['terms'])->get();
 
             return response()->json([

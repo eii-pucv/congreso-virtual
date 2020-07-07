@@ -236,7 +236,7 @@
                     <div class="form-row">
                         <div class="col-md-12 mb-10">
                             <label for="reason">{{ $t('componentes.comentarios.denunciar.razon') }}</label>
-                            <select id="reason" class="form-control custom-select d-block w-100" id="activityBox" v-model="denunciation.razon" value=" ">
+                            <select id="reason" class="form-control custom-select d-block w-100" v-model="denunciation.razon" value=" ">
                                 <option>{{ $t('componentes.comentarios.denunciar.lenguaje_indebido') }}</option>
                                 <option>Bullying</option>
                                 <option>{{ $t('componentes.comentarios.denunciar.acoso') }}</option>

@@ -50,7 +50,7 @@ class StopwordController extends Controller
                 $offset = $request->query('offset', 0);
                 $stopwords = $stopwords
                     ->offset($offset)
-                    ->limit($limit);
+                    ->limit($limit > 100 ? 100 : $limit);
             }
 
             if($distinctValue) {

@@ -36,7 +36,7 @@ class TaxonomyController extends Controller
                 $offset = $request->query('offset', 0);
                 $taxonomies = $taxonomies
                     ->offset($offset)
-                    ->limit($limit);
+                    ->limit($limit > 100 ? 100 : $limit);
             }
             $taxonomies = $taxonomies->with(['terms'])->get();
 

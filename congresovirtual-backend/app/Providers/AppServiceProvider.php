@@ -18,6 +18,9 @@ class AppServiceProvider extends ServiceProvider
     */
     public function boot()
     {
+        // if (!$this->app->isLocal()) {
+        //     $this->app['request']->server->set('HTTPS', true);
+        // }
         Schema::defaultStringLength(191);
         setlocale(LC_ALL, config('app.locale'));
         $this->bootClaveUnicaSocialite();

@@ -35,7 +35,7 @@ class GamificationController extends Controller
                 'players.user_id',
                 'users.name',
                 'users.surname',
-                'users.email',
+                // 'users.email',
                 DB::raw('CONCAT(files.stored_name, \'.\', files.extension) AS avatar'),
                 DB::raw('CAST(SUM(rewards.points) AS UNSIGNED) AS term_total_points'),
                 DB::raw('COUNT(events.id) AS events_quantity')
@@ -62,7 +62,7 @@ class GamificationController extends Controller
             $offset = $request->query('offset', 0);
             $ranking = $ranking
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $ranking = $ranking->get();
 
             return response()->json([
@@ -101,7 +101,7 @@ class GamificationController extends Controller
                 'players.user_id',
                 'users.name',
                 'users.surname',
-                'users.email',
+                // 'users.email',
                 DB::raw('CONCAT(files.stored_name, \'.\', files.extension) AS avatar'),
                 DB::raw('CAST(SUM(rewards.points) AS UNSIGNED) AS project_total_points'),
                 DB::raw('COUNT(events.id) AS events_quantity')
@@ -130,7 +130,7 @@ class GamificationController extends Controller
             $offset = $request->query('offset', 0);
             $ranking = $ranking
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $ranking = $ranking->get();
 
             return response()->json([
@@ -169,7 +169,7 @@ class GamificationController extends Controller
                 'players.user_id',
                 'users.name',
                 'users.surname',
-                'users.email',
+                // 'users.email',
                 DB::raw('CONCAT(files.stored_name, \'.\', files.extension) AS avatar'),
                 DB::raw('CAST(SUM(rewards.points) AS UNSIGNED) AS page_total_points'),
                 DB::raw('COUNT(events.id) AS events_quantity')
@@ -198,7 +198,7 @@ class GamificationController extends Controller
             $offset = $request->query('offset', 0);
             $ranking = $ranking
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $ranking = $ranking->get();
 
             return response()->json([
@@ -237,7 +237,7 @@ class GamificationController extends Controller
                 'players.user_id',
                 'users.name',
                 'users.surname',
-                'users.email',
+                // 'users.email',
                 DB::raw('CONCAT(files.stored_name, \'.\', files.extension) AS avatar'),
                 DB::raw('CAST(COALESCE(SUM(rewards.points), 0) AS UNSIGNED) AS term_reward_points'),
                 DB::raw('CAST(COALESCE(SUM(actions.points), 0) AS UNSIGNED) AS term_action_points'),
@@ -269,7 +269,7 @@ class GamificationController extends Controller
             $offset = $request->query('offset', 0);
             $ranking = $ranking
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $ranking = $ranking->get();
 
             return response()->json([
@@ -308,7 +308,7 @@ class GamificationController extends Controller
                 'players.user_id',
                 'users.name',
                 'users.surname',
-                'users.email',
+                // 'users.email',
                 DB::raw('CONCAT(files.stored_name, \'.\', files.extension) AS avatar'),
                 DB::raw('CAST(SUM(actions.points) AS UNSIGNED) AS project_action_points')
             )
@@ -345,7 +345,7 @@ class GamificationController extends Controller
                     'a.user_id',
                     'a.name',
                     'a.surname',
-                    'a.email',
+                    // 'a.email',
                     'a.avatar',
                     'a.project_action_points',
                     'b.project_reward_points',
@@ -366,7 +366,7 @@ class GamificationController extends Controller
             $offset = $request->query('offset', 0);
             $ranking = $ranking
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $ranking = $ranking->get();
 
             return response()->json([
@@ -405,7 +405,7 @@ class GamificationController extends Controller
                 'players.user_id',
                 'users.name',
                 'users.surname',
-                'users.email',
+                // 'users.email',
                 DB::raw('CONCAT(files.stored_name, \'.\', files.extension) AS avatar'),
                 DB::raw('CAST(SUM(actions.points) AS UNSIGNED) AS page_action_points')
             )
@@ -442,7 +442,7 @@ class GamificationController extends Controller
                     'a.user_id',
                     'a.name',
                     'a.surname',
-                    'a.email',
+                    // 'a.email',
                     'a.avatar',
                     'a.page_action_points',
                     'b.page_reward_points',
@@ -463,7 +463,7 @@ class GamificationController extends Controller
             $offset = $request->query('offset', 0);
             $ranking = $ranking
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $ranking = $ranking->get();
 
             return response()->json([

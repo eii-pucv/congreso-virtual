@@ -60,7 +60,7 @@ class RewardController extends Controller
             $offset = $request->query('offset', 0);
             $rewards = $rewards
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $rewards = $rewards->with(['action', 'events', 'terms'])->get();
 
             return response()->json([

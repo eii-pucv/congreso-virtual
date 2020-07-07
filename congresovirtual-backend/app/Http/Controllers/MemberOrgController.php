@@ -20,8 +20,14 @@ class MemberOrgController extends Controller
     {
         try {
             $query = [];
-            if($request->has('user_id')) {
-                $query[] = ['user_id', $request->user_id];
+            if(Auth::user()->hasRole('ADMIN')) {
+                if($request->has('user_id')) {
+                    $query[] = ['user_id', $request->user_id];
+                }
+            } else {
+                if($request->has('user_id')) {
+                    $query[] = ['user_id', Auth::id()];
+                }
             }
             return response()->json(MemberOrg::where($query)->with(['user'])->get(), 200);
         } catch (\Exception $exception) {
@@ -76,7 +82,11 @@ class MemberOrgController extends Controller
     public function show($id)
     {
         try {
-            return response()->json(MemberOrg::with(['user'])->findOrFail($id), 200);
+            $member_org = MemberOrg::with(['user'])->findOrFail($id);
+            if(!(Auth::user()->hasRole('ADMIN') || Auth::id() === $member_org->user_id)) { 
+                throw new \Exception();
+            }
+            return response()->json($member_org, 200);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the member of organization was not found.'], 412);

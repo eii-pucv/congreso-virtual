@@ -53,7 +53,7 @@ class PageController extends Controller
             $offset = $request->query('offset', 0);
             $pages = $pages
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $pages = $pages->with(['terms'])->get();
 
             return response()->json([

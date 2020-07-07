@@ -43,7 +43,7 @@ class UrgencyController extends Controller
             $offset = $request->query('offset', 0);
             $urgencies = $urgencies
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $urgencies = $urgencies->get();
 
             return response()->json([

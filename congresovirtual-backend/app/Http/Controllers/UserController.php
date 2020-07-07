@@ -76,7 +76,7 @@ class UserController extends Controller
             $offset = $request->query('offset', 0);
             $users = $users
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $users = $users->with(['player', 'terms'])->get();
 
             return response()->json([
@@ -140,7 +140,6 @@ class UserController extends Controller
             ], 201);
         } catch (\Exception $exception) {
             return response()->json([
-                'error' => $exception->getMessage(),
                 'message' => 'Error: the user was not created.'
             ], 412);
         }
@@ -156,12 +155,21 @@ class UserController extends Controller
     public function show($id)
     {
         try {
-            return response()->json(
-                User::with(['player', 'locationOrgs', 'memberOrgs', 'terms', 'avatarRelated'])
-                    ->withCount(['comments', 'votes'])
-                    ->findOrFail($id),
-                200
-            );
+            if(Auth::check() && (Auth::user()->hasRole('ADMIN') || Auth::id() === intval($id))) {
+                return response()->json(
+                    User::with(['player', 'locationOrgs', 'memberOrgs', 'terms', 'avatarRelated'])
+                        ->withCount(['comments', 'votes'])
+                        ->findOrFail($id),
+                    200
+                );
+            } else {
+                return response()->json(
+                    User::with(['player', 'terms', 'avatarRelated'])
+                        ->withCount(['comments', 'votes'])
+                        ->findOrFail($id),
+                    200
+                );
+            }
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the user was not found.'], 412);
@@ -183,14 +191,26 @@ class UserController extends Controller
                 ['value', '=', $username]
             ])->first();
 
-            return response()->json(
-                User::with(['player', 'locationOrgs', 'memberOrgs', 'terms', 'avatarRelated'])
-                    ->withCount(['comments', 'votes'])
-                    ->findOrFail($userMeta->user_id),
-                200
-            );
+            $user_id = $userMeta ? intval($userMeta->user_id) : null;
+
+            if(Auth::check() && (Auth::user()->hasRole('ADMIN') || Auth::id() === $user_id)) {
+                return response()->json(
+                    User::with(['player', 'locationOrgs', 'memberOrgs', 'terms', 'avatarRelated'])
+                        ->withCount(['comments', 'votes'])
+                        ->findOrFail($userMeta->user_id),
+                    200
+                );
+            } else {
+                return response()->json(
+                    User::with(['player', 'terms', 'avatarRelated'])
+                        ->withCount(['comments', 'votes'])
+                        ->findOrFail($userMeta->user_id),
+                    200
+                );
+            }
         } catch (\Exception $exception) {
             return response()->json([
+                'err' => $exception->getMessage(),
                 'message' => 'Error: the user was not found.'], 412);
         }
     }
@@ -245,7 +265,7 @@ class UserController extends Controller
         } catch (\Exception $exception) {
             DB::rollBack();
             return response()->json([
-                'error' => $exception->getMessage(),
+                'msg' => $exception->getMessage(),
                 'message' => 'Error: the user was not updated.'
             ], 412);
         }
@@ -453,7 +473,7 @@ class UserController extends Controller
 
     /**
      * Display the locations of organization associated.
-     * About access control: all users can use this method (see routes).
+     * About access control: ADMIN and own USER type users can use this method (see routes).
      *
      * @param  $id
      * @return \Illuminate\Http\Response
@@ -461,7 +481,11 @@ class UserController extends Controller
     public function locationOrgs($id)
     {
         try {
-            return response()->json(User::findOrFail($id)->locationOrgs, 200);
+            if(Auth::user()->hasRole('ADMIN') || Auth::id() === $id) { 
+                return response()->json(User::findOrFail($id)->locationOrgs, 200);
+            } else {
+                throw new \Exception();
+            }
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the user was not found.'], 412);
@@ -470,7 +494,7 @@ class UserController extends Controller
 
     /**
      * Display the members of organization associated.
-     * About access control: all users can use this method (see routes).
+     * About access control: ADMIN and own USER type users can use this method (see routes).
      *
      * @param  $id
      * @return \Illuminate\Http\Response
@@ -478,7 +502,11 @@ class UserController extends Controller
     public function memberOrgs($id)
     {
         try {
-            return response()->json(User::findOrFail($id)->memberOrgs, 200);
+            if(Auth::user()->hasRole('ADMIN') || Auth::id() === $id) { 
+                return response()->json(User::findOrFail($id)->memberOrgs, 200);
+            } else {
+                throw new \Exception();
+            }
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the user was not found.'], 412);

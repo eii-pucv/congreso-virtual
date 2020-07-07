@@ -58,7 +58,7 @@ class IdeaController extends Controller
             $offset = $request->query('offset', 0);
             $ideas = $ideas
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $ideas = $ideas->with(['project'])->get();
 
             return response()->json([

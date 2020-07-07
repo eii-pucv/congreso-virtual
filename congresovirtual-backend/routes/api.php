@@ -99,9 +99,13 @@ Route::group(['middleware' => ['auth:api', 'has.roles:ADMIN,USER']], function() 
         Route::post('/{user}/term', 'UserController@associateTerm');
         Route::post('/{user}/terms', 'UserController@associateTerms');
         Route::delete('/{user}/terms', 'UserController@dissociateAllTerms');
+        Route::get('/{user}/locations_orgs', 'UserController@locationOrgs');
+        Route::get('/{user}/members_orgs', 'UserController@memberOrgs');
     });
 
     Route::group(['prefix' => 'locations_orgs'], function () {
+        Route::get('/', 'LocationOrgController@index');
+        Route::get('/{locationOrg}', 'LocationOrgController@show');
         Route::post('/', 'LocationOrgController@store');
         Route::put('/{locationOrg}', 'LocationOrgController@update');
         Route::delete('/{locationOrg}', 'LocationOrgController@destroy');
@@ -109,6 +113,8 @@ Route::group(['middleware' => ['auth:api', 'has.roles:ADMIN,USER']], function() 
     });
 
     Route::group(['prefix' => 'members_orgs'], function () {
+        Route::get('/', 'MemberOrgController@index');
+        Route::get('/{memberOrg}', 'MemberOrgController@show');
         Route::post('/', 'MemberOrgController@store');
         Route::put('/{memberOrg}', 'MemberOrgController@update');
         Route::delete('/{memberOrg}', 'MemberOrgController@destroy');
@@ -400,23 +406,11 @@ Route::group(['middleware' => ['is.auth:api']], function() {
         Route::get('/{user}', 'UserController@show');
         Route::get('/username/{username}', 'UserController@showByUsername');
         Route::get('/{user}/avatar', 'UserController@avatar');
-        Route::get('/{user}/locations_orgs', 'UserController@locationOrgs');
-        Route::get('/{user}/members_orgs', 'UserController@memberOrgs');
         Route::get('/{user}/comments', 'UserController@comments');
         Route::get('/{user}/votes', 'UserController@votes');
         Route::get('/{user}/urgencies', 'UserController@urgencies');
         Route::get('/{user}/proposals', 'UserController@proposals');
         Route::get('/{user}/terms', 'UserController@terms');
-    });
-
-    Route::group(['prefix' => 'locations_orgs'], function () {
-        Route::get('/', 'LocationOrgController@index');
-        Route::get('/{locationOrg}', 'LocationOrgController@show');
-    });
-
-    Route::group(['prefix' => 'members_orgs'], function () {
-        Route::get('/', 'MemberOrgController@index');
-        Route::get('/{memberOrg}', 'MemberOrgController@show');
     });
 
     Route::group(['prefix' => 'pages'], function () {

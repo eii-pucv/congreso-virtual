@@ -49,7 +49,7 @@ class PlayerController extends Controller
             $offset = $request->query('offset', 0);
             $players = $players
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $players = $players->with(['user'])->get();
 
             return response()->json([
@@ -244,7 +244,7 @@ class PlayerController extends Controller
                 $offset = $request->query('offset', 0);
                 $rewards = $rewards
                     ->offset($offset)
-                    ->limit($limit);
+                    ->limit($limit > 100 ? 100 : $limit);
             }
             $rewards = $rewards->with(['action'])->get();
 
@@ -300,7 +300,7 @@ class PlayerController extends Controller
             $offset = $request->query('offset', 0);
             $actions = $actions
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $actions = $actions->get();
 
             return response()->json([

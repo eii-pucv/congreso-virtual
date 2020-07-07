@@ -98,7 +98,7 @@ class ProjectController extends Controller
             $offset = $request->query('offset', 0);
             $projects = $projects
                 ->offset($offset)
-                ->limit($limit);
+                ->limit($limit > 100 ? 100 : $limit);
             $projects = $projects->with(['terms'])->get();
 
             return response()->json([
@@ -1474,7 +1474,7 @@ class ProjectController extends Controller
                     throw new \Exception();
             }
             $projects = $projects->offset($offset)
-                ->limit($limit)
+                ->limit($limit > 100 ? 100 : $limit)
                 ->get();
             return response()->json($projects, 200);
         } catch (\Exception $exception) {

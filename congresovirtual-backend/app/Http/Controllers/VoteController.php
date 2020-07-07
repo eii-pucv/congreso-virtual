@@ -81,7 +81,7 @@ class VoteController extends Controller
                 $offset = $request->query('offset', 0);
                 $votes = $votes
                     ->offset($offset)
-                    ->limit($limit);
+                    ->limit($limit > 100 ? 100 : $limit);
             }
             $votes = $votes->with(['project', 'article', 'idea', 'comment', 'publicConsultation', 'idea.project', 'article.project'])->get();
 

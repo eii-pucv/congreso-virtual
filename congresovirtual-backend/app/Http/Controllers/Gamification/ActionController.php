@@ -52,7 +52,7 @@ class ActionController extends Controller
                 $offset = $request->query('offset', 0);
                 $actions = $actions
                     ->offset($offset)
-                    ->limit($limit);
+                    ->limit($limit > 100 ? 100 : $limit);
             }
             $actions = $actions->with(['rewards', 'events'])->get();
 

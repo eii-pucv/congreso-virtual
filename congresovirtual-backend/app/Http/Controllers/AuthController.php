@@ -62,7 +62,6 @@ class AuthController extends Controller
         } catch (\Exception $exception) {
             DB::rollBack();
             return response()->json([
-                'error' => $exception->getMessage(),
                 'message' => 'Error: the user was not created.'
             ], 412);
         }

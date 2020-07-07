@@ -20,8 +20,14 @@ class LocationOrgController extends Controller
     {
         try {
             $query = [];
-            if($request->has('user_id')) {
-                $query[] = ['user_id', $request->user_id];
+            if(Auth::user()->hasRole('ADMIN')) {
+                if($request->has('user_id')) {
+                    $query[] = ['user_id', $request->user_id];
+                }
+            } else {
+                if($request->has('user_id')) {
+                    $query[] = ['user_id', Auth::id()];
+                }
             }
             return response()->json(LocationOrg::where($query)->with(['user'])->get(), 200);
         } catch (\Exception $exception) {
@@ -82,7 +88,11 @@ class LocationOrgController extends Controller
     public function show($id)
     {
         try {
-            return response()->json(LocationOrg::with(['user'])->findOrFail($id), 200);
+            $location_org = LocationOrg::with(['user'])->findOrFail($id);
+            if(!(Auth::user()->hasRole('ADMIN') || Auth::id() === $location_org->user_id)) { 
+                throw new \Exception();
+            }
+            return response()->json($location_org, 200);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => 'Error: the location of organization was not found.'], 412);
