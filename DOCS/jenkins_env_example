@@ -26,9 +26,9 @@ DB_PASSWORD=password\n
 # ============================================================================================\n
 \n
 APP_NAME="Congreso Virtual"\n
-APP_ENV=local\n
+APP_ENV=staging\n
 APP_KEY=base64:Gl4V4IdAFdzVyJ2ByXtvOXRdJpteO8Awssz2aB3Squg=\n
-APP_DEBUG=true\n
+APP_DEBUG=false\n
 APP_LOCALE=es\n
 \n
 #It's configured as special DNS for Docker. Replace with a hostname/IP address if desired.\n
