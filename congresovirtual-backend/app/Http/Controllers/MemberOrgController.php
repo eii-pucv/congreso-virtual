@@ -83,7 +83,7 @@ class MemberOrgController extends Controller
     {
         try {
             $member_org = MemberOrg::with(['user'])->findOrFail($id);
-            if(!(Auth::user()->hasRole('ADMIN') || Auth::id() === $member_org->user_id)) { 
+            if(!(Auth::user()->hasRole('ADMIN') || Auth::id() == $member_org->user_id)) {
                 throw new \Exception();
             }
             return response()->json($member_org, 200);

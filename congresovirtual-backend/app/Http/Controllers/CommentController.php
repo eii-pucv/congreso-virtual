@@ -112,8 +112,7 @@ class CommentController extends Controller
             ], 200);
         } catch (\Exception $exception) {
             return response()->json([
-                'message' => 'Error: comments were not found.'
-            ], 412);
+                'message' => 'Error: comments were not found.'], 412);
         }
     }
 
@@ -979,9 +978,8 @@ class CommentController extends Controller
             }
             $order = $request->query('order', 'DESC');
             $limit = $request->query('limit', 10);
-            $offset = $request->query('offset', 0);
-
             $limit = $limit > 100 ? 100 : $limit;
+            $offset = $request->query('offset', 0);
 
             $comments = $this->indexSortedBy(
                 $option,
@@ -1000,8 +998,7 @@ class CommentController extends Controller
             return response()->json($comments, 200);
         } catch (\Exception $exception) {
             return response()->json([
-                'message' => 'Error: it was not possible to list the requested information.'
-            ], 412);
+                'message' => 'Error: it was not possible to list the requested information.'], 412);
         }
     }
 

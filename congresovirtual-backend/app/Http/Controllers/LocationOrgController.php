@@ -89,7 +89,7 @@ class LocationOrgController extends Controller
     {
         try {
             $location_org = LocationOrg::with(['user'])->findOrFail($id);
-            if(!(Auth::user()->hasRole('ADMIN') || Auth::id() === $location_org->user_id)) { 
+            if(!(Auth::user()->hasRole('ADMIN') || Auth::id() == $location_org->user_id)) {
                 throw new \Exception();
             }
             return response()->json($location_org, 200);

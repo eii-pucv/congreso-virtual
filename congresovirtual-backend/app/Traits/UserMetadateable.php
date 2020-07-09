@@ -9,15 +9,21 @@ use Illuminate\Support\Facades\Auth;
 trait UserMetadateable
 {
     protected $metaAttributes = [
-        'username', 'facebook_token', 'twitter_token', 'google_token', 'github_token', 'clave_unica_token', 'birthday', 'dni', 'pais', 'region', 'comuna',
-        'sector', 'nivel_educacional', 'genero', 'actividad', 'es_experto', 'titulo_profesional', 'estudios_adicionales', 'anios_experiencia_laboral',
-        'areas_desempenio', 'temas_trabajo', 'es_organizacion', 'nombre_org', 'email_org', 'enlace_org', 'tiene_per_jur', 'dni_org',
-        'rep_legal_org', 'tipo_org'
+        'username', 'facebook_token', 'twitter_token', 'google_token', 'github_token', 'clave_unica_token', 'birthday',
+        'dni', 'pais', 'region', 'comuna', 'sector', 'nivel_educacional', 'genero', 'actividad', 'es_experto',
+        'titulo_profesional', 'estudios_adicionales', 'anios_experiencia_laboral', 'areas_desempenio', 'temas_trabajo',
+        'es_organizacion', 'nombre_org', 'email_org', 'enlace_org', 'tiene_per_jur', 'dni_org', 'rep_legal_org', 'tipo_org'
     ];
     protected $virtualMetaAttributes = [
         'has_facebook_token', 'has_twitter_token', 'has_google_token', 'has_github_token', 'has_clave_unica_token'
     ];
     protected $metaAttributesHidden = ['facebook_token', 'twitter_token', 'google_token', 'github_token', 'clave_unica_token'];
+    protected $metaAttributesPrivates = [
+        'birthday', 'dni', 'pais', 'region', 'comuna', 'sector', 'nivel_educacional', 'genero', 'actividad', 'es_experto',
+        'titulo_profesional', 'estudios_adicionales', 'anios_experiencia_laboral', 'areas_desempenio', 'temas_trabajo',
+        'es_organizacion', 'nombre_org', 'email_org', 'enlace_org', 'tiene_per_jur', 'dni_org', 'rep_legal_org', 'tipo_org',
+        'has_facebook_token', 'has_twitter_token', 'has_google_token', 'has_github_token', 'has_clave_unica_token'
+    ];
     protected $metaAttributesCasts = [
         'sector' => 'integer',
         'tipo_org' => 'integer',
@@ -26,12 +32,6 @@ trait UserMetadateable
         'tiene_per_jur' => 'boolean',
         'areas_desempenio' => 'json'
     ];
-    protected $metaAttributesPrivates = ['dni', 'pais', 'region', 'comuna',
-        'sector', 'nivel_educacional', 'genero', 'actividad', 'es_experto', 'titulo_profesional', 'estudios_adicionales', 'anios_experiencia_laboral',
-        'areas_desempenio', 'temas_trabajo', 'es_organizacion', 'nombre_org', 'email_org', 'enlace_org', 'tiene_per_jur', 'dni_org',
-        'rep_legal_org', 'tipo_org'
-    ];
-
     private $tempMetaAttributes = [];
 
     public function __construct(array $attributes = [])
@@ -120,12 +120,6 @@ trait UserMetadateable
 
     private function getMetaAttribute($attributeName)
     {
-        if(!(Auth::check() && (Auth::user()->hasRole('ADMIN') || Auth::id() === $this->id))) {
-            if(in_array($attributeName, $this->metaAttributesPrivates)) {
-                return null;
-            }
-        }
-
         $metaAttribute = UserMeta::where([
             ['key', $attributeName],
             ['user_id', parent::getKey()]

@@ -68,11 +68,22 @@ class User extends Authenticatable implements MustVerifyEmail
         return $player ? $player->active_gamification : false;
     }
 
-    public function getEmailAttribute($value) {
-        if(Auth::check() && (Auth::user()->hasRole('ADMIN') || Auth::id() === $this->id)) {
-            return $value;
-        } else {
-            return null;
+    public function toJson($options = 0)
+    {
+        $this->setAttributeVisibility();
+        return parent::toJson();
+    }
+
+    public function toArray()
+    {
+        $this->setAttributeVisibility();
+        return parent::toArray();
+    }
+
+    private function setAttributeVisibility()
+    {
+        if(!(Auth::check() && (Auth::user()->hasRole('ADMIN') || Auth::id() == $this->id))) {
+            $this->addHidden(array_merge(['rol', 'email', 'active'], $this->metaAttributesPrivates));
         }
     }
 

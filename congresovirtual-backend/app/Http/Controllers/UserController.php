@@ -140,7 +140,8 @@ class UserController extends Controller
             ], 201);
         } catch (\Exception $exception) {
             return response()->json([
-                'message' => 'Error: the user was not created.'
+                'message' => 'Error: the user was not created.',
+                // 'error' => $exception->getMessage()
             ], 412);
         }
     }
@@ -155,7 +156,7 @@ class UserController extends Controller
     public function show($id)
     {
         try {
-            if(Auth::check() && (Auth::user()->hasRole('ADMIN') || Auth::id() === intval($id))) {
+            if(Auth::check() && (Auth::user()->hasRole('ADMIN') || Auth::id() == $id)) {
                 return response()->json(
                     User::with(['player', 'locationOrgs', 'memberOrgs', 'terms', 'avatarRelated'])
                         ->withCount(['comments', 'votes'])
@@ -191,9 +192,7 @@ class UserController extends Controller
                 ['value', '=', $username]
             ])->first();
 
-            $user_id = $userMeta ? intval($userMeta->user_id) : null;
-
-            if(Auth::check() && (Auth::user()->hasRole('ADMIN') || Auth::id() === $user_id)) {
+            if(Auth::check() && (Auth::user()->hasRole('ADMIN') || Auth::id() == $userMeta->user_id)) {
                 return response()->json(
                     User::with(['player', 'locationOrgs', 'memberOrgs', 'terms', 'avatarRelated'])
                         ->withCount(['comments', 'votes'])
@@ -210,7 +209,6 @@ class UserController extends Controller
             }
         } catch (\Exception $exception) {
             return response()->json([
-                'err' => $exception->getMessage(),
                 'message' => 'Error: the user was not found.'], 412);
         }
     }
@@ -265,8 +263,8 @@ class UserController extends Controller
         } catch (\Exception $exception) {
             DB::rollBack();
             return response()->json([
-                'msg' => $exception->getMessage(),
-                'message' => 'Error: the user was not updated.'
+                'message' => 'Error: the user was not updated.',
+                // 'error' => $exception->getMessage()
             ], 412);
         }
     }
@@ -481,7 +479,7 @@ class UserController extends Controller
     public function locationOrgs($id)
     {
         try {
-            if(Auth::user()->hasRole('ADMIN') || Auth::id() === $id) { 
+            if(Auth::user()->hasRole('ADMIN') || Auth::id() == $id) {
                 return response()->json(User::findOrFail($id)->locationOrgs, 200);
             } else {
                 throw new \Exception();
@@ -502,7 +500,7 @@ class UserController extends Controller
     public function memberOrgs($id)
     {
         try {
-            if(Auth::user()->hasRole('ADMIN') || Auth::id() === $id) { 
+            if(Auth::user()->hasRole('ADMIN') || Auth::id() == $id) {
                 return response()->json(User::findOrFail($id)->memberOrgs, 200);
             } else {
                 throw new \Exception();
