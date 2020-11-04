@@ -11,7 +11,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-30">
+            <div class="row mt-30" v-if="showIdeas">
                 <div class="col-12">
                     <h3 :style="mode==='dark'?'color: #fff':''">{{ $t('proyecto.componentes.votos_stacked.votos_ideas') }}</h3>
                     <br/>
@@ -21,7 +21,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-30">
+            <div class="row mt-30" v-if="showArticles">
                 <div class="col-12">
                     <h3 :style="mode==='dark'?'color: #fff':''">{{ $t('proyecto.componentes.votos_stacked.votos_articulos') }}</h3>
                     <br/>
@@ -62,6 +62,8 @@
                 generalVotingChartData: null,
                 ideasVotingChartData: null,
                 articlesVotingChartData: null,
+                showIdeas: true,
+                showArticles: true,
                 generalVotingChartOptions: {
                     //maintainAspectRatio: false,
                     responsive: true,
@@ -171,66 +173,80 @@
                 let ideasAgreeVotes = [];
                 let ideasDisagreeVotes = [];
                 let ideasAbstentionVotes = [];
+                let totalVotes = 0;
+
                 this.project.ideas.forEach((idea, index) => {
                     ideasLabels.push('Idea fundamental: ' + (index + 1));
                     ideasAgreeVotes.push(idea.votos_a_favor);
                     ideasDisagreeVotes.push(idea.votos_en_contra);
                     ideasAbstentionVotes.push(idea.abstencion);
+                    totalVotes += (idea.votos_a_favor + idea.votos_en_contra + idea.abstencion)
                 });
 
-                this.ideasVotingChartData = {
-                    labels: ideasLabels,
-                    datasets: [
-                        {
-                            label: this.$t('proyecto.contenido.a_favor'),
-                            data: ideasAgreeVotes,
-                            backgroundColor: this.agreeColor
-                        },
-                        {
-                            label: this.$t('proyecto.contenido.en_contra'),
-                            data: ideasDisagreeVotes,
-                            backgroundColor: this.disagreeColor
-                        },
-                        {
-                            label: this.$t('proyecto.contenido.abstenciones'),
-                            data: ideasAbstentionVotes,
-                            backgroundColor: this.abstentionColor
-                        }
-                    ]
-                };
+                if(totalVotes > 0) {
+                    this.ideasVotingChartData = {
+                        labels: ideasLabels,
+                        datasets: [
+                            {
+                                label: this.$t('proyecto.contenido.a_favor'),
+                                data: ideasAgreeVotes,
+                                backgroundColor: this.agreeColor
+                            },
+                            {
+                                label: this.$t('proyecto.contenido.en_contra'),
+                                data: ideasDisagreeVotes,
+                                backgroundColor: this.disagreeColor
+                            },
+                            {
+                                label: this.$t('proyecto.contenido.abstenciones'),
+                                data: ideasAbstentionVotes,
+                                backgroundColor: this.abstentionColor
+                            }
+                        ]
+                    };
+                } else {
+                    this.showIdeas = false
+                }
             },
             generateArticlesVotingChartData() {
                 let articlesLabels = [];
                 let articlesAgreeVotes = [];
                 let articlesDisagreeVotes = [];
                 let articlesAbstentionVotes = [];
+                let totalVotes = 0;
+
                 this.project.articles.forEach((article, index) => {
                     articlesLabels.push('Artículo: ' + (index + 1));
                     articlesAgreeVotes.push(article.votos_a_favor);
                     articlesDisagreeVotes.push(article.votos_en_contra);
                     articlesAbstentionVotes.push(article.abstencion);
+                    totalVotes += (article.votos_a_favor + article.votos_en_contra + article.abstencion)
                 });
 
-                this.articlesVotingChartData = {
-                    labels: articlesLabels,
-                    datasets: [
-                        {
-                            label: this.$t('proyecto.contenido.a_favor'),
-                            data: articlesAgreeVotes,
-                            backgroundColor: this.agreeColor
-                        },
-                        {
-                            label: this.$t('proyecto.contenido.en_contra'),
-                            data: articlesDisagreeVotes,
-                            backgroundColor: this.disagreeColor
-                        },
-                        {
-                            label: this.$t('proyecto.contenido.abstenciones'),
-                            data: articlesAbstentionVotes,
-                            backgroundColor: this.abstentionColor
-                        }
-                    ]
-                };
+                if(totalVotes > 0) {
+                    this.articlesVotingChartData = {
+                        labels: articlesLabels,
+                        datasets: [
+                            {
+                                label: this.$t('proyecto.contenido.a_favor'),
+                                data: articlesAgreeVotes,
+                                backgroundColor: this.agreeColor
+                            },
+                            {
+                                label: this.$t('proyecto.contenido.en_contra'),
+                                data: articlesDisagreeVotes,
+                                backgroundColor: this.disagreeColor
+                            },
+                            {
+                                label: this.$t('proyecto.contenido.abstenciones'),
+                                data: articlesAbstentionVotes,
+                                backgroundColor: this.abstentionColor
+                            }
+                        ]
+                    };
+                } else {
+                    this.showArticles = false
+                }
             }
         }
     }

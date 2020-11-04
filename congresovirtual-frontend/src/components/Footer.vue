@@ -4,7 +4,8 @@
             <div class="row">
                 <div class="col mx-auto" v-for="category in categories" :key="category.id">
                     <h5 class="font-weight-bold text-uppercase text-white mt-3 mb-4">
-                        <router-link :to="{ path: category.url }" class="text-white">{{ category.text }}</router-link>
+                        <span v-if="category.text == 'Acerca de'">{{ category.text }}</span>
+                        <router-link v-else :to="{ path: category.url }" class="text-white">{{ category.text }}</router-link>
                     </h5>
                     <ul v-if="category.subcategorias" class="list-unstyled">
                         <li v-for="subcategory in category.subcategorias" :key="subcategory.id">

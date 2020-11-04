@@ -349,7 +349,7 @@
     "pagina": {
         "breadcumb": {
             "inicio": "Home",
-            "paginas": "Pages",
+            "paginas": "About",
             "pagina": "Page"
         },
         "contenido": {
@@ -2383,6 +2383,8 @@
         "abstencion": "Abstention"
     },
     "tiempo": "Time remaining",
+    "comenzo_el": "It started the",
+    "cerrado_el": "Closed on",
     "cerrar": "Close",
     "cancelar": "Cancel",
     "participar": "Participate",

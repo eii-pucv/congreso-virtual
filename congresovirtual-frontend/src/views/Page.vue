@@ -15,8 +15,8 @@
                 <nav aria-label="breadcrumb" class="container px-0">
                     <ol class="breadcrumb" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">
                         <li class="breadcrumb-item"><a href="/#" :style="mode==='dark'?'color: #fff':''">{{ $t('pagina.breadcumb.inicio') }}</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="/pages" :style="mode==='dark'?'color: #fff':''">{{ $t('pagina.breadcumb.paginas') }}</a></li>
-                        <li v-if="page" class="breadcrumb-item active" aria-current="page" :style="mode==='dark'?'color: #fff':''">{{ $t('pagina.breadcumb.pagina') }} {{ page.id }}</li>
+                        <li class="breadcrumb-item" aria-current="about" :style="mode==='dark'?'color: #fff':''">{{ $t('pagina.breadcumb.paginas') }}</li>
+                        <li v-if="page" class="breadcrumb-item" aria-current="about" :style="mode==='dark'?'color: #fff':''">{{ page.title }} </li>
                     </ol>
                 </nav>
                 <div v-if="!loadPage" class="col-sm-12 hk-sec-wrapper hk-gallery-wrap" :style="mode==='dark'?'background: rgb(12, 1, 80);':''">

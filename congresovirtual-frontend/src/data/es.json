@@ -355,7 +355,7 @@
     "pagina": {
         "breadcumb": {
             "inicio": "Inicio",
-            "paginas": "Páginas",
+            "paginas": "Acerca de",
             "pagina": "Página"
         },
         "contenido": {
@@ -2388,6 +2388,8 @@
         "abstencion": "Abstención"
     },
     "tiempo": "Tiempo restante",
+    "comenzo_el": "Comenzó el",
+    "cerrado_el": "Cerrado el",
     "cerrar": "Cerrar",
     "cancelar": "Cancelar",
     "participar": "Participar",

@@ -79,6 +79,7 @@
                                         id="birthday"
                                         v-model="birthday"
                                         :config="dateOptions"
+                                        autocomplete="off"
                                         :style="mode==='dark'?'background: rgb(12, 1, 80); color: #fff':''"
                                 ></DatePicker>
                             </div>
@@ -1135,7 +1136,8 @@
             dateOptions() {
                 return {
                     format: this.$t('componentes.moment.formato_editable_sin_hora'),
-                    locale: this.$moment.locale()
+                    locale: this.$moment.locale(),
+                    useCurrent: false
                 };
             }
         },

@@ -56,11 +56,13 @@
             </div>
             <div id="project-name" class="card-body font-16 font-weight-bold overflow-auto px-10 py-10 custom-scrollbar-wk custom-scrollbar-mz text-justify" style="line-height:1.3">{{ project.titulo }}</div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item p-0 px-2 py-3" :style="mode==='dark'?'background: #080035':''">
-                    <span class="d-flex">
-                        <i class="far fa-clock font-16 mr-5"></i><span class="font-14" style="line-height:1">{{ $t('tiempo') }}</span>
+                <li class="list-group-item p-0 px-2 py-3" :style="mode==='dark'?'background:#080035;height:65px;':'height:65px;'">
+                    <span class="d-flex align-items-center">
+                        <i class="far fa-clock font-16 mr-5"></i>
+                        <span v-if="isAvailableVoting" class="font-14" style="line-height:1">{{ $t('tiempo') }}</span>
+                        <span v-else class="font-14" style="line-height:1">{{ $t('cerrado_el') }}&nbsp;</span>
                         <Countdown v-if="isAvailableVoting" class="font-14" :date="votingEndDate"></Countdown>
-                        <Countdown v-else class="text-red font-14" :date="votingEndDate"></Countdown>
+                        <span v-else class="text-red font-14">{{ votingClosedDate }}</span>
                     </span>
                 </li>
             </ul>
@@ -93,6 +95,7 @@
                 currentMoment: this.$moment().local(),
                 votingStartDate: this.$moment.utc(this.project.fecha_inicio, 'YYYY-MM-DD HH:mm:ss').local(),
                 votingEndDate: this.$moment.utc(this.project.fecha_termino, 'YYYY-MM-DD HH:mm:ss').local(),
+                votingClosedDate: this.$moment.utc(this.project.fecha_termino, 'YYYY-MM-DD HH:mm:ss').local().format('LLLL'),
                 isAvailableVoting: false,
                 mode: String
             };

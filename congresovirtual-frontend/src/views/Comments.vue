@@ -99,7 +99,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mt-2">
+                            <div class="mt-2" :style="isAvailableCommentAndEdit ? '' : 'pointer-events:none;display:none'">
                                 <div class="float-right">
                                     <span
                                             class="px-1 comment-btn comment-agree"
@@ -118,7 +118,7 @@
                                     >
                                         <i class="fas fa-thumbs-down"></i> {{ comment.votos_en_contra }}
                                     </span>
-                                    <span v-if="commentAreEnabled" class="px-1 comment-btn comment-btn-primary" @click="answerComment(comment.id)">
+                                    <span v-if="commentAreEnabled && isAvailableComment" class="px-1 comment-btn comment-btn-primary" @click="answerComment(comment.id)">
                                         <i class="fas fa-comment"></i> {{ $t('componentes.comentarios.responder') }}
                                     </span>
 
@@ -140,7 +140,7 @@
                     </button>
                 </ul>
                 <div class="col-12">
-                    <div v-if="commentAreEnabled" class="media pa-10 border border-2 border-light col-12">
+                    <div v-if="commentAreEnabled && isAvailableCommentAndEdit" class="media pa-10 border border-2 border-light col-12">
                         <div class="media-body">
                             <div v-if="parentComment">
                                 <p>{{ $t('componentes.comentarios.respondiendo_comentario') }}:</p>
@@ -421,7 +421,11 @@
                 edit_comment: {},
                 parent: null,
                 answer_flag: false,
-                mode: String
+                mode: String,
+                isAvailableCommentAndEdit: false,
+                currentMoment: this.$moment().local(),
+                votingStartDate: this.$moment.utc(this.project.fecha_inicio, 'YYYY-MM-DD HH:mm:ss').local(),
+                votingEndDate: this.$moment.utc(this.project.fecha_termino, 'YYYY-MM-DD HH:mm:ss').local()
             };
         },
         async mounted() {
@@ -433,6 +437,7 @@
 
             this.configComponent();
             this.search();
+            this.setIsAvailableCommentAndEdit();
         },
         methods: {
             configComponent() {
@@ -985,6 +990,9 @@
             },
             toLocalDatetime(datetime) {
                 return this.$moment.utc(datetime, 'YYYY-MM-DD HH:mm:ss').local();
+            },
+            setIsAvailableCommentAndEdit() {
+                this.isAvailableCommentAndEdit = this.project.is_enabled && this.project.etapa !== 3 && this.currentMoment.isBetween(this.votingStartDate, this.votingEndDate);
             }
         },
         computed: {

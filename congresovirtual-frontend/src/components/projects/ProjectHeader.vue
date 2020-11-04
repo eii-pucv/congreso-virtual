@@ -36,10 +36,16 @@
                             </template>
                         </v-popover>
                     </small>
-                    <small class="col-md-4 offset-md-2 my-10">
-                        <a class="row justify-content-center"><font-awesome-icon icon="clock" class="mr-5"></font-awesome-icon> {{ $t('tiempo') }}</a>
-                        <Countdown v-if="isAvailableVoting" class="row pt-15 text-center" :date="votingEndDate"></Countdown>
-                        <Countdown v-else class="row pt-15 text-center text-red" :date="votingEndDate"></Countdown>
+                    <small class="col-md-4 offset-md-2 my-10 text-center">
+                        <div class="mb-2"><font-awesome-icon icon="clock" class="mr-5"></font-awesome-icon>{{ $t('comenzo_el') }} {{ votingStarted }}</div>
+                        <div v-if="isAvailableVoting">
+                            <span v-if="isAvailableVoting" class="row justify-content-center" style="line-height:1"><font-awesome-icon icon="clock" class="mr-5"></font-awesome-icon> {{ $t('tiempo') }}</span>
+                            <Countdown v-if="isAvailableVoting" class="row pt-15 text-center" :date="votingEndDate"></Countdown>
+                        </div>
+                        <div v-else>
+                            <span style="line-height:1"><font-awesome-icon icon="clock" class="mr-5"></font-awesome-icon>{{ $t('cerrado_el') }}&nbsp;</span>
+                            <span class="text-red">{{ votingClosedDate }}</span>
+                        </div>
                     </small>
                 </div>
             </h5>
@@ -177,6 +183,8 @@
                 currentMoment: this.$moment().local(),
                 votingStartDate: this.$moment.utc(this.project.fecha_inicio, 'YYYY-MM-DD HH:mm:ss').local(),
                 votingEndDate: this.$moment.utc(this.project.fecha_termino, 'YYYY-MM-DD HH:mm:ss').local(),
+                votingStarted: this.$moment.utc(this.project.fecha_inicio, 'YYYY-MM-DD HH:mm:ss').local().format('LLLL'),
+                votingClosedDate: this.$moment.utc(this.project.fecha_termino, 'YYYY-MM-DD HH:mm:ss').local().format('LLLL'),
                 isAvailableVoting: false,
                 userHasVoted: false,
                 userVotedAgree: false,
