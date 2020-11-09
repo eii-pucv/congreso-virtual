@@ -128,16 +128,15 @@
             .get('/projects', {
                     params: {
                         'is_public': 1,
-                        'order_by': 'fecha_inicio',
+                        'order_by': 'fecha_termino',
                         'order': 'DESC',
-                        'limit': 10
+                        'limit': 100
                     }
                 }
             )
             .then(res => {
                 let auxProjects = res.data.results;
                 this.projects = auxProjects.filter(project => this.getIsAvailableVoting(project));
-                this.projects = this.projects.concat(auxProjects.filter(project => !this.getIsAvailableVoting(project)));
             })
             .finally(() => {
                 this.loadProjects = false;
@@ -147,7 +146,7 @@
             getIsAvailableVoting(project) {
                 let votingStartDate = this.$moment.utc(project.fecha_inicio, 'YYYY-MM-DD HH:mm:ss').local();
                 let votingEndDate = this.$moment.utc(project.fecha_termino, 'YYYY-MM-DD HH:mm:ss').local();
-                return project.is_enabled && project.etapa !== 3 && this.currentMoment.isBetween(votingStartDate, votingEndDate);
+                return project.is_enabled && project.etapa < 3 && this.currentMoment.isBetween(votingStartDate, votingEndDate);
             }
         }
     }
