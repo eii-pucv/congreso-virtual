@@ -1,13 +1,13 @@
 <template>
     <div class="bg-primary" style="min-height: 75px;">
-        <b-navbar class="bg-indigo-light-2">
+        <b-navbar class="bg-white" style="margin-top:0;margin-bottom:0;">
             <div class="container">
                 <div class="row">
                     <div class="col-2 col-md-1 my-auto">
                         <img class="img-fluid" src="@/assets/logo.png">
                     </div>
                     <div class="col-8 col-md-10 my-auto">
-                        <h6 class="text-white text-center">Plataforma oficial de participación ciudadana de la Cámara de Diputadas y Diputados y el Senado de Chile.</h6>
+                        <h6 class="text-black text-center">Plataforma de participación ciudadana del Congreso Nacional de Chile</h6>
                     </div>
                     <div class="col-2 col-md-1 my-auto">
                         <img class="img-fluid" src="@/assets/logo_diputados.png">
