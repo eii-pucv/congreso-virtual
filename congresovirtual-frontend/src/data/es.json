@@ -767,15 +767,13 @@
                 "actividad": {
                     "titulo": "Actividad",
                     "opciones": [
-                        { "id": 1, "label": "Trabajador(a) dependiente" },
-                        { "id": 2, "label": "Trabajador(a) independiente" },
-                        { "id": 3, "label": "Desempleado(a) o en búsqueda de trabajo" },
-                        { "id": 4, "label": "Jubilado(a), retirado(a) o pensionado(a)" },
-                        { "id": 5, "label": "Estudiante" },
-                        { "id": 6, "label": "Miembro de las Fuerzas Armadas y de Orden" },
-                        { "id": 7, "label": "Responsable principal de labores de cuidado y limpieza en hogar propio" },
-                        { "id": 7, "label": "Funcionario(a) público(a) o miembro de algún poder del Estado (Legislativo, Ejecutivo o Judicial)" },
-                        { "id": 7, "label": "Otras ocupaciones (no identificadas y empleos informales)" }
+                        { "id": 1, "label": "Estudiante" },
+                        { "id": 2, "label": "Trabajador(a) dependiente" },
+                        { "id": 3, "label": "Trabajador(a) independiente" },
+                        { "id": 4, "label": "Empresario(a)" },
+                        { "id": 5, "label": "Dueño(a) de casa" },
+                        { "id": 6, "label": "Jubilado(a)" },
+                        { "id": 7, "label": "Desempleado(a)" }
                     ]
                 },
                 "temas_interes": "Temas de interés",
