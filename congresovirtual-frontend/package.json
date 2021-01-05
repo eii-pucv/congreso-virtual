@@ -25,7 +25,7 @@
     "@tinymce/tinymce-vue": "^3.2.0",
     "@websanova/vue-auth": "^2.21.14-beta",
     "apexcharts": "^3.17.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.4.1",
     "bootstrap-input-spinner": "^1.13.3",
     "bootstrap-table": "^1.16.0",
