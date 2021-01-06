@@ -82,7 +82,7 @@
     "switchery": "0.0.2",
     "tablesaw": "^3.0.9",
     "tiny-slider": "^2.9.2",
-    "tinymce": "^4.9.9",
+    "tinymce": "^5.6.0",
     "v-tooltip": "^2.0.3",
     "vue": "^2.6.11",
     "vue-analytics": "^5.22.1",
