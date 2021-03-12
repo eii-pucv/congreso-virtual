@@ -61,7 +61,7 @@
     "jquery-toggles": "^4.0.0",
     "jquery.counterup": "^2.1.0",
     "jquery.flot.tooltip": "^0.9.0",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "jszip": "^3.1.5",
     "lightgallery": "^1.6.11",
     "liquor-tree": "^0.2.70",
