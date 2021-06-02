@@ -68,7 +68,7 @@ stop-words==2018.7.23
 tables==3.6.1
 toolz==0.10.0
 traitlets==4.3.3
-urllib3==1.25.7
+urllib3==1.26.5
 wcwidth==0.1.8
 Werkzeug==0.16.0
 wordcloud==1.6.0
