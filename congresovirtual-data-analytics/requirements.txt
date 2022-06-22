@@ -33,7 +33,7 @@ mysql-connector-python==8.0.18
 mysqlclient==1.4.6
 nltk==3.4.5
 numexpr==2.7.1
-numpy==1.18.1
+numpy==1.22.0
 orca==1.5.3
 packaging==20.0
 pandas==0.25.3
